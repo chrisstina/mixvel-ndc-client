@@ -1,0 +1,5 @@
+{
+  "require": "./register.js",
+  "reporter": "list",
+  "ui": "bdd"
+}
