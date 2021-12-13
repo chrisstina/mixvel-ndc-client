@@ -1,7 +1,7 @@
 import {GenericRequestParams} from "./GenericRequestParams";
 
 type Cabin = "ECONOMY" | "BUSINESS"
-type PaxCategory = "ADULT"|"CHILD"|"INFANT"
+type PaxCategory = "ADULT" | "CHILD" | "INFANT"
 
 class OriginDestination {
     constructor(public from: string,
@@ -20,6 +20,9 @@ class AnonymousTraveler {
 }
 
 export class SearchParams implements GenericRequestParams {
-    constructor(public originDestinations: OriginDestination[], public travelers: AnonymousTraveler[], public cabin: Cabin) {
+    constructor(public originDestinations: OriginDestination[],
+                public travelers: AnonymousTraveler[],
+                public cabin: Cabin,
+                public preferredCarriers: string[]|null = null) {
     }
 }

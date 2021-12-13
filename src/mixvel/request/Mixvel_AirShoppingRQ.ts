@@ -27,7 +27,7 @@ export class OriginDestination {
 class Pax {
     public readonly PaxID: string
     public readonly PTC: PassengerCategory
-    public readonly AgeMeasure: string|undefined
+    public readonly AgeMeasure: string | undefined
 
     constructor(id: string,
                 ptc: PassengerCategory = PassengerCategory.ADULT,
@@ -42,7 +42,7 @@ class Pax {
 }
 
 /**
- * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держатьб только то, что уйдет в итоговый запрос.
+ * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
  */
 export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
@@ -68,6 +68,8 @@ export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
         "Pax": Array()
     }
 
+    public ShoppingCriteria = Array()
+
     addPax(id: string, ptc: PassengerCategory, age?: string) {
         this.Paxs.Pax.push(new Pax(id, ptc, age))
     }
@@ -89,5 +91,18 @@ export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
         OD.DestArrivalCriteria = {"IATA_LocationCode": destinationCode}
         OD.CabinType = {CabinTypeCode: cabinTypeCode, PrefLevel: {PrefLevelCode: Preflevel.REQUIRED}}
         this.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(OD)
+    }
+
+    addCarrierCriteria(allowedCarrierCodes: string[]) {
+        this.ShoppingCriteria.push({"CarrierCriteria": [{
+            "Carrier": []
+        }]})
+        allowedCarrierCodes.forEach(code => {
+            this.ShoppingCriteria[0].CarrierCriteria[0].Carrier.push(
+                {
+                    "AirlineDesigCode": code
+                }
+            )
+        })
     }
 }

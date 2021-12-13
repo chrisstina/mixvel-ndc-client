@@ -25,6 +25,10 @@ export class SearchMessageMapper implements MixvelMessageMapper {
             mixvelRequestMessage.addPax(id, MixvelPTC[ptc] || MixvelPTC.ADULT, age)
         })
 
+        if (searchRequest.preferredCarriers) {
+            mixvelRequestMessage.addCarrierCriteria(searchRequest.preferredCarriers)
+        }
+
         return mixvelRequestMessage
     }
 }
