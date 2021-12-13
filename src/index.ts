@@ -4,10 +4,12 @@ import {GenericNDCMessage} from "./mixvel/request/GenericNDCMessage";
 
 import {AuthParams} from "./request-params/AuthParams";
 import {SearchParams} from "./request-params/SearchParams";
+import {PriceParams} from "./request-params/PriceParams";
 
 import {MixvelAuthAppData} from "./mixvel/MixvelAuthAppData";
 
 import {SearchMessageMapper as MixvelSearchMessageMapper} from "./mixvel/mappers/SearchMessageMapper";
+import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
 
 function createMixvelRequest(rq: GenericNDCMessage): MixvelRequest {
     const request = new MixvelRequest(new MixvelAppData<typeof rq>(rq))
@@ -23,4 +25,8 @@ export function getAuthRequest(rq: AuthParams) {
 
 export function getSearchRequest(params: SearchParams): MixvelRequest {
     return createMixvelRequest(new MixvelSearchMessageMapper().map(params))
+}
+
+export function getPriceRequest(params: PriceParams): MixvelRequest {
+    return createMixvelRequest(new Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds))
 }
