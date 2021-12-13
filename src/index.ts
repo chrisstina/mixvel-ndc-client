@@ -2,6 +2,8 @@ import {MixvelRequest} from "./mixvel/MixvelRequest"
 import {MixvelAppData} from "./mixvel/MixvelAppData";
 import {GenericNDCMessage} from "./mixvel/request/GenericNDCMessage";
 
+import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy";
+
 import {AuthParams} from "./request-params/AuthParams";
 import {SearchParams} from "./request-params/SearchParams";
 import {PriceParams} from "./request-params/PriceParams";
@@ -11,14 +13,16 @@ import {MixvelAuthAppData} from "./mixvel/MixvelAuthAppData";
 import {SearchMessageMapper as MixvelSearchMessageMapper} from "./mixvel/mappers/SearchMessageMapper";
 import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
 
+const toXML = new XmlConversionStrategy()
+
 function createMixvelRequest(rq: GenericNDCMessage): MixvelRequest {
-    const request = new MixvelRequest(new MixvelAppData<typeof rq>(rq))
+    const request = new MixvelRequest(new MixvelAppData<typeof rq>(rq), toXML)
     request.url = rq.endpoint
     return request
 }
 
 export function getAuthRequest(rq: AuthParams) {
-    const request = new MixvelRequest(new MixvelAuthAppData(rq.login, rq.password, rq.structureId))
+    const request = new MixvelRequest(new MixvelAuthAppData(rq.login, rq.password, rq.structureId), toXML)
     request.url = 'api/Accounts/login'
     return request
 }
