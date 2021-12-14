@@ -21,7 +21,7 @@ getSearchRequest({
     cabin: "ECONOMY",
     preferredCarriers: null
 })
-    .toXML() // return XML payload ready to send
+    .body // return XML payload ready to send
 ```
 
 MOW LED one way flight for 1 adult, business class, only SU flights
@@ -38,5 +38,5 @@ getSearchRequest({
     cabin: "BUSINESS",
     preferredCarriers: ["SU"]
 })
-    .toXML() // return XML payload ready to send
+    .body // return XML payload ready to send
 ```

@@ -9,7 +9,7 @@ import {MixvelEnvelope} from "./MixvelEnvelope"
 import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./MixvelAuthAppData";
 
-import {XmlConversionStrategy} from "../services/conversion/XmlConversionStrategy";
+import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
 
 const {DateTime} = require("luxon")
 
@@ -20,7 +20,7 @@ export class MixvelRequest {
     public payload: MixvelEnvelope
 
     constructor(public readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData,
-                public readonly xmlConversionStrategy?: XmlConversionStrategy) {
+                public readonly conversionStrategy?: IConversionStrategy) {
         this.payload = new MixvelEnvelope()
         this.payload.MessageInfo = {timeSent: this.getMessageTime(), messageId: this.getMessageId()}
         this.payload.AppData = this.message
@@ -37,11 +37,12 @@ export class MixvelRequest {
         }
     }
 
-    toXML(): string {
-        if (!this.xmlConversionStrategy) {
-            throw new Error('No xml converter found!')
+    get body() {
+        if (!this.conversionStrategy) {
+            console.debug('No request body output converter found! Return as is')
+            return this.payload
         }
-        return this.xmlConversionStrategy.execute(this.payload)
+        return this.conversionStrategy.execute(this.payload)
     }
 
     getMessageId() {

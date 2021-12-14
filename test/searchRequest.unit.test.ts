@@ -17,7 +17,7 @@ class SearchRequestUnitTest {
             ],
             cabin: "ECONOMY",
             preferredCarriers: null
-        }).toXML()
+        }).body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
@@ -44,7 +44,7 @@ class SearchRequestUnitTest {
             ],
             cabin: "ECONOMY",
             preferredCarriers: ['SU', 'U6']
-        }).toXML()
+        }).body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
