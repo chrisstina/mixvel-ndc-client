@@ -1,5 +1,13 @@
 import {GenericNDCMessage} from "./GenericNDCMessage";
 
+export type SelectedOffer = {
+    OfferRefID: string,
+    SelectedOfferItem?: Array<{
+        OfferItemRefID: string,
+        PaxRefID?: Array<string>
+    }>
+};
+
 export class Mixvel_OfferPriceRQ implements GenericNDCMessage {
     get endpoint() {
         return 'api/Order/offerprice'
@@ -14,15 +22,18 @@ export class Mixvel_OfferPriceRQ implements GenericNDCMessage {
     }
 
     public PricedOffer: {
-        SelectedOffer: {
-            OfferRefID: string,
-            SelectedOfferItem: {
-                OfferItemRefID: string[]
-            }
-        }
+        SelectedOffer: SelectedOffer
     }
 
     constructor(offerId: string, offerItemIds: string[]) {
-        this.PricedOffer = {SelectedOffer: {OfferRefID: offerId, SelectedOfferItem: {OfferItemRefID: offerItemIds}}}
+        this.PricedOffer = {
+            SelectedOffer: {
+                OfferRefID: offerId, SelectedOfferItem: offerItemIds.map(offerItemId => {
+                    return {
+                        "OfferItemRefID": offerItemId
+                    }
+                })
+            }
+        }
     }
 }

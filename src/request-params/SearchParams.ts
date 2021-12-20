@@ -1,7 +1,5 @@
 import {GenericRequestParams} from "./GenericRequestParams";
-
-type Cabin = "ECONOMY" | "BUSINESS"
-type PaxCategory = "ADULT" | "CHILD" | "INFANT"
+import {Cabin, PaxCategory} from "./dictionary/types";
 
 class OriginDestination {
     constructor(public from: string,

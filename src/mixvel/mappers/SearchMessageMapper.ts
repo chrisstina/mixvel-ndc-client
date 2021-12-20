@@ -8,25 +8,27 @@ import {PTC as MixvelPTC} from "../constants/ptc";
 const {DateTime} = require('luxon')
 
 export class SearchMessageMapper implements MixvelMessageMapper {
-    map(searchRequest: SearchParams): Mixvel_AirShoppingRQ {
+    constructor(public readonly params: SearchParams) {
+    }
+    map(): Mixvel_AirShoppingRQ {
         const mixvelRequestMessage = new Mixvel_AirShoppingRQ()
 
-        searchRequest.originDestinations.forEach(od => {
+        this.params.originDestinations.forEach(od => {
             mixvelRequestMessage.addOriginDestination(
                 od.from,
                 od.to,
                 DateTime.fromISO(od.dateRangeStart).toISODate(),
                 DateTime.fromISO(od.dateRangeEnd).toISODate(),
-                MixvelCabin[searchRequest.cabin] || MixvelCabin.ECONOMY
+                MixvelCabin[this.params.cabin] || MixvelCabin.ECONOMY
             )
         })
 
-        searchRequest.travelers.forEach(({id, ptc, age}) => {
-            mixvelRequestMessage.addPax(id, MixvelPTC[ptc] || MixvelPTC.ADULT, age)
+        this.params.travelers.forEach(({id, ptc, age}) => {
+            mixvelRequestMessage.addPax(id, MixvelPTC[ptc], age)
         })
 
-        if (searchRequest.preferredCarriers) {
-            mixvelRequestMessage.addCarrierCriteria(searchRequest.preferredCarriers)
+        if (this.params.preferredCarriers) {
+            mixvelRequestMessage.addCarrierCriteria(this.params.preferredCarriers)
         }
 
         return mixvelRequestMessage

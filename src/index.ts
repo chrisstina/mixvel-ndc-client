@@ -28,7 +28,7 @@ export function getAuthRequest(rq: AuthParams) {
 }
 
 export function getSearchRequest(params: SearchParams): MixvelRequest {
-    return createMixvelRequest(new MixvelSearchMessageMapper().map(params))
+    return createMixvelRequest(new MixvelSearchMessageMapper(params).map())
 }
 
 export function getPriceRequest(params: PriceParams): MixvelRequest {
