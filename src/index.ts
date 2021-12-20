@@ -7,10 +7,13 @@ import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy
 import {AuthParams} from "./request-params/AuthParams";
 import {SearchParams} from "./request-params/SearchParams";
 import {PriceParams} from "./request-params/PriceParams";
+import {BookParams} from "./request-params/BookParams";
 
 import {MixvelAuthAppData} from "./mixvel/MixvelAuthAppData";
 
 import {SearchMessageMapper as MixvelSearchMessageMapper} from "./mixvel/mappers/SearchMessageMapper";
+import {BookMessageMapper as MixvelBookMessageMapper} from "./mixvel/mappers/BookMessageMapper";
+
 import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
 
 const toXML = new XmlConversionStrategy()
@@ -33,4 +36,8 @@ export function getSearchRequest(params: SearchParams): MixvelRequest {
 
 export function getPriceRequest(params: PriceParams): MixvelRequest {
     return createMixvelRequest(new Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds))
+}
+
+export function getBookRequest(params: BookParams): MixvelRequest {
+    return createMixvelRequest(new MixvelBookMessageMapper(params).map())
 }
