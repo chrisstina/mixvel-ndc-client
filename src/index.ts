@@ -19,6 +19,7 @@ import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./mixvel/request/Mixvel_OrderRetrieveRQ";
 import {TicketIssueParams} from "./request-params/TicketIssueParams";
 import {ChangeOrderMessageMapper} from "./mixvel/mappers/ChangeOrderMessageMapper";
+import {Mixvel_OrderCancelRQ} from "./mixvel/request/Mixvel_OrderCancelRQ";
 
 const toXML = new XmlConversionStrategy()
 
@@ -52,4 +53,8 @@ export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequ
 
 export function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
     return createMixvelRequest(new ChangeOrderMessageMapper(params).map())
+}
+
+export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
+    return createMixvelRequest(new Mixvel_OrderCancelRQ(params.orderId))
 }
