@@ -17,6 +17,8 @@ import {BookMessageMapper as MixvelBookMessageMapper} from "./mixvel/mappers/Boo
 
 import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./mixvel/request/Mixvel_OrderRetrieveRQ";
+import {TicketIssueParams} from "./request-params/TicketIssueParams";
+import {ChangeOrderMessageMapper} from "./mixvel/mappers/ChangeOrderMessageMapper";
 
 const toXML = new XmlConversionStrategy()
 
@@ -46,4 +48,8 @@ export function getBookRequest(params: BookParams): MixvelRequest {
 
 export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
     return createMixvelRequest(new Mixvel_OrderRetrieveRQ(params.orderId))
+}
+
+export function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
+    return createMixvelRequest(new ChangeOrderMessageMapper(params).map())
 }
