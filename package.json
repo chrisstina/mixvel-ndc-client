@@ -1,8 +1,12 @@
 {
-  "name": "mixvel_ts",
+  "name": "mixvel-ndc-client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "run": "ts-node src/index.ts --log-error",
     "build": "tsc",
