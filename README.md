@@ -1,5 +1,29 @@
 # mixvel-ndc-client
 
+This module is intended to facilitate the work with  [MixVel API](https://api-test.mixvel.com/swagger/index.html). 
+Currently supports XML request generation for basic operations like search, book and ticket issuing.
+
+## Installation
+
+To start using the module install it via npm
+
+```shell
+npm i mixvel-ndc-client
+```
+
+## Usage
+
+Currently, you can use the module for XML request generation. Here is the list of supported actions:
+
+- search flights (OW, RT and complex routes are supported)
+- price chosen flight and receive alternative pricing options
+- book a flight (adult, child, infant passenger types are supported)
+- issue tickets for a booked flight
+- cancel an unpaid booking
+- view a booking
+
+For every action listed above you can generate a valid request containing XML body and endpoint, ready to send to MixVel server. 
+
 ## Examples
 
 ### Create search request
