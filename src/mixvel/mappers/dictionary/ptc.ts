@@ -1,4 +1,4 @@
-import {PaxCategory} from "../../../request-params/dictionary/types";
+import {PaxCategory} from "../../../request/types";
 import {PTC} from "../../constants/ptc";
 
 export function toMixvel(paxCategory: PaxCategory): PTC {

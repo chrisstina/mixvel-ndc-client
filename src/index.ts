@@ -1,60 +1,58 @@
 import {MixvelRequest} from "./mixvel/MixvelRequest"
-import {MixvelAppData} from "./mixvel/MixvelAppData";
-import {GenericNDCMessage} from "./mixvel/request/GenericNDCMessage";
+import {MixvelRequestManager} from "./mixvel/MixvelRequestManager";
 
 import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy";
 
-import {AuthParams} from "./request-params/AuthParams";
-import {SearchParams} from "./request-params/SearchParams";
-import {PriceParams} from "./request-params/PriceParams";
-import {BookParams} from "./request-params/BookParams";
-import {OrderRetrieveParams} from "./request-params/OrderRetrieveParams";
+import {
+    AuthParams,
+    BookParams,
+    OrderRetrieveParams,
+    PriceParams,
+    SearchParams, TicketIssueParams
+} from "./request/parameters";
 
-import {MixvelAuthAppData} from "./mixvel/MixvelAuthAppData";
-
-import {SearchMessageMapper as MixvelSearchMessageMapper} from "./mixvel/mappers/SearchMessageMapper";
-import {BookMessageMapper as MixvelBookMessageMapper} from "./mixvel/mappers/BookMessageMapper";
-
-import {Mixvel_OfferPriceRQ} from "./mixvel/request/Mixvel_OfferPriceRQ";
-import {Mixvel_OrderRetrieveRQ} from "./mixvel/request/Mixvel_OrderRetrieveRQ";
-import {TicketIssueParams} from "./request-params/TicketIssueParams";
-import {ChangeOrderMessageMapper} from "./mixvel/mappers/ChangeOrderMessageMapper";
-import {Mixvel_OrderCancelRQ} from "./mixvel/request/Mixvel_OrderCancelRQ";
+import {SearchParamsValidator} from "./request/validators/SearchParamsValidator";
+import {AuthParamsValidator} from "./request/validators/AuthParamsValidator";
+import {PriceParamsValidator} from "./request/validators/PriceParamsValidator";
+import {OrderRetrieveParamsValidator} from "./request/validators/OrderRetrieveParamsValidator";
+import {TicketIssueParamsValidator} from "./request/validators/TicketIssueParamsValidator";
+import {BookParamsValidator} from "./request/validators/BookParamsValidator";
 
 const toXML = new XmlConversionStrategy()
 
-function createMixvelRequest(rq: GenericNDCMessage): MixvelRequest {
-    const request = new MixvelRequest(new MixvelAppData<typeof rq>(rq), toXML)
-    request.url = rq.endpoint
-    return request
+const mixvelRequestManager = new MixvelRequestManager(toXML)
+
+export function getAuthRequest(props: AuthParams) {
+    AuthParamsValidator.validate(props);
+    return mixvelRequestManager.createAuthRequest(props)
 }
 
-export function getAuthRequest(rq: AuthParams) {
-    const request = new MixvelRequest(new MixvelAuthAppData(rq.login, rq.password, rq.structureId), toXML)
-    request.url = 'api/Accounts/login'
-    return request
+export function getSearchRequest(props: SearchParams): MixvelRequest {
+    SearchParamsValidator.validate(props)
+    return mixvelRequestManager.createSearchRequest(props)
 }
 
-export function getSearchRequest(params: SearchParams): MixvelRequest {
-    return createMixvelRequest(new MixvelSearchMessageMapper(params).map())
+export function getPriceRequest(props: PriceParams): MixvelRequest {
+    PriceParamsValidator.validate(props)
+    return mixvelRequestManager.createPriceRequest(props)
 }
 
-export function getPriceRequest(params: PriceParams): MixvelRequest {
-    return createMixvelRequest(new Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds))
-}
-
-export function getBookRequest(params: BookParams): MixvelRequest {
-    return createMixvelRequest(new MixvelBookMessageMapper(params).map())
+export function getBookRequest(props: BookParams): MixvelRequest {
+    BookParamsValidator.validate(props)
+    return mixvelRequestManager.createBookRequest(props)
 }
 
 export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
-    return createMixvelRequest(new Mixvel_OrderRetrieveRQ(params.orderId))
+    OrderRetrieveParamsValidator.validate(params)
+    return mixvelRequestManager.createOrderRetrieveRequest(params)
 }
 
 export function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
-    return createMixvelRequest(new ChangeOrderMessageMapper(params).map())
+    TicketIssueParamsValidator.validate(params)
+    return mixvelRequestManager.createTicketIssueRequest(params)
 }
 
 export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
-    return createMixvelRequest(new Mixvel_OrderCancelRQ(params.orderId))
+    OrderRetrieveParamsValidator.validate(params)
+    return mixvelRequestManager.createOrderCancelRequest(params)
 }

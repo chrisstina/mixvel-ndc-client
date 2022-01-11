@@ -1,7 +1,6 @@
-import {GenericNDCMessage} from "../request/GenericNDCMessage";
-import {GenericRequestParams} from "../../request-params/GenericRequestParams";
+import {GenericNDCMessage} from "../messages/GenericNDCMessage";
 
 export interface MixvelMessageMapper {
-    params: GenericRequestParams
+    params?: Object
     map(): GenericNDCMessage
 }

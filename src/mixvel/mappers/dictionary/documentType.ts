@@ -1,4 +1,4 @@
-import {DocumentType} from "../../../request-params/dictionary/types";
+import {DocumentType} from "../../../request/types";
 import {MixvelDocumentType} from "../../constants/documentType";
 
 export function toMixvel(docType: DocumentType): MixvelDocumentType {

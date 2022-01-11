@@ -10,6 +10,6 @@ class AuthRequestUnitTest {
         expect(rq.body).contain('<Login>foo</Login>\n' +
             '        <Password>bar</Password>\n' +
             '        <StructureUnitID>baz</StructureUnitID>')
-        expect(rq.url).to.equal('api/Accounts/login')
+        expect(rq.options.endpoint).to.equal('api/Accounts/login')
     }
 }

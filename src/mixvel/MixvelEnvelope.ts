@@ -2,9 +2,9 @@
  * Copyright (c) 2021
  */
 
-import {GenericNDCMessage} from "./request/GenericNDCMessage";
+import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./MixvelAuthAppData";
+import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
 const xmlns = "https://www.mixvel.com/API/XSD/mixvel_envelope/1_06"
 

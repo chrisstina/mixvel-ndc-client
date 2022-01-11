@@ -5,8 +5,8 @@ import {getSearchRequest} from "../src"
 
 @suite
 class SearchRequestUnitTest {
-    @test 'Create search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY'() {
-        const rq = getSearchRequest({
+    @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY'() {
+        const request = getSearchRequest({
             travelers: [
                 {ptc: 'ADULT', age: "30", id: "1"},
                 {ptc: 'CHILD', age: "5", id: "2"}
@@ -17,8 +17,9 @@ class SearchRequestUnitTest {
             ],
             cabin: "ECONOMY",
             preferredCarriers: null
-        }).body
+        })
 
+        const rq = request.body
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
         expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
@@ -30,9 +31,11 @@ class SearchRequestUnitTest {
         "                  <PrefLevel>\n" +
         "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
         "                  </PrefLevel>")
+
+        expect(request.options.endpoint).to.equal('api/Order/airshopping')
     }
 
-    @test 'Create search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY with SU and U6 preferred'() {
+    @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY with SU and U6 preferred'() {
         const rq = getSearchRequest({
             travelers: [
                 {ptc: 'ADULT', age: "30", id: "1"},

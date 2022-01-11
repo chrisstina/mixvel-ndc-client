@@ -1,8 +1,11 @@
 import assert from "assert";
 
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
-import {BookParams, Passenger} from "../../request-params/BookParams";
-import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../request/Mixvel_OrderCreateRQ";
+
+import {BookParams} from "../../request/parameters";
+import {Passenger} from "../../request/types";
+
+import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
 
 import {toMixvel as toMixvelDocument} from "./dictionary/documentType"
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc"
@@ -12,7 +15,6 @@ export class BookMessageMapper implements MixvelMessageMapper {
     constructor(public readonly params: BookParams) {
     }
 
-    // @todo validate
     map(): Mixvel_OrderCreateRQ {
         const mixvelRequestMessage = new Mixvel_OrderCreateRQ(this.params.offerId)
         const paxRefs = new Map()
@@ -32,10 +34,6 @@ export class BookMessageMapper implements MixvelMessageMapper {
     }
 
     private static passengerToPax(passenger: Passenger, paxId: number) {
-        assert( //@todo move to params validation
-            passenger.personalInfo.middleName !== undefined && passenger.personalInfo.middleName.length > 0,
-            `Missing middle name for pax #${paxId}`)
-
         return new Pax(
             toAge(passenger.personalInfo.dob),
             '',
@@ -50,7 +48,7 @@ export class BookMessageMapper implements MixvelMessageMapper {
             {
                 GenderCode: passenger.personalInfo.gender,
                 GivenName: passenger.personalInfo.firstName,
-                MiddleName: passenger.personalInfo.middleName,
+                MiddleName: passenger.personalInfo.middleName || "", // @todo ??
                 Surname: passenger.personalInfo.lastName,
                 Birthdate: toMixvelDate(passenger.personalInfo.dob)
             },

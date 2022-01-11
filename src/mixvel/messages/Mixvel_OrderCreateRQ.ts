@@ -25,10 +25,6 @@ export class ContactInfo {
 }
 
 export class Mixvel_OrderCreateRQ implements GenericNDCMessage {
-    get endpoint() {
-        return 'api/Order/create'
-    }
-
     get xmlns() {
         return {"m:Mixvel_OrderCreateRQ": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01"}
     }

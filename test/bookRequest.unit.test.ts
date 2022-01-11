@@ -2,15 +2,15 @@ import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
 import {getBookRequest} from "../src"
-import {BookParams} from "../src/request-params/BookParams";
+import {BookParams} from "../dist/request/parameters";
 
 @suite
 class BookRequestUnitTest {
-    @test 'Create book RQ for 1ADT RT'() {
-        const params = new BookParams(
-            'SOME-OFFER',
-            [{id: 'OFFER-1', ptc: "ADULT"}],
-            [
+    @test 'Create Mixvel book RQ for 1ADT RT'() {
+        const params: BookParams = {
+            offerId: 'SOME-OFFER',
+            offerItemIds: [{id: 'OFFER-1', ptc: "ADULT"}],
+            passengers: [
                 {
                     ptc: "ADULT",
                     personalInfo: {
@@ -33,7 +33,7 @@ class BookRequestUnitTest {
                     }
                 }
             ]
-        )
+        }
 
         const rq = getBookRequest(params).body
 

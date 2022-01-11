@@ -1,9 +1,10 @@
-import {SearchParams} from "../../request-params/SearchParams";
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
-import {Mixvel_AirShoppingRQ} from "../request/Mixvel_AirShoppingRQ";
+import {SearchParams} from "../../request/parameters";
 
 import {Cabin as MixvelCabin} from "../constants/cabin";
 import {PTC as MixvelPTC} from "../constants/ptc";
+
+import {Mixvel_AirShoppingRQ} from "../messages/Mixvel_AirShoppingRQ";
 
 const {DateTime} = require('luxon')
 

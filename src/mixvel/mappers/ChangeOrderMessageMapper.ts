@@ -1,9 +1,10 @@
 import assert from "assert";
 
-import {MixvelMessageMapper} from "./MixvelMessageMapper";
-import {DirectBill, Mixvel_OrderChangeRQ, OtherPaymentMethod} from "../request/Mixvel_OrderChangeRQ";
-import {FopType, TicketIssueParams} from "../../request-params/TicketIssueParams";
+import {TicketIssueParams} from "../../request/parameters";
+import {FopType} from "../../request/types";
 
+import {MixvelMessageMapper} from "./MixvelMessageMapper";
+import {DirectBill, Mixvel_OrderChangeRQ, OtherPaymentMethod} from "../messages/Mixvel_OrderChangeRQ";
 
 export class ChangeOrderMessageMapper implements MixvelMessageMapper {
     constructor(public readonly params: TicketIssueParams) {
@@ -20,7 +21,7 @@ export class ChangeOrderMessageMapper implements MixvelMessageMapper {
 function createFOP({type, data}: { type: FopType, data?: string | {} }): OtherPaymentMethod | DirectBill {
     switch (type) {
         case "BILL":
-            assert(typeof data === "string", "Data for BILL FOR must be string")
+            assert(typeof data === "string", "Data for BILL FOR must be string") // @todo move to validation
             return new DirectBill(data)
         case "CASH":
             return new OtherPaymentMethod()

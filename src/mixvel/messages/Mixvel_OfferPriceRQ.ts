@@ -9,10 +9,6 @@ export type SelectedOffer = {
 };
 
 export class Mixvel_OfferPriceRQ implements GenericNDCMessage {
-    get endpoint() {
-        return 'api/Order/offerprice'
-    }
-
     get xmlns() {
         return {"xmlns:OfferPrice": "https://www.mixvel.com/API/XSD/Mixvel_OfferPriceRQ/1_00"}
     }

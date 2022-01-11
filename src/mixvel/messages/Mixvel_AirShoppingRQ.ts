@@ -46,10 +46,6 @@ class Pax {
  * Остальное можно реализовать геттерами.
  */
 export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
-    get endpoint() {
-        return 'api/Order/airshopping'
-    }
-
     get xmlns() {
         return {'xmlns:shop': 'https://www.mixvel.com/API/XSD/Mixvel_AirShoppingRQ/1_01'}
     }

@@ -2,7 +2,7 @@
  * Copyright (c) 2021
  */
 
-import {GenericNDCMessage} from "./request/GenericNDCMessage";
+import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 
 export class MixvelAppData<T extends GenericNDCMessage> {
     [index: string]: {
