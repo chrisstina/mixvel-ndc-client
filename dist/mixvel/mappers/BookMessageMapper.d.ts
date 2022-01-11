@@ -1,6 +1,6 @@
 import { MixvelMessageMapper } from "./MixvelMessageMapper";
-import { BookParams } from "../../request-params/BookParams";
-import { Mixvel_OrderCreateRQ } from "../request/Mixvel_OrderCreateRQ";
+import { BookParams } from "../../request/parameters";
+import { Mixvel_OrderCreateRQ } from "../messages/Mixvel_OrderCreateRQ";
 export declare class BookMessageMapper implements MixvelMessageMapper {
     readonly params: BookParams;
     constructor(params: BookParams);

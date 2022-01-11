@@ -4,7 +4,7 @@ export = MixvelResponse;
  * @property {string[]} ErrorType ["BadRequest"]
  * @property {string[]} CanRetry ["false"]
  * @property {string[]} Code ["MIX-100000"]
- * @property {string[]} DescText ["XML request-params not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
+ * @property {string[]} DescText ["XML request not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
  */
 /**
  * @typedef MixvelResponse<NDCResponseMessage>
@@ -61,7 +61,7 @@ type MixvelError = {
      */
     Code: string[];
     /**
-     * ["XML request-params not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
+     * ["XML request not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
      */
     DescText: string[];
 };

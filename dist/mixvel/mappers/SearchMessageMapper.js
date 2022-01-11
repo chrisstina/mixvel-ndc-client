@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchMessageMapper = void 0;
-var Mixvel_AirShoppingRQ_1 = require("../request/Mixvel_AirShoppingRQ");
 var cabin_1 = require("../constants/cabin");
 var ptc_1 = require("../constants/ptc");
+var Mixvel_AirShoppingRQ_1 = require("../messages/Mixvel_AirShoppingRQ");
 var DateTime = require('luxon').DateTime;
 var SearchMessageMapper = /** @class */ (function () {
     function SearchMessageMapper(params) {

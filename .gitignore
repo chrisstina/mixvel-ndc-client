@@ -104,6 +104,3 @@ typings/
 
 # TernJS port file
 .tern-port
-
-# compiled ouput
-/dist/

@@ -1,6 +1,6 @@
-import { GenericNDCMessage } from "./request/GenericNDCMessage";
+import { GenericNDCMessage } from "./messages/GenericNDCMessage";
 import { MixvelAppData } from "./MixvelAppData";
-import { MixvelAuthAppData } from "./MixvelAuthAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 export declare class MixvelEnvelope {
     "MixEnv:Envelope": {
         $: {

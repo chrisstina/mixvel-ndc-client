@@ -1,24 +1,25 @@
-import { GenericNDCMessage } from "./request/GenericNDCMessage";
+import { GenericNDCMessage } from "./messages/GenericNDCMessage";
 import { MixvelEnvelope } from "./MixvelEnvelope";
 import { MixvelAppData } from "./MixvelAppData";
-import { MixvelAuthAppData } from "./MixvelAuthAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+export declare type MixvelRequestOptions = {
+    endpoint: string;
+    method: "GET" | "POST";
+    jwt?: string;
+};
 export declare class MixvelRequest {
     readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData;
-    readonly conversionStrategy?: IConversionStrategy | undefined;
-    url: string;
-    method: "GET" | "POST";
-    jwt: string;
+    options: MixvelRequestOptions;
+    conversionStrategy?: IConversionStrategy | undefined;
     payload: MixvelEnvelope;
-    constructor(message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData, conversionStrategy?: IConversionStrategy | undefined);
     /**
-     * @return {{method: ("GET"|"POST"), uri: string}}
+     * not private because of @see {MixvelAuthRequest}
+     * @param message
+     * @param options
+     * @param conversionStrategy
      */
-    get requestOptions(): {
-        url: string;
-        method: "GET" | "POST";
-        jwt: string;
-    };
+    constructor(message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData, options: MixvelRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
     get body(): string | MixvelEnvelope;
     getMessageId(): string;
     getMessageTime(): any;

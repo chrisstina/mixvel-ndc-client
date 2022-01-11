@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookMessageMapper = void 0;
 var assert_1 = __importDefault(require("assert"));
-var Mixvel_OrderCreateRQ_1 = require("../request/Mixvel_OrderCreateRQ");
+var Mixvel_OrderCreateRQ_1 = require("../messages/Mixvel_OrderCreateRQ");
 var documentType_1 = require("./dictionary/documentType");
 var ptc_1 = require("./dictionary/ptc");
 var commonMappers_1 = require("./commonMappers");
@@ -22,7 +22,6 @@ var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params) {
         this.params = params;
     }
-    // @todo validate
     BookMessageMapper.prototype.map = function () {
         var _this = this;
         var mixvelRequestMessage = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offerId);
@@ -42,8 +41,6 @@ var BookMessageMapper = /** @class */ (function () {
         return mixvelRequestMessage;
     };
     BookMessageMapper.passengerToPax = function (passenger, paxId) {
-        (0, assert_1.default)(//@todo move to params validation
-        passenger.personalInfo.middleName !== undefined && passenger.personalInfo.middleName.length > 0, "Missing middle name for pax #".concat(paxId));
         return new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
             IdentityDocID: passenger.identityDocument.number,
             IdentityDocTypeCode: (0, documentType_1.toMixvel)(passenger.identityDocument.type),
@@ -54,7 +51,7 @@ var BookMessageMapper = /** @class */ (function () {
         }, {
             GenderCode: passenger.personalInfo.gender,
             GivenName: passenger.personalInfo.firstName,
-            MiddleName: passenger.personalInfo.middleName,
+            MiddleName: passenger.personalInfo.middleName || "",
             Surname: passenger.personalInfo.lastName,
             Birthdate: (0, commonMappers_1.toMixvelDate)(passenger.personalInfo.dob)
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));

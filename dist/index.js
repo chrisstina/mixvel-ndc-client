@@ -1,52 +1,48 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
-var MixvelRequest_1 = require("./mixvel/MixvelRequest");
-var MixvelAppData_1 = require("./mixvel/MixvelAppData");
+var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
 var XmlConversionStrategy_1 = require("./services/conversion/XmlConversionStrategy");
-var MixvelAuthAppData_1 = require("./mixvel/MixvelAuthAppData");
-var SearchMessageMapper_1 = require("./mixvel/mappers/SearchMessageMapper");
-var BookMessageMapper_1 = require("./mixvel/mappers/BookMessageMapper");
-var Mixvel_OfferPriceRQ_1 = require("./mixvel/request/Mixvel_OfferPriceRQ");
-var Mixvel_OrderRetrieveRQ_1 = require("./mixvel/request/Mixvel_OrderRetrieveRQ");
-var ChangeOrderMessageMapper_1 = require("./mixvel/mappers/ChangeOrderMessageMapper");
-var Mixvel_OrderCancelRQ_1 = require("./mixvel/request/Mixvel_OrderCancelRQ");
+var SearchParamsValidator_1 = require("./request/validators/SearchParamsValidator");
+var AuthParamsValidator_1 = require("./request/validators/AuthParamsValidator");
+var PriceParamsValidator_1 = require("./request/validators/PriceParamsValidator");
+var OrderRetrieveParamsValidator_1 = require("./request/validators/OrderRetrieveParamsValidator");
+var TicketIssueParamsValidator_1 = require("./request/validators/TicketIssueParamsValidator");
+var BookParamsValidator_1 = require("./request/validators/BookParamsValidator");
 var toXML = new XmlConversionStrategy_1.XmlConversionStrategy();
-function createMixvelRequest(rq) {
-    var request = new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), toXML);
-    request.url = rq.endpoint;
-    return request;
-}
-/**
- * @param {AuthParams} rq
- */
-function getAuthRequest(rq) {
-    var request = new MixvelRequest_1.MixvelRequest(new MixvelAuthAppData_1.MixvelAuthAppData(rq.login, rq.password, rq.structureId), toXML);
-    request.url = 'api/Accounts/login';
-    return request;
+var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(toXML);
+function getAuthRequest(props) {
+    AuthParamsValidator_1.AuthParamsValidator.validate(props);
+    return mixvelRequestManager.createAuthRequest(props);
 }
 exports.getAuthRequest = getAuthRequest;
-function getSearchRequest(params) {
-    return createMixvelRequest(new SearchMessageMapper_1.SearchMessageMapper(params).map());
+function getSearchRequest(props) {
+    SearchParamsValidator_1.SearchParamsValidator.validate(props);
+    return mixvelRequestManager.createSearchRequest(props);
 }
 exports.getSearchRequest = getSearchRequest;
-function getPriceRequest(params) {
-    return createMixvelRequest(new Mixvel_OfferPriceRQ_1.Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds));
+function getPriceRequest(props) {
+    PriceParamsValidator_1.PriceParamsValidator.validate(props);
+    return mixvelRequestManager.createPriceRequest(props);
 }
 exports.getPriceRequest = getPriceRequest;
-function getBookRequest(params) {
-    return createMixvelRequest(new BookMessageMapper_1.BookMessageMapper(params).map());
+function getBookRequest(props) {
+    BookParamsValidator_1.BookParamsValidator.validate(props);
+    return mixvelRequestManager.createBookRequest(props);
 }
 exports.getBookRequest = getBookRequest;
 function getOrderRetrieveRequest(params) {
-    return createMixvelRequest(new Mixvel_OrderRetrieveRQ_1.Mixvel_OrderRetrieveRQ(params.orderId));
+    OrderRetrieveParamsValidator_1.OrderRetrieveParamsValidator.validate(params);
+    return mixvelRequestManager.createOrderRetrieveRequest(params);
 }
 exports.getOrderRetrieveRequest = getOrderRetrieveRequest;
 function getTicketIssueRequest(params) {
-    return createMixvelRequest(new ChangeOrderMessageMapper_1.ChangeOrderMessageMapper(params).map());
+    TicketIssueParamsValidator_1.TicketIssueParamsValidator.validate(params);
+    return mixvelRequestManager.createTicketIssueRequest(params);
 }
 exports.getTicketIssueRequest = getTicketIssueRequest;
 function getOrderCancelRequest(params) {
-    return createMixvelRequest(new Mixvel_OrderCancelRQ_1.Mixvel_OrderCancelRQ(params.orderId));
+    OrderRetrieveParamsValidator_1.OrderRetrieveParamsValidator.validate(params);
+    return mixvelRequestManager.createOrderCancelRequest(params);
 }
 exports.getOrderCancelRequest = getOrderCancelRequest;

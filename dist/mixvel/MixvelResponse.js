@@ -8,7 +8,7 @@ var xml2js = require('xml2js');
  * @property {string[]} ErrorType ["BadRequest"]
  * @property {string[]} CanRetry ["false"]
  * @property {string[]} Code ["MIX-100000"]
- * @property {string[]} DescText ["XML request-params not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
+ * @property {string[]} DescText ["XML request not being recognised/resolved. 'auth' is an undeclared prefix. Line 7, position 8."]
  */
 /**
  * @typedef MixvelResponse<NDCResponseMessage>

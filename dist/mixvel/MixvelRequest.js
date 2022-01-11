@@ -1,37 +1,27 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MixvelRequest = void 0;
 /*
  * Copyright (c) 2021
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MixvelRequest = void 0;
 var uuid_1 = require("uuid");
 var MixvelEnvelope_1 = require("./MixvelEnvelope");
 var DateTime = require("luxon").DateTime;
 var MixvelRequest = /** @class */ (function () {
-    function MixvelRequest(message, conversionStrategy) {
+    /**
+     * not private because of @see {MixvelAuthRequest}
+     * @param message
+     * @param options
+     * @param conversionStrategy
+     */
+    function MixvelRequest(message, options, conversionStrategy) {
         this.message = message;
+        this.options = options;
         this.conversionStrategy = conversionStrategy;
-        this.url = "/";
-        this.method = "POST";
-        this.jwt = "";
         this.payload = new MixvelEnvelope_1.MixvelEnvelope();
         this.payload.MessageInfo = { timeSent: this.getMessageTime(), messageId: this.getMessageId() };
         this.payload.AppData = this.message;
     }
-    Object.defineProperty(MixvelRequest.prototype, "requestOptions", {
-        /**
-         * @return {{method: ("GET"|"POST"), uri: string}}
-         */
-        get: function () {
-            return {
-                url: this.url,
-                method: this.method,
-                jwt: this.jwt
-            };
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(MixvelRequest.prototype, "body", {
         get: function () {
             if (!this.conversionStrategy) {

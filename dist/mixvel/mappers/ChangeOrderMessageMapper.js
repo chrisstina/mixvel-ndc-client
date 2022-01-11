@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChangeOrderMessageMapper = void 0;
 var assert_1 = __importDefault(require("assert"));
-var Mixvel_OrderChangeRQ_1 = require("../request/Mixvel_OrderChangeRQ");
+var Mixvel_OrderChangeRQ_1 = require("../messages/Mixvel_OrderChangeRQ");
 var ChangeOrderMessageMapper = /** @class */ (function () {
     function ChangeOrderMessageMapper(params) {
         this.params = params;
@@ -20,7 +20,7 @@ function createFOP(_a) {
     var type = _a.type, data = _a.data;
     switch (type) {
         case "BILL":
-            (0, assert_1.default)(typeof data === "string", "Data for BILL FOR must be string");
+            (0, assert_1.default)(typeof data === "string", "Data for BILL FOR must be string"); // @todo move to validation
             return new Mixvel_OrderChangeRQ_1.DirectBill(data);
         case "CASH":
             return new Mixvel_OrderChangeRQ_1.OtherPaymentMethod();
