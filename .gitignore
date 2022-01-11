@@ -106,4 +106,4 @@ typings/
 .tern-port
 
 # compiled ouput
-./dist
+/dist/
