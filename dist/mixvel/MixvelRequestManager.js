@@ -13,6 +13,7 @@ var ChangeOrderMessageMapper_1 = require("./mappers/ChangeOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
+var AuthParamsValidator_1 = require("./validators/AuthParamsValidator");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }
@@ -53,6 +54,7 @@ var MixvelRequestManager = /** @class */ (function () {
         this.conversionStrategy = conversionStrategy;
     }
     MixvelRequestManager.prototype.createAuthRequest = function (params) {
+        AuthParamsValidator_1.AuthParamsValidator.validate(params);
         return new MixvelRequest_1.MixvelRequest(new MixvelAuthAppData_1.MixvelAuthAppData(params.login, params.password, params.structureId), MixvelRequestOptionsManager.create({ endpoint: this.endpointManager.getEndpointByKey('auth') }), this.conversionStrategy);
     };
     MixvelRequestManager.prototype.createSearchRequest = function (params) {

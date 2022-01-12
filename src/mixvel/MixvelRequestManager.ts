@@ -8,6 +8,7 @@ import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
 import {AbstractParamsValidator} from "../request/validators/AbstractParamsValidator";
+import {AuthParamsValidator} from "./validators/AuthParamsValidator";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
 import {SearchParamsValidator} from "./validators/SearchParamsValidator";
 
@@ -63,6 +64,7 @@ export class MixvelRequestManager {
     }
 
     public createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
+        AuthParamsValidator.validate(params)
         return new MixvelRequest(
             new MixvelAuthAppData(params.login, params.password, params.structureId),
             MixvelRequestOptionsManager.create({endpoint: this.endpointManager.getEndpointByKey('auth')}),
