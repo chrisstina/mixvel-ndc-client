@@ -1,5 +1,5 @@
 import {MixvelRequest} from "./mixvel/MixvelRequest"
-import {MixvelRequestManager} from "./mixvel/MixvelRequestManager";
+import {MixvelEndpointManager, MixvelRequestManager} from "./mixvel/MixvelRequestManager";
 
 import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy";
 
@@ -18,9 +18,10 @@ import {OrderRetrieveParamsValidator} from "./request/validators/OrderRetrievePa
 import {TicketIssueParamsValidator} from "./request/validators/TicketIssueParamsValidator";
 import {BookParamsValidator} from "./request/validators/BookParamsValidator";
 
-const toXML = new XmlConversionStrategy()
-
-const mixvelRequestManager = new MixvelRequestManager(toXML)
+const mixvelRequestManager = new MixvelRequestManager(
+    new MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints),
+    new XmlConversionStrategy()
+)
 
 export function getAuthRequest(props: AuthParams) {
     AuthParamsValidator.validate(props);

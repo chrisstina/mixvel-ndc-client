@@ -31,8 +31,8 @@ var MixvelRequestOptionsManager = /** @class */ (function () {
 }());
 exports.MixvelRequestOptionsManager = MixvelRequestOptionsManager;
 var MixvelEndpointManager = /** @class */ (function () {
-    function MixvelEndpointManager() {
-        this.endpoints = require('./config/endpoints').endpoints;
+    function MixvelEndpointManager(endpoints) {
+        this.endpoints = endpoints;
     }
     MixvelEndpointManager.prototype.getEndpointForMessage = function (message) {
         return this.getEndpointByKey(message.constructor.name);
@@ -48,9 +48,8 @@ var MixvelEndpointManager = /** @class */ (function () {
 }());
 exports.MixvelEndpointManager = MixvelEndpointManager;
 var MixvelRequestManager = /** @class */ (function () {
-    function MixvelRequestManager(conversionStrategy) {
-        this.conversionStrategy = conversionStrategy;
-        this.endpointManager = new MixvelEndpointManager();
+    function MixvelRequestManager(endpointManager, conversionStrategy) {
+        this.endpointManager = endpointManager;
         this.conversionStrategy = conversionStrategy;
     }
     MixvelRequestManager.prototype.createAuthRequest = function (params) {

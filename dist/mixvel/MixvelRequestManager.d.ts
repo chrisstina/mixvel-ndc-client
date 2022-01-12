@@ -12,14 +12,15 @@ export declare class MixvelRequestOptionsManager {
     }): MixvelRequestOptions;
 }
 export declare class MixvelEndpointManager {
-    endpoints: any;
+    endpoints: Map<string, string>;
+    constructor(endpoints: Map<string, string>);
     getEndpointForMessage(message: GenericNDCMessage): string | never;
     getEndpointByKey(id: string): string | never;
 }
 export declare class MixvelRequestManager {
+    readonly endpointManager: MixvelEndpointManager;
     conversionStrategy: IConversionStrategy;
-    endpointManager: MixvelEndpointManager;
-    constructor(conversionStrategy: IConversionStrategy);
+    constructor(endpointManager: MixvelEndpointManager, conversionStrategy: IConversionStrategy);
     createAuthRequest(params: {
         login: string;
         password: string;

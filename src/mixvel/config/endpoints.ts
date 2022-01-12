@@ -1,4 +1,3 @@
-// @todo move to an external dependency to make it extensible
 export const endpoints = new Map([
     ['auth', 'api/Accounts/login'],
     ['Mixvel_AirShoppingRQ', 'api/Order/airshopping'],

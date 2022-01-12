@@ -41,7 +41,8 @@ export class MixvelRequestOptionsManager {
 }
 
 export class MixvelEndpointManager {
-    public endpoints = require('./config/endpoints').endpoints
+    constructor(public endpoints: Map<string, string>) {
+    }
 
     public getEndpointForMessage(message: GenericNDCMessage): string | never {
         return this.getEndpointByKey(message.constructor.name)
@@ -57,10 +58,9 @@ export class MixvelEndpointManager {
 }
 
 export class MixvelRequestManager {
-    public endpointManager = new MixvelEndpointManager()
-
-    constructor(public conversionStrategy: IConversionStrategy) {
-        this.conversionStrategy = conversionStrategy;
+    constructor(
+        public readonly endpointManager: MixvelEndpointManager,
+        public conversionStrategy: IConversionStrategy) {
     }
 
     public createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {

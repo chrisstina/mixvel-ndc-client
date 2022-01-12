@@ -9,8 +9,7 @@ var PriceParamsValidator_1 = require("./request/validators/PriceParamsValidator"
 var OrderRetrieveParamsValidator_1 = require("./request/validators/OrderRetrieveParamsValidator");
 var TicketIssueParamsValidator_1 = require("./request/validators/TicketIssueParamsValidator");
 var BookParamsValidator_1 = require("./request/validators/BookParamsValidator");
-var toXML = new XmlConversionStrategy_1.XmlConversionStrategy();
-var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(toXML);
+var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints), new XmlConversionStrategy_1.XmlConversionStrategy());
 function getAuthRequest(props) {
     AuthParamsValidator_1.AuthParamsValidator.validate(props);
     return mixvelRequestManager.createAuthRequest(props);
