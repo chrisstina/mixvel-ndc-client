@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MixvelRequestManager = exports.MixvelEndpointManager = void 0;
+exports.MixvelRequestManager = exports.MixvelEndpointManager = exports.MixvelRequestOptionsManager = void 0;
 var RequestGenerationError_1 = require("../core/errors/RequestGenerationError");
 var MixvelRequest_1 = require("./MixvelRequest");
 var MixvelAppData_1 = require("./MixvelAppData");
@@ -13,6 +13,22 @@ var ChangeOrderMessageMapper_1 = require("./mappers/ChangeOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
+var MixvelRequestOptionsManager = /** @class */ (function () {
+    function MixvelRequestOptionsManager() {
+    }
+    MixvelRequestOptionsManager.create = function (params) {
+        return {
+            endpoint: params.endpoint,
+            method: params.method || "POST",
+            headers: params.headers || {
+                "accept": "application/xml",
+                "Content-Type": "application/xml"
+            }
+        };
+    };
+    return MixvelRequestOptionsManager;
+}());
+exports.MixvelRequestOptionsManager = MixvelRequestOptionsManager;
 var MixvelEndpointManager = /** @class */ (function () {
     function MixvelEndpointManager() {
         this.endpoints = require('./config/endpoints').endpoints;
@@ -37,12 +53,7 @@ var MixvelRequestManager = /** @class */ (function () {
         this.conversionStrategy = conversionStrategy;
     }
     MixvelRequestManager.prototype.createAuthRequest = function (params) {
-        // @todo map request options
-        var mixvelRequestOptions = {
-            endpoint: this.endpointManager.getEndpointByKey('auth'),
-            method: "GET"
-        };
-        return new MixvelRequest_1.MixvelRequest(new MixvelAuthAppData_1.MixvelAuthAppData(params.login, params.password, params.structureId), mixvelRequestOptions, this.conversionStrategy);
+        return new MixvelRequest_1.MixvelRequest(new MixvelAuthAppData_1.MixvelAuthAppData(params.login, params.password, params.structureId), MixvelRequestOptionsManager.create({ endpoint: this.endpointManager.getEndpointByKey('auth') }), this.conversionStrategy);
     };
     MixvelRequestManager.prototype.createSearchRequest = function (params) {
         return this.createRequest(params, {
@@ -88,19 +99,14 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new ChangeOrderMessageMapper_1.ChangeOrderMessageMapper(params), // @todo add specific validation
         });
     };
-    MixvelRequestManager.prototype.createRequest = function (params, options) {
+    MixvelRequestManager.prototype.createRequest = function (requestParams, services) {
         // run specific mixvel validation
-        if (options.validator) {
-            options.validator.validate(params);
+        if (services.validator) {
+            services.validator.validate(requestParams);
         }
         // map to mixvel message
-        var rq = options.mapper.map();
-        // @todo map request options
-        var mixvelRequestOptions = {
-            endpoint: this.endpointManager.getEndpointForMessage(rq),
-            method: "GET"
-        };
-        return new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), mixvelRequestOptions, this.conversionStrategy);
+        var rq = services.mapper.map();
+        return new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), MixvelRequestOptionsManager.create({ endpoint: this.endpointManager.getEndpointForMessage(rq) }), this.conversionStrategy);
     };
     return MixvelRequestManager;
 }());

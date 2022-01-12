@@ -7,6 +7,9 @@ export declare type MixvelRequestOptions = {
     endpoint: string;
     method: "GET" | "POST";
     jwt?: string;
+    headers: {
+        [index: string]: string;
+    };
 };
 export declare class MixvelRequest {
     readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData;
@@ -21,6 +24,10 @@ export declare class MixvelRequest {
      */
     constructor(message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData, options: MixvelRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
     get body(): string | MixvelEnvelope;
+    get headers(): {
+        [index: string]: string;
+    };
+    addHeader(name: string, contents: string): void;
     getMessageId(): string;
     getMessageTime(): any;
 }

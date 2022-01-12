@@ -16,8 +16,8 @@ export type MixvelRequestOptions = {
     endpoint: string,
     method: "GET" | "POST",
     jwt?: string
+    headers: {[index: string]: string}
 }
-
 
 export class MixvelRequest {
     public payload: MixvelEnvelope
@@ -42,6 +42,14 @@ export class MixvelRequest {
             return this.payload
         }
         return this.conversionStrategy.execute(this.payload)
+    }
+
+    get headers() {
+        return this.options.headers
+    }
+
+    addHeader(name: string, contents: string) {
+        this.options.headers[name] = contents
     }
 
     getMessageId() {

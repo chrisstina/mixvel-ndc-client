@@ -33,6 +33,16 @@ var MixvelRequest = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(MixvelRequest.prototype, "headers", {
+        get: function () {
+            return this.options.headers;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    MixvelRequest.prototype.addHeader = function (name, contents) {
+        this.options.headers[name] = contents;
+    };
     MixvelRequest.prototype.getMessageId = function () {
         return (0, uuid_1.v4)();
     };

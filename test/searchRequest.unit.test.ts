@@ -19,6 +19,8 @@ class SearchRequestUnitTest {
             preferredCarriers: null
         })
 
+        expect(request.headers).to.have.property('accept')
+
         const rq = request.body
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')

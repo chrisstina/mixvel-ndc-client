@@ -1,5 +1,12 @@
 import {AnonymousTraveler, Cabin, OriginDestination, Passenger, PaxCategory, FopType} from "./types";
 
+/**
+ * @typedef SearchParams
+ * @property {Array} originDestinations
+ * @property {Array} travelers
+ * @property {Cabin} cabin
+ * @property {Array} preferredCarriers
+ */
 export type SearchParams = {
     originDestinations: OriginDestination[],
     travelers: AnonymousTraveler[],

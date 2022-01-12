@@ -1,7 +1,7 @@
 import {RequestGenerationError} from "../core/errors/RequestGenerationError";
 import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
 
-import {SearchParams, BookParams, OrderRetrieveParams, PriceParams, TicketIssueParams} from "../request/parameters";
+import {BookParams, OrderRetrieveParams, PriceParams, SearchParams, TicketIssueParams} from "../request/parameters";
 
 import {MixvelRequest, MixvelRequestOptions} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
@@ -20,6 +20,24 @@ import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
+
+export class MixvelRequestOptionsManager {
+    static create(params: {
+                      endpoint: string,
+                      method?: "GET" | "POST",
+                      headers?: {}
+                  }
+    ): MixvelRequestOptions {
+        return {
+            endpoint: params.endpoint,
+            method: params.method || "POST",
+            headers: params.headers || {
+                "accept": "application/xml",
+                "Content-Type": "application/xml"
+            }
+        }
+    }
+}
 
 export class MixvelEndpointManager {
     public endpoints = require('./config/endpoints').endpoints
@@ -45,15 +63,9 @@ export class MixvelRequestManager {
     }
 
     public createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
-        // @todo map request options
-        const mixvelRequestOptions: MixvelRequestOptions = {
-            endpoint: this.endpointManager.getEndpointByKey('auth'),
-            method: "GET"
-        }
-
         return new MixvelRequest(
             new MixvelAuthAppData(params.login, params.password, params.structureId),
-            mixvelRequestOptions,
+            MixvelRequestOptionsManager.create({endpoint: this.endpointManager.getEndpointByKey('auth')}),
             this.conversionStrategy)
     }
 
@@ -107,27 +119,21 @@ export class MixvelRequestManager {
         })
     }
 
-    protected createRequest(params: object, options: {
+    protected createRequest(requestParams: object, services: {
         mapper: MixvelMessageMapper,
         validator?: typeof AbstractParamsValidator
     }): MixvelRequest {
         // run specific mixvel validation
-        if (options.validator) {
-            options.validator.validate(params)
+        if (services.validator) {
+            services.validator.validate(requestParams)
         }
 
         // map to mixvel message
-        const rq = options.mapper.map()
-
-        // @todo map request options
-        const mixvelRequestOptions: MixvelRequestOptions = {
-            endpoint: this.endpointManager.getEndpointForMessage(rq),
-            method: "GET"
-        }
+        const rq = services.mapper.map()
 
         return new MixvelRequest(
             new MixvelAppData<typeof rq>(rq),
-            mixvelRequestOptions,
+            MixvelRequestOptionsManager.create({endpoint: this.endpointManager.getEndpointForMessage(rq)}),
             this.conversionStrategy)
     }
 }
