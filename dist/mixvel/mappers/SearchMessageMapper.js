@@ -19,7 +19,7 @@ var SearchMessageMapper = /** @class */ (function () {
             var id = _a.id, ptc = _a.ptc, age = _a.age;
             mixvelRequestMessage.addPax(id, ptc_1.PTC[ptc], age);
         });
-        if (this.params.preferredCarriers) {
+        if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             mixvelRequestMessage.addCarrierCriteria(this.params.preferredCarriers);
         }
         return mixvelRequestMessage;

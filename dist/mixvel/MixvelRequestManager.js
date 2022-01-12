@@ -5,6 +5,7 @@ var RequestGenerationError_1 = require("../core/errors/RequestGenerationError");
 var MixvelRequest_1 = require("./MixvelRequest");
 var MixvelAppData_1 = require("./MixvelAppData");
 var MixvelAuthAppData_1 = require("./auth/MixvelAuthAppData");
+var AuthParamsValidator_1 = require("./validators/AuthParamsValidator");
 var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var SearchParamsValidator_1 = require("./validators/SearchParamsValidator");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
@@ -13,7 +14,6 @@ var ChangeOrderMessageMapper_1 = require("./mappers/ChangeOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
-var AuthParamsValidator_1 = require("./validators/AuthParamsValidator");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }

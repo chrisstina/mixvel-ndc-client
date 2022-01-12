@@ -16,7 +16,7 @@ class SearchRequestUnitTest {
                 {from: "MOW", to: "LED", dateRangeEnd: "2021-12-15", dateRangeStart: "2021-12-15"}
             ],
             cabin: "ECONOMY",
-            preferredCarriers: null
+            preferredCarriers: []
         })
 
         expect(request.headers).to.have.property('accept')
@@ -33,6 +33,8 @@ class SearchRequestUnitTest {
         "                  <PrefLevel>\n" +
         "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
         "                  </PrefLevel>")
+
+        expect(rq).to.not.contain("ShoppingCriteria")
 
         expect(request.options.endpoint).to.equal('api/Order/airshopping')
     }
