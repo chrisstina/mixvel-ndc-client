@@ -28,9 +28,9 @@ var BookParamsValidator = /** @class */ (function (_super) {
     }
     BookParamsValidator.validate = function (props) {
         var passengers = props.passengers, offerItemIds = props.offerItemIds, offerId = props.offerId;
-        (0, assert_1.default)(offerId.length > 0);
-        (0, assert_1.default)(offerItemIds.length > 0);
-        (0, assert_1.default)(passengers.length > 0);
+        (0, assert_1.default)(offerId.length > 0, 'Missing offer id');
+        (0, assert_1.default)(offerItemIds.length > 0, 'Missing offer item ids');
+        (0, assert_1.default)(passengers.length > 0, 'Missing passengers');
         //@todo
         return true;
     };

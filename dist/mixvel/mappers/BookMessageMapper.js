@@ -42,25 +42,25 @@ var BookMessageMapper = /** @class */ (function () {
     };
     BookMessageMapper.passengerToPax = function (passenger, paxId) {
         return new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
+            ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
             IdentityDocID: passenger.identityDocument.number,
             IdentityDocTypeCode: (0, documentType_1.toMixvel)(passenger.identityDocument.type),
-            ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
             IssueDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfIssue),
             IssuingCountryCode: passenger.identityDocument.issuingCountry,
             Surname: passenger.personalInfo.lastName
         }, {
+            Birthdate: (0, commonMappers_1.toMixvelDate)(passenger.personalInfo.dob),
             GenderCode: passenger.personalInfo.gender,
             GivenName: passenger.personalInfo.firstName,
             MiddleName: passenger.personalInfo.middleName || "",
             Surname: passenger.personalInfo.lastName,
-            Birthdate: (0, commonMappers_1.toMixvelDate)(passenger.personalInfo.dob)
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
         var email = passenger.contacts.email || this.firstAvailableEmail();
         (0, assert_1.default)(email !== undefined, "Missing email for pax #".concat(paxId)); //@todo move to params validation
         (0, assert_1.default)(passenger.contacts.phoneNumber !== undefined, "Missing phone number for pax #".concat(paxId)); //@todo move to params validation and check for infant
-        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { EmailAddressText: email, ContactTypeText: "personal" }, { PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber), ContactTypeText: "personal" });
+        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber) });
     };
     BookMessageMapper.prototype.firstAvailableEmail = function () {
         for (var passengersKey in this.params.passengers) {

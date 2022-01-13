@@ -38,19 +38,19 @@ export class BookMessageMapper implements MixvelMessageMapper {
             toAge(passenger.personalInfo.dob),
             '',
             {
+                ExpiryDate: toMixvelDate(passenger.identityDocument.dateOfExpiry),
                 IdentityDocID: passenger.identityDocument.number,
                 IdentityDocTypeCode: toMixvelDocument(passenger.identityDocument.type),
-                ExpiryDate: toMixvelDate(passenger.identityDocument.dateOfExpiry),
                 IssueDate: toMixvelDate(passenger.identityDocument.dateOfIssue),
                 IssuingCountryCode: passenger.identityDocument.issuingCountry,
                 Surname: passenger.personalInfo.lastName
             },
             {
+                Birthdate: toMixvelDate(passenger.personalInfo.dob),
                 GenderCode: passenger.personalInfo.gender,
                 GivenName: passenger.personalInfo.firstName,
                 MiddleName: passenger.personalInfo.middleName || "", // @todo ??
                 Surname: passenger.personalInfo.lastName,
-                Birthdate: toMixvelDate(passenger.personalInfo.dob)
             },
             generatePaxReference(paxId),
             toMixvelPTC(passenger.ptc)
@@ -64,8 +64,8 @@ export class BookMessageMapper implements MixvelMessageMapper {
 
         return new ContactInfo(
             generateContactReference(paxId),
-            {EmailAddressText: email, ContactTypeText: "personal"},
-            {PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber), ContactTypeText: "personal"}
+            {ContactTypeText: "personal", EmailAddressText: email},
+            {ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber)}
         )
     }
 

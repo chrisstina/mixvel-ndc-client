@@ -57,18 +57,18 @@ export declare class ContactInfo {
 }
 export declare class Mixvel_OrderCreateRQ implements GenericNDCMessage {
     get xmlns(): {
-        "m:Mixvel_OrderCreateRQ": string;
+        "xmlns:m": string;
     };
     get nodeName(): string;
     CreateOrder: {
         SelectedOffer: SelectedOffer;
-        DataLists?: {
-            "ContactInfoList": {
-                "ContactInfo": Array<ContactInfo>;
-            };
-            "PaxList": {
-                "Pax": Array<Pax>;
-            };
+    };
+    DataLists: {
+        "ContactInfoList": {
+            "ContactInfo": Array<ContactInfo>;
+        };
+        "PaxList": {
+            "Pax": Array<Pax>;
         };
     };
     constructor(offerId: string);

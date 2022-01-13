@@ -26,7 +26,7 @@ export class ContactInfo {
 
 export class Mixvel_OrderCreateRQ implements GenericNDCMessage {
     get xmlns() {
-        return {"m:Mixvel_OrderCreateRQ": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01"}
+        return {"xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01"}
     }
 
     get nodeName() {
@@ -35,13 +35,14 @@ export class Mixvel_OrderCreateRQ implements GenericNDCMessage {
 
     public CreateOrder: {
         SelectedOffer: SelectedOffer,
-        DataLists?: {
-            "ContactInfoList": {
-                "ContactInfo": Array<ContactInfo>
-            },
-            "PaxList": {
-                "Pax": Array<Pax>
-            }
+    }
+
+    public DataLists: {
+        "ContactInfoList": {
+            "ContactInfo": Array<ContactInfo>
+        },
+        "PaxList": {
+            "Pax": Array<Pax>
         }
     }
 
@@ -51,17 +52,14 @@ export class Mixvel_OrderCreateRQ implements GenericNDCMessage {
                 OfferRefID: offerId,
             },
         }
+        this.DataLists = {ContactInfoList: {ContactInfo: []}, PaxList: {Pax: []}}
     }
 
     addPax(pax: Pax, paxContact: ContactInfo) {
         pax.ContactInfoRefID = paxContact.ContactInfoID
 
-        if (!this.CreateOrder.DataLists) {
-            this.CreateOrder.DataLists = {PaxList: {Pax: []}, ContactInfoList: {ContactInfo: []}}
-        }
-
-        this.CreateOrder.DataLists.PaxList.Pax.push(pax)
-        this.CreateOrder.DataLists.ContactInfoList.ContactInfo.push(paxContact)
+        this.DataLists.PaxList.Pax.push(pax)
+        this.DataLists.ContactInfoList.ContactInfo.push(paxContact)
     }
 
     /**

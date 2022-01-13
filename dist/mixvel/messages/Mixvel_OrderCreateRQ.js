@@ -29,10 +29,11 @@ var Mixvel_OrderCreateRQ = /** @class */ (function () {
                 OfferRefID: offerId,
             },
         };
+        this.DataLists = { ContactInfoList: { ContactInfo: [] }, PaxList: { Pax: [] } };
     }
     Object.defineProperty(Mixvel_OrderCreateRQ.prototype, "xmlns", {
         get: function () {
-            return { "m:Mixvel_OrderCreateRQ": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01" };
+            return { "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01" };
         },
         enumerable: false,
         configurable: true
@@ -46,11 +47,8 @@ var Mixvel_OrderCreateRQ = /** @class */ (function () {
     });
     Mixvel_OrderCreateRQ.prototype.addPax = function (pax, paxContact) {
         pax.ContactInfoRefID = paxContact.ContactInfoID;
-        if (!this.CreateOrder.DataLists) {
-            this.CreateOrder.DataLists = { PaxList: { Pax: [] }, ContactInfoList: { ContactInfo: [] } };
-        }
-        this.CreateOrder.DataLists.PaxList.Pax.push(pax);
-        this.CreateOrder.DataLists.ContactInfoList.ContactInfo.push(paxContact);
+        this.DataLists.PaxList.Pax.push(pax);
+        this.DataLists.ContactInfoList.ContactInfo.push(paxContact);
     };
     /**
      * @param {string} offerItemId

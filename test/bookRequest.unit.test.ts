@@ -42,7 +42,7 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
         expect(rq).to.contain('<OfferItemRefID>OFFER-1')
 
-        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                  <PTC>ADT</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
     }
 
     @test 'Create Mixvel book RQ for 2ADT 1CHD 1INF RT'() {
@@ -151,9 +151,9 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<OfferItemRefID>OFFER-2')
         expect(rq).to.contain('<OfferItemRefID>OFFER-3')
 
-        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                  <PTC>ADT</PTC>')
-        expect(rq).to.contain('<PaxID>Pax_2</PaxID>\n                  <PTC>ADT</PTC>')
-        expect(rq).to.contain('<PaxID>Pax_3</PaxID>\n                  <PTC>CNN</PTC>')
-        expect(rq).to.contain('<PaxID>Pax_4</PaxID>\n                  <PTC>INF</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_3</PaxID>\n                <PTC>CNN</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_4</PaxID>\n                <PTC>INF</PTC>')
     }
 }
