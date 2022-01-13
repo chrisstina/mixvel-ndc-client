@@ -42,6 +42,118 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
         expect(rq).to.contain('<OfferItemRefID>OFFER-1')
 
-        console.log(rq)
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                  <PTC>ADT</PTC>')
+    }
+
+    @test 'Create Mixvel book RQ for 2ADT 1CHD 1INF RT'() {
+        const params: BookParams = {
+            offerId: 'SOME-OFFER',
+            offerItemIds: [
+                {id: 'OFFER-1', ptc: "ADULT"},
+                {id: 'OFFER-2', ptc: "CHILD"},
+                {id: 'OFFER-3', ptc: "INFANT"}
+            ],
+            passengers: [
+                {
+                    ptc: "ADULT",
+                    personalInfo: {
+                        firstName: 'Test',
+                        middleName: 'Test',
+                        lastName: 'Test',
+                        gender: "M",
+                        dob: new Date('1999-02-15'),
+                    },
+                    identityDocument: {
+                        type: "PASSPORT",
+                        dateOfIssue: new Date('2015-02-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12345'
+                    },
+                    contacts: {
+                        email: 'test@test.test',
+                        phoneNumber: '89112311441'
+                    }
+                },
+                {
+                    ptc: "ADULT",
+                    personalInfo: {
+                        firstName: 'TestTwo',
+                        middleName: 'TestTwo',
+                        lastName: 'TestTwo',
+                        gender: "F",
+                        dob: new Date('1999-03-15'),
+                    },
+                    identityDocument: {
+                        type: "PASSPORT",
+                        dateOfIssue: new Date('2015-02-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12346'
+                    },
+                    contacts: {
+                        email: 'test@test.test',
+                        phoneNumber: '89112311441'
+                    }
+                },
+                {
+                    ptc: "CHILD",
+                    personalInfo: {
+                        firstName: 'TestChild',
+                        middleName: 'TestTwo',
+                        lastName: 'TestTwo',
+                        gender: "F",
+                        dob: new Date('2015-03-15'),
+                    },
+                    identityDocument: {
+                        type: "BIRTHDAY_CERTIFICATE",
+                        dateOfIssue: new Date('2015-04-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12346'
+                    },
+                    contacts: {
+                        email: 'test@test.test',
+                        phoneNumber: '89112311441'
+                    }
+                },
+                {
+                    ptc: "INFANT",
+                    personalInfo: {
+                        firstName: 'TestInfant',
+                        middleName: 'TestTwo',
+                        lastName: 'TestTwo',
+                        gender: "F",
+                        dob: new Date('2020-05-15'),
+                    },
+                    identityDocument: {
+                        type: "BIRTHDAY_CERTIFICATE",
+                        dateOfIssue: new Date('2020-05-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12346'
+                    },
+                    contacts: {
+                        email: '',
+                        phoneNumber: ''
+                    }
+                }
+            ]
+        }
+
+        const rq = getBookRequest(params).body
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('Mixvel_OrderCreateRQ')
+        expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
+
+        expect(rq).to.contain('<OfferItemRefID>OFFER-1')
+        expect(rq).to.contain('<OfferItemRefID>OFFER-2')
+        expect(rq).to.contain('<OfferItemRefID>OFFER-3')
+
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                  <PTC>ADT</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_2</PaxID>\n                  <PTC>ADT</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_3</PaxID>\n                  <PTC>CNN</PTC>')
+        expect(rq).to.contain('<PaxID>Pax_4</PaxID>\n                  <PTC>INF</PTC>')
     }
 }
