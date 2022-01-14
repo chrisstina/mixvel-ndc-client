@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toMixvel = void 0;
-var ptc_1 = require("../../constants/ptc");
+exports.toMixvel = exports.MixvelPTC = void 0;
+var MixvelPTC;
+(function (MixvelPTC) {
+    MixvelPTC["ADULT"] = "ADT";
+    MixvelPTC["CHILD"] = "CNN";
+    MixvelPTC["INFANT"] = "INF";
+})(MixvelPTC = exports.MixvelPTC || (exports.MixvelPTC = {}));
 function toMixvel(paxCategory) {
-    return ptc_1.PTC[paxCategory];
+    return MixvelPTC[paxCategory];
 }
 exports.toMixvel = toMixvel;
-// export function fromMixvel(docType: MixvelDocumentType): Types;

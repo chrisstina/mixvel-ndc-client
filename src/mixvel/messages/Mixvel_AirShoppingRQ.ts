@@ -3,9 +3,9 @@
  */
 
 import {GenericNDCMessage} from "./GenericNDCMessage";
-import {Cabin} from "../constants/cabin";
 import {Preflevel} from "../constants/preflevel"
-import {PTC as PassengerCategory} from "../constants/ptc"
+import {MixvelPTC} from "../mappers/dictionary/ptc"
+import {MixvelCabin} from "../mappers/dictionary/cabin"
 
 export class OriginDestination {
     public CabinType = {
@@ -26,11 +26,11 @@ export class OriginDestination {
 
 class Pax {
     public readonly PaxID: string
-    public readonly PTC: PassengerCategory
+    public readonly PTC: MixvelPTC
     public readonly AgeMeasure: string | undefined
 
     constructor(id: string,
-                ptc: PassengerCategory = PassengerCategory.ADULT,
+                ptc: MixvelPTC = MixvelPTC.ADULT,
                 age?: string) {
         // mind the property order!
         if (age) {
@@ -66,7 +66,7 @@ export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
 
     public ShoppingCriteria = Array()
 
-    addPax(id: string, ptc: PassengerCategory, age?: string) {
+    addPax(id: string, ptc: MixvelPTC, age?: string) {
         this.Paxs.Pax.push(new Pax(id, ptc, age))
     }
 
@@ -75,9 +75,9 @@ export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
      * @param {string} destinationCode
      * @param {string} dateRangeStart ISO datetime 2021-11-25
      * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {Cabin} cabinTypeCode
+     * @param {MixvelCabin} cabinTypeCode
      */
-    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: Cabin) {
+    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin) {
         const OD = new OriginDestination()
         OD.OriginDepCriteria = {
             "DateRangeStart": dateRangeStart,

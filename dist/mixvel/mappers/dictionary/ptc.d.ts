@@ -1,3 +1,7 @@
 import { PaxCategory } from "../../../request/types";
-import { PTC } from "../../constants/ptc";
-export declare function toMixvel(paxCategory: PaxCategory): PTC;
+export declare enum MixvelPTC {
+    ADULT = "ADT",
+    CHILD = "CNN",
+    INFANT = "INF"
+}
+export declare function toMixvel(paxCategory: PaxCategory): MixvelPTC;

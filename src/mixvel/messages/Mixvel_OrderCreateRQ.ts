@@ -1,6 +1,6 @@
 import {GenericNDCMessage} from "./GenericNDCMessage";
 import {SelectedOffer} from "./Mixvel_OfferPriceRQ";
-import {MixvelDocumentType} from "../constants/documentType";
+import {MixvelDocumentType} from "../mappers/dictionary/documentType";
 
 type ContactTypeText = "personal"
 

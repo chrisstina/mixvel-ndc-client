@@ -1,6 +1,6 @@
 import { GenericNDCMessage } from "./GenericNDCMessage";
 import { SelectedOffer } from "./Mixvel_OfferPriceRQ";
-import { MixvelDocumentType } from "../constants/documentType";
+import { MixvelDocumentType } from "../mappers/dictionary/documentType";
 declare type ContactTypeText = "personal";
 export declare class Pax {
     AgeMeasure: string;

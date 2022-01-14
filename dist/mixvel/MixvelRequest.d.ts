@@ -6,7 +6,6 @@ import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
 export declare type MixvelRequestOptions = {
     endpoint: string;
     method: "GET" | "POST";
-    jwt?: string;
     headers: {
         [index: string]: string;
     };

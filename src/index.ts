@@ -38,6 +38,10 @@ export function getPriceRequest(props: PriceParams): MixvelRequest {
     return mixvelRequestManager.createPriceRequest(props)
 }
 
+/**
+ * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} props
+ * @return string
+ */
 export function getBookRequest(props: BookParams): MixvelRequest {
     BookParamsValidator.validate(props)
     return mixvelRequestManager.createBookRequest(props)

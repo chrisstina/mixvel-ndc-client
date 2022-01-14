@@ -15,7 +15,6 @@ const {DateTime} = require("luxon")
 export type MixvelRequestOptions = {
     endpoint: string,
     method: "GET" | "POST",
-    jwt?: string
     headers: {[index: string]: string}
 }
 

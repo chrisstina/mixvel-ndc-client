@@ -25,6 +25,10 @@ function getPriceRequest(props) {
     return mixvelRequestManager.createPriceRequest(props);
 }
 exports.getPriceRequest = getPriceRequest;
+/**
+ * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} props
+ * @return string
+ */
 function getBookRequest(props) {
     BookParamsValidator_1.BookParamsValidator.validate(props);
     return mixvelRequestManager.createBookRequest(props);

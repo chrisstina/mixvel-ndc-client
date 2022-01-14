@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mixvel_AirShoppingRQ = exports.OriginDestination = void 0;
 var preflevel_1 = require("../constants/preflevel");
-var ptc_1 = require("../constants/ptc");
+var ptc_1 = require("../mappers/dictionary/ptc");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination() {
         this.CabinType = {
@@ -26,7 +26,7 @@ var OriginDestination = /** @class */ (function () {
 exports.OriginDestination = OriginDestination;
 var Pax = /** @class */ (function () {
     function Pax(id, ptc, age) {
-        if (ptc === void 0) { ptc = ptc_1.PTC.ADULT; }
+        if (ptc === void 0) { ptc = ptc_1.MixvelPTC.ADULT; }
         // mind the property order!
         if (age) {
             this.AgeMeasure = age;
@@ -74,7 +74,7 @@ var Mixvel_AirShoppingRQ = /** @class */ (function () {
      * @param {string} destinationCode
      * @param {string} dateRangeStart ISO datetime 2021-11-25
      * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {Cabin} cabinTypeCode
+     * @param {MixvelCabin} cabinTypeCode
      */
     Mixvel_AirShoppingRQ.prototype.addOriginDestination = function (originCode, destinationCode, dateRangeStart, dateRangeEnd, cabinTypeCode) {
         var OD = new OriginDestination();

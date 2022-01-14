@@ -1,6 +1,6 @@
 import { GenericNDCMessage } from "./GenericNDCMessage";
-import { Cabin } from "../constants/cabin";
-import { PTC as PassengerCategory } from "../constants/ptc";
+import { MixvelPTC } from "../mappers/dictionary/ptc";
+import { MixvelCabin } from "../mappers/dictionary/cabin";
 export declare class OriginDestination {
     CabinType: {
         CabinTypeCode: string;
@@ -35,14 +35,14 @@ export declare class Mixvel_AirShoppingRQ implements GenericNDCMessage {
         Pax: any[];
     };
     ShoppingCriteria: any[];
-    addPax(id: string, ptc: PassengerCategory, age?: string): void;
+    addPax(id: string, ptc: MixvelPTC, age?: string): void;
     /**
      * @param {string} originCode
      * @param {string} destinationCode
      * @param {string} dateRangeStart ISO datetime 2021-11-25
      * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {Cabin} cabinTypeCode
+     * @param {MixvelCabin} cabinTypeCode
      */
-    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: Cabin): void;
+    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin): void;
     addCarrierCriteria(allowedCarrierCodes: string[]): void;
 }

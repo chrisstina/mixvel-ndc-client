@@ -1,5 +1,9 @@
 import {DocumentType} from "../../../request/types";
-import {MixvelDocumentType} from "../../constants/documentType";
+
+export enum MixvelDocumentType {
+    PASSPORT = "PS",
+    BIRTHDAY_CERTIFICATE = "SR"
+}
 
 export function toMixvel(docType: DocumentType): MixvelDocumentType {
     switch (docType) {
