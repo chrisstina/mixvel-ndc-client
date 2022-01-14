@@ -12,4 +12,5 @@ export declare function getOrderRetrieveRequest(params: OrderRetrieveParams): Mi
 export declare function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
 export declare function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
 export declare function getServiceListRequest(params: PriceParams): MixvelRequest;
+export declare function getRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest;
 export declare function getRefundRequest(params: RefundParams): MixvelRequest;

@@ -30,6 +30,7 @@ import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
+import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -130,9 +131,13 @@ export class MixvelRequestManager {
         })
     }
 
-    public createRefundRequest(params: RefundParams): MixvelRequest {
+    public createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest {
         return this.createRequest(params, {
-            mapper: new RefundOrderMessageMapper(params),
+            mapper: {
+                map(): GenericNDCMessage {
+                    return new Mixvel_OrderReshopRQ(params.orderId)
+                }
+            }
         })
     }
 

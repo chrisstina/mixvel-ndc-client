@@ -16,6 +16,7 @@ var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
 var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
 var RefundOrderMessageMapper_1 = require("./mappers/RefundOrderMessageMapper");
+var Mixvel_OrderReshopRQ_1 = require("./messages/Mixvel_OrderReshopRQ");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }
@@ -100,6 +101,15 @@ var MixvelRequestManager = /** @class */ (function () {
     MixvelRequestManager.prototype.createTicketIssueRequest = function (params) {
         return this.createRequest(params, {
             mapper: new IssueOrderMessageMapper_1.IssueOrderMessageMapper(params), // @todo add specific validation
+        });
+    };
+    MixvelRequestManager.prototype.createRefundCalculationRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: {
+                map: function () {
+                    return new Mixvel_OrderReshopRQ_1.Mixvel_OrderReshopRQ(params.orderId);
+                }
+            }
         });
     };
     MixvelRequestManager.prototype.createRefundRequest = function (params) {

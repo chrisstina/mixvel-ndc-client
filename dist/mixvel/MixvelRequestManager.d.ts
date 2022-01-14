@@ -32,6 +32,7 @@ export declare class MixvelRequestManager {
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest;
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
     createTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
+    createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest;
     createRefundRequest(params: RefundParams): MixvelRequest;
     createServiceListRequest(params: PriceParams): MixvelRequest;
     protected createRequest(requestParams: object, services: {
