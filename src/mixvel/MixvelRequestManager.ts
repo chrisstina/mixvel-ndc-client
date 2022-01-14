@@ -21,6 +21,7 @@ import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
+import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -118,6 +119,16 @@ export class MixvelRequestManager {
     public createTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
         return this.createRequest(params, {
             mapper: new ChangeOrderMessageMapper(params), // @todo add specific validation
+        })
+    }
+
+    public createServiceListRequest(params: PriceParams): MixvelRequest {
+        return this.createRequest(params, {
+            mapper: {
+                map(): GenericNDCMessage {
+                    return new Mixvel_ServiceListRQ(params.offerId, params.offerItemIds)
+                }
+            }
         })
     }
 

@@ -32,6 +32,7 @@ export declare class MixvelRequestManager {
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest;
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
     createTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
+    createServiceListRequest(params: PriceParams): MixvelRequest;
     protected createRequest(requestParams: object, services: {
         mapper: MixvelMessageMapper;
         validator?: typeof AbstractParamsValidator;

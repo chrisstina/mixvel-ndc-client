@@ -9,4 +9,5 @@ exports.endpoints = new Map([
     ['Mixvel_OrderChangeRQ', 'api/Order/change'],
     ['Mixvel_OrderCreateRQ', 'api/Order/create'],
     ['Mixvel_OrderRetrieveRQ', 'api/Order/retrieve'],
+    ['Mixvel_ServiceListRQ', 'api/ServiceList'],
 ]);

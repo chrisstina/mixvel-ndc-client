@@ -23,7 +23,7 @@ export class SearchMessageMapper implements MixvelMessageMapper {
             )
         })
 
-        this.params.travelers.forEach(({id, ptc, age}) => {
+        this.params.travelers.forEach(({id, ptc, age}) => { // @todo maybe autogenerate id?
             mixvelRequestMessage.addPax(id, toMixvelPTC(ptc), age)
         })
 

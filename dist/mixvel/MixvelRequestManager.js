@@ -14,6 +14,7 @@ var ChangeOrderMessageMapper_1 = require("./mappers/ChangeOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
+var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }
@@ -98,6 +99,15 @@ var MixvelRequestManager = /** @class */ (function () {
     MixvelRequestManager.prototype.createTicketIssueRequest = function (params) {
         return this.createRequest(params, {
             mapper: new ChangeOrderMessageMapper_1.ChangeOrderMessageMapper(params), // @todo add specific validation
+        });
+    };
+    MixvelRequestManager.prototype.createServiceListRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: {
+                map: function () {
+                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(params.offerId, params.offerItemIds);
+                }
+            }
         });
     };
     MixvelRequestManager.prototype.createRequest = function (requestParams, services) {

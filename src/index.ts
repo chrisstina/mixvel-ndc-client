@@ -61,3 +61,8 @@ export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelReques
     OrderRetrieveParamsValidator.validate(params)
     return mixvelRequestManager.createOrderCancelRequest(params)
 }
+
+export function getServiceListRequest(params: PriceParams): MixvelRequest {
+    PriceParamsValidator.validate(params)
+    return mixvelRequestManager.createServiceListRequest(params)
+}
