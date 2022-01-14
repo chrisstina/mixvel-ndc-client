@@ -23,28 +23,28 @@ const mixvelRequestManager = new MixvelRequestManager(
     new XmlConversionStrategy()
 )
 
-export function getAuthRequest(props: AuthParams) {
-    AuthParamsValidator.validate(props);
-    return mixvelRequestManager.createAuthRequest(props)
+export function getAuthRequest(params: AuthParams) {
+    AuthParamsValidator.validate(params);
+    return mixvelRequestManager.createAuthRequest(params)
 }
 
-export function getSearchRequest(props: SearchParams): MixvelRequest {
-    SearchParamsValidator.validate(props)
-    return mixvelRequestManager.createSearchRequest(props)
+export function getSearchRequest(params: SearchParams): MixvelRequest {
+    SearchParamsValidator.validate(params)
+    return mixvelRequestManager.createSearchRequest(params)
 }
 
-export function getPriceRequest(props: PriceParams): MixvelRequest {
-    PriceParamsValidator.validate(props)
-    return mixvelRequestManager.createPriceRequest(props)
+export function getPriceRequest(params: PriceParams): MixvelRequest {
+    PriceParamsValidator.validate(params)
+    return mixvelRequestManager.createPriceRequest(params)
 }
 
 /**
- * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} props
+ * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
  * @return string
  */
-export function getBookRequest(props: BookParams): MixvelRequest {
-    BookParamsValidator.validate(props)
-    return mixvelRequestManager.createBookRequest(props)
+export function getBookRequest(params: BookParams): MixvelRequest {
+    BookParamsValidator.validate(params)
+    return mixvelRequestManager.createBookRequest(params)
 }
 
 export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
