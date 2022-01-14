@@ -1,7 +1,14 @@
 import {RequestGenerationError} from "../core/errors/RequestGenerationError";
 import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
 
-import {BookParams, OrderRetrieveParams, PriceParams, SearchParams, TicketIssueParams} from "../request/parameters";
+import {
+    BookParams,
+    OrderRetrieveParams,
+    PriceParams,
+    RefundParams,
+    SearchParams,
+    TicketIssueParams
+} from "../request/parameters";
 
 import {MixvelRequest, MixvelRequestOptions} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
@@ -15,13 +22,14 @@ import {SearchParamsValidator} from "./validators/SearchParamsValidator";
 import {MixvelMessageMapper} from "./mappers/MixvelMessageMapper";
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
-import {ChangeOrderMessageMapper} from "./mappers/ChangeOrderMessageMapper";
+import {IssueOrderMessageMapper} from "./mappers/IssueOrderMessageMapper";
 
 import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
+import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -118,7 +126,19 @@ export class MixvelRequestManager {
 
     public createTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
         return this.createRequest(params, {
-            mapper: new ChangeOrderMessageMapper(params), // @todo add specific validation
+            mapper: new IssueOrderMessageMapper(params), // @todo add specific validation
+        })
+    }
+
+    public createRefundRequest(params: RefundParams): MixvelRequest {
+        return this.createRequest(params, {
+            mapper: new RefundOrderMessageMapper(params),
+        })
+    }
+
+    public createRefundRequest(params: RefundParams): MixvelRequest {
+        return this.createRequest(params, {
+            mapper: new RefundOrderMessageMapper(params),
         })
     }
 

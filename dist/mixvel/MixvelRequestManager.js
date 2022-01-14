@@ -10,11 +10,12 @@ var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var SearchParamsValidator_1 = require("./validators/SearchParamsValidator");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
-var ChangeOrderMessageMapper_1 = require("./mappers/ChangeOrderMessageMapper");
+var IssueOrderMessageMapper_1 = require("./mappers/IssueOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
 var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
+var RefundOrderMessageMapper_1 = require("./mappers/RefundOrderMessageMapper");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }
@@ -98,7 +99,12 @@ var MixvelRequestManager = /** @class */ (function () {
     };
     MixvelRequestManager.prototype.createTicketIssueRequest = function (params) {
         return this.createRequest(params, {
-            mapper: new ChangeOrderMessageMapper_1.ChangeOrderMessageMapper(params), // @todo add specific validation
+            mapper: new IssueOrderMessageMapper_1.IssueOrderMessageMapper(params), // @todo add specific validation
+        });
+    };
+    MixvelRequestManager.prototype.createRefundRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: new RefundOrderMessageMapper_1.RefundOrderMessageMapper(params),
         });
     };
     MixvelRequestManager.prototype.createServiceListRequest = function (params) {

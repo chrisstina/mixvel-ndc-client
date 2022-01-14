@@ -1,5 +1,5 @@
 import { MixvelRequest } from "./mixvel/MixvelRequest";
-import { AuthParams, BookParams, OrderRetrieveParams, PriceParams, SearchParams, TicketIssueParams } from "./request/parameters";
+import { AuthParams, BookParams, OrderRetrieveParams, PriceParams, RefundParams, SearchParams, TicketIssueParams } from "./request/parameters";
 export declare function getAuthRequest(params: AuthParams): MixvelRequest;
 export declare function getSearchRequest(params: SearchParams): MixvelRequest;
 export declare function getPriceRequest(params: PriceParams): MixvelRequest;
@@ -12,3 +12,4 @@ export declare function getOrderRetrieveRequest(params: OrderRetrieveParams): Mi
 export declare function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
 export declare function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
 export declare function getServiceListRequest(params: PriceParams): MixvelRequest;
+export declare function getRefundRequest(params: RefundParams): MixvelRequest;

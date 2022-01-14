@@ -1,5 +1,5 @@
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
-import { BookParams, OrderRetrieveParams, PriceParams, SearchParams, TicketIssueParams } from "../request/parameters";
+import { BookParams, OrderRetrieveParams, PriceParams, RefundParams, SearchParams, TicketIssueParams } from "../request/parameters";
 import { MixvelRequest, MixvelRequestOptions } from "./MixvelRequest";
 import { AbstractParamsValidator } from "../request/validators/AbstractParamsValidator";
 import { MixvelMessageMapper } from "./mappers/MixvelMessageMapper";
@@ -32,6 +32,7 @@ export declare class MixvelRequestManager {
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest;
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
     createTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
+    createRefundRequest(params: RefundParams): MixvelRequest;
     createServiceListRequest(params: PriceParams): MixvelRequest;
     protected createRequest(requestParams: object, services: {
         mapper: MixvelMessageMapper;

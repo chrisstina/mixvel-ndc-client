@@ -43,3 +43,7 @@ export declare type TicketIssueParams = {
 export declare type OrderRetrieveParams = {
     orderId: string;
 };
+export declare type RefundParams = {
+    orderId: string;
+    orderItemIds: string[][];
+};

@@ -6,15 +6,15 @@ import {FopType} from "../../request/types";
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
 import {DirectBill, Mixvel_OrderChangeRQ, OtherPaymentMethod} from "../messages/Mixvel_OrderChangeRQ";
 
-export class ChangeOrderMessageMapper implements MixvelMessageMapper {
+export class IssueOrderMessageMapper implements MixvelMessageMapper {
     constructor(public readonly params: TicketIssueParams) {
     }
 
     map(): Mixvel_OrderChangeRQ {
-        return new Mixvel_OrderChangeRQ(this.params.orderId,
-            {amount: this.params.payment.amount.toString(), currency: this.params.payment.currency},
-            createFOP(this.params.formOfPayment)
-        )
+        const rq = new Mixvel_OrderChangeRQ(this.params.orderId)
+        rq.setPaymentDetails({amount: this.params.payment.amount.toString(), currency: this.params.payment.currency},
+            createFOP(this.params.formOfPayment))
+        return rq
     }
 }
 

@@ -14,7 +14,10 @@ export declare class Mixvel_OrderChangeRQ implements GenericNDCMessage {
     MixOrder: {
         MixOrderID: string;
     };
-    PaymentFunctions: {
+    /**
+     * for ticket issue request
+     */
+    PaymentFunctions?: {
         "PaymentProcessingDetails": {
             "Amount": {
                 "_": string;
@@ -25,8 +28,14 @@ export declare class Mixvel_OrderChangeRQ implements GenericNDCMessage {
             "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill;
         };
     };
-    constructor(orderId: string, { amount, currency }: {
+    /**
+     * for order refund request
+     */
+    ChangeOrder?: {};
+    constructor(orderId: string);
+    setPaymentDetails({ amount, currency }: {
         amount: string;
         currency: string;
-    }, fop: OtherPaymentMethod | DirectBill);
+    }, fop: OtherPaymentMethod | DirectBill): void;
+    setItemsToDelete(orderItems: string[][]): void;
 }

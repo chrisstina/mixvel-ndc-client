@@ -7,7 +7,7 @@ import {
     AuthParams,
     BookParams,
     OrderRetrieveParams,
-    PriceParams,
+    PriceParams, RefundParams,
     SearchParams, TicketIssueParams
 } from "./request/parameters";
 
@@ -65,4 +65,12 @@ export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelReques
 export function getServiceListRequest(params: PriceParams): MixvelRequest {
     PriceParamsValidator.validate(params)
     return mixvelRequestManager.createServiceListRequest(params)
+}
+
+export function getRefundCalculationRequest(params: OrderRetrieveParams) {
+    return mixvelRequestManager.createRefundCalculationRequest(params)
+}
+
+export function getRefundRequest(params: RefundParams) {
+    return mixvelRequestManager.createRefundRequest(params)
 }

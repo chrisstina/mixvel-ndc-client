@@ -40,3 +40,8 @@ export type TicketIssueParams = {
 export type OrderRetrieveParams = {
     orderId: string
 }
+
+export type RefundParams = {
+    orderId: string,
+    orderItemIds: string[][]
+}
