@@ -23,14 +23,15 @@ import {MixvelMessageMapper} from "./mappers/MixvelMessageMapper";
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
 import {IssueOrderMessageMapper} from "./mappers/IssueOrderMessageMapper";
+import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
 
 import {GenericNDCMessage} from "./messages/GenericNDCMessage";
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
-import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
+import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -93,6 +94,16 @@ export class MixvelRequestManager {
             mapper: {
                 map(): GenericNDCMessage {
                     return new Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds)
+                }
+            }
+        })
+    }
+
+    public createFareRulesRequest(params: PriceParams): MixvelRequest {
+        return this.createRequest(params, {
+            mapper: {
+                map(): GenericNDCMessage {
+                    return new Mixvel_OrderRulesRQ(params.offerId, params.offerItemIds)
                 }
             }
         })

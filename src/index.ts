@@ -38,6 +38,11 @@ export function getPriceRequest(params: PriceParams): MixvelRequest {
     return mixvelRequestManager.createPriceRequest(params)
 }
 
+export function getFareRulesRequest(params: PriceParams): MixvelRequest {
+    PriceParamsValidator.validate(params)
+    return mixvelRequestManager.createFareRulesRequest(params)
+}
+
 /**
  * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
  * @return string

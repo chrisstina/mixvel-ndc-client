@@ -11,12 +11,13 @@ var SearchParamsValidator_1 = require("./validators/SearchParamsValidator");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
 var IssueOrderMessageMapper_1 = require("./mappers/IssueOrderMessageMapper");
+var RefundOrderMessageMapper_1 = require("./mappers/RefundOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
 var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
-var RefundOrderMessageMapper_1 = require("./mappers/RefundOrderMessageMapper");
 var Mixvel_OrderReshopRQ_1 = require("./messages/Mixvel_OrderReshopRQ");
+var Mixvel_OrderRulesRQ_1 = require("./messages/Mixvel_OrderRulesRQ");
 var MixvelRequestOptionsManager = /** @class */ (function () {
     function MixvelRequestOptionsManager() {
     }
@@ -70,6 +71,15 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: {
                 map: function () {
                     return new Mixvel_OfferPriceRQ_1.Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds);
+                }
+            }
+        });
+    };
+    MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: {
+                map: function () {
+                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(params.offerId, params.offerItemIds);
                 }
             }
         });

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRefundRequest = exports.getRefundCalculationRequest = exports.getServiceListRequest = exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
+exports.getRefundRequest = exports.getRefundCalculationRequest = exports.getServiceListRequest = exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getFareRulesRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
 var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
 var XmlConversionStrategy_1 = require("./services/conversion/XmlConversionStrategy");
 var SearchParamsValidator_1 = require("./request/validators/SearchParamsValidator");
@@ -25,6 +25,11 @@ function getPriceRequest(params) {
     return mixvelRequestManager.createPriceRequest(params);
 }
 exports.getPriceRequest = getPriceRequest;
+function getFareRulesRequest(params) {
+    PriceParamsValidator_1.PriceParamsValidator.validate(params);
+    return mixvelRequestManager.createFareRulesRequest(params);
+}
+exports.getFareRulesRequest = getFareRulesRequest;
 /**
  * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
  * @return string

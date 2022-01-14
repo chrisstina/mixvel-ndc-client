@@ -7,5 +7,6 @@ export const endpoints = new Map([
     ['Mixvel_OrderCreateRQ', 'api/Order/create'],
     ['Mixvel_OrderRetrieveRQ', 'api/Order/retrieve'],
     ['Mixvel_ServiceListRQ', 'api/ServiceList'],
-    ['Mixvel_OrderReshopRQ', 'api/Order/reshop']
+    ['Mixvel_OrderReshopRQ', 'api/Order/reshop'],
+    ['Mixvel_OrderRulesRQ', 'api/Order/rules']
 ])

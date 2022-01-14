@@ -28,6 +28,7 @@ export declare class MixvelRequestManager {
     }): MixvelRequest;
     createSearchRequest(params: SearchParams): MixvelRequest;
     createPriceRequest(params: PriceParams): MixvelRequest;
+    createFareRulesRequest(params: PriceParams): MixvelRequest;
     createBookRequest(params: BookParams): MixvelRequest;
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest;
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
