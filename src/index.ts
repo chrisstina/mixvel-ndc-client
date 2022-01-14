@@ -28,16 +28,30 @@ export function getAuthRequest(params: AuthParams) {
     return mixvelRequestManager.createAuthRequest(params)
 }
 
+/**
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getSearchRequest(params: SearchParams): MixvelRequest {
     SearchParamsValidator.validate(params)
     return mixvelRequestManager.createSearchRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getPriceRequest(params: PriceParams): MixvelRequest {
     PriceParamsValidator.validate(params)
     return mixvelRequestManager.createPriceRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getFareRulesRequest(params: PriceParams): MixvelRequest {
     PriceParamsValidator.validate(params)
     return mixvelRequestManager.createFareRulesRequest(params)
@@ -45,37 +59,67 @@ export function getFareRulesRequest(params: PriceParams): MixvelRequest {
 
 /**
  * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
- * @return string
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
  */
 export function getBookRequest(params: BookParams): MixvelRequest {
     BookParamsValidator.validate(params)
     return mixvelRequestManager.createBookRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
     OrderRetrieveParamsValidator.validate(params)
     return mixvelRequestManager.createOrderRetrieveRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
     TicketIssueParamsValidator.validate(params)
     return mixvelRequestManager.createTicketIssueRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
     OrderRetrieveParamsValidator.validate(params)
     return mixvelRequestManager.createOrderCancelRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getServiceListRequest(params: PriceParams): MixvelRequest {
     PriceParamsValidator.validate(params)
     return mixvelRequestManager.createServiceListRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getRefundCalculationRequest(params: OrderRetrieveParams) {
     return mixvelRequestManager.createRefundCalculationRequest(params)
 }
 
+/**
+ *
+ * @param params
+ * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ */
 export function getRefundRequest(params: RefundParams) {
     return mixvelRequestManager.createRefundRequest(params)
 }
