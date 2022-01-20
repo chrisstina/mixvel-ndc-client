@@ -1,125 +1,98 @@
 import {MixvelRequest} from "./mixvel/MixvelRequest"
 import {MixvelEndpointManager, MixvelRequestManager} from "./mixvel/MixvelRequestManager";
+import {Result} from "./core/Result";
 
 import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy";
 
-import {
-    AuthParams,
-    BookParams,
-    OrderRetrieveParams,
-    PriceParams, RefundParams,
-    SearchParams, TicketIssueParams
-} from "./request/parameters";
-
-import {SearchParamsValidator} from "./request/validators/SearchParamsValidator";
-import {AuthParamsValidator} from "./request/validators/AuthParamsValidator";
-import {PriceParamsValidator} from "./request/validators/PriceParamsValidator";
-import {OrderRetrieveParamsValidator} from "./request/validators/OrderRetrieveParamsValidator";
-import {TicketIssueParamsValidator} from "./request/validators/TicketIssueParamsValidator";
-import {BookParamsValidator} from "./request/validators/BookParamsValidator";
+import {AuthParams, AuthProps} from "./request/parameters/Auth";
+import {SearchParams, SearchProps} from "./request/parameters/Search";
+import {PriceParams, PriceProps} from "./request/parameters/Price";
+import {OrderRetrieveParams, OrderRetrieveProps} from "./request/parameters/OrderRetrieve";
+import {BookParams, BookProps} from "./request/parameters/Book";
+import {TicketIssueParams, TicketIssueProps} from "./request/parameters/TicketIssue";
+import {RefundParams, RefundProps} from "./request/parameters/Refund";
 
 const mixvelRequestManager = new MixvelRequestManager(
     new MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints),
     new XmlConversionStrategy()
 )
 
-export function getAuthRequest(params: AuthParams) {
-    AuthParamsValidator.validate(params);
-    return mixvelRequestManager.createAuthRequest(params)
+export function getAuthRequest(props: AuthProps): Result<MixvelRequest> {
+    const paramsOrError = AuthParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createAuthRequest(paramsOrError.getValue()));
+}
+
+export function getSearchRequest(props: SearchProps): Result<MixvelRequest> {
+    const paramsOrError = SearchParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createSearchRequest(paramsOrError.getValue()))
+}
+
+export function getPriceRequest(props: PriceProps): Result<MixvelRequest> {
+    const paramsOrError = PriceParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createPriceRequest(paramsOrError.getValue()))
+}
+
+export function getFareRulesRequest(props: PriceProps): Result<MixvelRequest> {
+    const paramsOrError = PriceParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createFareRulesRequest(paramsOrError.getValue()))
 }
 
 /**
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
+ * @props {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
  */
-export function getSearchRequest(params: SearchParams): MixvelRequest {
-    SearchParamsValidator.validate(params)
-    return mixvelRequestManager.createSearchRequest(params)
+export function getBookRequest(props: BookProps): Result<MixvelRequest> {
+    const paramsOrError = BookParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createBookRequest(paramsOrError.getValue()))
 }
 
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getPriceRequest(params: PriceParams): MixvelRequest {
-    PriceParamsValidator.validate(params)
-    return mixvelRequestManager.createPriceRequest(params)
+export function getOrderRetrieveRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
+    const paramsOrError = OrderRetrieveParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createOrderRetrieveRequest(paramsOrError.getValue()))
 }
 
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getFareRulesRequest(params: PriceParams): MixvelRequest {
-    PriceParamsValidator.validate(params)
-    return mixvelRequestManager.createFareRulesRequest(params)
+export function getTicketIssueRequest(props: TicketIssueProps): Result<MixvelRequest> {
+    const paramsOrError = TicketIssueParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createTicketIssueRequest(paramsOrError.getValue()))
 }
 
-/**
- * @param {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getBookRequest(params: BookParams): MixvelRequest {
-    BookParamsValidator.validate(params)
-    return mixvelRequestManager.createBookRequest(params)
+export function getOrderCancelRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
+    const paramsOrError = OrderRetrieveParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createOrderCancelRequest(paramsOrError.getValue()))
 }
 
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
-    OrderRetrieveParamsValidator.validate(params)
-    return mixvelRequestManager.createOrderRetrieveRequest(params)
+export function getServiceListRequest(props: PriceProps): Result<MixvelRequest> {
+    const paramsOrError = PriceParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createServiceListRequest(paramsOrError.getValue()))
 }
 
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
-    TicketIssueParamsValidator.validate(params)
-    return mixvelRequestManager.createTicketIssueRequest(params)
+export function getRefundCalculationRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
+    const paramsOrError = OrderRetrieveParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createRefundCalculationRequest(paramsOrError.getValue()))
 }
 
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
-    OrderRetrieveParamsValidator.validate(params)
-    return mixvelRequestManager.createOrderCancelRequest(params)
-}
-
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getServiceListRequest(params: PriceParams): MixvelRequest {
-    PriceParamsValidator.validate(params)
-    return mixvelRequestManager.createServiceListRequest(params)
-}
-
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getRefundCalculationRequest(params: OrderRetrieveParams) {
-    return mixvelRequestManager.createRefundCalculationRequest(params)
-}
-
-/**
- *
- * @param params
- * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}
- */
-export function getRefundRequest(params: RefundParams) {
-    return mixvelRequestManager.createRefundRequest(params)
+export function getRefundRequest(props: RefundProps): Result<MixvelRequest> {
+    const paramsOrError = RefundParams.create(props)
+    return paramsOrError.isFailure
+        ? Result.fail<MixvelRequest>(paramsOrError.error)
+        : Result.ok<MixvelRequest>(mixvelRequestManager.createRefundRequest(paramsOrError.getValue()))
 }

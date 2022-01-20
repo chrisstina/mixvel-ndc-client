@@ -10,7 +10,7 @@ class TicketIssueRequestUnitTest {
             orderId: 'SOME-ORDER-ID',
             payment: {amount: 12.44, currency: 'EUR'},
             formOfPayment: {type: "BILL", data: "TEST LLC"}
-        }).body
+        }).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderChangeRQ')
@@ -24,7 +24,7 @@ class TicketIssueRequestUnitTest {
             orderId: 'SOME-ORDER-ID',
             payment: {amount: 0.44, currency: 'EUR'},
             formOfPayment: {type: "CASH"}
-        }).body
+        }).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderChangeRQ')

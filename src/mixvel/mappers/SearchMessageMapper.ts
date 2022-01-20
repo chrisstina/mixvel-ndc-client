@@ -1,14 +1,14 @@
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
-import {SearchParams} from "../../request/parameters";
 
 import {Mixvel_AirShoppingRQ} from "../messages/Mixvel_AirShoppingRQ";
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc";
 import {toMixvel as toMixvelCabin} from "./dictionary/cabin";
+import {SearchProps} from "../../request/parameters/Search";
 
 const {DateTime} = require('luxon')
 
 export class SearchMessageMapper implements MixvelMessageMapper {
-    constructor(public readonly params: SearchParams) {
+    constructor(public readonly params: SearchProps) {
     }
     map(): Mixvel_AirShoppingRQ {
         const mixvelRequestMessage = new Mixvel_AirShoppingRQ()
@@ -24,7 +24,7 @@ export class SearchMessageMapper implements MixvelMessageMapper {
         })
 
         this.params.travelers.forEach(({id, ptc, age}) => { // @todo maybe autogenerate id?
-            mixvelRequestMessage.addPax(id, toMixvelPTC(ptc), age)
+            mixvelRequestMessage.addPax(id, toMixvelPTC(ptc), age.toString())
         })
 
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {

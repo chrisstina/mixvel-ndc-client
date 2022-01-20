@@ -6,7 +6,7 @@ import {getOrderCancelRequest} from "../src"
 @suite
 class OrderCancelRequestUnitTest {
     @test 'Create order retrieve request'() {
-        const rq = getOrderCancelRequest({orderId: 'FAKE-ORDER'}).body
+        const rq = getOrderCancelRequest({orderId: 'FAKE-ORDER'}).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderCancelRQ')

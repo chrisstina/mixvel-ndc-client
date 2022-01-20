@@ -9,7 +9,7 @@ class PriceRequestUnitTest {
         const rq = getFareRulesRequest({
             offerId: 'SOME-OFFER',
             offerItemIds: ['OF1', 'OF2']
-        }).body
+        }).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderRulesRQ')

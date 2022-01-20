@@ -2,12 +2,12 @@ import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
 import {getBookRequest} from "../src"
-import {BookParams} from "../dist/request/parameters";
+import {BookProps} from "../src/request/parameters/Book";
 
 @suite
 class BookRequestUnitTest {
     @test 'Create Mixvel book RQ for 1ADT RT'() {
-        const params: BookParams = {
+        const params: BookProps = {
             offerId: 'SOME-OFFER',
             offerItemIds: [{id: 'OFFER-1', ptc: "ADULT"}],
             passengers: [
@@ -35,7 +35,7 @@ class BookRequestUnitTest {
             ]
         }
 
-        const rq = getBookRequest(params).body
+        const rq = getBookRequest(params).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderCreateRQ')
@@ -46,7 +46,7 @@ class BookRequestUnitTest {
     }
 
     @test 'Create Mixvel book RQ for 2ADT 1CHD 1INF RT'() {
-        const params: BookParams = {
+        const params: BookProps = {
             offerId: 'SOME-OFFER',
             offerItemIds: [
                 {id: 'OFFER-1', ptc: "ADULT"},
@@ -141,7 +141,7 @@ class BookRequestUnitTest {
             ]
         }
 
-        const rq = getBookRequest(params).body
+        const rq = getBookRequest(params).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderCreateRQ')

@@ -12,7 +12,7 @@ class RefundRequestUnitTest {
                 ['SOME_ORDER', 'ITEM-1'],
                 ['SOME_ORDER', 'ITEM-2']
             ]
-        }).body
+        }).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderChangeRQ')

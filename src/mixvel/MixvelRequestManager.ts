@@ -6,7 +6,6 @@ import {
     OrderRetrieveParams,
     PriceParams,
     RefundParams,
-    SearchParams,
     TicketIssueParams
 } from "../request/parameters";
 
@@ -32,6 +31,7 @@ import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
+import {SearchProps} from "../request/parameters/Search";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -82,7 +82,7 @@ export class MixvelRequestManager {
             this.conversionStrategy)
     }
 
-    public createSearchRequest(params: SearchParams): MixvelRequest {
+    public createSearchRequest(params: SearchProps): MixvelRequest {
         return this.createRequest(params, {
             mapper: new SearchMessageMapper(params),
             validator: SearchParamsValidator

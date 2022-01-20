@@ -9,7 +9,7 @@ class ServiceRequestUnitTest {
         const request = getServiceListRequest({
             offerId: 'SOME-OFFER',
             offerItemIds: ['OF1', 'OF2']
-        })
+        }).getValue()
 
         expect(request.options.endpoint).to.equal('api/ServiceList')
 
