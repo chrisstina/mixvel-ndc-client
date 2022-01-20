@@ -1,8 +1,7 @@
 
-import {RefundParams} from "../../request/parameters";
-
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
 import {Mixvel_OrderChangeRQ} from "../messages/Mixvel_OrderChangeRQ";
+import {RefundParams} from "../../request/parameters/Refund";
 
 export class RefundOrderMessageMapper implements MixvelMessageMapper {
     constructor(public readonly params: RefundParams) {

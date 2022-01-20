@@ -2,8 +2,7 @@ import assert from "assert";
 
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
 
-import {BookParams} from "../../request/parameters";
-import {Passenger} from "../../request/types";
+import {BookParams, Passenger} from "../../request/parameters/Book";
 
 import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
 

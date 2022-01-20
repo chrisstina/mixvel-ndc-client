@@ -130,7 +130,7 @@ class Contact {
     }
 }
 
-class Passenger {
+export class Passenger {
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
     public readonly ptc: PaxCategory
     @ValidateNested()

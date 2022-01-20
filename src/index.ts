@@ -19,28 +19,28 @@ const mixvelRequestManager = new MixvelRequestManager(
 
 export function getAuthRequest(props: AuthProps): Result<MixvelRequest> {
     const paramsOrError = AuthParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createAuthRequest(paramsOrError.getValue()));
 }
 
 export function getSearchRequest(props: SearchProps): Result<MixvelRequest> {
     const paramsOrError = SearchParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createSearchRequest(paramsOrError.getValue()))
 }
 
 export function getPriceRequest(props: PriceProps): Result<MixvelRequest> {
     const paramsOrError = PriceParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createPriceRequest(paramsOrError.getValue()))
 }
 
 export function getFareRulesRequest(props: PriceProps): Result<MixvelRequest> {
     const paramsOrError = PriceParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createFareRulesRequest(paramsOrError.getValue()))
 }
@@ -50,49 +50,49 @@ export function getFareRulesRequest(props: PriceProps): Result<MixvelRequest> {
  */
 export function getBookRequest(props: BookProps): Result<MixvelRequest> {
     const paramsOrError = BookParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createBookRequest(paramsOrError.getValue()))
 }
 
 export function getOrderRetrieveRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
     const paramsOrError = OrderRetrieveParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createOrderRetrieveRequest(paramsOrError.getValue()))
 }
 
 export function getTicketIssueRequest(props: TicketIssueProps): Result<MixvelRequest> {
     const paramsOrError = TicketIssueParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createTicketIssueRequest(paramsOrError.getValue()))
 }
 
 export function getOrderCancelRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
     const paramsOrError = OrderRetrieveParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createOrderCancelRequest(paramsOrError.getValue()))
 }
 
 export function getServiceListRequest(props: PriceProps): Result<MixvelRequest> {
     const paramsOrError = PriceParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createServiceListRequest(paramsOrError.getValue()))
 }
 
 export function getRefundCalculationRequest(props: OrderRetrieveProps): Result<MixvelRequest> {
     const paramsOrError = OrderRetrieveParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createRefundCalculationRequest(paramsOrError.getValue()))
 }
 
 export function getRefundRequest(props: RefundProps): Result<MixvelRequest> {
     const paramsOrError = RefundParams.create(props)
-    return paramsOrError.isFailure
+    return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createRefundRequest(paramsOrError.getValue()))
 }

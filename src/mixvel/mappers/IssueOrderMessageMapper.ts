@@ -1,10 +1,10 @@
 import assert from "assert";
 
-import {TicketIssueParams} from "../../request/parameters";
 import {FopType} from "../../request/types";
 
 import {MixvelMessageMapper} from "./MixvelMessageMapper";
 import {DirectBill, Mixvel_OrderChangeRQ, OtherPaymentMethod} from "../messages/Mixvel_OrderChangeRQ";
+import {TicketIssueParams} from "../../request/parameters/TicketIssue";
 
 export class IssueOrderMessageMapper implements MixvelMessageMapper {
     constructor(public readonly params: TicketIssueParams) {

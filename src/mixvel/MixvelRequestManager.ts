@@ -1,22 +1,19 @@
 import {RequestGenerationError} from "../core/errors/RequestGenerationError";
 import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
 
-import {
-    BookParams,
-    OrderRetrieveParams,
-    PriceParams,
-    RefundParams,
-    TicketIssueParams
-} from "../request/parameters";
-
 import {MixvelRequest, MixvelRequestOptions} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
-import {AbstractParamsValidator} from "../request/validators/AbstractParamsValidator";
-import {AuthParamsValidator} from "./validators/AuthParamsValidator";
+import {SearchParams} from "../request/parameters/Search";
+import {PriceParams} from "../request/parameters/Price";
+import {BookParams} from "../request/parameters/Book";
+import {TicketIssueParams} from "../request/parameters/TicketIssue";
+import {RefundParams} from "../request/parameters/Refund";
+import {OrderRetrieveParams} from "../request/parameters/OrderRetrieve";
+
+import {AbstractParamsValidator} from "./validators/AbstractParamsValidator";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
-import {SearchParamsValidator} from "./validators/SearchParamsValidator";
 
 import {MixvelMessageMapper} from "./mappers/MixvelMessageMapper";
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
@@ -31,7 +28,6 @@ import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
-import {SearchProps} from "../request/parameters/Search";
 
 export class MixvelRequestOptionsManager {
     static create(params: {
@@ -75,17 +71,15 @@ export class MixvelRequestManager {
     }
 
     public createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
-        AuthParamsValidator.validate(params)
         return new MixvelRequest(
             new MixvelAuthAppData(params.login, params.password, params.structureId),
             MixvelRequestOptionsManager.create({endpoint: this.endpointManager.getEndpointByKey('auth')}),
             this.conversionStrategy)
     }
 
-    public createSearchRequest(params: SearchProps): MixvelRequest {
+    public createSearchRequest(params: SearchParams): MixvelRequest {
         return this.createRequest(params, {
-            mapper: new SearchMessageMapper(params),
-            validator: SearchParamsValidator
+            mapper: new SearchMessageMapper(params)
         })
     }
 
@@ -170,7 +164,7 @@ export class MixvelRequestManager {
 
     protected createRequest(requestParams: object, services: {
         mapper: MixvelMessageMapper,
-        validator?: typeof AbstractParamsValidator
+        validator?: AbstractParamsValidator
     }): MixvelRequest {
         // run specific mixvel validation
         if (services.validator) {

@@ -1,7 +1,6 @@
 import assert from "assert";
-
-import {AbstractParamsValidator} from "../../request/validators/AbstractParamsValidator";
-import {BookParams} from "../../request/parameters";
+import {BookParams} from "../../request/parameters/Book";
+import {AbstractParamsValidator} from './AbstractParamsValidator'
 
 export class BookParamsValidator extends AbstractParamsValidator {
     public static validate(props: BookParams): true | never {
