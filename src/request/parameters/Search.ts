@@ -5,7 +5,8 @@ import {
     IsIn,
     IsNumber,
     Length,
-    Max, Min,
+    Max,
+    Min,
     MinDate,
     ValidateNested
 } from "class-validator";
@@ -24,14 +25,14 @@ export class OriginDestination {
     @Length(3, 3)
     public to: string
     @MinDate(new Date())
-    public dateRangeStart: string | Date
+    public dateRangeStart: Date
     @MinDate(new Date())
-    public dateRangeEnd: string | Date
+    public dateRangeEnd: Date
 
     constructor(from: string,
                 to: string,
-                dateRangeStart: string | Date,
-                dateRangeEnd: string | Date
+                dateRangeStart: Date,
+                dateRangeEnd: Date
     ) {
         this.from = from
         this.to = to

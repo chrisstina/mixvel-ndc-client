@@ -77,8 +77,8 @@ getSearchRequest({
         {ptc: 'INFANT', age: "1", id: "4"},
     ],
     originDestinations: [
-        {from: "MOW", to: "LED", dateRangeEnd: "2021-12-12", dateRangeStart: "2021-12-12"},
-        {from: "LED", to: "MOW", dateRangeEnd: "2021-12-15", dateRangeStart: "2021-12-15"}
+        {from: "MOW", to: "LED", dateRangeEnd: new Date("2021-12-12"), dateRangeStart: new Date("2021-12-12")},
+        {from: "LED", to: "MOW", dateRangeEnd: new Date("2021-12-15"), dateRangeStart: new Date("2021-12-15")}
     ],
     cabin: "ECONOMY",
     preferredCarriers: null
@@ -94,8 +94,8 @@ getSearchRequest({
         {ptc: 'ADULT', age: "30", id: "1"},
     ],
     originDestinations: [
-        {from: "MOW", to: "LED", dateRangeEnd: "2021-12-12", dateRangeStart: "2021-12-12"},
-        {from: "LED", to: "MOW", dateRangeEnd: "2021-12-15", dateRangeStart: "2021-12-15"}
+        {from: "MOW", to: "LED", dateRangeEnd: new Date("2021-12-12"), dateRangeStart: new Date("2021-12-12")},
+        {from: "LED", to: "MOW", dateRangeEnd: new Date("2021-12-15"), dateRangeStart: new Date("2021-12-15")}
     ],
     cabin: "BUSINESS",
     preferredCarriers: ["SU"]

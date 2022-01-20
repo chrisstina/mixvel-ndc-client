@@ -3,9 +3,9 @@ import { Cabin, PaxCategory } from "../types";
 export declare class OriginDestination {
     from: string;
     to: string;
-    dateRangeStart: string | Date;
-    dateRangeEnd: string | Date;
-    constructor(from: string, to: string, dateRangeStart: string | Date, dateRangeEnd: string | Date);
+    dateRangeStart: Date;
+    dateRangeEnd: Date;
+    constructor(from: string, to: string, dateRangeStart: Date, dateRangeEnd: Date);
 }
 declare class AnonymousTraveler {
     readonly id: string;
