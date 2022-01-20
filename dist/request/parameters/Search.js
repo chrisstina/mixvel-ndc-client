@@ -42,7 +42,7 @@ var AnonymousTraveler = /** @class */ (function () {
         this.age = age;
     }
     __decorate([
-        (0, class_validator_1.IsAlphanumeric)()
+        (0, class_validator_1.IsString)()
     ], AnonymousTraveler.prototype, "id", void 0);
     __decorate([
         (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
