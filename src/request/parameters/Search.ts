@@ -1,9 +1,9 @@
 import {
     ArrayNotEmpty,
     IsAlpha,
-    IsAlphanumeric,
     IsIn,
     IsNumber,
+    IsString,
     Length,
     Max,
     Min,
@@ -42,7 +42,7 @@ export class OriginDestination {
 }
 
 class AnonymousTraveler {
-    @IsAlphanumeric()
+    @IsString()
     public readonly id: string
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
     public readonly ptc: PaxCategory
