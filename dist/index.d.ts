@@ -1,6 +1,6 @@
 import { MixvelRequest } from "./mixvel/MixvelRequest";
-import { AuthParams, BookParams, OrderRetrieveParams, PriceParams, RefundParams, SearchParams, TicketIssueParams } from "./request/parameters";
-export declare function getAuthRequest(params: AuthParams): MixvelRequest;
+import { AuthParamsProps, BookParams, OrderRetrieveParams, PriceParams, RefundParams, SearchParams, TicketIssueParams } from "./request/parameters";
+export declare function getAuthRequest(props: AuthParamsProps): Promise<MixvelRequest>;
 /**
  * @param params
  * @return {"headers": {},"body": string, "options": {"method": "GET" | "POST","endpoint": string}}

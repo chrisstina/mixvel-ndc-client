@@ -12,11 +12,18 @@ export declare type SearchParams = {
     cabin: Cabin;
     preferredCarriers: string[] | null;
 };
-export declare type AuthParams = {
+export declare type AuthParamsProps = {
     login: string;
     password: string;
     structureId: string;
 };
+export declare class AuthParams {
+    login: string;
+    password: string;
+    structureId: string;
+    private constructor();
+    static create(props: AuthParamsProps): Promise<AuthParams>;
+}
 export declare type PriceParams = {
     offerId: string;
     offerItemIds: string[];
