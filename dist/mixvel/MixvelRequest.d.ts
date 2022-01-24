@@ -22,7 +22,7 @@ export declare class MixvelRequest {
      * @param conversionStrategy
      */
     constructor(message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData, options: MixvelRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
-    get body(): string | MixvelEnvelope;
+    get body(): string | Object;
     get headers(): {
         [index: string]: string;
     };

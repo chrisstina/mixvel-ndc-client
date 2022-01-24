@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2021
+  -->
+
+<MixEnv:Envelope xmlns:MixEnv="https://www.mixvel.com/API/XSD/mixvel_envelope/1_06">
+    <Header/>
+    <Body>
+        <MessageInfo MessageId="8c2d8ee8-cf2c-4959-8f86-011b4eb185b9" TimeSent="2021-12-01T07:37:21.2610327Z"/>
+        <AppData>
+            <View:Mixvel_OrderViewRS xmlns:View="https://www.mixvel.com/API/XSD/Mixvel_OrderViewRS/1_01">
+                <Error>
+                    <ErrorType>InternalServerError</ErrorType>
+                    <CanRetry>false</CanRetry>
+                    <TicketId>b7348ba4-c300-48f6-8499-acabd8c4596b</TicketId>
+                    <Code>MIX-200002</Code>
+                    <DescText>Внутренняя ошибка сервиса. Обратитесь в службу технической поддержки (неисправность № b7348ba4-c300-48f6-8499-acabd8c4596b)</DescText>
+                </Error>
+            </View:Mixvel_OrderViewRS>
+        </AppData>
+    </Body>
+</MixEnv:Envelope>

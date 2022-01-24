@@ -7,6 +7,7 @@ import { OrderRetrieveProps } from "./request/parameters/OrderRetrieve";
 import { BookProps } from "./request/parameters/Book";
 import { TicketIssueProps } from "./request/parameters/TicketIssue";
 import { RefundProps } from "./request/parameters/Refund";
+import { MixvelResponseError, MixvelResponseMessage } from "./mixvel/MixvelResponseManager";
 export declare function getAuthRequest(props: AuthProps): Result<MixvelRequest>;
 export declare function getSearchRequest(props: SearchProps): Result<MixvelRequest>;
 export declare function getPriceRequest(props: PriceProps): Result<MixvelRequest>;
@@ -21,3 +22,11 @@ export declare function getOrderCancelRequest(props: OrderRetrieveProps): Result
 export declare function getServiceListRequest(props: PriceProps): Result<MixvelRequest>;
 export declare function getRefundCalculationRequest(props: OrderRetrieveProps): Result<MixvelRequest>;
 export declare function getRefundRequest(props: RefundProps): Result<MixvelRequest>;
+/**
+ * @param {string|{}} data - response XML or JSON with errors
+ */
+export declare function getResponse(data: string | {
+    status: string;
+    errors: string[];
+    title: string;
+}): Promise<Result<MixvelResponseMessage | MixvelResponseError>>;

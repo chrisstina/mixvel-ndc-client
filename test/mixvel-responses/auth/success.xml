@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MixEnv:Envelope xmlns:MixEnv="https://www.mixvel.com/API/XSD/mixvel_envelope/1_06">
+    <Header/>
+    <Body id="ID1">
+        <MessageInfo MessageId="703423d1-595c-49f5-98c2-5dcabe950276" ReplyTo="79b67a26-6fc3-41e3-8ac4-14e0ac0245c8" TimeSent="2020-11-25T13:37:48Z"/>
+        <AppData>
+            <auth:AuthResponse xmlns:auth="https://www.mixvel.com/API/XSD/mixvel_auth/1_01">
+                <Token>eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlRlc3QgQWdlbnQiLCJleHAiOjE2MDYzMTI4MDAsImlhdCI6MTYwNjMwOTIwMH0.xTPifj6i5Bf_Wl6sw6nOLL3jHDk-DeRozjv3YeuMFUphbkA9-NVqiPEs_7frD_ZVPEoXnoBNgBEc9sr8S53o5w</Token>
+            </auth:AuthResponse>
+        </AppData>
+    </Body>
+</MixEnv:Envelope>

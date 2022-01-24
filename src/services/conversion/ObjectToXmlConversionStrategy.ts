@@ -1,7 +1,7 @@
 const xml2js = require('xml2js')
 import {IConversionStrategy} from "./IConversionSrategy";
 
-export class XmlConversionStrategy implements IConversionStrategy {
+export class ObjectToXmlConversionStrategy implements IConversionStrategy {
     private xmlBuilder = new xml2js.Builder()
 
     execute(payload: Object): string {

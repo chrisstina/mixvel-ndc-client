@@ -1,9 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRefundRequest = exports.getRefundCalculationRequest = exports.getServiceListRequest = exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getFareRulesRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
+exports.getResponse = exports.getRefundRequest = exports.getRefundCalculationRequest = exports.getServiceListRequest = exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getFareRulesRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
 var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
 var Result_1 = require("./core/Result");
-var XmlConversionStrategy_1 = require("./services/conversion/XmlConversionStrategy");
+var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
+var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var Auth_1 = require("./request/parameters/Auth");
 var Search_1 = require("./request/parameters/Search");
 var Price_1 = require("./request/parameters/Price");
@@ -11,7 +15,10 @@ var OrderRetrieve_1 = require("./request/parameters/OrderRetrieve");
 var Book_1 = require("./request/parameters/Book");
 var TicketIssue_1 = require("./request/parameters/TicketIssue");
 var Refund_1 = require("./request/parameters/Refund");
-var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints), new XmlConversionStrategy_1.XmlConversionStrategy());
+var MixvelResponseManager_1 = require("./mixvel/MixvelResponseManager");
+var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponseParsingError"));
+var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints), new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy());
+var mixvelResponseManager = new MixvelResponseManager_1.MixvelResponseManager(require('./mixvel/config/responses').allowedNodeNames, new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy());
 function getAuthRequest(props) {
     var paramsOrError = Auth_1.AuthParams.create(props);
     return paramsOrError.isFailure && paramsOrError.error
@@ -92,3 +99,20 @@ function getRefundRequest(props) {
         : Result_1.Result.ok(mixvelRequestManager.createRefundRequest(paramsOrError.getValue()));
 }
 exports.getRefundRequest = getRefundRequest;
+/**
+ * @param {string|{}} data - response XML or JSON with errors
+ */
+function getResponse(data) {
+    if (typeof data !== "string" && data.errors && data.errors.length) {
+        return Promise.resolve().then(function () { return Result_1.Result.fail(data.title); });
+    }
+    if (typeof data === "string") {
+        return mixvelResponseManager.getResponse(data)
+            .then(function (mixvelResponse) {
+            return Result_1.Result.ok(mixvelResponse);
+        })
+            .catch(function (err) { return Result_1.Result.fail(err.message); });
+    }
+    return Promise.reject(new ResponseParsingError_1.default('Unknown input format'));
+}
+exports.getResponse = getResponse;

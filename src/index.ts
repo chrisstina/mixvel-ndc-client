@@ -2,7 +2,8 @@ import {MixvelRequest} from "./mixvel/MixvelRequest"
 import {MixvelEndpointManager, MixvelRequestManager} from "./mixvel/MixvelRequestManager";
 import {Result} from "./core/Result";
 
-import {XmlConversionStrategy} from "./services/conversion/XmlConversionStrategy";
+import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlConversionStrategy";
+import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
 
 import {AuthParams, AuthProps} from "./request/parameters/Auth";
 import {SearchParams, SearchProps} from "./request/parameters/Search";
@@ -12,10 +13,18 @@ import {BookParams, BookProps} from "./request/parameters/Book";
 import {TicketIssueParams, TicketIssueProps} from "./request/parameters/TicketIssue";
 import {RefundParams, RefundProps} from "./request/parameters/Refund";
 
+import {MixvelResponseManager, MixvelResponseError, MixvelResponseMessage} from "./mixvel/MixvelResponseManager";
+import ResponseParsingError from "./core/errors/ResponseParsingError";
+
 const mixvelRequestManager = new MixvelRequestManager(
     new MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints),
-    new XmlConversionStrategy()
-)
+    new ObjectToXmlConversionStrategy()
+);
+
+const mixvelResponseManager = new MixvelResponseManager(
+    require('./mixvel/config/responses').allowedNodeNames,
+    new XmlToObjectConversionStrategy()
+);
 
 export function getAuthRequest(props: AuthProps): Result<MixvelRequest> {
     const paramsOrError = AuthParams.create(props)
@@ -95,4 +104,22 @@ export function getRefundRequest(props: RefundProps): Result<MixvelRequest> {
     return paramsOrError.isFailure && paramsOrError.error
         ? Result.fail<MixvelRequest>(paramsOrError.error)
         : Result.ok<MixvelRequest>(mixvelRequestManager.createRefundRequest(paramsOrError.getValue()))
+}
+
+/**
+ * @param {string|{}} data - response XML or JSON with errors
+ */
+export function getResponse(data: string | { status: string, errors: string[], title: string }): Promise<Result<MixvelResponseMessage | MixvelResponseError>> {
+    if (typeof data !== "string" && data.errors && data.errors.length) {
+        return Promise.resolve().then(() => Result.fail<MixvelResponseError>(data.title) )
+    }
+
+    if (typeof data === "string") {
+        return mixvelResponseManager.getResponse(data)
+            .then(mixvelResponse => {
+                return Result.ok<MixvelResponseMessage | MixvelResponseError>(mixvelResponse)
+            })
+            .catch(err => Result.fail<MixvelResponseError>(err.message))
+    }
+    return Promise.reject(new ResponseParsingError('Unknown input format'))
 }
