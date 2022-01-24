@@ -17,8 +17,8 @@ export class SearchMessageMapper implements MixvelMessageMapper {
             mixvelRequestMessage.addOriginDestination(
                 od.from,
                 od.to,
-                DateTime.fromISO(od.dateRangeStart).toISODate(),
-                DateTime.fromISO(od.dateRangeEnd).toISODate(),
+                DateTime.fromJSDate(od.dateRangeStart).toISODate(),
+                DateTime.fromJSDate(od.dateRangeEnd).toISODate(),
                 toMixvelCabin(this.params.cabin)
             )
         })

@@ -13,7 +13,7 @@ var SearchMessageMapper = /** @class */ (function () {
         var _this = this;
         var mixvelRequestMessage = new Mixvel_AirShoppingRQ_1.Mixvel_AirShoppingRQ();
         this.params.originDestinations.forEach(function (od) {
-            mixvelRequestMessage.addOriginDestination(od.from, od.to, DateTime.fromISO(od.dateRangeStart).toISODate(), DateTime.fromISO(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin));
+            mixvelRequestMessage.addOriginDestination(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin));
         });
         this.params.travelers.forEach(function (_a) {
             var id = _a.id, ptc = _a.ptc, age = _a.age;
