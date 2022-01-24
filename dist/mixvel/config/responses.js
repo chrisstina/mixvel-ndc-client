@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.allowedNodeNames = void 0;
 exports.allowedNodeNames = [
-    "auth:AuthResponse",
+    "Auth:AuthResponse",
     "Shop:Mixvel_AirShoppingRS",
     "Services:Mixvel_ServiceListRS",
     "Op:Mixvel_OfferPriceRS",

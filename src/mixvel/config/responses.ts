@@ -1,5 +1,5 @@
 export const allowedNodeNames = [
-    "auth:AuthResponse",
+    "Auth:AuthResponse",
     "Shop:Mixvel_AirShoppingRS",
     "Services:Mixvel_ServiceListRS",
     "Op:Mixvel_OfferPriceRS",

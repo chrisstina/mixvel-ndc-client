@@ -26,13 +26,13 @@ var AuthParams = /** @class */ (function () {
         return Result_1.Result.ok(params);
     };
     __decorate([
-        (0, class_validator_1.IsAlphanumeric)()
+        (0, class_validator_1.IsString)()
     ], AuthParams.prototype, "login", void 0);
     __decorate([
-        (0, class_validator_1.IsAlphanumeric)()
+        (0, class_validator_1.IsString)()
     ], AuthParams.prototype, "password", void 0);
     __decorate([
-        (0, class_validator_1.IsAlphanumeric)()
+        (0, class_validator_1.IsString)()
     ], AuthParams.prototype, "structureId", void 0);
     return AuthParams;
 }());

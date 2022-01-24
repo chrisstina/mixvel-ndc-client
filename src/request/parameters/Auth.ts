@@ -1,4 +1,4 @@
-import {IsAlphanumeric} from "class-validator";
+import {IsAlphanumeric, IsString} from "class-validator";
 import {Result} from "../../core/Result";
 import {RequestValidationService} from '../../services/RequestValidationService'
 
@@ -11,13 +11,13 @@ export type AuthProps = {
 }
 
 export class AuthParams {
-    @IsAlphanumeric()
+    @IsString()
     public readonly login: string
 
-    @IsAlphanumeric()
+    @IsString()
     public readonly password: string
 
-    @IsAlphanumeric()
+    @IsString()
     public readonly structureId: string
 
     private constructor(login: string, password: string, structureId: string) {

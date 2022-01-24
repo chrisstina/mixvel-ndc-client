@@ -1,5 +1,5 @@
-import { MixvelRequest } from "./mixvel/MixvelRequest";
 import { Result } from "./core/Result";
+import { MixvelRequest } from "./mixvel/MixvelRequest";
 import { AuthProps } from "./request/parameters/Auth";
 import { SearchProps } from "./request/parameters/Search";
 import { PriceProps } from "./request/parameters/Price";

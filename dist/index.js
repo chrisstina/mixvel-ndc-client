@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.extractDataLists = exports.getResponse = exports.getRefundRequest = exports.getRefundCalculationRequest = exports.getServiceListRequest = exports.getOrderCancelRequest = exports.getTicketIssueRequest = exports.getOrderRetrieveRequest = exports.getBookRequest = exports.getFareRulesRequest = exports.getPriceRequest = exports.getSearchRequest = exports.getAuthRequest = void 0;
-var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
 var Result_1 = require("./core/Result");
+var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponseParsingError"));
+var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
 var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var Auth_1 = require("./request/parameters/Auth");
@@ -16,11 +17,11 @@ var Book_1 = require("./request/parameters/Book");
 var TicketIssue_1 = require("./request/parameters/TicketIssue");
 var Refund_1 = require("./request/parameters/Refund");
 var MixvelResponseManager_1 = require("./mixvel/MixvelResponseManager");
-var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponseParsingError"));
 var DataList_1 = require("./mixvel/DataList");
 var datalist_1 = require("./mixvel/constants/datalist");
 var mixvelRequestManager = new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints), new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy());
 var mixvelResponseManager = new MixvelResponseManager_1.MixvelResponseManager(require('./mixvel/config/responses').allowedNodeNames, new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy());
+// ========== Request management ==============
 function getAuthRequest(props) {
     var paramsOrError = Auth_1.AuthParams.create(props);
     return paramsOrError.isFailure && paramsOrError.error
@@ -101,6 +102,7 @@ function getRefundRequest(props) {
         : Result_1.Result.ok(mixvelRequestManager.createRefundRequest(paramsOrError.getValue()));
 }
 exports.getRefundRequest = getRefundRequest;
+// ========== Response management ==============
 /**
  * @param {string|{}} data - response XML or JSON with errors
  */
