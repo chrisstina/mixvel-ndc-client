@@ -107,8 +107,8 @@ exports.getRefundRequest = getRefundRequest;
  * @param {string|{}} data - response XML or JSON with errors
  */
 function getResponse(data) {
-    if (typeof data !== "string" && data.errors && data.errors.length) {
-        return Promise.resolve().then(function () { return Result_1.Result.fail(data.title); });
+    if (typeof data !== "string" && data.errors && Object.values(data.errors).length > 0) {
+        return Promise.resolve().then(function () { return Result_1.Result.fail("".concat(data.title, ": ").concat(Object.values(data.errors))); });
     }
     if (typeof data === "string") {
         return mixvelResponseManager.getResponse(data)

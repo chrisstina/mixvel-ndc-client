@@ -118,8 +118,8 @@ export function getRefundRequest(props: RefundProps): Result<MixvelRequest> {
  * @param {string|{}} data - response XML or JSON with errors
  */
 export function getResponse(data: string | { status: string, errors: string[], title: string }): Promise<Result<MixvelResponseMessage | MixvelResponseError>> {
-    if (typeof data !== "string" && data.errors && data.errors.length) {
-        return Promise.resolve().then(() => Result.fail<MixvelResponseError>(data.title))
+    if (typeof data !== "string" && data.errors && Object.values(data.errors).length > 0) {
+        return Promise.resolve().then(() => Result.fail<MixvelResponseError>(`${data.title}: ${Object.values(data.errors)}`))
     }
 
     if (typeof data === "string") {
