@@ -1,7 +1,7 @@
 import {
     ArrayNotEmpty,
     IsAlpha,
-    IsIn,
+    IsIn, IsNotEmpty,
     IsNumber,
     IsString,
     Length,
@@ -79,6 +79,8 @@ export class SearchParams {
     @ArrayNotEmpty()
     @ValidateNested({each: true})
     public readonly travelers: AnonymousTraveler[]
+    @IsNotEmpty()
+    @IsIn(['ECONOMY', 'BUSINESS'])
     public readonly cabin: Cabin
     public readonly preferredCarriers: string[] | null
 

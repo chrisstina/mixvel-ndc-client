@@ -83,6 +83,10 @@ var SearchParams = /** @class */ (function () {
         (0, class_validator_1.ArrayNotEmpty)(),
         (0, class_validator_1.ValidateNested)({ each: true })
     ], SearchParams.prototype, "travelers", void 0);
+    __decorate([
+        (0, class_validator_1.IsNotEmpty)(),
+        (0, class_validator_1.IsIn)(['ECONOMY', 'BUSINESS'])
+    ], SearchParams.prototype, "cabin", void 0);
     return SearchParams;
 }());
 exports.SearchParams = SearchParams;

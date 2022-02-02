@@ -83,6 +83,25 @@ class SearchRequestUnitTest {
                 {ptc: 'ADULT', age: 30, id: "1"},
                 {ptc: 'CHILD', age: 5, id: "2"}
             ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "Economy",
+            preferredCarriers: ['SU', 'U6']
+        })
+
+        expect(result.isSuccess).to.be.false
+        expect(result.error).to.contain('cabin must be one of the following values: ECONOMY, BUSINESS')
+        expect(() => {
+            result.getValue()
+        }).to.throw
+
+        result = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"},
+                {ptc: 'CHILD', age: 5, id: "2"}
+            ],
             originDestinations: [],
             cabin: "ECONOMY",
             preferredCarriers: ['SU', 'U6']
