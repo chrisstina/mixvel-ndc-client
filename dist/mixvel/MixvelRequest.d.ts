@@ -3,6 +3,7 @@ import { MixvelEnvelope } from "./MixvelEnvelope";
 import { MixvelAppData } from "./MixvelAppData";
 import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { IRequest } from "../interfaces/IRequest";
 export declare type MixvelRequestOptions = {
     endpoint: string;
     method: "GET" | "POST";
@@ -10,7 +11,7 @@ export declare type MixvelRequestOptions = {
         [index: string]: string;
     };
 };
-export declare class MixvelRequest {
+export declare class MixvelRequest implements IRequest {
     readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData;
     options: MixvelRequestOptions;
     conversionStrategy?: IConversionStrategy | undefined;

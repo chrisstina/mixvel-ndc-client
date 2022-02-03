@@ -1,4 +1,5 @@
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { IRequestManager } from "../interfaces/IRequestManager";
 import { MixvelRequest, MixvelRequestOptions } from "./MixvelRequest";
 import { SearchParams } from "../request/parameters/Search";
 import { PriceParams } from "../request/parameters/Price";
@@ -22,7 +23,7 @@ export declare class MixvelEndpointManager {
     getEndpointForMessage(message: GenericNDCMessage): string | never;
     getEndpointByKey(id: string): string | never;
 }
-export declare class MixvelRequestManager {
+export declare class MixvelRequestManager implements IRequestManager {
     readonly endpointManager: MixvelEndpointManager;
     conversionStrategy: IConversionStrategy;
     constructor(endpointManager: MixvelEndpointManager, conversionStrategy: IConversionStrategy);
@@ -41,7 +42,7 @@ export declare class MixvelRequestManager {
     createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest;
     createRefundRequest(params: RefundParams): MixvelRequest;
     createServiceListRequest(params: PriceParams): MixvelRequest;
-    protected createRequest(requestParams: object, services: {
+    createRequest(requestParams: object, services: {
         mapper: MixvelMessageMapper;
         validator?: AbstractParamsValidator;
     }): MixvelRequest;

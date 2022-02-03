@@ -1,5 +1,8 @@
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
-export declare class MixvelResponseManager {
+import { IResponseManager } from "../interfaces/IResponseManager";
+import { IResponseMessage } from "../interfaces/IResponseMessage";
+import { IResponseError } from "../interfaces/IResponseError";
+export declare class MixvelResponseManager implements IResponseManager {
     responseTypes: string[];
     conversionStrategy: IConversionStrategy;
     readonly rootNodeName = "MixEnv:Envelope";
@@ -18,7 +21,7 @@ export declare class MixvelResponseManager {
  // <Code>MIX-200002</Code>
  // <DescText>Внутренняя ошибка сервиса. Обратитесь в службу технической поддержки (неисправность № b7348ba4-c300-48f6-8499-acabd8c4596b)</DescText>
  */
-export declare class MixvelResponseError {
+export declare class MixvelResponseError implements IResponseError {
     readonly isMixvelError: boolean;
     ErrorType: string;
     CanRetry: boolean;
@@ -33,6 +36,6 @@ export declare class MixvelResponseError {
         DescText?: string[];
     });
 }
-export declare class MixvelResponseMessage {
+export declare class MixvelResponseMessage implements IResponseMessage {
     constructor(data: any);
 }
