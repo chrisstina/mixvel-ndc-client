@@ -1,7 +1,9 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getRefundRequest} from "../src"
+import {createNDCService} from "../../src"
+
+const {getRefundRequest} = createNDCService('mixvel')
 
 @suite
 class RefundRequestUnitTest {

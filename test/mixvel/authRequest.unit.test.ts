@@ -1,7 +1,8 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getAuthRequest} from "../src"
+import {createNDCService} from "../../src"
+const {getAuthRequest} = createNDCService('mixvel')
 
 @suite
 class AuthRequestUnitTest {
@@ -18,7 +19,7 @@ class AuthRequestUnitTest {
         const result = getAuthRequest({login: "foo", password: "", structureId: ""})
 
         expect(result.isSuccess).to.be.false
-        expect(result.error).to.contain('password must contain only letters')
+        expect(result.error).to.contain('password should not be empty')
         expect(() => {result.getValue()}).to.throw
     }
 }

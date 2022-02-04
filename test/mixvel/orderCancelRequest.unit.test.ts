@@ -1,7 +1,9 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getOrderCancelRequest} from "../src"
+import {createNDCService} from "../../src"
+
+const {getOrderCancelRequest} = createNDCService('mixvel')
 
 @suite
 class OrderCancelRequestUnitTest {

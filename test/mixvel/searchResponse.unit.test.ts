@@ -2,7 +2,10 @@ import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 import {readFile} from 'fs/promises'
 
-import {getResponse} from "../src";
+
+import {createNDCService} from "../../src"
+
+const {getResponse} = createNDCService('mixvel')
 
 @suite
 class SearchResponseUnitTest {

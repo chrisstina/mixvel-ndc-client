@@ -1,7 +1,9 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getPriceRequest} from "../src"
+import {createNDCService} from "../../src"
+
+const {getPriceRequest} = createNDCService('mixvel')
 
 @suite
 class PriceRequestUnitTest {

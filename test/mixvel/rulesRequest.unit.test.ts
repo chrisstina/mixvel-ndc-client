@@ -1,10 +1,12 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getFareRulesRequest, getPriceRequest} from "../src"
+import {createNDCService} from "../../src"
+
+const {getFareRulesRequest} = createNDCService('mixvel')
 
 @suite
-class PriceRequestUnitTest {
+class RulesRequestUnitTest {
     @test 'Create fare rules RQ for several offer items'() {
         const rq = getFareRulesRequest({
             offerId: 'SOME-OFFER',
