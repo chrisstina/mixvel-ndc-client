@@ -1,8 +1,8 @@
 import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
-import {getSearchRequest} from "../src"
-
+import {createNDCService} from "../src"
+const {getSearchRequest} = createNDCService('mixvel')
 
 let dateOut = new Date(), dateReturn = new Date()
 dateOut.setDate(dateOut.getDate() + 50);
@@ -10,6 +10,27 @@ dateReturn.setDate(dateReturn.getDate() + 40);
 
 @suite
 class SearchRequestUnitTest {
+
+    @test 'Create TicketMe search request'() {
+        const { getSearchRequest } = createNDCService('ticketme', {party: {agencyId: 'YOUR_KASSA'}})
+        const request = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"},
+                {ptc: 'CHILD', age: 5, id: "2"}
+            ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "ECONOMY",
+            preferredCarriers: []
+        })
+        const rq = request.getValue().body
+
+        console.log(rq)
+
+    }
+
     @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY'() {
         const request = getSearchRequest({
             travelers: [
