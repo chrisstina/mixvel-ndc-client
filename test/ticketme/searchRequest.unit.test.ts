@@ -54,9 +54,10 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('<Passenger PassengerID="PAX2">')
         expect(rq).to.contain('ADT')
         expect(rq).to.contain('CNN')
+        expect(rq).to.contain('<CabinType>\n\t\t\t\t<Code>3')
     }
 
-    @test 'Create TicketMe search RQ for 1ADT and 1CHD LED - MOW - LED with SU and U6 preferred'() {
+    @test 'Create TicketMe search RQ for 1ADT and 1CHD LED - MOW - LED with SU and U6 preferred, only direct flights'() {
         const rq = getSearchRequest({
             travelers: [
                 {ptc: 'ADULT', age: 30, id: "1"},
@@ -67,7 +68,8 @@ class SearchRequestUnitTest {
                 {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
             ],
             cabin: "ECONOMY",
-            preferredCarriers: ['SU', 'U6']
+            preferredCarriers: ['SU', 'U6'],
+            onlyDirect: true
         }).getValue().body
 
         expect(rq).to.not.contain('undefined')
@@ -102,6 +104,6 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('<AirlinePreferences>\n\t\t\t<Airline PreferencesLevel="Preferred">\n\t\t\t\t<AirlineID>SU')
         expect(rq).to.contain('Airline PreferencesLevel="Preferred">\n\t\t\t\t<AirlineID>U6')
 
-        console.log(rq)
+        expect(rq).to.contain('<DirectPreferences>Preferred</DirectPreferences>')
     }
 }

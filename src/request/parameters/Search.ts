@@ -1,8 +1,8 @@
 import {
     ArrayNotEmpty,
-    IsAlpha,
+    IsAlpha, IsBoolean,
     IsIn,
-    IsNumber,
+    IsNumber, IsOptional,
     IsString,
     Length,
     Max,
@@ -69,7 +69,8 @@ export type SearchProps = {
     originDestinations: OriginDestination[],
     travelers: AnonymousTraveler[],
     cabin: Cabin,
-    preferredCarriers: string[] | null
+    preferredCarriers: string[] | null,
+    onlyDirect?: boolean
 }
 
 export class SearchParams {
@@ -81,6 +82,9 @@ export class SearchParams {
     public readonly travelers: AnonymousTraveler[]
     public readonly cabin: Cabin
     public readonly preferredCarriers: string[] | null
+    @IsBoolean()
+    @IsOptional()
+    public readonly onlyDirect: boolean = false
 
     private constructor(props: SearchProps) {
         this.originDestinations = props.originDestinations.map(({
@@ -92,6 +96,9 @@ export class SearchParams {
         this.travelers = props.travelers.map(({id, ptc, age}) => new AnonymousTraveler(id, ptc, age));
         this.cabin = props.cabin;
         this.preferredCarriers = props.preferredCarriers;
+        if (props.onlyDirect) {
+            this.onlyDirect = props.onlyDirect
+        }
     }
 
     public static create(props: SearchProps): Result<SearchParams> {

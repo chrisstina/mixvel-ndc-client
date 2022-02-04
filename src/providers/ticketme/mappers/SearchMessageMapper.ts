@@ -5,6 +5,7 @@ import {PartyCredentials} from "../TicketMeRequest";
 import {AirShoppingRQ} from "../messages/AirShoppingRQ";
 
 import {toTicketMe as toTicketMePTC} from "./dictionary/ptc";
+import {toTicketMe as toTicketMeCabin} from "./dictionary/cabin";
 import {Preflevel} from "../constants/preflevel";
 
 const {DateTime} = require('luxon')
@@ -18,6 +19,10 @@ export class SearchMessageMapper implements IMessageMapper {
         const ticketMeAirShoppingRQ = new AirShoppingRQ()
 
         ticketMeAirShoppingRQ.addParty(this.credentials)
+        ticketMeAirShoppingRQ.setCabinPreference(toTicketMeCabin(this.params.cabin))
+        if (this.params.onlyDirect) {
+            ticketMeAirShoppingRQ.setDirectPreference(Preflevel.PREFERRED)
+        }
 
         this.params.originDestinations.forEach(od => {
             ticketMeAirShoppingRQ.addOriginDestination(

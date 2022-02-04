@@ -4,6 +4,7 @@
 
 import {GenericTicketMeNDCMessage, StringValue} from "./GenericTicketMeNDCMessage";
 import {TicketMePTC} from "../mappers/dictionary/ptc";
+import {TicketMeCabin} from "../mappers/dictionary/cabin";
 import {Preflevel} from "../constants/preflevel";
 
 export class OriginDestination {     // @todo <SegMaxTimePreferences>
@@ -23,7 +24,8 @@ class Pax {
 }
 
 type AirlinePreference = { Airline: { $: { PreferencesLevel: Preflevel }, AirlineID: StringValue[] }[] }
-
+type CabinPreference = { CabinType: { Code: StringValue[] }[] }
+type FlightPreference = { Characteristic: { DirectPreferences: StringValue[] }[] }
 
 /**
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
@@ -41,7 +43,11 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
             ]
         }
     ]
-    public Preference: { AirlinePreferences: AirlinePreference[] }[] = []
+    public Preference: {
+        FlightPreferences?: FlightPreference[],
+        CabinPreferences: CabinPreference[],
+        AirlinePreferences?: AirlinePreference[]
+    }[] = [{CabinPreferences: [{CabinType: [{Code: [{_: TicketMeCabin.ANY}]}]}]}]
     public DataLists: { PassengerList: { Passenger: Pax[] }[] }[] = [
         {
             PassengerList: [
@@ -115,15 +121,23 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
         this.CoreQuery[0].OriginDestinations[0].OriginDestination.push(OD)
     }
 
+    setCabinPreference(cabin: TicketMeCabin) {
+        this.Preference[0].CabinPreferences[0].CabinType[0].Code[0]._ = cabin
+    }
+
+    setDirectPreference(preference: Preflevel) {
+        this.Preference[0]['FlightPreferences'] = [{Characteristic: [{DirectPreferences: [{_: preference}]}]}]
+    }
+
     addCarrierFilters(carriers: string[], level: Preflevel) {
         const airlines = carriers.map(carrier => {
-            return  {
+            return {
                 $: {PreferencesLevel: level},
                 AirlineID: [{_: carrier}]
             }
         })
-        if (this.Preference.length === 0) {
-            this.Preference.push({AirlinePreferences: []})
+        if (!this.Preference[0].AirlinePreferences) {
+            this.Preference[0]['AirlinePreferences'] = []
         }
         this.Preference[0].AirlinePreferences.push({Airline: airlines})
     }
