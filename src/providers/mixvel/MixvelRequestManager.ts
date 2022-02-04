@@ -58,6 +58,8 @@ export class MixvelRequestManager implements IRequestManager {
         public requestOptionsManager: IRequestOptionsManager) {
     }
 
+    public extraConfiguration = {} // no extra cnofig here
+
     createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
         return new MixvelRequest(
             new MixvelAuthAppData(params.login, params.password, params.structureId),

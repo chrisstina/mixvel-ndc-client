@@ -64,10 +64,12 @@ ProviderLocator.register('ticketme', new Provider(
     )
 ))
 
-export function createNDCService(provider: string | IProvider) {
+export function createNDCService(provider: string | IProvider, providerConfig = {}) {
     const theProvider: IProvider = (typeof provider === "string")
         ? ProviderLocator.get(provider)
         : provider
+
+    theProvider.extraConfiguration = providerConfig
 
     let requestManager: IRequestManager = theProvider.requestManager
     let responseManager: IResponseManager = theProvider.responseManager

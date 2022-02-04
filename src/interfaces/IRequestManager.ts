@@ -14,6 +14,9 @@ export interface IRequestManager {
     requestOptionsManager: IRequestOptionsManager
     conversionStrategy: IConversionStrategy;
 
+    // Party data, agency id, lang, currency etc,
+    extraConfiguration: {}
+
     createAuthRequest(params: { login: string, password: string, structureId: string }): IRequest;
 
     createSearchRequest(params: SearchParams): IRequest;
