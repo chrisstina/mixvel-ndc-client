@@ -41,7 +41,7 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
             ]
         }
     ]
-
+    public Preference: { AirlinePreferences: AirlinePreference[] }[] = []
     public DataLists: { PassengerList: { Passenger: Pax[] }[] }[] = [
         {
             PassengerList: [
@@ -51,8 +51,6 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
             ]
         }
     ]
-
-    public Preference: { AirlinePreferences: AirlinePreference[] }[] = []
 
     // public "Metadata" = [
     //     {
@@ -118,15 +116,15 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
     }
 
     addCarrierFilters(carriers: string[], level: Preflevel) {
-        const airlinePreferences = carriers.map(carrier => {
-            const airlinePreference: AirlinePreference = {
-                Airline: [{
-                    $: {PreferencesLevel: level},
-                    AirlineID: [{_: carrier}]
-                }]
+        const airlines = carriers.map(carrier => {
+            return  {
+                $: {PreferencesLevel: level},
+                AirlineID: [{_: carrier}]
             }
-            return airlinePreference
         })
-        this.Preference[0].AirlinePreferences.push(...airlinePreferences)
+        if (this.Preference.length === 0) {
+            this.Preference.push({AirlinePreferences: []})
+        }
+        this.Preference[0].AirlinePreferences.push({Airline: airlines})
     }
 }
