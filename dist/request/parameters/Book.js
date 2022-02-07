@@ -99,7 +99,7 @@ var IdentityDocument = /** @class */ (function () {
         (0, class_validator_1.IsIn)(["PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL"])
     ], IdentityDocument.prototype, "type", void 0);
     __decorate([
-        (0, class_validator_1.IsAlphanumeric)()
+        (0, class_validator_1.IsNotEmpty)({ message: 'Document number should not be empty' })
     ], IdentityDocument.prototype, "number", void 0);
     __decorate([
         (0, class_validator_1.IsAlpha)(),

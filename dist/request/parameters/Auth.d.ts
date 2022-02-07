@@ -1,5 +1,4 @@
 import { AbstractParams } from "./AbstractParams";
-import { Result } from "../../core/Result";
 export declare type AuthProps = {
     login: string;
     password: string;
@@ -10,5 +9,4 @@ export declare class AuthParams extends AbstractParams {
     readonly password: string;
     readonly structureId: string;
     private constructor();
-    static create(props: AuthProps): Result<AuthParams>;
 }

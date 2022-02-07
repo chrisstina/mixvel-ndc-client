@@ -26,16 +26,13 @@ var class_validator_1 = require("class-validator");
 var AbstractParams_1 = require("./AbstractParams");
 var AuthParams = /** @class */ (function (_super) {
     __extends(AuthParams, _super);
-    function AuthParams(login, password, structureId) {
+    function AuthParams(props) {
         var _this = _super.call(this) || this;
-        _this.login = login;
-        _this.password = password;
-        _this.structureId = structureId;
+        _this.login = props.login;
+        _this.password = props.password;
+        _this.structureId = props.structureId;
         return _this;
     }
-    AuthParams.create = function (props) {
-        return this.validate(new AuthParams(props.login, props.password, props.structureId));
-    };
     __decorate([
         (0, class_validator_1.IsString)(),
         (0, class_validator_1.IsNotEmpty)()

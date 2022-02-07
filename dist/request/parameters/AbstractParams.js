@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbstractParams = void 0;
 var Result_1 = require("../../core/Result");
 var RequestValidationService_1 = require("../../services/RequestValidationService");
+var RequestValidationError_1 = require("../../core/errors/RequestValidationError");
 var validationService = new RequestValidationService_1.RequestValidationService();
 var AbstractParams = /** @class */ (function () {
     function AbstractParams() {
@@ -10,7 +11,8 @@ var AbstractParams = /** @class */ (function () {
     AbstractParams.validate = function (params) {
         var validationErrors = validationService.getValidator().validate(params);
         if (validationErrors.length > 0) {
-            return Result_1.Result.fail(validationService.collectValidationErrors(validationErrors).join(', '));
+            var validationErrorText = validationService.collectValidationErrors(validationErrors).join(', ');
+            return Result_1.Result.fail(new RequestValidationError_1.RequestValidationError(validationErrorText).message);
         }
         return Result_1.Result.ok(params);
     };

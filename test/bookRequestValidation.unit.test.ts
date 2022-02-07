@@ -51,6 +51,9 @@ class BookRequestValidationUnitTest {
                 }]
             }
         )
+
+        console.log(result.error)
+
         expect(result.isSuccess).to.be.true
     }
 }

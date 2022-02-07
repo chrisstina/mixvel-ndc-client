@@ -77,7 +77,7 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     // ========== Request management ==============
 
     function getAuthRequest(props: AuthProps): Result<IRequest> {
-        const paramsOrError = AuthParams.create(props)
+        const paramsOrError = AuthParams.create<AuthProps, AuthParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : Result.ok<IRequest>(requestManager.createAuthRequest(paramsOrError.getValue()));

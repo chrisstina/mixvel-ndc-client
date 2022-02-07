@@ -21,14 +21,10 @@ export class AuthParams extends AbstractParams {
     @IsNotEmpty()
     public readonly structureId: string
 
-    private constructor(login: string, password: string, structureId: string) {
+    private constructor(props: AuthProps) {
         super()
-        this.login = login;
-        this.password = password;
-        this.structureId = structureId;
-    }
-
-    public static create(props: AuthProps): Result<AuthParams> {
-        return this.validate(new AuthParams(props.login, props.password, props.structureId))
+        this.login = props.login;
+        this.password = props.password;
+        this.structureId = props.structureId;
     }
 }
