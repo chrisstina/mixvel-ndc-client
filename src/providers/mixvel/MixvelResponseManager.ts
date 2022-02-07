@@ -6,7 +6,7 @@ import {IResponseError} from "../../interfaces/IResponseError";
 
 type MixvelMessage = { [type: string]: { $: string[], Response?: any[], Error?: any[] }[] }
 type MixvelCompleteResponse = {
-    [type: string]: { Body?: { AppData?: MixvelMessage[] }[] }
+    [type: string]: { Body?: { AppData?: MixvelMessage[], Error?: any[]}[] }
 }
 
 class MixvelResponseMapper {
@@ -24,6 +24,11 @@ class MixvelResponseMapper {
             throw new ResponseParsingError('Could not find Body node')
         }
 
+        // General error
+        if (body[0].Error && body[0].Error[0]) {
+            return new MixvelResponseError(body[0].Error[0])
+        }
+
         if (body[0].AppData && body[0].AppData.length > 0) {
             appData = body[0].AppData[0]
         }
@@ -39,6 +44,7 @@ class MixvelResponseMapper {
 
         const mixvelMessage = appData[nodename][0] // Enveloped content
 
+        // Business logic error
         const mixvelError = mixvelMessage.Error
         if (mixvelError && mixvelError[0]) {
             return new MixvelResponseError(mixvelError[0])

@@ -31,5 +31,10 @@ class ResponseUnitTest {
         const rs3 = await getResponse(xml.toString())
         expect(rs3.isSuccess).to.be.true
         expect(rs3.getValue()).to.have.property('Code')
+
+        const xml2 = await readFile('./test/mixvel-responses/error/general-error.xml');
+        const rs4 = await getResponse(xml2.toString())
+        expect(rs4.isSuccess).to.be.true
+        expect(rs4.getValue()).to.have.property('Code')
     }
 }

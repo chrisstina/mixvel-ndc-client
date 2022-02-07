@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MixEnv:Envelope xmlns:MixEnv="https://www.mixvel.com/API/XSD/mixvel_envelope/1_06">
+    <Header/>
+    <Body>
+        <MessageInfo MessageId="e28632ab-e39d-446f-b96c-4de6cfffbe00" TimeSent="2022-02-07T15:24:51.6135873Z"/>
+        <Error>
+            <ErrorType>BadRequest</ErrorType>
+            <CanRetry>false</CanRetry>
+            <Code>MIX-100000</Code>
+            <DescText>XML request not being recognised/resolved. 'm' is an undeclared prefix. Line 7, position 8.</DescText>
+        </Error>
+    </Body>
+</MixEnv:Envelope>

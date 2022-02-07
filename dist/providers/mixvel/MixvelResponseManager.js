@@ -52,6 +52,10 @@ var MixvelResponseMapper = /** @class */ (function () {
         if (body == undefined) {
             throw new ResponseParsingError_1.default('Could not find Body node');
         }
+        // General error
+        if (body[0].Error && body[0].Error[0]) {
+            return new MixvelResponseError(body[0].Error[0]);
+        }
         if (body[0].AppData && body[0].AppData.length > 0) {
             appData = body[0].AppData[0];
         }
@@ -63,6 +67,7 @@ var MixvelResponseMapper = /** @class */ (function () {
             throw new ResponseParsingError_1.default("Unknown response node ".concat(nodename));
         }
         var mixvelMessage = appData[nodename][0]; // Enveloped content
+        // Business logic error
         var mixvelError = mixvelMessage.Error;
         if (mixvelError && mixvelError[0]) {
             return new MixvelResponseError(mixvelError[0]);
