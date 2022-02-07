@@ -34,20 +34,14 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('<AgencyID>YOUR_KASSA</AgencyID>')
         expect(rq).to.contain('<Departure>\n' +
             '\t\t\t\t\t<AirportCode>LED</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-26</Date>\n' +
-            '\t\t\t\t</Departure>')
+            '\t\t\t\t\t<Date>')
         expect(rq).to.contain('<Arrival>\n' +
             '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
             '\t\t\t\t</Arrival>')
         expect(rq).to.contain('<Departure>\n' +
             '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-16</Date>\n' +
-            '\t\t\t\t</Departure>')
-        expect(rq).to.contain('<Departure>\n' +
-            '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-16</Date>\n' +
-            '\t\t\t\t</Departure>\n' +
-            '\t\t\t\t<Arrival>\n' +
+            '\t\t\t\t\t<Date>')
+        expect(rq).to.contain('<Arrival>\n' +
             '\t\t\t\t\t<AirportCode>LED</AirportCode>\n' +
             '\t\t\t\t</Arrival>')
         expect(rq).to.contain('<Passenger PassengerID="PAX1">')
@@ -78,21 +72,14 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('Version="17.2"')
         expect(rq).to.contain('<AgencyID>YOUR_KASSA</AgencyID>')
         expect(rq).to.contain('<Departure>\n' +
-            '\t\t\t\t\t<AirportCode>LED</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-26</Date>\n' +
-            '\t\t\t\t</Departure>')
+            '\t\t\t\t\t<AirportCode>LED</AirportCode>')
         expect(rq).to.contain('<Arrival>\n' +
             '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
             '\t\t\t\t</Arrival>')
         expect(rq).to.contain('<Departure>\n' +
             '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-16</Date>\n' +
-            '\t\t\t\t</Departure>')
-        expect(rq).to.contain('<Departure>\n' +
-            '\t\t\t\t\t<AirportCode>MOW</AirportCode>\n' +
-            '\t\t\t\t\t<Date>2022-03-16</Date>\n' +
-            '\t\t\t\t</Departure>\n' +
-            '\t\t\t\t<Arrival>\n' +
+            '\t\t\t\t\t<Date>')
+        expect(rq).to.contain('<Arrival>\n' +
             '\t\t\t\t\t<AirportCode>LED</AirportCode>\n' +
             '\t\t\t\t</Arrival>')
 
