@@ -1,10 +1,10 @@
 import {
     IsAlpha,
-    IsAlphanumeric,
     IsArray,
     IsDate,
     IsEmail,
     IsIn,
+    IsNotEmpty,
     IsOptional,
     IsString,
     Length,
@@ -84,7 +84,7 @@ class PersonalInfo {
 class IdentityDocument {
     @IsIn(["PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL"])
     public type: DocumentType
-    @IsAlphanumeric()
+    @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string
     @IsAlpha()
     @Length(2, 2)
