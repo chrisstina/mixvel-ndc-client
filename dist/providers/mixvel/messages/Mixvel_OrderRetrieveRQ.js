@@ -14,7 +14,7 @@ var Mixvel_OrderRetrieveRQ = /** @class */ (function () {
     });
     Object.defineProperty(Mixvel_OrderRetrieveRQ.prototype, "nodeName", {
         get: function () {
-            return "m:Mixvel_OrderRetrieveRQ";
+            return "o:Mixvel_OrderRetrieveRQ";
         },
         enumerable: false,
         configurable: true

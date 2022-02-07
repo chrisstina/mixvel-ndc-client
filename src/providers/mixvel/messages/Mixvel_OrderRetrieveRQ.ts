@@ -6,7 +6,7 @@ export class Mixvel_OrderRetrieveRQ implements GenericNDCMessage {
     }
 
     get nodeName() {
-        return "m:Mixvel_OrderRetrieveRQ"
+        return "o:Mixvel_OrderRetrieveRQ"
     }
 
     public OrderFilterCriteria: {
