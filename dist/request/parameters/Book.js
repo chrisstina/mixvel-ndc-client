@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,23 +23,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Passenger = exports.BookParams = void 0;
 var class_validator_1 = require("class-validator");
-var Result_1 = require("../../core/Result");
-var RequestValidationService_1 = require("../../services/RequestValidationService");
-var validationService = new RequestValidationService_1.RequestValidationService();
-var BookParams = /** @class */ (function () {
+var AbstractParams_1 = require("./AbstractParams");
+var BookParams = /** @class */ (function (_super) {
+    __extends(BookParams, _super);
     function BookParams(props) {
-        this.offerId = props.offerId;
-        this.offerItemIds = props.offerItemIds;
-        this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo); });
+        var _this = _super.call(this) || this;
+        _this.offerId = props.offerId;
+        _this.offerItemIds = props.offerItemIds;
+        _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo); });
+        return _this;
     }
-    BookParams.create = function (props) {
-        var params = new BookParams(props);
-        var validationErrors = validationService.getValidator().validate(params);
-        if (validationErrors.length > 0) {
-            return Result_1.Result.fail(validationService.collectValidationErrors(validationErrors).join(', '));
-        }
-        return Result_1.Result.ok(params);
-    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], BookParams.prototype, "offerId", void 0);
@@ -37,7 +45,7 @@ var BookParams = /** @class */ (function () {
         (0, class_validator_1.ValidateNested)({ each: true })
     ], BookParams.prototype, "passengers", void 0);
     return BookParams;
-}());
+}(AbstractParams_1.AbstractParams));
 exports.BookParams = BookParams;
 var OfferItem = /** @class */ (function () {
     function OfferItem(id, ptc) {

@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,9 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchParams = exports.OriginDestination = void 0;
 var class_validator_1 = require("class-validator");
-var Result_1 = require("../../core/Result");
-var RequestValidationService_1 = require("../../services/RequestValidationService");
-var validationService = new RequestValidationService_1.RequestValidationService();
+var AbstractParams_1 = require("./AbstractParams");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination(from, to, dateRangeStart, dateRangeEnd) {
         this.from = from;
@@ -54,31 +67,26 @@ var AnonymousTraveler = /** @class */ (function () {
     ], AnonymousTraveler.prototype, "age", void 0);
     return AnonymousTraveler;
 }());
-var SearchParams = /** @class */ (function () {
+var SearchParams = /** @class */ (function (_super) {
+    __extends(SearchParams, _super);
     function SearchParams(props) {
-        this.onlyDirect = false;
-        this.originDestinations = props.originDestinations.map(function (_a) {
+        var _this = _super.call(this) || this;
+        _this.onlyDirect = false;
+        _this.originDestinations = props.originDestinations.map(function (_a) {
             var from = _a.from, to = _a.to, dateRangeEnd = _a.dateRangeEnd, dateRangeStart = _a.dateRangeStart;
             return new OriginDestination(from, to, dateRangeStart, dateRangeEnd);
         });
-        this.travelers = props.travelers.map(function (_a) {
+        _this.travelers = props.travelers.map(function (_a) {
             var id = _a.id, ptc = _a.ptc, age = _a.age;
             return new AnonymousTraveler(id, ptc, age);
         });
-        this.cabin = props.cabin;
-        this.preferredCarriers = props.preferredCarriers;
+        _this.cabin = props.cabin;
+        _this.preferredCarriers = props.preferredCarriers;
         if (props.onlyDirect) {
-            this.onlyDirect = props.onlyDirect;
+            _this.onlyDirect = props.onlyDirect;
         }
+        return _this;
     }
-    SearchParams.create = function (props) {
-        var params = new SearchParams(props);
-        var validationErrors = validationService.getValidator().validate(params);
-        if (validationErrors.length > 0) {
-            return Result_1.Result.fail(validationService.collectValidationErrors(validationErrors).join(', '));
-        }
-        return Result_1.Result.ok(params);
-    };
     __decorate([
         (0, class_validator_1.ArrayNotEmpty)(),
         (0, class_validator_1.ValidateNested)({ each: true })
@@ -92,5 +100,5 @@ var SearchParams = /** @class */ (function () {
         (0, class_validator_1.IsOptional)()
     ], SearchParams.prototype, "onlyDirect", void 0);
     return SearchParams;
-}());
+}(AbstractParams_1.AbstractParams));
 exports.SearchParams = SearchParams;

@@ -1,9 +1,6 @@
 import {IsIn, IsPositive, IsString, ValidateNested} from "class-validator";
-import {Result} from "../../core/Result";
-import {RequestValidationService} from "../../services/RequestValidationService";
+import {AbstractParams} from "./AbstractParams";
 import {FopType} from "../types";
-
-const validationService = new RequestValidationService()
 
 class FormOfPayment {
     @IsIn(["CASH", "BILL", "CARD"])
@@ -34,7 +31,7 @@ export type TicketIssueProps = {
     formOfPayment: { type: FopType, data?: string | {} }
 }
 
-export class TicketIssueParams {
+export class TicketIssueParams extends AbstractParams {
     @IsString()
     orderId: string
     @ValidateNested()
@@ -43,17 +40,9 @@ export class TicketIssueParams {
     formOfPayment: FormOfPayment
 
     private constructor(props: TicketIssueProps) {
+        super()
         this.orderId = props.orderId
         this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data)
         this.payment = new Payment(props.payment.amount, props.payment.currency)
-    }
-
-    public static create(props: TicketIssueProps): Result<TicketIssueParams> {
-        const params = new TicketIssueParams(props)
-        const validationErrors = validationService.getValidator<TicketIssueParams>().validate(params)
-        if (validationErrors.length > 0) {
-            return Result.fail<TicketIssueParams>(validationService.collectValidationErrors(validationErrors).join(', '))
-        }
-        return Result.ok<TicketIssueParams>(params)
     }
 }

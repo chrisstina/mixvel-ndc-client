@@ -10,12 +10,9 @@ import {
     MinDate,
     ValidateNested
 } from "class-validator";
-import {Result} from "../../core/Result";
-import {RequestValidationService} from "../../services/RequestValidationService";
 
+import {AbstractParams} from "./AbstractParams";
 import {Cabin, PaxCategory} from "../types";
-
-const validationService = new RequestValidationService()
 
 export class OriginDestination {
     @IsAlpha()
@@ -73,7 +70,7 @@ export type SearchProps = {
     onlyDirect?: boolean
 }
 
-export class SearchParams {
+export class SearchParams extends AbstractParams {
     @ArrayNotEmpty()
     @ValidateNested({each: true})
     public originDestinations: OriginDestination[]
@@ -87,6 +84,7 @@ export class SearchParams {
     public readonly onlyDirect: boolean = false
 
     private constructor(props: SearchProps) {
+        super()
         this.originDestinations = props.originDestinations.map(({
                                                                     from,
                                                                     to,
@@ -99,14 +97,5 @@ export class SearchParams {
         if (props.onlyDirect) {
             this.onlyDirect = props.onlyDirect
         }
-    }
-
-    public static create(props: SearchProps): Result<SearchParams> {
-        const params = new SearchParams(props)
-        const validationErrors = validationService.getValidator<SearchParams>().validate(params)
-        if (validationErrors.length > 0) {
-            return Result.fail<SearchParams>(validationService.collectValidationErrors(validationErrors).join(', '))
-        }
-        return Result.ok<SearchParams>(params)
     }
 }

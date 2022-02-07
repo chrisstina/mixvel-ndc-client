@@ -1,15 +1,12 @@
 import {IsArray, IsString} from "class-validator";
-import {Result} from "../../core/Result";
-import {RequestValidationService} from "../../services/RequestValidationService";
-
-const validationService = new RequestValidationService()
+import {AbstractParams} from "./AbstractParams";
 
 export type PriceProps = {
     offerId: string
     offerItemIds: string[]
 }
 
-export class PriceParams {
+export class PriceParams extends AbstractParams {
     @IsString()
     public readonly offerId: string
     @IsArray()
@@ -19,16 +16,8 @@ export class PriceParams {
     public readonly offerItemIds: string[]
 
     private constructor(props: PriceProps) {
+        super()
         this.offerId = props.offerId
         this.offerItemIds = props.offerItemIds
-    }
-
-    public static create(props: PriceProps): Result<PriceParams> {
-        const params = new PriceParams(props)
-        const validationErrors = validationService.getValidator<PriceParams>().validate(params)
-        if (validationErrors.length > 0) {
-            return Result.fail<PriceParams>(validationService.collectValidationErrors(validationErrors).join(', '))
-        }
-        return Result.ok<PriceParams>(params)
     }
 }

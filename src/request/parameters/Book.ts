@@ -13,11 +13,8 @@ import {
     ValidateNested
 } from "class-validator";
 
-import {Result} from "../../core/Result";
-import {RequestValidationService} from "../../services/RequestValidationService";
+import {AbstractParams} from "./AbstractParams";
 import {DocumentType, PaxCategory} from "../types";
-
-const validationService = new RequestValidationService()
 
 export type BookProps = {
     offerId: string,
@@ -25,7 +22,7 @@ export type BookProps = {
     passengers: Array<Passenger>
 }
 
-export class BookParams {
+export class BookParams extends AbstractParams {
     @IsString()
     public readonly offerId: string
     @IsArray()
@@ -36,6 +33,7 @@ export class BookParams {
     public readonly passengers: Array<Passenger>
 
     private constructor(props: BookProps) {
+        super()
         this.offerId = props.offerId
         this.offerItemIds = props.offerItemIds
         this.passengers = props.passengers.map(passenger => new Passenger(
@@ -45,15 +43,6 @@ export class BookParams {
             passenger.contacts,
             passenger.loyaltyInfo
         ))
-    }
-
-    public static create(props: BookProps): Result<BookParams> {
-        const params = new BookParams(props)
-        const validationErrors = validationService.getValidator<BookParams>().validate(params)
-        if (validationErrors.length > 0) {
-            return Result.fail<BookParams>(validationService.collectValidationErrors(validationErrors).join(', '))
-        }
-        return Result.ok<BookParams>(params)
     }
 }
 

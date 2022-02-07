@@ -1,8 +1,6 @@
-import {IsAlphanumeric, IsNotEmpty, IsString} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
+import {AbstractParams} from "./AbstractParams";
 import {Result} from "../../core/Result";
-import {RequestValidationService} from '../../services/RequestValidationService'
-
-const validationService = new RequestValidationService()
 
 export type AuthProps = {
     login: string
@@ -10,7 +8,7 @@ export type AuthProps = {
     structureId: string
 }
 
-export class AuthParams {
+export class AuthParams extends AbstractParams {
     @IsString()
     @IsNotEmpty()
     public readonly login: string
@@ -24,19 +22,13 @@ export class AuthParams {
     public readonly structureId: string
 
     private constructor(login: string, password: string, structureId: string) {
+        super()
         this.login = login;
         this.password = password;
         this.structureId = structureId;
     }
 
     public static create(props: AuthProps): Result<AuthParams> {
-        const params = new AuthParams(props.login, props.password, props.structureId)
-
-        const validationErrors = validationService.getValidator<AuthParams>().validate(params)
-        if (validationErrors.length > 0) {
-            return Result.fail<AuthParams>(validationService.collectValidationErrors(validationErrors).join('\r\n')) // @todo
-        }
-
-        return Result.ok<AuthParams>(params)
+        return this.validate(new AuthParams(props.login, props.password, props.structureId))
     }
 }

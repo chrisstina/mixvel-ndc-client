@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,24 +23,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderRetrieveParams = void 0;
 var class_validator_1 = require("class-validator");
-var Result_1 = require("../../core/Result");
-var RequestValidationService_1 = require("../../services/RequestValidationService");
-var validationService = new RequestValidationService_1.RequestValidationService();
-var OrderRetrieveParams = /** @class */ (function () {
+var AbstractParams_1 = require("./AbstractParams");
+var OrderRetrieveParams = /** @class */ (function (_super) {
+    __extends(OrderRetrieveParams, _super);
     function OrderRetrieveParams(props) {
-        this.orderId = props.orderId;
+        var _this = _super.call(this) || this;
+        _this.orderId = props.orderId;
+        return _this;
     }
-    OrderRetrieveParams.create = function (props) {
-        var params = new OrderRetrieveParams(props);
-        var validationErrors = validationService.getValidator().validate(params);
-        if (validationErrors.length > 0) {
-            return Result_1.Result.fail(validationService.collectValidationErrors(validationErrors).join(', '));
-        }
-        return Result_1.Result.ok(params);
-    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], OrderRetrieveParams.prototype, "orderId", void 0);
     return OrderRetrieveParams;
-}());
+}(AbstractParams_1.AbstractParams));
 exports.OrderRetrieveParams = OrderRetrieveParams;

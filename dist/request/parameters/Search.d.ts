@@ -1,4 +1,4 @@
-import { Result } from "../../core/Result";
+import { AbstractParams } from "./AbstractParams";
 import { Cabin, PaxCategory } from "../types";
 export declare class OriginDestination {
     from: string;
@@ -27,13 +27,12 @@ export declare type SearchProps = {
     preferredCarriers: string[] | null;
     onlyDirect?: boolean;
 };
-export declare class SearchParams {
+export declare class SearchParams extends AbstractParams {
     originDestinations: OriginDestination[];
     readonly travelers: AnonymousTraveler[];
     readonly cabin: Cabin;
     readonly preferredCarriers: string[] | null;
     readonly onlyDirect: boolean;
     private constructor();
-    static create(props: SearchProps): Result<SearchParams>;
 }
 export {};

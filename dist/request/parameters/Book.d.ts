@@ -1,4 +1,4 @@
-import { Result } from "../../core/Result";
+import { AbstractParams } from "./AbstractParams";
 import { DocumentType, PaxCategory } from "../types";
 export declare type BookProps = {
     offerId: string;
@@ -8,12 +8,11 @@ export declare type BookProps = {
     }>;
     passengers: Array<Passenger>;
 };
-export declare class BookParams {
+export declare class BookParams extends AbstractParams {
     readonly offerId: string;
     readonly offerItemIds: Array<OfferItem>;
     readonly passengers: Array<Passenger>;
     private constructor();
-    static create(props: BookProps): Result<BookParams>;
 }
 declare class OfferItem {
     id: string;

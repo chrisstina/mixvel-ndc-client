@@ -1,4 +1,4 @@
-import { Result } from "../../core/Result";
+import { AbstractParams } from "./AbstractParams";
 import { FopType } from "../types";
 declare class FormOfPayment {
     type: FopType;
@@ -21,11 +21,10 @@ export declare type TicketIssueProps = {
         data?: string | {};
     };
 };
-export declare class TicketIssueParams {
+export declare class TicketIssueParams extends AbstractParams {
     orderId: string;
     payment: Payment;
     formOfPayment: FormOfPayment;
     private constructor();
-    static create(props: TicketIssueProps): Result<TicketIssueParams>;
 }
 export {};
