@@ -56,6 +56,7 @@ var AnonymousTraveler = /** @class */ (function () {
 }());
 var SearchParams = /** @class */ (function () {
     function SearchParams(props) {
+        this.onlyDirect = false;
         this.originDestinations = props.originDestinations.map(function (_a) {
             var from = _a.from, to = _a.to, dateRangeEnd = _a.dateRangeEnd, dateRangeStart = _a.dateRangeStart;
             return new OriginDestination(from, to, dateRangeStart, dateRangeEnd);
@@ -66,6 +67,9 @@ var SearchParams = /** @class */ (function () {
         });
         this.cabin = props.cabin;
         this.preferredCarriers = props.preferredCarriers;
+        if (props.onlyDirect) {
+            this.onlyDirect = props.onlyDirect;
+        }
     }
     SearchParams.create = function (props) {
         var params = new SearchParams(props);
@@ -84,9 +88,9 @@ var SearchParams = /** @class */ (function () {
         (0, class_validator_1.ValidateNested)({ each: true })
     ], SearchParams.prototype, "travelers", void 0);
     __decorate([
-        (0, class_validator_1.IsNotEmpty)(),
-        (0, class_validator_1.IsIn)(['ECONOMY', 'BUSINESS'])
-    ], SearchParams.prototype, "cabin", void 0);
+        (0, class_validator_1.IsBoolean)(),
+        (0, class_validator_1.IsOptional)()
+    ], SearchParams.prototype, "onlyDirect", void 0);
     return SearchParams;
 }());
 exports.SearchParams = SearchParams;

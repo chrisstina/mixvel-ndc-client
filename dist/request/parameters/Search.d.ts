@@ -25,12 +25,14 @@ export declare type SearchProps = {
     travelers: AnonymousTraveler[];
     cabin: Cabin;
     preferredCarriers: string[] | null;
+    onlyDirect?: boolean;
 };
 export declare class SearchParams {
     originDestinations: OriginDestination[];
     readonly travelers: AnonymousTraveler[];
     readonly cabin: Cabin;
     readonly preferredCarriers: string[] | null;
+    readonly onlyDirect: boolean;
     private constructor();
     static create(props: SearchProps): Result<SearchParams>;
 }
