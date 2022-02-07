@@ -12,7 +12,6 @@ var ProviderLocator = /** @class */ (function () {
         return provider;
     };
     ProviderLocator.register = function (providerCode, provider) {
-        console.log('new provider created');
         ProviderLocator.providers.set(providerCode, provider);
     };
     ProviderLocator.providers = new Map();

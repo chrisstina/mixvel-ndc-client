@@ -14,12 +14,16 @@ type Party = {
 export type StringValue = {_: string}
 
 export class GenericTicketMeNDCMessage implements GenericNDCMessage {
-    get nodeName() {
+    public get nodeName() {
         return ''
     }
 
+    public get xmlns() {
+        return IATAxmlns
+    }
+
     public $ = {
-        ...IATAxmlns,
+        ...this.xmlns,
         Version: '17.2'
     }
     public Document = {}

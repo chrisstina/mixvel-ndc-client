@@ -6,8 +6,13 @@ import { BookParams } from "../request/parameters/Book";
 import { OrderRetrieveParams } from "../request/parameters/OrderRetrieve";
 import { TicketIssueParams } from "../request/parameters/TicketIssue";
 import { RefundParams } from "../request/parameters/Refund";
+import { IEndpointManager } from "./IEndpointManager";
+import { IRequestOptionsManager } from "./IRequestOptionsManager";
 export interface IRequestManager {
+    endpointManager: IEndpointManager;
+    requestOptionsManager: IRequestOptionsManager;
     conversionStrategy: IConversionStrategy;
+    extraConfiguration: {};
     createAuthRequest(params: {
         login: string;
         password: string;

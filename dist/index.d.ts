@@ -10,8 +10,8 @@ import { OrderRetrieveProps } from "./request/parameters/OrderRetrieve";
 import { BookProps } from "./request/parameters/Book";
 import { TicketIssueProps } from "./request/parameters/TicketIssue";
 import { RefundProps } from "./request/parameters/Refund";
-import { DataList } from "./mixvel/DataList";
-export declare function createNDCService(provider: string | IProvider): {
+import { DataList } from "./providers/mixvel/DataList";
+export declare function createNDCService(provider: string | IProvider, providerConfig?: {}): {
     getAuthRequest: (props: AuthProps) => Result<IRequest>;
     getSearchRequest: (props: SearchProps) => Result<IRequest>;
     getPriceRequest: (props: PriceProps) => Result<IRequest>;

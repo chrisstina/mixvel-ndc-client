@@ -10,6 +10,9 @@ var ProviderLocator_1 = require("./core/ProviderLocator");
 var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponseParsingError"));
 var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
+var ObjectToXmlNDCConversionStrategy_1 = require("./services/conversion/ObjectToXmlNDCConversionStrategy");
+// import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
+var RequestOptionsManager_1 = require("./request/RequestOptionsManager");
 var Auth_1 = require("./request/parameters/Auth");
 var Search_1 = require("./request/parameters/Search");
 var Price_1 = require("./request/parameters/Price");
@@ -17,20 +20,31 @@ var OrderRetrieve_1 = require("./request/parameters/OrderRetrieve");
 var Book_1 = require("./request/parameters/Book");
 var TicketIssue_1 = require("./request/parameters/TicketIssue");
 var Refund_1 = require("./request/parameters/Refund");
-// Mixvel-specific
-var datalist_1 = require("./mixvel/constants/datalist");
-var MixvelRequestManager_1 = require("./mixvel/MixvelRequestManager");
-var MixvelResponseManager_1 = require("./mixvel/MixvelResponseManager");
-var DataList_1 = require("./mixvel/DataList");
-ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./mixvel/config/endpoints').endpoints), new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy()), new MixvelResponseManager_1.MixvelResponseManager(require('./mixvel/config/responses').allowedNodeNames, new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy())));
-function createNDCService(provider) {
+// Provider-specific
+var datalist_1 = require("./providers/mixvel/constants/datalist");
+var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
+var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
+var DataList_1 = require("./providers/mixvel/DataList");
+var TicketMeRequestManager_1 = require("./providers/ticketme/TicketMeRequestManager");
+var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
+// Mixvel provider
+ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
+pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager(require('./providers/mixvel/config/responses').allowedNodeNames, // @todo take from config
+xmlToPojo)));
+// TicketMe provider
+var ndcVersion = '172'; // @todo take from config
+var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion);
+ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
+pojoToNDC, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager([], //require('./providers/ticketme/config/responses').allowedNodeNames,  // @todo take from config
+xmlToPojo)));
+function createNDCService(provider, providerConfig) {
+    if (providerConfig === void 0) { providerConfig = {}; }
     var theProvider = (typeof provider === "string")
         ? ProviderLocator_1.ProviderLocator.get(provider)
         : provider;
-    var requestManager;
-    var responseManager;
-    requestManager = theProvider.requestManager;
-    responseManager = theProvider.responseManager;
+    theProvider.extraConfiguration = providerConfig;
+    var requestManager = theProvider.requestManager;
+    var responseManager = theProvider.responseManager;
     // ========== Request management ==============
     function getAuthRequest(props) {
         var paramsOrError = Auth_1.AuthParams.create(props);

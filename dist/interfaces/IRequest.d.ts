@@ -1,9 +1,10 @@
+import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { IRequestOptions } from "./IRequestOptionsManager";
 export interface IRequest {
-    options: {
-        [p: string]: any;
-    };
+    conversionStrategy?: IConversionStrategy;
+    options: IRequestOptions;
     readonly body: any;
-    readonly headers: {
+    readonly headers?: {
         [p: string]: string;
     };
     addHeader(name: string, contents: string): void;

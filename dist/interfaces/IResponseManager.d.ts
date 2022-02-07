@@ -1,5 +1,5 @@
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
-import { MixvelResponseError, MixvelResponseMessage } from "../mixvel/MixvelResponseManager";
+import { MixvelResponseError, MixvelResponseMessage } from "../providers/mixvel/MixvelResponseManager";
 export interface IResponseManager {
     conversionStrategy: IConversionStrategy;
     /**

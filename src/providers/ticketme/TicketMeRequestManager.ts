@@ -40,31 +40,31 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createBookRequest(params: BookParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('book')
     }
 
     createFareRulesRequest(params: PriceParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('rules')
     }
 
     createOrderCancelRequest(params: OrderRetrieveParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('cancel')
     }
 
     createOrderRetrieveRequest(params: OrderRetrieveParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('view')
     }
 
     createPriceRequest(params: PriceParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('price')
     }
 
     createRefundCalculationRequest(params: OrderRetrieveParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('refund calc')
     }
 
     createRefundRequest(params: RefundParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('refund')
     }
 
     createSearchRequest(params: SearchParams): IRequest {
@@ -75,11 +75,11 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createServiceListRequest(params: PriceParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('service list')
     }
 
     createTicketIssueRequest(params: TicketIssueParams): IRequest {
-        return undefined;
+        throw new MethodNotImplemented('ticket issue')
     }
 
     createRequest(requestParams: object, services: {
