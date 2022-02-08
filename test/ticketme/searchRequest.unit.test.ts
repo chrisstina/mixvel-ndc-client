@@ -3,7 +3,7 @@ import {expect} from 'chai';
 
 import {createNDCService} from "../../src"
 
-const {getSearchRequest} = createNDCService('ticketme', {party: {agencyId: 'YOUR_KASSA'}})
+const {setProviderConfig, getSearchRequest} = createNDCService('ticketme')
 
 let dateOut = new Date(), dateReturn = new Date()
 dateOut.setDate(dateOut.getDate() + 50);
@@ -13,6 +13,8 @@ dateReturn.setDate(dateReturn.getDate() + 40);
 class SearchRequestUnitTest {
 
     @test 'Create TicketMe for 1ADT and 1CHD LED - MOW - LED search request'() {
+        setProviderConfig({party: {agencyId: 'YOUR_KASSA'}})
+
         const request = getSearchRequest({
             travelers: [
                 {ptc: 'ADULT', age: 30, id: "1"},
@@ -52,6 +54,7 @@ class SearchRequestUnitTest {
     }
 
     @test 'Create TicketMe search RQ for 1ADT and 1CHD LED - MOW - LED with SU and U6 preferred, only direct flights'() {
+
         const rq = getSearchRequest({
             travelers: [
                 {ptc: 'ADULT', age: 30, id: "1"},

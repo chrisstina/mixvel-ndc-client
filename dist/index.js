@@ -45,6 +45,9 @@ function createNDCService(provider, providerConfig) {
     theProvider.extraConfiguration = providerConfig;
     var requestManager = theProvider.requestManager;
     var responseManager = theProvider.responseManager;
+    function setProviderConfig(providerConfig) {
+        theProvider.extraConfiguration = providerConfig;
+    }
     // ========== Request management ==============
     function getAuthRequest(props) {
         var paramsOrError = Auth_1.AuthParams.create(props);
@@ -153,7 +156,8 @@ function createNDCService(provider, providerConfig) {
         getRefundCalculationRequest: getRefundCalculationRequest,
         getRefundRequest: getRefundRequest,
         getResponse: getResponse,
-        extractDataLists: extractDataLists
+        extractDataLists: extractDataLists,
+        setProviderConfig: setProviderConfig
     };
 }
 exports.createNDCService = createNDCService;

@@ -74,6 +74,10 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     let requestManager: IRequestManager = theProvider.requestManager
     let responseManager: IResponseManager = theProvider.responseManager
 
+    function setProviderConfig(providerConfig: {}) {
+        theProvider.extraConfiguration = providerConfig
+    }
+
     // ========== Request management ==============
 
     function getAuthRequest(props: AuthProps): Result<IRequest> {
@@ -197,6 +201,7 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
         getRefundCalculationRequest,
         getRefundRequest,
         getResponse,
-        extractDataLists
+        extractDataLists,
+        setProviderConfig
     }
 }

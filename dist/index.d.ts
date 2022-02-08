@@ -31,4 +31,5 @@ export declare function createNDCService(provider: string | IProvider, providerC
     extractDataLists: (dataListSource: Array<{}>) => {
         [key: string]: DataList;
     };
+    setProviderConfig: (providerConfig: {}) => void;
 };
