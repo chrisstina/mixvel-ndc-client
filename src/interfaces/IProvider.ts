@@ -1,8 +1,8 @@
 import {IRequestManager} from "./IRequestManager";
-import {MixvelResponseManager} from "../providers/mixvel/MixvelResponseManager";
+import {IResponseManager} from "./IResponseManager";
 
 export interface IProvider {
-    extraConfiguration: {};
+    extraConfiguration: Record<string, any>;
     readonly requestManager: IRequestManager;
-    readonly responseManager: MixvelResponseManager;
+    readonly responseManager: IResponseManager;
 }

@@ -1,10 +1,11 @@
-import { IRequest } from "../../interfaces/IRequest";
-import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
-import { GenericNDCMessage } from "../../interfaces/GenericNDCMessage";
-import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
-import { MixvelEnvelope } from "./MixvelEnvelope";
-import { MixvelAppData } from "./MixvelAppData";
-import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
+import {IRequest} from "../../interfaces/IRequest";
+import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
+import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import {MixvelEnvelope} from "./MixvelEnvelope";
+import {MixvelAppData} from "./MixvelAppData";
+import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
+
 export declare class MixvelRequest implements IRequest {
     readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData;
     options: IRequestOptions;
@@ -17,7 +18,7 @@ export declare class MixvelRequest implements IRequest {
      * @param conversionStrategy
      */
     constructor(message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData, options: IRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
-    get body(): string | Object;
+    get body(): string | Record<string, unknown> | Promise<Record<string, unknown> | null> | MixvelEnvelope;
     get headers(): {
         [p: string]: any;
     } | undefined;

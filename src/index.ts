@@ -14,8 +14,6 @@ import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlCo
 import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
 import {ObjectToXmlNDCConversionStrategy} from "./services/conversion/ObjectToXmlNDCConversionStrategy";
 // import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
-
-
 import {RequestOptionsManager} from "./request/RequestOptionsManager";
 import {AuthParams, AuthProps} from "./request/parameters/Auth";
 import {SearchParams, SearchProps} from "./request/parameters/Search";
@@ -31,10 +29,14 @@ import {MixvelEndpointManager, MixvelRequestManager} from "./providers/mixvel/Mi
 import {MixvelResponseManager} from "./providers/mixvel/MixvelResponseManager";
 import {DataList} from "./providers/mixvel/DataList";
 import {TicketMeRequestManager} from "./providers/ticketme/TicketMeRequestManager";
+import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
+import {TicketMeResponseManager} from "./providers/ticketme/TicketMeResponseManager";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
     xmlToPojo = new XmlToObjectConversionStrategy(),
     requestOptionsManager = new RequestOptionsManager()
+
+// ================ Provider generation =================
 
 // Mixvel provider
 ProviderLocator.register('mixvel', new Provider(
@@ -51,17 +53,15 @@ ProviderLocator.register('mixvel', new Provider(
 
 // TicketMe provider
 const ndcVersion = '172' // @todo take from config
-const pojoToNDC = new ObjectToXmlNDCConversionStrategy(ndcVersion)
+const pojoToNDC = new ObjectToXmlNDCConversionStrategy(ndcVersion),
+    NDCToPojo = new XmlNDCToObjectConversionStrategy(ndcVersion)
 ProviderLocator.register('ticketme', new Provider(
     new TicketMeRequestManager(
         new MixvelEndpointManager(require('./providers/ticketme/config/endpoints').endpoints),  // @todo take from config
         pojoToNDC,
         requestOptionsManager
     ),
-    new MixvelResponseManager(
-        [],//require('./providers/ticketme/config/responses').allowedNodeNames,  // @todo take from config
-        xmlToPojo
-    )
+    new TicketMeResponseManager(NDCToPojo)
 ))
 
 export function createNDCService(provider: string | IProvider, providerConfig = {}) {

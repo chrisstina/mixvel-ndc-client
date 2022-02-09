@@ -4,10 +4,9 @@ import {IResponseManager} from "../../interfaces/IResponseManager";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
 import {IResponseError} from "../../interfaces/IResponseError";
 
-type MixvelMessage = { [type: string]: { $: string[], Response?: any[], Error?: any[] }[] }
-type MixvelCompleteResponse = {
-    [type: string]: { Body?: { AppData?: MixvelMessage[], Error?: any[]}[] }
-}
+type MixvelMessage = Record<string, { $: string[], Response?: unknown[], Error?: MixvelError[] }[]>
+type MixvelError = { ErrorType?: string, CanRetry?: string, TicketId?: string, Code?: string, DescText?: string[] }
+type MixvelCompleteResponse = Record<string, { Body?: { AppData?: MixvelMessage[], Error?: MixvelError[] }[] }>
 
 class MixvelResponseMapper {
 
@@ -69,23 +68,27 @@ export class MixvelResponseManager implements IResponseManager {
         this._mapper = new MixvelResponseMapper(this.rootNodeName, this.responseTypes)
     }
 
+    convert(rawXML: string): Promise<Record<string, any> | null> {
+        const conversionPromise = this.conversionStrategy.execute(rawXML);
+        let convertedResult: Record<string, unknown> | null;
+
+        if (typeof conversionPromise === "string") {
+            throw new ResponseParsingError('Converted to unexpected type')
+        }
+
+        if (!(conversionPromise instanceof Promise)) {
+            convertedResult = conversionPromise;
+            return Promise.resolve().then(() => convertedResult);
+        }
+        return conversionPromise;
+    }
+
     /**
      * @todo currently the response structure depends on a conversion strategy, which is not ok
      * @param rawXML
      */
     async getResponse(rawXML: string): Promise<MixvelResponseMessage | MixvelResponseError> {
-        const convert = function (conversionStrategy: IConversionStrategy): Promise<any> {
-            const conversionPromise = conversionStrategy.execute(rawXML);
-            let convertedResult: Object | null;
-
-            if (!(conversionPromise instanceof Promise)) {
-                convertedResult = conversionPromise;
-                return Promise.resolve().then(() => convertedResult);
-            }
-            return conversionPromise;
-        }
-
-        return convert(this.conversionStrategy).then((responseObject) => {
+        return this.convert(rawXML).then((responseObject) => {
             if (responseObject === null) {
                 return Promise.reject(new ResponseParsingError('Response parsed to an empty object'))
             }
@@ -108,24 +111,17 @@ export class MixvelResponseManager implements IResponseManager {
  // <DescText>Внутренняя ошибка сервиса. Обратитесь в службу технической поддержки (неисправность № b7348ba4-c300-48f6-8499-acabd8c4596b)</DescText>
  */
 export class MixvelResponseError implements IResponseError {
-    public readonly isMixvelError: boolean = true
-    ErrorType: string;
-    public CanRetry: boolean;
-    public TicketId: string;
-    Code: string;
-    public DescText;
+    code: string;
+    text: string;
 
-    constructor(data: { ErrorType?: string, CanRetry?: string, TicketId?: string, Code?: string, DescText?: string[] }) {
-        this.ErrorType = data.ErrorType || '';
-        this.CanRetry = data.CanRetry === 'true' || false;
-        this.TicketId = data.TicketId || '';
-        this.Code = data.Code || '000';
-        this.DescText = data.DescText || ''
+    constructor(data: { ErrorType?: string, Code?: string, DescText?: string[] }) {
+        this.code = data.Code || '000';
+        this.text = data.DescText && data.DescText.length > 0? data.DescText [0] : ''
     }
 }
 
 export class MixvelResponseMessage implements IResponseMessage {
-    constructor(data: any) {
+    constructor(data: unknown) {
         Object.assign(this, data)
     }
 }

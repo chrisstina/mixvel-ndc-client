@@ -1,4 +1,5 @@
-import { IConversionStrategy } from "./IConversionSrategy";
+import {IConversionStrategy} from "./IConversionSrategy";
+
 export declare class XmlToObjectConversionStrategy implements IConversionStrategy {
-    execute(payload: Object): Promise<Object>;
+    execute(payload: Record<string, unknown>): Promise<Record<string, unknown>>;
 }

@@ -4,7 +4,7 @@ import {IConversionStrategy} from "./IConversionSrategy";
 export class ObjectToXmlConversionStrategy implements IConversionStrategy {
     private xmlBuilder = new xml2js.Builder()
 
-    execute(payload: Object): string {
+    execute(payload: Record<string, unknown>): string {
         return this.xmlBuilder.buildObject(payload)
     }
 }

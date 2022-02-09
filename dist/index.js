@@ -26,17 +26,19 @@ var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
 var DataList_1 = require("./providers/mixvel/DataList");
 var TicketMeRequestManager_1 = require("./providers/ticketme/TicketMeRequestManager");
+var XmlNDCToObjectConversionStrategy_1 = require("./services/conversion/XmlNDCToObjectConversionStrategy");
+var TicketMeResponseManager_1 = require("./providers/ticketme/TicketMeResponseManager");
 var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
+// ================ Provider generation =================
 // Mixvel provider
 ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
 pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager(require('./providers/mixvel/config/responses').allowedNodeNames, // @todo take from config
 xmlToPojo)));
 // TicketMe provider
 var ndcVersion = '172'; // @todo take from config
-var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion);
+var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion), NDCToPojo = new XmlNDCToObjectConversionStrategy_1.XmlNDCToObjectConversionStrategy(ndcVersion);
 ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
-pojoToNDC, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager([], //require('./providers/ticketme/config/responses').allowedNodeNames,  // @todo take from config
-xmlToPojo)));
+pojoToNDC, requestOptionsManager), new TicketMeResponseManager_1.TicketMeResponseManager(NDCToPojo)));
 function createNDCService(provider, providerConfig) {
     if (providerConfig === void 0) { providerConfig = {}; }
     var theProvider = (typeof provider === "string")

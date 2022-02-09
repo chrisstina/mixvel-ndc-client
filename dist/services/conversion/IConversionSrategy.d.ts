@@ -1,3 +1,3 @@
 export interface IConversionStrategy {
-    execute(payload: Object): string | Object | Promise<Object | null>;
+    execute(payload: unknown): string | Record<string, unknown> | Promise<Record<string, unknown> | null>;
 }

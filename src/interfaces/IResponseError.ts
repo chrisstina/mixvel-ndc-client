@@ -1,4 +1,4 @@
 export interface IResponseError {
-    ErrorType: string;
-    Code: string;
+    code: string;
+    text: string;
 }

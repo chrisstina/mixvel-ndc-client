@@ -1,5 +1,5 @@
-import {MixvelResponseManager} from "../providers/mixvel/MixvelResponseManager";
 import {IRequestManager} from "../interfaces/IRequestManager";
+import {IResponseManager} from "../interfaces/IResponseManager";
 import {IProvider} from "../interfaces/IProvider";
 
 export class Provider implements IProvider {
@@ -8,10 +8,10 @@ export class Provider implements IProvider {
      * @param responseManager
      */
     constructor(public readonly requestManager: IRequestManager,
-                public readonly responseManager: MixvelResponseManager) {
+                public readonly responseManager: IResponseManager) {
     }
 
-    set extraConfiguration(configuration: {}) {
+    set extraConfiguration(configuration: Record<string, any>) {
         this.requestManager.extraConfiguration = configuration
         // this.responseManager.extraConfiguration = configuration
     }

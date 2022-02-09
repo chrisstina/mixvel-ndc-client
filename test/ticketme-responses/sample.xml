@@ -1,0 +1,139 @@
+<ns2:AirShoppingRS xmlns:ns2="http://www.iata.org/IATA/EDIST/2017.2" Version="17.2">
+    <ns2:Document />
+    <ns2:Success />
+    <ns2:ShoppingResponseID>
+        <ns2:Owner>KW</ns2:Owner>
+        <ns2:ResponseID>e1eb7ff91124c99a979fe357d87cd0f0</ns2:ResponseID>
+    </ns2:ShoppingResponseID>
+    <ns2:OffersGroup>
+        <ns2:AirlineOffers>
+            <ns2:Offer OfferID="OFf4855975c3906b0fc840b7f4c9da53b2" Owner="KW">
+                <ns2:Parameters ApplyToAllInd="true" />
+                <ns2:TotalPrice>
+                    <ns2:DetailCurrencyPrice>
+                        <ns2:Total Code="EUR">737</ns2:Total>
+                    </ns2:DetailCurrencyPrice>
+                </ns2:TotalPrice>
+                <ns2:FlightsOverview>
+                    <ns2:FlightRef ODRef="OD1"
+                                   PriceClassRef="PC1">FL145c1db846840000348be6e6_0</ns2:FlightRef>
+                    <ns2:FlightRef ODRef="OD2"
+                                   PriceClassRef="PC2">FL1db8145c46870000f4b87c48_0</ns2:FlightRef>
+                </ns2:FlightsOverview>
+                <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-ADT">
+                    <ns2:TotalPriceDetail>
+                        <ns2:TotalAmount>
+                            <ns2:DetailCurrencyPrice>
+                                <ns2:Total Code="EUR">429.96</ns2:Total>
+                            </ns2:DetailCurrencyPrice>
+                        </ns2:TotalAmount>
+                        <ns2:BaseAmount Code="EUR">429.96</ns2:BaseAmount>
+                    </ns2:TotalPriceDetail>
+                    <ns2:Service ServiceID="SVC1">
+                        <ns2:PassengerRefs>PAX1 PAX2</ns2:PassengerRefs>
+                        <ns2:FlightRefs>FL145c1db846840000348be6e6_0FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+                    </ns2:Service>
+                </ns2:OfferItem>
+                <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-CHD">
+                    <ns2:TotalPriceDetail>
+                        <ns2:TotalAmount>
+                            <ns2:DetailCurrencyPrice>
+                                <ns2:Total Code="EUR">214.98</ns2:Total>
+                            </ns2:DetailCurrencyPrice>
+                        </ns2:TotalAmount>
+                        <ns2:BaseAmount Code="EUR">214.98</ns2:BaseAmount>
+                    </ns2:TotalPriceDetail>
+                    <ns2:Service ServiceID="SVC2">
+                        <ns2:PassengerRefs>PAX4</ns2:PassengerRefs>
+                        <ns2:FlightRefs>FL145c1db846840000348be6e6_0FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+                    </ns2:Service>
+                </ns2:OfferItem>
+                <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-INF">
+                    <ns2:TotalPriceDetail>
+                        <ns2:TotalAmount>
+                            <ns2:DetailCurrencyPrice>
+                                <ns2:Total Code="EUR">92.07</ns2:Total>
+                            </ns2:DetailCurrencyPrice>
+                        </ns2:TotalAmount>
+                        <ns2:BaseAmount Code="EUR">92.07</ns2:BaseAmount>
+                    </ns2:TotalPriceDetail>
+                    <ns2:Service ServiceID="SVC3">
+                        <ns2:PassengerRefs>PAX3</ns2:PassengerRefs>
+                        <ns2:FlightRefs>FL145c1db846840000348be6e6_0FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+                    </ns2:Service>
+                </ns2:OfferItem>
+            </ns2:Offer>
+        </ns2:AirlineOffers>
+    </ns2:OffersGroup>
+    <ns2:DataLists>
+        <ns2:PassengerList>
+            <ns2:Passenger PassengerID="PAX1">
+                <ns2:PTC>ADT</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX2">
+                <ns2:PTC>ADT</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX3">
+                <ns2:PTC>INF</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX4">
+                <ns2:PTC>CHD</ns2:PTC>
+            </ns2:Passenger>
+        </ns2:PassengerList>
+        <ns2:FlightSegmentList>
+            <ns2:FlightSegment SegmentKey="SEG145c170f46840000b092fc37_0">
+                <ns2:Departure>
+                    <ns2:AirportCode>PRG</ns2:AirportCode>
+                    <ns2:Date>2019-06-05</ns2:Date>
+                    <ns2:Time>14:40</ns2:Time>
+                </ns2:Departure>
+                <ns2:Arrival>
+                    42<ns2:AirportCode>IST</ns2:AirportCode>
+                    <ns2:Date>2019-06-05</ns2:Date>
+                    <ns2:Time>18:10</ns2:Time>
+                </ns2:Arrival>
+                <ns2:MarketingCarrier>
+                    <ns2:AirlineID>TK</ns2:AirlineID>
+                    <ns2:FlightNumber>1772</ns2:FlightNumber>
+                </ns2:MarketingCarrier>
+                <ns2:OperatingCarrier>
+                    <ns2:AirlineID>TK</ns2:AirlineID>
+                </ns2:OperatingCarrier>
+                <ns2:Equipment>
+                    <ns2:AircraftCode>32B</ns2:AircraftCode>
+                </ns2:Equipment>
+            </ns2:FlightSegment>
+        </ns2:FlightSegmentList>
+        <ns2:FlightList>
+            <ns2:Flight FlightKey="FL145c170f46840000b092fc37_0">
+                <ns2:Journey>
+                    <ns2:Time>P0DT2H30M0S</ns2:Time>
+                </ns2:Journey>
+                <ns2:SegmentReferences>SEG145c170f46840000b092fc37_0</ns2:SegmentReferences>
+            </ns2:Flight>
+        </ns2:FlightList>
+        <ns2:OriginDestinationList>
+            <ns2:OriginDestination OriginDestinationKey="OD1">
+                <ns2:DepartureCode>PRG</ns2:DepartureCode>
+                <ns2:ArrivalCode>IST</ns2:ArrivalCode>
+                <ns2:FlightReferences>FL12225470019406529_0... </ns2:FlightReferences>
+            </ns2:OriginDestination>
+        </ns2:OriginDestinationList>
+        <ns2:PriceClassList>
+            <ns2:PriceClass PriceClassID="PC1">
+                <ns2:Name>PriceClass1</ns2:Name>
+                <ns2:ClassOfService refs="SEG12225470019406529_0">
+                    <ns2:Code>B</ns2:Code>
+                    <ns2:FareBasisCode>-BASIC</ns2:FareBasisCode>
+                </ns2:ClassOfService>
+            </ns2:PriceClass>
+            <ns2:PriceClass PriceClassID="PC2">
+                <ns2:Name>PriceClass2</ns2:Name>
+                <ns2:ClassOfService refs="SEG16669695793368955_0">
+                    <ns2:Code>B</ns2:Code>
+                    <ns2:FareBasisCode>-BASIC</ns2:FareBasisCode>
+                    43</ns2:ClassOfService>
+            </ns2:PriceClass>
+        </ns2:PriceClassList>
+    </ns2:DataLists>
+</ns2:AirShoppingRS>

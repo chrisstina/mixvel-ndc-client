@@ -86,25 +86,27 @@ var MixvelResponseManager = /** @class */ (function () {
         this.rootNodeName = "MixEnv:Envelope";
         this._mapper = new MixvelResponseMapper(this.rootNodeName, this.responseTypes);
     }
+    MixvelResponseManager.prototype.convert = function (rawXML) {
+        var conversionPromise = this.conversionStrategy.execute(rawXML);
+        var convertedResult;
+        if (typeof conversionPromise === "string") {
+            throw new ResponseParsingError_1.default('Converted to unexpected type');
+        }
+        if (!(conversionPromise instanceof Promise)) {
+            convertedResult = conversionPromise;
+            return Promise.resolve().then(function () { return convertedResult; });
+        }
+        return conversionPromise;
+    };
     /**
      * @todo currently the response structure depends on a conversion strategy, which is not ok
      * @param rawXML
      */
     MixvelResponseManager.prototype.getResponse = function (rawXML) {
         return __awaiter(this, void 0, void 0, function () {
-            var convert;
             var _this = this;
             return __generator(this, function (_a) {
-                convert = function (conversionStrategy) {
-                    var conversionPromise = conversionStrategy.execute(rawXML);
-                    var convertedResult;
-                    if (!(conversionPromise instanceof Promise)) {
-                        convertedResult = conversionPromise;
-                        return Promise.resolve().then(function () { return convertedResult; });
-                    }
-                    return conversionPromise;
-                };
-                return [2 /*return*/, convert(this.conversionStrategy).then(function (responseObject) {
+                return [2 /*return*/, this.convert(rawXML).then(function (responseObject) {
                         var _a;
                         if (responseObject === null) {
                             return Promise.reject(new ResponseParsingError_1.default('Response parsed to an empty object'));
@@ -130,12 +132,8 @@ exports.MixvelResponseManager = MixvelResponseManager;
  */
 var MixvelResponseError = /** @class */ (function () {
     function MixvelResponseError(data) {
-        this.isMixvelError = true;
-        this.ErrorType = data.ErrorType || '';
-        this.CanRetry = data.CanRetry === 'true' || false;
-        this.TicketId = data.TicketId || '';
-        this.Code = data.Code || '000';
-        this.DescText = data.DescText || '';
+        this.code = data.Code || '000';
+        this.text = data.DescText && data.DescText.length > 0 ? data.DescText[0] : '';
     }
     return MixvelResponseError;
 }());

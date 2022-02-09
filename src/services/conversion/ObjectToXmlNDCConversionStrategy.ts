@@ -11,7 +11,7 @@ export class ObjectToXmlNDCConversionStrategy implements IConversionStrategy {
     constructor(public readonly ndcVersion: string) {
     }
 
-    execute(payload: Object): string {
+    execute(payload: Record<string, unknown>): string {
         const xmlPayload = json2xml(payload, this.ndcVersion)
         if (xmlPayload === -1) {
             throw new Error('json2xml failed to create request')

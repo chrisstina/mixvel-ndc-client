@@ -40,6 +40,7 @@
     "class-validator": "^0.13.2",
     "luxon": "^2.2.0",
     "ndc-json2xml": "^0.1.1",
+    "ndc-xml2json": "^0.2.1",
     "uuid": "^8.3.2",
     "xml2js": "^0.4.23"
   }
