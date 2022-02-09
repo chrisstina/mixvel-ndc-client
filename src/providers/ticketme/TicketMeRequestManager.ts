@@ -8,15 +8,15 @@ import {IMessageMapper} from "../../interfaces/IMessageMapper";
 import {IEndpointManager} from "../../interfaces/IEndpointManager";
 import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
 
-import {BookParams} from "../../request/parameters/Book";
-import {PriceParams} from "../../request/parameters/Price";
-import {OrderRetrieveParams} from "../../request/parameters/OrderRetrieve";
-import {RefundParams} from "../../request/parameters/Refund";
+import {BookParams} from "../../core/request/parameters/Book";
+import {PriceParams} from "../../core/request/parameters/Price";
+import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
+import {RefundParams} from "../../core/request/parameters/Refund";
 import {IRequest} from "../../interfaces/IRequest";
-import {SearchParams} from "../../request/parameters/Search";
-import {TicketIssueParams} from "../../request/parameters/TicketIssue";
+import {SearchParams} from "../../core/request/parameters/Search";
+import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
 
-import {AbstractParamsValidator} from "../../request/AbstractParamsValidator";
+import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidator";
 import {TicketMeRequest} from "./TicketMeRequest";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";

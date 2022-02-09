@@ -1,5 +1,5 @@
 import {GenericNDCMessage} from "./GenericNDCMessage";
-import {AbstractParams} from "../request/parameters/AbstractParams";
+import {AbstractParams} from "../core/request/parameters/AbstractParams";
 
 export interface IMessageMapper {
     params?: AbstractParams

@@ -20,7 +20,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookParamsValidator = void 0;
 var assert_1 = __importDefault(require("assert"));
-var AbstractParamsValidator_1 = require("../../../request/AbstractParamsValidator");
+var AbstractParamsValidator_1 = require("../../../core/request/AbstractParamsValidator");
 var BookParamsValidator = /** @class */ (function (_super) {
     __extends(BookParamsValidator, _super);
     function BookParamsValidator() {

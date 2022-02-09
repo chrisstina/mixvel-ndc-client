@@ -1,6 +1,5 @@
 import {IsNotEmpty, IsString} from "class-validator";
 import {AbstractParams} from "./AbstractParams";
-import {Result} from "../../core/Result";
 
 export type AuthProps = {
     login: string

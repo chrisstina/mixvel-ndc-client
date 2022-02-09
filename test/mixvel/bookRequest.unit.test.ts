@@ -2,7 +2,7 @@ import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
 import {createNDCService} from "../../src"
-import {BookProps} from "../../src/request/parameters/Book";
+import {BookProps} from "../../src/core/request/parameters/Book";
 
 const {getBookRequest} = createNDCService('mixvel')
 

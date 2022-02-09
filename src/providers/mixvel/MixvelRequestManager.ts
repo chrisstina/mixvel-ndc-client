@@ -11,14 +11,14 @@ import {MixvelRequest} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
-import {SearchParams} from "../../request/parameters/Search";
-import {PriceParams} from "../../request/parameters/Price";
-import {BookParams} from "../../request/parameters/Book";
-import {TicketIssueParams} from "../../request/parameters/TicketIssue";
-import {RefundParams} from "../../request/parameters/Refund";
-import {OrderRetrieveParams} from "../../request/parameters/OrderRetrieve";
+import {SearchParams} from "../../core/request/parameters/Search";
+import {PriceParams} from "../../core/request/parameters/Price";
+import {BookParams} from "../../core/request/parameters/Book";
+import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
+import {RefundParams} from "../../core/request/parameters/Refund";
+import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
 
-import {AbstractParamsValidator} from "../../request/AbstractParamsValidator";
+import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidator";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
@@ -32,7 +32,6 @@ import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
-import {RequestOptionsManager} from "../../request/RequestOptionsManager";
 
 export class MixvelEndpointManager implements IEndpointManager {
     constructor(public endpoints: Map<string, string>) {

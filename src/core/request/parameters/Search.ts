@@ -1,8 +1,10 @@
 import {
     ArrayNotEmpty,
-    IsAlpha, IsBoolean,
+    IsAlpha,
+    IsBoolean,
     IsIn,
-    IsNumber, IsOptional,
+    IsNumber,
+    IsOptional,
     IsString,
     Length,
     Max,

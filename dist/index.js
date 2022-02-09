@@ -12,14 +12,14 @@ var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXml
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var ObjectToXmlNDCConversionStrategy_1 = require("./services/conversion/ObjectToXmlNDCConversionStrategy");
 // import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
-var RequestOptionsManager_1 = require("./request/RequestOptionsManager");
-var Auth_1 = require("./request/parameters/Auth");
-var Search_1 = require("./request/parameters/Search");
-var Price_1 = require("./request/parameters/Price");
-var OrderRetrieve_1 = require("./request/parameters/OrderRetrieve");
-var Book_1 = require("./request/parameters/Book");
-var TicketIssue_1 = require("./request/parameters/TicketIssue");
-var Refund_1 = require("./request/parameters/Refund");
+var RequestOptionsManager_1 = require("./core/request/RequestOptionsManager");
+var Auth_1 = require("./core/request/parameters/Auth");
+var Search_1 = require("./core/request/parameters/Search");
+var Price_1 = require("./core/request/parameters/Price");
+var OrderRetrieve_1 = require("./core/request/parameters/OrderRetrieve");
+var Book_1 = require("./core/request/parameters/Book");
+var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
+var Refund_1 = require("./core/request/parameters/Refund");
 // Provider-specific
 var datalist_1 = require("./providers/mixvel/constants/datalist");
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");

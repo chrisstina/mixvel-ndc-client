@@ -2,7 +2,7 @@ import assert from "assert";
 
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
-import {BookParams, Passenger} from "../../../request/parameters/Book";
+import {BookParams, Passenger} from "../../../core/request/parameters/Book";
 
 import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
 

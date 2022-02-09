@@ -1,4 +1,4 @@
-import {PaxCategory} from "../../../../request/types";
+import {PaxCategory} from "../../../../core/request/types";
 
 export enum MixvelPTC {
     ADULT = "ADT",

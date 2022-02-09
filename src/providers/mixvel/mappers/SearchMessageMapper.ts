@@ -3,7 +3,7 @@ import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 import {Mixvel_AirShoppingRQ} from "../messages/Mixvel_AirShoppingRQ";
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc";
 import {toMixvel as toMixvelCabin} from "./dictionary/cabin";
-import {SearchProps} from "../../../request/parameters/Search";
+import {SearchProps} from "../../../core/request/parameters/Search";
 
 const {DateTime} = require('luxon')
 

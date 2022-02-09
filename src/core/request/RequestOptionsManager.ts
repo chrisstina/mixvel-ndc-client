@@ -1,4 +1,4 @@
-import {IRequestOptions, IRequestOptionsManager} from "../interfaces/IRequestOptionsManager";
+import {IRequestOptions, IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
 
 export class RequestOptionsManager implements IRequestOptionsManager {
     create(params: {

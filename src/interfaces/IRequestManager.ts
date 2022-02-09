@@ -1,11 +1,11 @@
 import {IRequest} from "./IRequest";
 import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
-import {SearchParams} from "../request/parameters/Search";
-import {PriceParams} from "../request/parameters/Price";
-import {BookParams} from "../request/parameters/Book";
-import {OrderRetrieveParams} from "../request/parameters/OrderRetrieve";
-import {TicketIssueParams} from "../request/parameters/TicketIssue";
-import {RefundParams} from "../request/parameters/Refund";
+import {SearchParams} from "../core/request/parameters/Search";
+import {PriceParams} from "../core/request/parameters/Price";
+import {BookParams} from "../core/request/parameters/Book";
+import {OrderRetrieveParams} from "../core/request/parameters/OrderRetrieve";
+import {TicketIssueParams} from "../core/request/parameters/TicketIssue";
+import {RefundParams} from "../core/request/parameters/Refund";
 import {IEndpointManager} from "./IEndpointManager";
 import {IRequestOptionsManager} from "./IRequestOptionsManager";
 

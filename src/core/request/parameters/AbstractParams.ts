@@ -1,6 +1,7 @@
-import {Result} from "../../core/Result";
-import {RequestValidationService} from "../../services/RequestValidationService";
-import {RequestValidationError} from "../../core/errors/RequestValidationError";
+import {Result} from "../../Result";
+import {RequestValidationService} from "../../../services/RequestValidationService";
+import {RequestValidationError} from "../../errors/RequestValidationError";
+
 const validationService = new RequestValidationService()
 
 export class AbstractParams {

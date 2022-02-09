@@ -1,10 +1,10 @@
 import assert from "assert";
 
-import {FopType} from "../../../request/types";
+import {FopType} from "../../../core/request/types";
 
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 import {DirectBill, Mixvel_OrderChangeRQ, OtherPaymentMethod} from "../messages/Mixvel_OrderChangeRQ";
-import {TicketIssueParams} from "../../../request/parameters/TicketIssue";
+import {TicketIssueParams} from "../../../core/request/parameters/TicketIssue";
 
 export class IssueOrderMessageMapper implements IMessageMapper {
     constructor(public readonly params: TicketIssueParams) {

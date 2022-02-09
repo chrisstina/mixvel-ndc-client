@@ -14,14 +14,14 @@ import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlCo
 import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
 import {ObjectToXmlNDCConversionStrategy} from "./services/conversion/ObjectToXmlNDCConversionStrategy";
 // import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
-import {RequestOptionsManager} from "./request/RequestOptionsManager";
-import {AuthParams, AuthProps} from "./request/parameters/Auth";
-import {SearchParams, SearchProps} from "./request/parameters/Search";
-import {PriceParams, PriceProps} from "./request/parameters/Price";
-import {OrderRetrieveParams, OrderRetrieveProps} from "./request/parameters/OrderRetrieve";
-import {BookParams, BookProps} from "./request/parameters/Book";
-import {TicketIssueParams, TicketIssueProps} from "./request/parameters/TicketIssue";
-import {RefundParams, RefundProps} from "./request/parameters/Refund";
+import {RequestOptionsManager} from "./core/request/RequestOptionsManager";
+import {AuthParams, AuthProps} from "./core/request/parameters/Auth";
+import {SearchParams, SearchProps} from "./core/request/parameters/Search";
+import {PriceParams, PriceProps} from "./core/request/parameters/Price";
+import {OrderRetrieveParams, OrderRetrieveProps} from "./core/request/parameters/OrderRetrieve";
+import {BookParams, BookProps} from "./core/request/parameters/Book";
+import {TicketIssueParams, TicketIssueProps} from "./core/request/parameters/TicketIssue";
+import {RefundParams, RefundProps} from "./core/request/parameters/Refund";
 
 // Provider-specific
 import {allowedDataLists} from "./providers/mixvel/constants/datalist";
