@@ -1,11 +1,10 @@
-import {IRequest} from "../../interfaces/IRequest";
-import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {MixvelEnvelope} from "./MixvelEnvelope";
-import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
-
+import { IRequest } from "../../interfaces/IRequest";
+import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
+import { GenericNDCMessage } from "../../interfaces/GenericNDCMessage";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { MixvelEnvelope } from "./MixvelEnvelope";
+import { MixvelAppData } from "./MixvelAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 export declare class MixvelRequest implements IRequest {
     readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData;
     options: IRequestOptions;

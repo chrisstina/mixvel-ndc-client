@@ -1,12 +1,13 @@
-import ResponseParsingError from "../../core/errors/ResponseParsingError";
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {IResponseManager} from "../../interfaces/IResponseManager";
+import {IResponseMapper} from "../../interfaces/IResponseMapper";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
 import {IResponseError} from "../../interfaces/IResponseError";
+import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
+import ResponseParsingError from "../../core/errors/ResponseParsingError";
 
 type TicketMeCompleteResponse = Record<string, { $: Record<string, string>, "ns2:Success"?: Record<string, never>[], "ns2:Errors"?: any[], "ns2:Warnings"?: any[], "ns2:Document"?: Record<string, never>[], "ns2:Response"?: [] }>
 
-class TicketMeResponseMapper {
+class TicketMeResponseMapper implements IResponseMapper {
     public map(completeResponseObject: Partial<TicketMeCompleteResponse>): TicketMeResponseError | TicketMeResponseMessage {
         if (completeResponseObject == undefined) {
             throw new ResponseParsingError('Could not find Body node')
@@ -29,28 +30,11 @@ class TicketMeResponseMapper {
     }
 }
 
-export class TicketMeResponseManager implements IResponseManager {
-    private _mapper: TicketMeResponseMapper;
-
+export class TicketMeResponseManager extends AbstractResponseManager {
     constructor(
         public conversionStrategy: IConversionStrategy
     ) {
-        this._mapper = new TicketMeResponseMapper()
-    }
-
-    convert(rawXML: string): Promise<Record<string, any> | null> {
-        const conversionPromise = this.conversionStrategy.execute(rawXML);
-        let convertedResult: Record<string, unknown> | null;
-
-        if (typeof conversionPromise === "string") {
-            throw new ResponseParsingError('Converted to unexpected type')
-        }
-
-        if (!(conversionPromise instanceof Promise)) {
-            convertedResult = conversionPromise;
-            return Promise.resolve().then(() => convertedResult);
-        }
-        return conversionPromise;
+        super(conversionStrategy, new TicketMeResponseMapper())
     }
 
     /**
@@ -62,7 +46,7 @@ export class TicketMeResponseManager implements IResponseManager {
             if (responseObject === null) {
                 return Promise.reject(new ResponseParsingError('Response parsed to an empty object'))
             }
-            return this._mapper.map(responseObject)
+            return this.mapper.map(responseObject)
         })
     }
 }

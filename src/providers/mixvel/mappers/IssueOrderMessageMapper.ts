@@ -18,7 +18,7 @@ export class IssueOrderMessageMapper implements IMessageMapper {
     }
 }
 
-function createFOP({type, data}: { type: FopType, data?: string | {} }): OtherPaymentMethod | DirectBill {
+function createFOP({type, data}: { type: FopType, data?: string | Record<string, unknown> }): OtherPaymentMethod | DirectBill {
     switch (type) {
         case "BILL":
             assert(typeof data === "string", "Data for BILL FOR must be string") // @todo move to validation

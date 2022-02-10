@@ -1,7 +1,6 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {Mixvel_AirShoppingRQ} from "../messages/Mixvel_AirShoppingRQ";
-import {SearchProps} from "../../../core/request/parameters/Search";
-
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { Mixvel_AirShoppingRQ } from "../messages/Mixvel_AirShoppingRQ";
+import { SearchProps } from "../../../core/request/parameters/Search";
 export declare class SearchMessageMapper implements IMessageMapper {
     readonly params: SearchProps;
     constructor(params: SearchProps);

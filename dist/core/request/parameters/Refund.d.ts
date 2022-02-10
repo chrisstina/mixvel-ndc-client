@@ -1,5 +1,4 @@
-import {AbstractParams} from "./AbstractParams";
-
+import { AbstractParams } from "./AbstractParams";
 export declare type RefundProps = {
     orderId: string;
     orderItemIds: string[][];

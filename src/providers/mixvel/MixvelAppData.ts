@@ -6,7 +6,7 @@ import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
 
 export class MixvelAppData<T extends GenericNDCMessage> {
     [index: string]: {
-        $: {},
+        $: Record<string, string>,
         Request: T[]
     }[]
 

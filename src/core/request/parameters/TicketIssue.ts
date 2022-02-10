@@ -5,9 +5,9 @@ import {FopType} from "../types";
 class FormOfPayment {
     @IsIn(["CASH", "BILL", "CARD"])
     public type: FopType
-    public data?: string | {}
+    public data?: string | Record<string, unknown>
 
-    constructor(type: FopType, data?: string | {}) {
+    constructor(type: FopType, data?: string | Record<string, unknown>) {
         this.data = data
         this.type = type
     }
@@ -28,7 +28,7 @@ class Payment {
 export type TicketIssueProps = {
     orderId: string
     payment: { amount: number, currency: string }
-    formOfPayment: { type: FopType, data?: string | {} }
+    formOfPayment: { type: FopType, data?: string | Record<string, unknown> }
 }
 
 export class TicketIssueParams extends AbstractParams {

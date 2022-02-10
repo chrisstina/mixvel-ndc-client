@@ -1,8 +1,7 @@
-import {IRequest} from "../../interfaces/IRequest";
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
-import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-
+import { IRequest } from "../../interfaces/IRequest";
+import { GenericNDCMessage } from "../../interfaces/GenericNDCMessage";
+import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 export declare type PartyCredentials = {
     agencyId: string;
 };

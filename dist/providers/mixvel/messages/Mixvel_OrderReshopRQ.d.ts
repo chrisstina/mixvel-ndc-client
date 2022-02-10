@@ -4,6 +4,6 @@ export declare class Mixvel_OrderReshopRQ implements GenericNDCMessage {
         "xmlns:Reshop": string;
     };
     get nodeName(): string;
-    MixOrder: {};
+    MixOrder: Record<string, unknown>;
     constructor(offerId: string);
 }

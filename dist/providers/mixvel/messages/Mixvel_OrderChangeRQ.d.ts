@@ -31,7 +31,7 @@ export declare class Mixvel_OrderChangeRQ implements GenericNDCMessage {
     /**
      * for order refund request
      */
-    ChangeOrder?: {};
+    ChangeOrder?: Record<string, unknown>;
     constructor(orderId: string);
     setPaymentDetails({ amount, currency }: {
         amount: string;

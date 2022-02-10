@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,6 +56,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MixvelResponseMessage = exports.MixvelResponseError = exports.MixvelResponseManager = void 0;
 var ResponseParsingError_1 = __importDefault(require("../../core/errors/ResponseParsingError"));
+var AbstractResponseManager_1 = require("../../core/response/AbstractResponseManager");
 var MixvelResponseMapper = /** @class */ (function () {
     function MixvelResponseMapper(rootNodeName, allowedResponseNodeNames) {
         this.rootNodeName = rootNodeName;
@@ -79,25 +95,14 @@ var MixvelResponseMapper = /** @class */ (function () {
     };
     return MixvelResponseMapper;
 }());
-var MixvelResponseManager = /** @class */ (function () {
+var MixvelResponseManager = /** @class */ (function (_super) {
+    __extends(MixvelResponseManager, _super);
     function MixvelResponseManager(responseTypes, conversionStrategy) {
-        this.responseTypes = responseTypes;
-        this.conversionStrategy = conversionStrategy;
-        this.rootNodeName = "MixEnv:Envelope";
-        this._mapper = new MixvelResponseMapper(this.rootNodeName, this.responseTypes);
+        var _this = _super.call(this, conversionStrategy, new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes)) || this;
+        _this.responseTypes = responseTypes;
+        _this.conversionStrategy = conversionStrategy;
+        return _this;
     }
-    MixvelResponseManager.prototype.convert = function (rawXML) {
-        var conversionPromise = this.conversionStrategy.execute(rawXML);
-        var convertedResult;
-        if (typeof conversionPromise === "string") {
-            throw new ResponseParsingError_1.default('Converted to unexpected type');
-        }
-        if (!(conversionPromise instanceof Promise)) {
-            convertedResult = conversionPromise;
-            return Promise.resolve().then(function () { return convertedResult; });
-        }
-        return conversionPromise;
-    };
     /**
      * @todo currently the response structure depends on a conversion strategy, which is not ok
      * @param rawXML
@@ -111,17 +116,18 @@ var MixvelResponseManager = /** @class */ (function () {
                         if (responseObject === null) {
                             return Promise.reject(new ResponseParsingError_1.default('Response parsed to an empty object'));
                         }
-                        if (responseObject[_this.rootNodeName] === undefined
-                            || ((_a = responseObject[_this.rootNodeName]) === null || _a === void 0 ? void 0 : _a.Body) === undefined) {
+                        if (responseObject[MixvelResponseManager.rootNodeName] === undefined
+                            || ((_a = responseObject[MixvelResponseManager.rootNodeName]) === null || _a === void 0 ? void 0 : _a.Body) === undefined) {
                             return Promise.reject(new ResponseParsingError_1.default('Invalid response format'));
                         }
-                        return _this._mapper.map(responseObject);
+                        return _this.mapper.map(responseObject);
                     })];
             });
         });
     };
+    MixvelResponseManager.rootNodeName = "MixEnv:Envelope";
     return MixvelResponseManager;
-}());
+}(AbstractResponseManager_1.AbstractResponseManager));
 exports.MixvelResponseManager = MixvelResponseManager;
 /**
  * // <ErrorType>InternalServerError</ErrorType>

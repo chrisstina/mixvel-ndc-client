@@ -1,5 +1,4 @@
-import {Cabin} from "../../../../core/request/types";
-
+import { Cabin } from "../../../../core/request/types";
 export declare enum MixvelCabin {
     ECONOMY = "Economy",
     BUSINESS = "Business"

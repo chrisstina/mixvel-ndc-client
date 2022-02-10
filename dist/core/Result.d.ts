@@ -7,7 +7,7 @@ export declare class Result<T> {
     isSuccess: boolean;
     isFailure: boolean;
     error?: string;
-    private _value?;
+    private readonly _value?;
     private constructor();
     getValue(): T;
     static ok<U>(value?: U): Result<U>;

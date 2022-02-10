@@ -1,19 +1,18 @@
-import {IRequest} from "./IRequest";
-import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
-import {SearchParams} from "../core/request/parameters/Search";
-import {PriceParams} from "../core/request/parameters/Price";
-import {BookParams} from "../core/request/parameters/Book";
-import {OrderRetrieveParams} from "../core/request/parameters/OrderRetrieve";
-import {TicketIssueParams} from "../core/request/parameters/TicketIssue";
-import {RefundParams} from "../core/request/parameters/Refund";
-import {IEndpointManager} from "./IEndpointManager";
-import {IRequestOptionsManager} from "./IRequestOptionsManager";
-
+import { IRequest } from "./IRequest";
+import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { SearchParams } from "../core/request/parameters/Search";
+import { PriceParams } from "../core/request/parameters/Price";
+import { BookParams } from "../core/request/parameters/Book";
+import { OrderRetrieveParams } from "../core/request/parameters/OrderRetrieve";
+import { TicketIssueParams } from "../core/request/parameters/TicketIssue";
+import { RefundParams } from "../core/request/parameters/Refund";
+import { IEndpointManager } from "./IEndpointManager";
+import { IRequestOptionsManager } from "./IRequestOptionsManager";
 export interface IRequestManager {
     endpointManager: IEndpointManager;
     requestOptionsManager: IRequestOptionsManager;
     conversionStrategy: IConversionStrategy;
-    extraConfiguration: {};
+    extraConfiguration: Record<string, unknown>;
     createAuthRequest(params: {
         login: string;
         password: string;

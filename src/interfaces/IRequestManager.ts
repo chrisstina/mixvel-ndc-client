@@ -15,7 +15,7 @@ export interface IRequestManager {
     conversionStrategy: IConversionStrategy;
 
     // Party data, agency id, lang, currency etc,
-    extraConfiguration: {}
+    extraConfiguration: Record<string, unknown>
 
     createAuthRequest(params: { login: string, password: string, structureId: string }): IRequest;
 

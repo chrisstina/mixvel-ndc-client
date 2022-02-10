@@ -44,7 +44,7 @@ export class Mixvel_OrderChangeRQ implements GenericNDCMessage {
     /**
      * for order refund request
      */
-    public ChangeOrder?: {}
+    public ChangeOrder?: Record<string, unknown>
 
     constructor(orderId: string) {
         this.MixOrder = {MixOrderID: orderId}

@@ -8,7 +8,7 @@ export class Result<T> {
     public isSuccess: boolean;
     public isFailure: boolean
     public error?: string;
-    private _value?: T;
+    private readonly _value?: T;
 
     private constructor(isSuccess: boolean, error?: string, value?: T) {
         if (isSuccess && error) {

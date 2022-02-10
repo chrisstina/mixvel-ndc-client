@@ -1,18 +1,17 @@
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {IRequestManager} from "../../interfaces/IRequestManager";
-import {IMessageMapper} from "../../interfaces/IMessageMapper";
-import {IEndpointManager} from "../../interfaces/IEndpointManager";
-import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
-import {BookParams} from "../../core/request/parameters/Book";
-import {PriceParams} from "../../core/request/parameters/Price";
-import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
-import {RefundParams} from "../../core/request/parameters/Refund";
-import {IRequest} from "../../interfaces/IRequest";
-import {SearchParams} from "../../core/request/parameters/Search";
-import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
-import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidator";
-import {TicketMeRequest} from "./TicketMeRequest";
-
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IRequestManager } from "../../interfaces/IRequestManager";
+import { IMessageMapper } from "../../interfaces/IMessageMapper";
+import { IEndpointManager } from "../../interfaces/IEndpointManager";
+import { IRequestOptionsManager } from "../../interfaces/IRequestOptionsManager";
+import { BookParams } from "../../core/request/parameters/Book";
+import { PriceParams } from "../../core/request/parameters/Price";
+import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
+import { RefundParams } from "../../core/request/parameters/Refund";
+import { IRequest } from "../../interfaces/IRequest";
+import { SearchParams } from "../../core/request/parameters/Search";
+import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
+import { AbstractParamsValidator } from "../../core/request/AbstractParamsValidator";
+import { TicketMeRequest } from "./TicketMeRequest";
 export declare class TicketMeRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;

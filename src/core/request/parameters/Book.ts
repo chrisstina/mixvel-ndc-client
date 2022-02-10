@@ -127,12 +127,12 @@ export class Passenger {
     @ValidateNested()
     public readonly identityDocument: IdentityDocument
     public contacts: Contact
-    public loyaltyInfo?: {}
+    public loyaltyInfo?: Record<string, unknown>
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
-                contacts: { phoneNumber?: string; email?: string }, loyaltyInfo?: {}) {
+                contacts: { phoneNumber?: string; email?: string }, loyaltyInfo?: Record<string, unknown>) {
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(
             personalInfo.firstName,

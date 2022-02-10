@@ -1,6 +1,5 @@
-import {AbstractParams} from "./AbstractParams";
-import {DocumentType, PaxCategory} from "../types";
-
+import { AbstractParams } from "./AbstractParams";
+import { DocumentType, PaxCategory } from "../types";
 export declare type BookProps = {
     offerId: string;
     offerItemIds: Array<{
@@ -46,7 +45,7 @@ export declare class Passenger {
     readonly personalInfo: PersonalInfo;
     readonly identityDocument: IdentityDocument;
     contacts: Contact;
-    loyaltyInfo?: {};
+    loyaltyInfo?: Record<string, unknown>;
     constructor(ptc: PaxCategory, personalInfo: {
         firstName: string;
         lastName: string;
@@ -62,6 +61,6 @@ export declare class Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: {});
+    }, loyaltyInfo?: Record<string, unknown>);
 }
 export {};

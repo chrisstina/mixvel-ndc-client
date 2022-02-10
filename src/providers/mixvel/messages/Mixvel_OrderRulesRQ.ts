@@ -9,7 +9,7 @@ export class Mixvel_OrderRulesRQ implements GenericNDCMessage {
         return "m:Mixvel_OrderRulesRQ"
     }
 
-    public RulesCoreRequest: {}
+    public RulesCoreRequest: Record<string, unknown>
 
     constructor(offerId: string, offerItemIds: string[]) {
         this.RulesCoreRequest = {

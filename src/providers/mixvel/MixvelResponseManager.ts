@@ -1,14 +1,15 @@
 import ResponseParsingError from "../../core/errors/ResponseParsingError";
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {IResponseManager} from "../../interfaces/IResponseManager";
+import {IResponseMapper} from "../../interfaces/IResponseMapper";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
 import {IResponseError} from "../../interfaces/IResponseError";
+import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
 
 type MixvelMessage = Record<string, { $: string[], Response?: unknown[], Error?: MixvelError[] }[]>
 type MixvelError = { ErrorType?: string, CanRetry?: string, TicketId?: string, Code?: string, DescText?: string[] }
 type MixvelCompleteResponse = Record<string, { Body?: { AppData?: MixvelMessage[], Error?: MixvelError[] }[] }>
 
-class MixvelResponseMapper {
+class MixvelResponseMapper implements IResponseMapper {
 
     constructor(
         public readonly rootNodeName: string,
@@ -57,30 +58,14 @@ class MixvelResponseMapper {
     }
 }
 
-export class MixvelResponseManager implements IResponseManager {
-    public readonly rootNodeName = "MixEnv:Envelope"
-    private readonly _mapper: MixvelResponseMapper
+export class MixvelResponseManager extends AbstractResponseManager {
+    public static readonly rootNodeName = "MixEnv:Envelope"
 
     constructor(
         public responseTypes: string[],
         public conversionStrategy: IConversionStrategy
     ) {
-        this._mapper = new MixvelResponseMapper(this.rootNodeName, this.responseTypes)
-    }
-
-    convert(rawXML: string): Promise<Record<string, any> | null> {
-        const conversionPromise = this.conversionStrategy.execute(rawXML);
-        let convertedResult: Record<string, unknown> | null;
-
-        if (typeof conversionPromise === "string") {
-            throw new ResponseParsingError('Converted to unexpected type')
-        }
-
-        if (!(conversionPromise instanceof Promise)) {
-            convertedResult = conversionPromise;
-            return Promise.resolve().then(() => convertedResult);
-        }
-        return conversionPromise;
+        super(conversionStrategy, new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes))
     }
 
     /**
@@ -93,12 +78,12 @@ export class MixvelResponseManager implements IResponseManager {
                 return Promise.reject(new ResponseParsingError('Response parsed to an empty object'))
             }
 
-            if (responseObject[this.rootNodeName] === undefined
-                || responseObject[this.rootNodeName]?.Body === undefined) {
+            if (responseObject[MixvelResponseManager.rootNodeName] === undefined
+                || responseObject[MixvelResponseManager.rootNodeName]?.Body === undefined) {
                 return Promise.reject(new ResponseParsingError('Invalid response format'))
             }
 
-            return this._mapper.map(responseObject)
+            return this.mapper.map(responseObject)
         })
     }
 }
@@ -116,7 +101,7 @@ export class MixvelResponseError implements IResponseError {
 
     constructor(data: { ErrorType?: string, Code?: string, DescText?: string[] }) {
         this.code = data.Code || '000';
-        this.text = data.DescText && data.DescText.length > 0? data.DescText [0] : ''
+        this.text = data.DescText && data.DescText.length > 0 ? data.DescText [0] : ''
     }
 }
 

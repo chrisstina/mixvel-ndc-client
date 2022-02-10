@@ -71,10 +71,10 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
 
     theProvider.extraConfiguration = providerConfig
 
-    let requestManager: IRequestManager = theProvider.requestManager
-    let responseManager: IResponseManager = theProvider.responseManager
+    const requestManager: IRequestManager = theProvider.requestManager
+    const responseManager: IResponseManager = theProvider.responseManager
 
-    function setProviderConfig(providerConfig: {}) {
+    function setProviderConfig(providerConfig: Record<string, unknown>) {
         theProvider.extraConfiguration = providerConfig
     }
 
@@ -180,7 +180,7 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
         return Promise.reject(new ResponseParsingError('Unknown input format'))
     }
 
-    function extractDataLists(dataListSource: Array<{}>) {
+    function extractDataLists(dataListSource: Record<string, unknown>[]) {
         const dl: { [key: string]: DataList } = {}
         for (const [keyTitle, dataListTitle] of Object.entries(allowedDataLists)) {
             dl[keyTitle] = DataList.create(dataListTitle, dataListSource)

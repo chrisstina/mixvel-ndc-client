@@ -9,7 +9,7 @@ export class Mixvel_OrderReshopRQ implements GenericNDCMessage {
         return "Reshop:Mixvel_OrderReshopRQ"
     }
 
-    public MixOrder: {}
+    public MixOrder: Record<string, unknown>
 
     constructor(offerId: string) {
         this.MixOrder = {MixOrderID: offerId}

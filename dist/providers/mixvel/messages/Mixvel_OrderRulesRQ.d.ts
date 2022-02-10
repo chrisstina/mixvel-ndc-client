@@ -4,6 +4,6 @@ export declare class Mixvel_OrderRulesRQ implements GenericNDCMessage {
         "xmlns:m": string;
     };
     get nodeName(): string;
-    RulesCoreRequest: {};
+    RulesCoreRequest: Record<string, unknown>;
     constructor(offerId: string, offerItemIds: string[]);
 }

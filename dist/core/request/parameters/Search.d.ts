@@ -1,6 +1,5 @@
-import {AbstractParams} from "./AbstractParams";
-import {Cabin, PaxCategory} from "../types";
-
+import { AbstractParams } from "./AbstractParams";
+import { Cabin, PaxCategory } from "../types";
 export declare class OriginDestination {
     from: string;
     to: string;

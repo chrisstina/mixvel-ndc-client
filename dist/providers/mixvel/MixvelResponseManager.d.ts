@@ -1,15 +1,12 @@
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {IResponseManager} from "../../interfaces/IResponseManager";
-import {IResponseMessage} from "../../interfaces/IResponseMessage";
-import {IResponseError} from "../../interfaces/IResponseError";
-
-export declare class MixvelResponseManager implements IResponseManager {
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IResponseMessage } from "../../interfaces/IResponseMessage";
+import { IResponseError } from "../../interfaces/IResponseError";
+import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
+export declare class MixvelResponseManager extends AbstractResponseManager {
     responseTypes: string[];
     conversionStrategy: IConversionStrategy;
-    readonly rootNodeName = "MixEnv:Envelope";
-    private readonly _mapper;
+    static readonly rootNodeName = "MixEnv:Envelope";
     constructor(responseTypes: string[], conversionStrategy: IConversionStrategy);
-    convert(rawXML: string): Promise<Record<string, any> | null>;
     /**
      * @todo currently the response structure depends on a conversion strategy, which is not ok
      * @param rawXML
