@@ -2,14 +2,8 @@ import { IConversionStrategy } from "../../services/conversion/IConversionSrateg
 import { IResponseMessage } from "../../interfaces/IResponseMessage";
 import { IResponseError } from "../../interfaces/IResponseError";
 import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
-declare type TicketMeCompleteResponse = Record<string, {
-    $: Record<string, string>;
-    "ns2:Success"?: Record<string, never>[];
-    "ns2:Errors"?: any[];
-    "ns2:Warnings"?: any[];
-    "ns2:Document"?: Record<string, never>[];
-    "ns2:Response"?: [];
-}>;
+declare type CurrentNamespace = "ns2";
+declare type TicketMeCompleteResponse<Namespace extends string> = Record<string, Record<"$" | `${Namespace}:Success` | `${Namespace}:Errors` | `${Namespace}:Warnings` | `${Namespace}:Document` | `${Namespace}:Response` | string, Record<string, never>[] | any[]>>;
 export declare class TicketMeResponseManager extends AbstractResponseManager {
     conversionStrategy: IConversionStrategy;
     constructor(conversionStrategy: IConversionStrategy);
@@ -29,6 +23,6 @@ export declare class TicketMeResponseError implements IResponseError {
     });
 }
 export declare class TicketMeResponseMessage implements IResponseMessage {
-    constructor(data: TicketMeCompleteResponse);
+    constructor(data: TicketMeCompleteResponse<CurrentNamespace>);
 }
 export {};

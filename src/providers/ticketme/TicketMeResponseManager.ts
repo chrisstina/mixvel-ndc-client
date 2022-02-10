@@ -5,10 +5,14 @@ import {IResponseError} from "../../interfaces/IResponseError";
 import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
 import ResponseParsingError from "../../core/errors/ResponseParsingError";
 
-type TicketMeCompleteResponse = Record<string, { $: Record<string, string>, "ns2:Success"?: Record<string, never>[], "ns2:Errors"?: any[], "ns2:Warnings"?: any[], "ns2:Document"?: Record<string, never>[], "ns2:Response"?: [] }>
+type CurrentNamespace = "ns2"
+
+type TicketMeCompleteResponse<Namespace extends string> = Record<string,
+    Record<"$" | `${Namespace}:Success` | `${Namespace}:Errors` | `${Namespace}:Warnings` | `${Namespace}:Document` | `${Namespace}:Response` | string,
+        Record<string, never>[] | any[]>>
 
 class TicketMeResponseMapper implements IResponseMapper {
-    public map(completeResponseObject: Partial<TicketMeCompleteResponse>): TicketMeResponseError | TicketMeResponseMessage {
+    public map(completeResponseObject: Partial<TicketMeCompleteResponse<CurrentNamespace>>): TicketMeResponseError | TicketMeResponseMessage {
         if (completeResponseObject == undefined) {
             throw new ResponseParsingError('Could not find Body node')
         }
@@ -62,7 +66,7 @@ export class TicketMeResponseError implements IResponseError {
 }
 
 export class TicketMeResponseMessage implements IResponseMessage {
-    constructor(data: TicketMeCompleteResponse) {
+    constructor(data: TicketMeCompleteResponse<CurrentNamespace>) {
         Object.assign(this, data)
     }
 }
