@@ -57,6 +57,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MixvelResponseMessage = exports.MixvelResponseError = exports.MixvelResponseManager = void 0;
 var ResponseParsingError_1 = __importDefault(require("../../core/errors/ResponseParsingError"));
 var AbstractResponseManager_1 = require("../../core/response/AbstractResponseManager");
+var allowedDatalists_1 = require("./config/allowedDatalists");
+var MixvelDataList_1 = require("./MixvelDataList");
 var MixvelResponseMapper = /** @class */ (function () {
     function MixvelResponseMapper(rootNodeName, allowedResponseNodeNames) {
         this.rootNodeName = rootNodeName;
@@ -98,9 +100,10 @@ var MixvelResponseMapper = /** @class */ (function () {
 var MixvelResponseManager = /** @class */ (function (_super) {
     __extends(MixvelResponseManager, _super);
     function MixvelResponseManager(responseTypes, conversionStrategy) {
-        var _this = _super.call(this, conversionStrategy, new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes)) || this;
+        var _this = _super.call(this, conversionStrategy, new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes), allowedDatalists_1.allowedDataLists) || this;
         _this.responseTypes = responseTypes;
         _this.conversionStrategy = conversionStrategy;
+        _this.allowedDatalists = allowedDatalists_1.allowedDataLists;
         return _this;
     }
     /**
@@ -124,6 +127,9 @@ var MixvelResponseManager = /** @class */ (function (_super) {
                     })];
             });
         });
+    };
+    MixvelResponseManager.prototype.createDataList = function (dataListTitle, dataListSource) {
+        return MixvelDataList_1.MixvelDataList.create(dataListTitle, dataListSource);
     };
     MixvelResponseManager.rootNodeName = "MixEnv:Envelope";
     return MixvelResponseManager;

@@ -57,6 +57,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TicketMeResponseMessage = exports.TicketMeResponseError = exports.TicketMeResponseManager = void 0;
 var AbstractResponseManager_1 = require("../../core/response/AbstractResponseManager");
 var ResponseParsingError_1 = __importDefault(require("../../core/errors/ResponseParsingError"));
+var allowedDatalists_1 = require("./config/allowedDatalists");
+var TicketMeDataList_1 = require("./TicketMeDataList");
 var TicketMeResponseMapper = /** @class */ (function () {
     function TicketMeResponseMapper() {
     }
@@ -83,7 +85,7 @@ var TicketMeResponseMapper = /** @class */ (function () {
 var TicketMeResponseManager = /** @class */ (function (_super) {
     __extends(TicketMeResponseManager, _super);
     function TicketMeResponseManager(conversionStrategy) {
-        var _this = _super.call(this, conversionStrategy, new TicketMeResponseMapper()) || this;
+        var _this = _super.call(this, conversionStrategy, new TicketMeResponseMapper(), allowedDatalists_1.allowedDataLists) || this;
         _this.conversionStrategy = conversionStrategy;
         return _this;
     }
@@ -103,6 +105,9 @@ var TicketMeResponseManager = /** @class */ (function (_super) {
                     })];
             });
         });
+    };
+    TicketMeResponseManager.prototype.createDataList = function (title, source) {
+        return TicketMeDataList_1.TicketMeDataList.create(title, source);
     };
     return TicketMeResponseManager;
 }(AbstractResponseManager_1.AbstractResponseManager));

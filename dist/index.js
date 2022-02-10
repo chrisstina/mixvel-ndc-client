@@ -11,7 +11,8 @@ var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponsePars
 var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var ObjectToXmlNDCConversionStrategy_1 = require("./services/conversion/ObjectToXmlNDCConversionStrategy");
-// import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
+var XmlNDCToObjectConversionStrategy_1 = require("./services/conversion/XmlNDCToObjectConversionStrategy");
+var RequestEndpointManager_1 = require("./core/request/RequestEndpointManager");
 var RequestOptionsManager_1 = require("./core/request/RequestOptionsManager");
 var Auth_1 = require("./core/request/parameters/Auth");
 var Search_1 = require("./core/request/parameters/Search");
@@ -21,23 +22,20 @@ var Book_1 = require("./core/request/parameters/Book");
 var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
 var Refund_1 = require("./core/request/parameters/Refund");
 // Provider-specific
-var datalist_1 = require("./providers/mixvel/constants/datalist");
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
-var DataList_1 = require("./providers/mixvel/DataList");
 var TicketMeRequestManager_1 = require("./providers/ticketme/TicketMeRequestManager");
-var XmlNDCToObjectConversionStrategy_1 = require("./services/conversion/XmlNDCToObjectConversionStrategy");
 var TicketMeResponseManager_1 = require("./providers/ticketme/TicketMeResponseManager");
 var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
 // ================ Provider generation =================
 // Mixvel provider
-ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
+ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
 pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager(require('./providers/mixvel/config/responses').allowedNodeNames, // @todo take from config
 xmlToPojo)));
 // TicketMe provider
 var ndcVersion = '172'; // @todo take from config
 var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion), NDCToPojo = new XmlNDCToObjectConversionStrategy_1.XmlNDCToObjectConversionStrategy(ndcVersion);
-ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new MixvelRequestManager_1.MixvelEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
+ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
 pojoToNDC, requestOptionsManager), new TicketMeResponseManager_1.TicketMeResponseManager(NDCToPojo)));
 function createNDCService(provider, providerConfig) {
     if (providerConfig === void 0) { providerConfig = {}; }
@@ -139,9 +137,9 @@ function createNDCService(provider, providerConfig) {
     }
     function extractDataLists(dataListSource) {
         var dl = {};
-        for (var _i = 0, _a = Object.entries(datalist_1.allowedDataLists); _i < _a.length; _i++) {
+        for (var _i = 0, _a = Object.entries(responseManager.allowedDatalists); _i < _a.length; _i++) {
             var _b = _a[_i], keyTitle = _b[0], dataListTitle = _b[1];
-            dl[keyTitle] = DataList_1.DataList.create(dataListTitle, dataListSource);
+            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource);
         }
         return dl;
     }

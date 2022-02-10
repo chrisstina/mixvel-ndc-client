@@ -13,7 +13,8 @@ import ResponseParsingError from "./core/errors/ResponseParsingError";
 import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlConversionStrategy";
 import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
 import {ObjectToXmlNDCConversionStrategy} from "./services/conversion/ObjectToXmlNDCConversionStrategy";
-// import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
+import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
+import {RequestEndpointManager} from "./core/request/RequestEndpointManager";
 import {RequestOptionsManager} from "./core/request/RequestOptionsManager";
 import {AuthParams, AuthProps} from "./core/request/parameters/Auth";
 import {SearchParams, SearchProps} from "./core/request/parameters/Search";
@@ -24,13 +25,11 @@ import {TicketIssueParams, TicketIssueProps} from "./core/request/parameters/Tic
 import {RefundParams, RefundProps} from "./core/request/parameters/Refund";
 
 // Provider-specific
-import {allowedDataLists} from "./providers/mixvel/constants/datalist";
-import {MixvelEndpointManager, MixvelRequestManager} from "./providers/mixvel/MixvelRequestManager";
+import {MixvelRequestManager} from "./providers/mixvel/MixvelRequestManager";
 import {MixvelResponseManager} from "./providers/mixvel/MixvelResponseManager";
-import {DataList} from "./providers/mixvel/DataList";
 import {TicketMeRequestManager} from "./providers/ticketme/TicketMeRequestManager";
-import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
 import {TicketMeResponseManager} from "./providers/ticketme/TicketMeResponseManager";
+import {IDataList} from "./interfaces/IDataList";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
     xmlToPojo = new XmlToObjectConversionStrategy(),
@@ -41,7 +40,7 @@ const pojoToXml = new ObjectToXmlConversionStrategy(),
 // Mixvel provider
 ProviderLocator.register('mixvel', new Provider(
     new MixvelRequestManager(
-        new MixvelEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
+        new RequestEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
         pojoToXml,
         requestOptionsManager
     ),
@@ -57,7 +56,7 @@ const pojoToNDC = new ObjectToXmlNDCConversionStrategy(ndcVersion),
     NDCToPojo = new XmlNDCToObjectConversionStrategy(ndcVersion)
 ProviderLocator.register('ticketme', new Provider(
     new TicketMeRequestManager(
-        new MixvelEndpointManager(require('./providers/ticketme/config/endpoints').endpoints),  // @todo take from config
+        new RequestEndpointManager(require('./providers/ticketme/config/endpoints').endpoints),  // @todo take from config
         pojoToNDC,
         requestOptionsManager
     ),
@@ -181,9 +180,9 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     }
 
     function extractDataLists(dataListSource: Record<string, unknown>[]) {
-        const dl: { [key: string]: DataList } = {}
-        for (const [keyTitle, dataListTitle] of Object.entries(allowedDataLists)) {
-            dl[keyTitle] = DataList.create(dataListTitle, dataListSource)
+        const dl: { [key: string]: IDataList } = {}
+        for (const [keyTitle, dataListTitle] of Object.entries(responseManager.allowedDatalists)) {
+            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource)
         }
         return dl
     }

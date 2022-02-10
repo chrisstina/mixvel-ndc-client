@@ -1,9 +1,12 @@
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import {IDataList} from "../../interfaces/IDataList";
 import {IResponseMapper} from "../../interfaces/IResponseMapper";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
 import {IResponseError} from "../../interfaces/IResponseError";
+import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
 import ResponseParsingError from "../../core/errors/ResponseParsingError";
+import {allowedDataLists} from "./config/allowedDatalists";
+import {TicketMeDataList} from "./TicketMeDataList";
 
 type CurrentNamespace = "ns2"
 
@@ -38,7 +41,7 @@ export class TicketMeResponseManager extends AbstractResponseManager {
     constructor(
         public conversionStrategy: IConversionStrategy
     ) {
-        super(conversionStrategy, new TicketMeResponseMapper())
+        super(conversionStrategy, new TicketMeResponseMapper(), allowedDataLists)
     }
 
     /**
@@ -52,6 +55,10 @@ export class TicketMeResponseManager extends AbstractResponseManager {
             }
             return this.mapper.map(responseObject)
         })
+    }
+
+    createDataList(title: string, source: Record<string, unknown>[]): IDataList {
+        return TicketMeDataList.create(title, source);
     }
 }
 

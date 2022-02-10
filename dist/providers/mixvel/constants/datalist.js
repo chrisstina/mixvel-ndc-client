@@ -1,25 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.allowedDataLists = void 0;
-var PAX = 'Pax';
-var JOURNEY = 'PaxJourney';
-var SEGMENT = 'PaxSegment';
-var PRICECLASS = 'PriceClass';
-var CONTACT = 'ContactInfo';
-var SERVICE = 'ServiceDefinition';
-var BAG = 'BaggageAllowance';
-var VALIDATINGPARTY = 'ValidatingParty';
-var OD = 'OriginDest';
-var PENALTY = 'Penalty';
-exports.allowedDataLists = {
-    'paxList': PAX,
-    'paxJourneyList': JOURNEY,
-    'segmentList': SEGMENT,
-    'priceClassList': PRICECLASS,
-    'bagList': BAG,
-    'validatingPartyList': VALIDATINGPARTY,
-    'odList': OD,
-    'contactList': CONTACT,
-    'serviceList': SERVICE,
-    'penaltyList': PENALTY
-};
+exports.PENALTY = exports.OD = exports.VALIDATINGPARTY = exports.BAG = exports.SERVICE = exports.CONTACT = exports.PRICECLASS = exports.SEGMENT = exports.JOURNEY = exports.PAX = void 0;
+exports.PAX = 'Pax';
+exports.JOURNEY = 'PaxJourney';
+exports.SEGMENT = 'PaxSegment';
+exports.PRICECLASS = 'PriceClass';
+exports.CONTACT = 'ContactInfo';
+exports.SERVICE = 'ServiceDefinition';
+exports.BAG = 'BaggageAllowance';
+exports.VALIDATINGPARTY = 'ValidatingParty';
+exports.OD = 'OriginDest';
+exports.PENALTY = 'Penalty';

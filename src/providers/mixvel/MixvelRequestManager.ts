@@ -5,7 +5,6 @@ import {IMessageMapper} from "../../interfaces/IMessageMapper";
 import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
 
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {RequestGenerationError} from "../../core/errors/RequestGenerationError";
 
 import {MixvelRequest} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
@@ -32,23 +31,6 @@ import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
-
-export class MixvelEndpointManager implements IEndpointManager {
-    constructor(public endpoints: Map<string, string>) {
-    }
-
-    getEndpointForMessage(message: GenericNDCMessage): string | never {
-        return this.getEndpointByKey(message.constructor.name)
-    }
-
-    getEndpointByKey(id: string): string | never {
-        const endpoint = this.endpoints.get(id)
-        if (endpoint) {
-            return endpoint
-        }
-        throw new RequestGenerationError('No endpoint found for ' + id) // @todo
-    }
-}
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(

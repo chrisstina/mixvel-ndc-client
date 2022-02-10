@@ -1,6 +1,7 @@
-import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IDataList } from "../../interfaces/IDataList";
 import { IResponseMessage } from "../../interfaces/IResponseMessage";
 import { IResponseError } from "../../interfaces/IResponseError";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
 declare type CurrentNamespace = "ns2";
 declare type TicketMeCompleteResponse<Namespace extends string> = Record<string, Record<"$" | `${Namespace}:Success` | `${Namespace}:Errors` | `${Namespace}:Warnings` | `${Namespace}:Document` | `${Namespace}:Response` | string, Record<string, never>[] | any[]>>;
@@ -12,6 +13,7 @@ export declare class TicketMeResponseManager extends AbstractResponseManager {
      * @param rawXML
      */
     getResponse(rawXML: string): Promise<TicketMeResponseMessage>;
+    createDataList(title: string, source: Record<string, unknown>[]): IDataList;
 }
 export declare class TicketMeResponseError implements IResponseError {
     code: string;

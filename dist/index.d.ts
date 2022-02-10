@@ -10,7 +10,7 @@ import { OrderRetrieveProps } from "./core/request/parameters/OrderRetrieve";
 import { BookProps } from "./core/request/parameters/Book";
 import { TicketIssueProps } from "./core/request/parameters/TicketIssue";
 import { RefundProps } from "./core/request/parameters/Refund";
-import { DataList } from "./providers/mixvel/DataList";
+import { IDataList } from "./interfaces/IDataList";
 export declare function createNDCService(provider: string | IProvider, providerConfig?: {}): {
     getAuthRequest: (props: AuthProps) => Result<IRequest>;
     getSearchRequest: (props: SearchProps) => Result<IRequest>;
@@ -29,7 +29,7 @@ export declare function createNDCService(provider: string | IProvider, providerC
         title: string;
     }) => Promise<Result<IResponseMessage | IResponseError>>;
     extractDataLists: (dataListSource: Record<string, unknown>[]) => {
-        [key: string]: DataList;
+        [key: string]: IDataList;
     };
     setProviderConfig: (providerConfig: Record<string, unknown>) => void;
 };
