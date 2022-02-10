@@ -1,9 +1,12 @@
-import ResponseParsingError from "../../core/errors/ResponseParsingError";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import {IDataList} from "../../interfaces/IDataList";
 import {IResponseMapper} from "../../interfaces/IResponseMapper";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
 import {IResponseError} from "../../interfaces/IResponseError";
+import ResponseParsingError from "../../core/errors/ResponseParsingError";
 import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
+import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import {allowedDataLists} from "./config/allowedDatalists";
+import {MixvelDataList} from "./MixvelDataList";
 
 type MixvelMessage = Record<string, { $: string[], Response?: unknown[], Error?: MixvelError[] }[]>
 type MixvelError = { ErrorType?: string, CanRetry?: string, TicketId?: string, Code?: string, DescText?: string[] }
@@ -60,12 +63,15 @@ class MixvelResponseMapper implements IResponseMapper {
 
 export class MixvelResponseManager extends AbstractResponseManager {
     public static readonly rootNodeName = "MixEnv:Envelope"
+    public readonly allowedDatalists = allowedDataLists
 
     constructor(
         public responseTypes: string[],
         public conversionStrategy: IConversionStrategy
     ) {
-        super(conversionStrategy, new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes))
+        super(conversionStrategy,
+            new MixvelResponseMapper(MixvelResponseManager.rootNodeName, responseTypes),
+            allowedDataLists)
     }
 
     /**
@@ -85,6 +91,10 @@ export class MixvelResponseManager extends AbstractResponseManager {
 
             return this.mapper.map(responseObject)
         })
+    }
+
+    createDataList(dataListTitle: string, dataListSource: Record<string, unknown>[]): IDataList {
+        return MixvelDataList.create(dataListTitle, dataListSource)
     }
 }
 

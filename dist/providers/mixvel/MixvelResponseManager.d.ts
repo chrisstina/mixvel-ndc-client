@@ -1,17 +1,31 @@
-import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IDataList } from "../../interfaces/IDataList";
 import { IResponseMessage } from "../../interfaces/IResponseMessage";
 import { IResponseError } from "../../interfaces/IResponseError";
 import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 export declare class MixvelResponseManager extends AbstractResponseManager {
     responseTypes: string[];
     conversionStrategy: IConversionStrategy;
     static readonly rootNodeName = "MixEnv:Envelope";
+    readonly allowedDatalists: {
+        paxList: string;
+        paxJourneyList: string;
+        segmentList: string;
+        priceClassList: string;
+        bagList: string;
+        validatingPartyList: string;
+        odList: string;
+        contactList: string;
+        serviceList: string;
+        penaltyList: string;
+    };
     constructor(responseTypes: string[], conversionStrategy: IConversionStrategy);
     /**
      * @todo currently the response structure depends on a conversion strategy, which is not ok
      * @param rawXML
      */
     getResponse(rawXML: string): Promise<MixvelResponseMessage | MixvelResponseError>;
+    createDataList(dataListTitle: string, dataListSource: Record<string, unknown>[]): IDataList;
 }
 /**
  * // <ErrorType>InternalServerError</ErrorType>

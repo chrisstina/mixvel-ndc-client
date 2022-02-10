@@ -1,10 +1,10 @@
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
-import { MixvelResponseError, MixvelResponseMessage } from "../providers/mixvel/MixvelResponseManager";
+import { IDataList } from "./IDataList";
+import { IResponseMessage } from "./IResponseMessage";
+import { IResponseError } from "./IResponseError";
 export interface IResponseManager {
     conversionStrategy: IConversionStrategy;
-    /**
-     * @todo currently the response structure depends on a conversion strategy, which is not ok
-     * @param rawXML
-     */
-    getResponse(rawXML: string): Promise<MixvelResponseMessage | MixvelResponseError>;
+    allowedDatalists: Record<string, string>;
+    getResponse(rawXML: string): Promise<IResponseMessage | IResponseError>;
+    createDataList(title: string, source: Record<string, unknown>[]): IDataList;
 }

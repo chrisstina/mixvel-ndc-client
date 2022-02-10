@@ -1,23 +1,10 @@
-const PAX = 'Pax'
-const JOURNEY = 'PaxJourney'
-const SEGMENT = 'PaxSegment'
-const PRICECLASS = 'PriceClass'
-const CONTACT = 'ContactInfo'
-const SERVICE = 'ServiceDefinition'
-const BAG = 'BaggageAllowance'
-const VALIDATINGPARTY = 'ValidatingParty'
-const OD = 'OriginDest'
-const PENALTY = 'Penalty'
-
-export const allowedDataLists = {
-    'paxList': PAX,
-    'paxJourneyList': JOURNEY,
-    'segmentList': SEGMENT,
-    'priceClassList': PRICECLASS,
-    'bagList': BAG,
-    'validatingPartyList': VALIDATINGPARTY,
-    'odList': OD,
-    'contactList': CONTACT,
-    'serviceList': SERVICE,
-    'penaltyList': PENALTY
-}
+export const PAX = 'Pax'
+export const JOURNEY = 'PaxJourney'
+export const SEGMENT = 'PaxSegment'
+export const PRICECLASS = 'PriceClass'
+export const CONTACT = 'ContactInfo'
+export const SERVICE = 'ServiceDefinition'
+export const BAG = 'BaggageAllowance'
+export const VALIDATINGPARTY = 'ValidatingParty'
+export const OD = 'OriginDest'
+export const PENALTY = 'Penalty'

@@ -2,7 +2,6 @@ import { IRequestManager } from "../../interfaces/IRequestManager";
 import { IEndpointManager } from "../../interfaces/IEndpointManager";
 import { IRequestOptionsManager } from "../../interfaces/IRequestOptionsManager";
 import { IMessageMapper } from "../../interfaces/IMessageMapper";
-import { GenericNDCMessage } from "../../interfaces/GenericNDCMessage";
 import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 import { MixvelRequest } from "./MixvelRequest";
 import { SearchParams } from "../../core/request/parameters/Search";
@@ -12,12 +11,6 @@ import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RefundParams } from "../../core/request/parameters/Refund";
 import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
 import { AbstractParamsValidator } from "../../core/request/AbstractParamsValidator";
-export declare class MixvelEndpointManager implements IEndpointManager {
-    endpoints: Map<string, string>;
-    constructor(endpoints: Map<string, string>);
-    getEndpointForMessage(message: GenericNDCMessage): string | never;
-    getEndpointByKey(id: string): string | never;
-}
 export declare class MixvelRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     conversionStrategy: IConversionStrategy;

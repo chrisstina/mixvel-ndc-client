@@ -1,12 +1,10 @@
-export declare const allowedDataLists: {
-    paxList: string;
-    paxJourneyList: string;
-    segmentList: string;
-    priceClassList: string;
-    bagList: string;
-    validatingPartyList: string;
-    odList: string;
-    contactList: string;
-    serviceList: string;
-    penaltyList: string;
-};
+export declare const PAX = "Pax";
+export declare const JOURNEY = "PaxJourney";
+export declare const SEGMENT = "PaxSegment";
+export declare const PRICECLASS = "PriceClass";
+export declare const CONTACT = "ContactInfo";
+export declare const SERVICE = "ServiceDefinition";
+export declare const BAG = "BaggageAllowance";
+export declare const VALIDATINGPARTY = "ValidatingParty";
+export declare const OD = "OriginDest";
+export declare const PENALTY = "Penalty";

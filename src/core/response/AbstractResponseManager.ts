@@ -1,13 +1,15 @@
+import {IDataList} from "../../interfaces/IDataList";
 import {IResponseManager} from "../../interfaces/IResponseManager";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 import {IResponseMapper} from "../../interfaces/IResponseMapper";
 import {IResponseError} from "../../interfaces/IResponseError";
 import {IResponseMessage} from "../../interfaces/IResponseMessage";
+import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 import ResponseParsingError from "../errors/ResponseParsingError";
 
 export abstract class AbstractResponseManager implements IResponseManager {
     protected constructor(public conversionStrategy: IConversionStrategy,
-                          protected readonly mapper: IResponseMapper) {
+                          protected readonly mapper: IResponseMapper,
+                          public readonly allowedDatalists: Record<string, string>) {
     }
 
     convert(rawXML: string): Promise<Record<string, any> | null> {
@@ -30,5 +32,9 @@ export abstract class AbstractResponseManager implements IResponseManager {
             code: '000',
             text: 'Not implemented'
         });
+    }
+
+    createDataList(title: string, source: Record<string, unknown>[]): IDataList {
+        throw new Error('Not implemented')
     }
 }

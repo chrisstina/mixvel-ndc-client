@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbstractResponseManager = void 0;
 var ResponseParsingError_1 = __importDefault(require("../errors/ResponseParsingError"));
 var AbstractResponseManager = /** @class */ (function () {
-    function AbstractResponseManager(conversionStrategy, mapper) {
+    function AbstractResponseManager(conversionStrategy, mapper, allowedDatalists) {
         this.conversionStrategy = conversionStrategy;
         this.mapper = mapper;
+        this.allowedDatalists = allowedDatalists;
     }
     AbstractResponseManager.prototype.convert = function (rawXML) {
         var conversionPromise = this.conversionStrategy.execute(rawXML);
@@ -27,6 +28,9 @@ var AbstractResponseManager = /** @class */ (function () {
             code: '000',
             text: 'Not implemented'
         });
+    };
+    AbstractResponseManager.prototype.createDataList = function (title, source) {
+        throw new Error('Not implemented');
     };
     return AbstractResponseManager;
 }());

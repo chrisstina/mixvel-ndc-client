@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MixvelRequestManager = exports.MixvelEndpointManager = void 0;
-var RequestGenerationError_1 = require("../../core/errors/RequestGenerationError");
+exports.MixvelRequestManager = void 0;
 var MixvelRequest_1 = require("./MixvelRequest");
 var MixvelAppData_1 = require("./MixvelAppData");
 var MixvelAuthAppData_1 = require("./auth/MixvelAuthAppData");
@@ -16,23 +15,6 @@ var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
 var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
 var Mixvel_OrderReshopRQ_1 = require("./messages/Mixvel_OrderReshopRQ");
 var Mixvel_OrderRulesRQ_1 = require("./messages/Mixvel_OrderRulesRQ");
-var MixvelEndpointManager = /** @class */ (function () {
-    function MixvelEndpointManager(endpoints) {
-        this.endpoints = endpoints;
-    }
-    MixvelEndpointManager.prototype.getEndpointForMessage = function (message) {
-        return this.getEndpointByKey(message.constructor.name);
-    };
-    MixvelEndpointManager.prototype.getEndpointByKey = function (id) {
-        var endpoint = this.endpoints.get(id);
-        if (endpoint) {
-            return endpoint;
-        }
-        throw new RequestGenerationError_1.RequestGenerationError('No endpoint found for ' + id); // @todo
-    };
-    return MixvelEndpointManager;
-}());
-exports.MixvelEndpointManager = MixvelEndpointManager;
 var MixvelRequestManager = /** @class */ (function () {
     function MixvelRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
