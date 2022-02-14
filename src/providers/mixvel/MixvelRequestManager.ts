@@ -39,7 +39,7 @@ export class MixvelRequestManager implements IRequestManager {
         public requestOptionsManager: IRequestOptionsManager) {
     }
 
-    public extraConfiguration = {} // no extra cnofig here
+    public extraConfiguration = {} // no extra config here
 
     createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
         return new MixvelRequest(
@@ -54,21 +54,25 @@ export class MixvelRequestManager implements IRequestManager {
         })
     }
 
-    createPriceRequest(params: PriceParams): MixvelRequest {
-        return this.createRequest(params, {
-            mapper: {
-                map(): GenericNDCMessage {
-                    return new Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds)
-                }
-            }
-        })
+    /**
+     * @param params
+     * @private
+     */
+    private static preparePriceParams(params: PriceParams) {
+        const offerId = params.offers[0].offerId,
+            offerItemIds = params.offers.reduce((items: string[], {offerItems}) => {
+                return [...items, ...offerItems.map(({offerItemId}) => offerItemId)]
+            }, [])
+
+        return {offerId, offerItemIds}
     }
 
-    createFareRulesRequest(params: PriceParams): MixvelRequest {
+    createPriceRequest(params: PriceParams): MixvelRequest {
+        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
         return this.createRequest(params, {
             mapper: {
                 map(): GenericNDCMessage {
-                    return new Mixvel_OrderRulesRQ(params.offerId, params.offerItemIds)
+                    return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
         })
@@ -123,11 +127,12 @@ export class MixvelRequestManager implements IRequestManager {
         })
     }
 
-    createServiceListRequest(params: PriceParams): MixvelRequest {
+    createFareRulesRequest(params: PriceParams): MixvelRequest {
+        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
         return this.createRequest(params, {
             mapper: {
                 map(): GenericNDCMessage {
-                    return new Mixvel_ServiceListRQ(params.offerId, params.offerItemIds)
+                    return new Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
         })
@@ -149,5 +154,16 @@ export class MixvelRequestManager implements IRequestManager {
             new MixvelAppData<typeof rq>(rq),
             this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointForMessage(rq)}),
             this.conversionStrategy)
+    }
+
+    createServiceListRequest(params: PriceParams): MixvelRequest {
+        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+        return this.createRequest(params, {
+            mapper: {
+                map(): GenericNDCMessage {
+                    return new Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
+                }
+            }
+        })
     }
 }

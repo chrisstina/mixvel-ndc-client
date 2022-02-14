@@ -179,6 +179,10 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
         return Promise.reject(new ResponseParsingError('Unknown input format'))
     }
 
+    /**
+     * @param dataListSource
+     * @return {paxList?: {}, paxJourneyList?: {}, segmentList?: {}, priceClassList?: {}, bagList?: {}, validatingPartyList?: {}, odList?: {}, contactList?: {},  serviceList?: {}, penaltyList?: {}, flightList?: {}, fareList?: {},descriptionList?: {}, seatList?:{} } Possible values
+     */
     function extractDataLists(dataListSource: Record<string, unknown>[]) {
         const dl: { [key: string]: IDataList } = {}
         for (const [keyTitle, dataListTitle] of Object.entries(responseManager.allowedDatalists)) {

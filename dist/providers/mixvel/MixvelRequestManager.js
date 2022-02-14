@@ -1,4 +1,13 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MixvelRequestManager = void 0;
 var MixvelRequest_1 = require("./MixvelRequest");
@@ -20,7 +29,7 @@ var MixvelRequestManager = /** @class */ (function () {
         this.endpointManager = endpointManager;
         this.conversionStrategy = conversionStrategy;
         this.requestOptionsManager = requestOptionsManager;
-        this.extraConfiguration = {}; // no extra cnofig here
+        this.extraConfiguration = {}; // no extra config here
     }
     MixvelRequestManager.prototype.createAuthRequest = function (params) {
         return new MixvelRequest_1.MixvelRequest(new MixvelAuthAppData_1.MixvelAuthAppData(params.login, params.password, params.structureId), this.requestOptionsManager.create({ endpoint: this.endpointManager.getEndpointByKey('auth') }), this.conversionStrategy);
@@ -30,20 +39,26 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new SearchMessageMapper_1.SearchMessageMapper(params)
         });
     };
-    MixvelRequestManager.prototype.createPriceRequest = function (params) {
-        return this.createRequest(params, {
-            mapper: {
-                map: function () {
-                    return new Mixvel_OfferPriceRQ_1.Mixvel_OfferPriceRQ(params.offerId, params.offerItemIds);
-                }
-            }
-        });
+    /**
+     * @param params
+     * @private
+     */
+    MixvelRequestManager.preparePriceParams = function (params) {
+        var offerId = params.offers[0].offerId, offerItemIds = params.offers.reduce(function (items, _a) {
+            var offerItems = _a.offerItems;
+            return __spreadArray(__spreadArray([], items, true), offerItems.map(function (_a) {
+                var offerItemId = _a.offerItemId;
+                return offerItemId;
+            }), true);
+        }, []);
+        return { offerId: offerId, offerItemIds: offerItemIds };
     };
-    MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
+    MixvelRequestManager.prototype.createPriceRequest = function (params) {
+        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
         return this.createRequest(params, {
             mapper: {
                 map: function () {
-                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(params.offerId, params.offerItemIds);
+                    return new Mixvel_OfferPriceRQ_1.Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
                 }
             }
         });
@@ -91,11 +106,12 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new RefundOrderMessageMapper_1.RefundOrderMessageMapper(params),
         });
     };
-    MixvelRequestManager.prototype.createServiceListRequest = function (params) {
+    MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
+        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
         return this.createRequest(params, {
             mapper: {
                 map: function () {
-                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(params.offerId, params.offerItemIds);
+                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
                 }
             }
         });
@@ -108,6 +124,16 @@ var MixvelRequestManager = /** @class */ (function () {
         // map to mixvel message
         var rq = services.mapper.map();
         return new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), this.requestOptionsManager.create({ endpoint: this.endpointManager.getEndpointForMessage(rq) }), this.conversionStrategy);
+    };
+    MixvelRequestManager.prototype.createServiceListRequest = function (params) {
+        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
+        return this.createRequest(params, {
+            mapper: {
+                map: function () {
+                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
+                }
+            }
+        });
     };
     return MixvelRequestManager;
 }());

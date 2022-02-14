@@ -1,5 +1,5 @@
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {SearchProps} from "../../../core/request/parameters/Search";
+import {SearchParams} from "../../../core/request/parameters/Search";
 import {PartyCredentials} from "../TicketMeRequest";
 
 import {AirShoppingRQ} from "../messages/AirShoppingRQ";
@@ -11,7 +11,7 @@ import {Preflevel} from "../constants/preflevel";
 const {DateTime} = require('luxon')
 
 export class SearchMessageMapper implements IMessageMapper {
-    constructor(public readonly params: SearchProps,
+    constructor(public readonly params: SearchParams,
                 public readonly credentials: PartyCredentials) {
     }
 

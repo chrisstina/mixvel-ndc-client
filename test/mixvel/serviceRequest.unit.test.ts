@@ -9,9 +9,19 @@ const {getServiceListRequest} = createNDCService('mixvel')
 class ServiceRequestUnitTest {
     @test 'Create service list RQ several offer items'() {
         const request = getServiceListRequest({
-            offerId: 'SOME-OFFER',
-            offerItemIds: ['OF1', 'OF2']
-        }).getValue()
+            offers: [{
+                offerId: 'SOME-OFFER',
+                offerItems: [
+                    {
+                        offerItemId: 'OFFER_ITEM_1',
+                        paxs: 'pax1 pax2'
+                    },
+                    {
+                        offerItemId: 'OFFER_ITEM_2',
+                        paxs: 'pax3'
+                    }
+                ]
+            }]}).getValue()
 
         expect(request.options.endpoint).to.equal('api/ServiceList')
 
@@ -19,7 +29,7 @@ class ServiceRequestUnitTest {
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Service:Mixvel_ServiceListRQ')
         expect(rq).to.contain('<OfferID>SOME-OFFER')
-        expect(rq).to.contain('<OfferItemID>OF1')
-        expect(rq).to.contain('<OfferItemID>OF2')
+        expect(rq).to.contain('<OfferItemID>OFFER_ITEM_1')
+        expect(rq).to.contain('<OfferItemID>OFFER_ITEM_2')
     }
 }

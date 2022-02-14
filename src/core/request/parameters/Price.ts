@@ -1,23 +1,28 @@
-import {IsArray, IsString} from "class-validator";
 import {AbstractParams} from "./AbstractParams";
+import {IsArray} from "class-validator";
+
+type Offer = {
+    offerId: string,
+    offerItems: OfferItem[],
+    offerOwner?: string,
+    responseId?: string
+}
+
+type OfferItem = {
+    offerItemId: string,
+    paxs?: string
+}
 
 export type PriceProps = {
-    offerId: string
-    offerItemIds: string[]
+    offers: Offer[],
 }
 
 export class PriceParams extends AbstractParams {
-    @IsString()
-    public readonly offerId: string
     @IsArray()
-    @IsString({
-        each: true
-    })
-    public readonly offerItemIds: string[]
+    public readonly offers: Offer[]
 
     private constructor(props: PriceProps) {
         super()
-        this.offerId = props.offerId
-        this.offerItemIds = props.offerItemIds
+        this.offers = props.offers
     }
 }

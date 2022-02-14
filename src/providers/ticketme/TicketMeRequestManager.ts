@@ -20,6 +20,7 @@ import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidato
 import {TicketMeRequest} from "./TicketMeRequest";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
+import {PriceMessageMapper} from "./mappers/PriceMessageMapper";
 import {DEFAULT_CURRENCY, DEFAULT_LANG} from "./config/defaults";
 
 export class TicketMeRequestManager implements IRequestManager {
@@ -56,7 +57,10 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createPriceRequest(params: PriceParams): IRequest {
-        throw new MethodNotImplemented('price')
+        return this.createRequest(params,
+            {
+                mapper: new PriceMessageMapper(params, this.extraConfiguration.party)
+            })
     }
 
     createRefundCalculationRequest(params: OrderRetrieveParams): IRequest {
@@ -86,7 +90,7 @@ export class TicketMeRequestManager implements IRequestManager {
         mapper: IMessageMapper,
         validator?: AbstractParamsValidator
     }): TicketMeRequest {
-        assert(this.extraConfiguration.party.agencyId.length > 0, 'No agency ID provided!')
+        assert(this.extraConfiguration.party.agencyId && this.extraConfiguration.party.agencyId.length > 0, 'No agency ID provided! Use setProviderConfig to set it.')
 
         // run specific ticketme validation
         if (services.validator) {

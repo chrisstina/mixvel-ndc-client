@@ -1,10 +1,19 @@
 import { AbstractParams } from "./AbstractParams";
-export declare type PriceProps = {
+declare type Offer = {
     offerId: string;
-    offerItemIds: string[];
+    offerItems: OfferItem[];
+    offerOwner?: string;
+    responseId?: string;
+};
+declare type OfferItem = {
+    offerItemId: string;
+    paxs?: string;
+};
+export declare type PriceProps = {
+    offers: Offer[];
 };
 export declare class PriceParams extends AbstractParams {
-    readonly offerId: string;
-    readonly offerItemIds: string[];
+    readonly offers: Offer[];
     private constructor();
 }
+export {};

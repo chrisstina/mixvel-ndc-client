@@ -8,6 +8,7 @@ var assert_1 = __importDefault(require("assert"));
 var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
 var TicketMeRequest_1 = require("./TicketMeRequest");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
+var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var defaults_1 = require("./config/defaults");
 var TicketMeRequestManager = /** @class */ (function () {
     function TicketMeRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
@@ -36,7 +37,9 @@ var TicketMeRequestManager = /** @class */ (function () {
         throw new MethodNotImplemented_1.MethodNotImplemented('view');
     };
     TicketMeRequestManager.prototype.createPriceRequest = function (params) {
-        throw new MethodNotImplemented_1.MethodNotImplemented('price');
+        return this.createRequest(params, {
+            mapper: new PriceMessageMapper_1.PriceMessageMapper(params, this.extraConfiguration.party)
+        });
     };
     TicketMeRequestManager.prototype.createRefundCalculationRequest = function (params) {
         throw new MethodNotImplemented_1.MethodNotImplemented('refund calc');
@@ -56,7 +59,7 @@ var TicketMeRequestManager = /** @class */ (function () {
         throw new MethodNotImplemented_1.MethodNotImplemented('ticket issue');
     };
     TicketMeRequestManager.prototype.createRequest = function (requestParams, services) {
-        (0, assert_1.default)(this.extraConfiguration.party.agencyId.length > 0, 'No agency ID provided!');
+        (0, assert_1.default)(this.extraConfiguration.party.agencyId && this.extraConfiguration.party.agencyId.length > 0, 'No agency ID provided! Use setProviderConfig to set it.');
         // run specific ticketme validation
         if (services.validator) {
             services.validator.validate(requestParams);

@@ -9,15 +9,25 @@ const {getFareRulesRequest} = createNDCService('mixvel')
 class RulesRequestUnitTest {
     @test 'Create fare rules RQ for several offer items'() {
         const rq = getFareRulesRequest({
-            offerId: 'SOME-OFFER',
-            offerItemIds: ['OF1', 'OF2']
-        }).getValue().body
+            offers: [{
+                offerId: 'SOME-OFFER',
+                offerItems: [
+                    {
+                        offerItemId: 'OFFER_ITEM_1',
+                        paxs: 'pax1 pax2'
+                    },
+                    {
+                        offerItemId: 'OFFER_ITEM_2',
+                        paxs: 'pax3'
+                    }
+                ]
+            }]}).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderRulesRQ')
         expect(rq).to.contain('<RulesCoreRequest>')
         expect(rq).to.contain('<OfferID>SOME-OFFER')
-        expect(rq).to.contain('<OfferItemID>OF1')
-        expect(rq).to.contain('<OfferItemID>OF2')
+        expect(rq).to.contain('<OfferItemID>OFFER_ITEM_1')
+        expect(rq).to.contain('<OfferItemID>OFFER_ITEM_2')
     }
 }
