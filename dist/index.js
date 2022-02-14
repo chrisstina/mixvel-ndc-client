@@ -135,6 +135,10 @@ function createNDCService(provider, providerConfig) {
         }
         return Promise.reject(new ResponseParsingError_1.default('Unknown input format'));
     }
+    /**
+     * @param dataListSource
+     * @return {paxList?: {}, paxJourneyList?: {}, segmentList?: {}, priceClassList?: {}, bagList?: {}, validatingPartyList?: {}, odList?: {}, contactList?: {},  serviceList?: {}, penaltyList?: {}, flightList?: {}, fareList?: {},descriptionList?: {}, seatList?:{} } Possible values
+     */
     function extractDataLists(dataListSource) {
         var dl = {};
         for (var _i = 0, _a = Object.entries(responseManager.allowedDatalists); _i < _a.length; _i++) {

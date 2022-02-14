@@ -141,4 +141,8 @@ export class AirShoppingRQ extends GenericTicketMeNDCMessage {
         }
         this.Preference[0].AirlinePreferences.push({Airline: airlines})
     }
+    //
+    // setCurrencyPreference(currencyCode) {
+    //
+    // }
 }

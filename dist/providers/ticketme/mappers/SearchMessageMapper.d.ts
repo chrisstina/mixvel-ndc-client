@@ -1,10 +1,10 @@
 import { IMessageMapper } from "../../../interfaces/IMessageMapper";
-import { SearchProps } from "../../../core/request/parameters/Search";
+import { SearchParams } from "../../../core/request/parameters/Search";
 import { PartyCredentials } from "../TicketMeRequest";
 import { AirShoppingRQ } from "../messages/AirShoppingRQ";
 export declare class SearchMessageMapper implements IMessageMapper {
-    readonly params: SearchProps;
+    readonly params: SearchParams;
     readonly credentials: PartyCredentials;
-    constructor(params: SearchProps, credentials: PartyCredentials);
+    constructor(params: SearchParams, credentials: PartyCredentials);
     map(): AirShoppingRQ;
 }

@@ -22,25 +22,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceParams = void 0;
-var class_validator_1 = require("class-validator");
 var AbstractParams_1 = require("./AbstractParams");
+var class_validator_1 = require("class-validator");
 var PriceParams = /** @class */ (function (_super) {
     __extends(PriceParams, _super);
     function PriceParams(props) {
         var _this = _super.call(this) || this;
-        _this.offerId = props.offerId;
-        _this.offerItemIds = props.offerItemIds;
+        _this.offers = props.offers;
         return _this;
     }
     __decorate([
-        (0, class_validator_1.IsString)()
-    ], PriceParams.prototype, "offerId", void 0);
-    __decorate([
-        (0, class_validator_1.IsArray)(),
-        (0, class_validator_1.IsString)({
-            each: true
-        })
-    ], PriceParams.prototype, "offerItemIds", void 0);
+        (0, class_validator_1.IsArray)()
+    ], PriceParams.prototype, "offers", void 0);
     return PriceParams;
 }(AbstractParams_1.AbstractParams));
 exports.PriceParams = PriceParams;

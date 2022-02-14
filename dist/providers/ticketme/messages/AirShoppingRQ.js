@@ -65,6 +65,10 @@ var AirShoppingRQ = /** @class */ (function (_super) {
             }
         ];
         return _this;
+        //
+        // setCurrencyPreference(currencyCode) {
+        //
+        // }
     }
     Object.defineProperty(AirShoppingRQ.prototype, "nodeName", {
         get: function () {

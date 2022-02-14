@@ -36,4 +36,9 @@ export declare class MixvelRequestManager implements IRequestManager {
         mapper: IMessageMapper;
         validator?: AbstractParamsValidator;
     }): MixvelRequest;
+    /**
+     * @param params
+     * @private
+     */
+    private static preparePriceParams;
 }
