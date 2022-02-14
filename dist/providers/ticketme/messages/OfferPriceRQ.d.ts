@@ -23,6 +23,7 @@ export declare type PaxDataList = {
     };
 }[];
 export declare class OfferPriceRQ extends GenericTicketMeNDCMessage {
+    get nodeName(): string;
     Query: {
         Offer: Offer[];
     };
@@ -32,6 +33,5 @@ export declare class OfferPriceRQ extends GenericTicketMeNDCMessage {
     constructor(offers: Offer[], dataLists: {
         PassengerList: PaxDataList;
     });
-    get nodeName(): string;
 }
 export {};

@@ -1,10 +1,11 @@
 import { AbstractParams } from "./AbstractParams";
-declare type Offer = {
-    offerId: string;
-    offerItems: OfferItem[];
-    offerOwner?: string;
-    responseId?: string;
-};
+declare class Offer {
+    readonly offerId: string;
+    readonly offerItems: OfferItem[];
+    readonly offerOwner?: string;
+    readonly responseId?: string;
+    constructor(offerId: string, offerItems: OfferItem[], offerOwner?: string, responseId?: string);
+}
 declare type OfferItem = {
     offerItemId: string;
     paxs?: string;

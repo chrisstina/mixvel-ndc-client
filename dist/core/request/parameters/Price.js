@@ -24,15 +24,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceParams = void 0;
 var AbstractParams_1 = require("./AbstractParams");
 var class_validator_1 = require("class-validator");
+var Offer = /** @class */ (function () {
+    function Offer(offerId, offerItems, offerOwner, responseId) {
+        this.offerId = offerId;
+        this.offerItems = offerItems;
+        this.offerOwner = offerOwner;
+        this.responseId = responseId;
+    }
+    __decorate([
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.Length)(1)
+    ], Offer.prototype, "offerId", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.Length)(1)
+    ], Offer.prototype, "offerOwner", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.Length)(1)
+    ], Offer.prototype, "responseId", void 0);
+    return Offer;
+}());
 var PriceParams = /** @class */ (function (_super) {
     __extends(PriceParams, _super);
     function PriceParams(props) {
         var _this = _super.call(this) || this;
-        _this.offers = props.offers;
+        _this.offers = props.offers.map(function (offerData) { return new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
         return _this;
     }
     __decorate([
-        (0, class_validator_1.IsArray)()
+        (0, class_validator_1.IsArray)(),
+        (0, class_validator_1.ValidateNested)()
     ], PriceParams.prototype, "offers", void 0);
     return PriceParams;
 }(AbstractParams_1.AbstractParams));

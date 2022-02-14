@@ -54,6 +54,17 @@ export class MixvelRequestManager implements IRequestManager {
         })
     }
 
+    createPriceRequest(params: PriceParams): MixvelRequest {
+        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+        return this.createRequest(params, {
+            mapper: {
+                map(): GenericNDCMessage {
+                    return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
+                }
+            }
+        })
+    }
+
     /**
      * @param params
      * @private
@@ -65,17 +76,6 @@ export class MixvelRequestManager implements IRequestManager {
             }, [])
 
         return {offerId, offerItemIds}
-    }
-
-    createPriceRequest(params: PriceParams): MixvelRequest {
-        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
-        return this.createRequest(params, {
-            mapper: {
-                map(): GenericNDCMessage {
-                    return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
-                }
-            }
-        })
     }
 
     createBookRequest(params: BookParams): MixvelRequest {

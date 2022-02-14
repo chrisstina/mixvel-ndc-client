@@ -19,7 +19,8 @@ export class PriceMessageMapper implements IMessageMapper {
             return {
                 $: {Owner: offer.offerOwner, OfferID: offer.offerId, ResponseID: offer.responseId},
                 OfferItem: offer.offerItems.map(item => {
-                    assert(item.offerItemId !== undefined && item.paxs !== undefined, 'Missing or empty offer items')
+                    assert(item.offerItemId !== undefined, 'Missing offer item id')
+                    assert(item.paxs !== undefined, 'Missing offer item paxs')
                     paxs.push(...item.paxs.split(' ').map(paxId => {
                         return {Passenger: {$: {PassengerID: paxId}}}
                     }))

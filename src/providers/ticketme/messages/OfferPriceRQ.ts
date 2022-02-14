@@ -13,6 +13,10 @@ type OfferItem = {
 export type PaxDataList = { Passenger: { $: { PassengerID: string } } }[]
 
 export class OfferPriceRQ extends GenericTicketMeNDCMessage {
+    get nodeName() {
+        return "OfferPriceRQ"
+    }
+
     public Query: {Offer: Offer[]}
     public DataLists: { PassengerList: PaxDataList }
 
@@ -20,9 +24,5 @@ export class OfferPriceRQ extends GenericTicketMeNDCMessage {
         super();
         this.Query = {Offer: offers}
         this.DataLists = dataLists
-    }
-
-    get nodeName() {
-        return "OfferPriceRQ"
     }
 }

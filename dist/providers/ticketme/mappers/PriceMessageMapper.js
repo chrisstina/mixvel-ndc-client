@@ -20,7 +20,8 @@ var PriceMessageMapper = /** @class */ (function () {
             return {
                 $: { Owner: offer.offerOwner, OfferID: offer.offerId, ResponseID: offer.responseId },
                 OfferItem: offer.offerItems.map(function (item) {
-                    (0, assert_1.default)(item.offerItemId !== undefined && item.paxs !== undefined, 'Missing or empty offer items');
+                    (0, assert_1.default)(item.offerItemId !== undefined, 'Missing offer item id');
+                    (0, assert_1.default)(item.paxs !== undefined, 'Missing offer item paxs');
                     paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
                         return { Passenger: { $: { PassengerID: paxId } } };
                     }));
