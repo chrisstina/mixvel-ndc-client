@@ -49,15 +49,19 @@ var MixvelRequestManager = /** @class */ (function () {
             }
         });
     };
-    MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
-        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
-        return this.createRequest(params, {
-            mapper: {
-                map: function () {
-                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
-                }
-            }
-        });
+    /**
+     * @param params
+     * @private
+     */
+    MixvelRequestManager.preparePriceParams = function (params) {
+        var offerId = params.offers[0].offerId, offerItemIds = params.offers.reduce(function (items, _a) {
+            var offerItems = _a.offerItems;
+            return __spreadArray(__spreadArray([], items, true), offerItems.map(function (_a) {
+                var offerItemId = _a.offerItemId;
+                return offerItemId;
+            }), true);
+        }, []);
+        return { offerId: offerId, offerItemIds: offerItemIds };
     };
     MixvelRequestManager.prototype.createBookRequest = function (params) {
         return this.createRequest(params, {
@@ -102,12 +106,12 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new RefundOrderMessageMapper_1.RefundOrderMessageMapper(params),
         });
     };
-    MixvelRequestManager.prototype.createServiceListRequest = function (params) {
+    MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
         var restructuredParams = MixvelRequestManager.preparePriceParams(params);
         return this.createRequest(params, {
             mapper: {
                 map: function () {
-                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
+                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
                 }
             }
         });
@@ -121,19 +125,15 @@ var MixvelRequestManager = /** @class */ (function () {
         var rq = services.mapper.map();
         return new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), this.requestOptionsManager.create({ endpoint: this.endpointManager.getEndpointForMessage(rq) }), this.conversionStrategy);
     };
-    /**
-     * @param params
-     * @private
-     */
-    MixvelRequestManager.preparePriceParams = function (params) {
-        var offerId = params.offers[0].offerId, offerItemIds = params.offers.reduce(function (items, _a) {
-            var offerItems = _a.offerItems;
-            return __spreadArray(__spreadArray([], items, true), offerItems.map(function (_a) {
-                var offerItemId = _a.offerItemId;
-                return offerItemId;
-            }), true);
-        }, []);
-        return { offerId: offerId, offerItemIds: offerItemIds };
+    MixvelRequestManager.prototype.createServiceListRequest = function (params) {
+        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
+        return this.createRequest(params, {
+            mapper: {
+                map: function () {
+                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
+                }
+            }
+        });
     };
     return MixvelRequestManager;
 }());

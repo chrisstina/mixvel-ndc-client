@@ -1,4 +1,4 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 export type SelectedOffer = {
     OfferRefID: string,
@@ -8,7 +8,7 @@ export type SelectedOffer = {
     }>
 };
 
-export class Mixvel_OfferPriceRQ implements GenericNDCMessage {
+export class Mixvel_OfferPriceRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:OfferPrice": "https://www.mixvel.com/API/XSD/Mixvel_OfferPriceRQ/1_00"}
     }

@@ -2,7 +2,7 @@
  * Copyright (c) 2021
  */
 
-import {GenericTicketMeNDCMessage, StringValue} from "./GenericTicketMeNDCMessage";
+import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
 import {TicketMePTC} from "../mappers/dictionary/ptc";
 import {TicketMeCabin} from "../mappers/dictionary/cabin";
 import {Preflevel} from "../constants/preflevel";
@@ -31,7 +31,7 @@ type FlightPreference = { Characteristic: { DirectPreferences: StringValue[] }[]
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
  */
-export class AirShoppingRQ extends GenericTicketMeNDCMessage {
+export class AirShoppingRQ extends AbstractTicketMeNDCMessage {
     get nodeName() {
         return "AirShoppingRQ"
     }

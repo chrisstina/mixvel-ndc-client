@@ -2,7 +2,7 @@
  * Copyright (c) 2021
  */
 
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {Preflevel} from "../constants/preflevel"
 import {MixvelPTC} from "../mappers/dictionary/ptc"
 import {MixvelCabin} from "../mappers/dictionary/cabin"
@@ -45,7 +45,7 @@ class Pax {
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
  */
-export class Mixvel_AirShoppingRQ implements GenericNDCMessage {
+export class Mixvel_AirShoppingRQ implements INDCMessage {
     get xmlns() {
         return {'xmlns:shop': 'https://www.mixvel.com/API/XSD/Mixvel_AirShoppingRQ/1_01'}
     }

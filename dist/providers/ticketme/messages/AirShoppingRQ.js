@@ -19,7 +19,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AirShoppingRQ = exports.OriginDestination = void 0;
-var GenericTicketMeNDCMessage_1 = require("./GenericTicketMeNDCMessage");
+var AbstractTicketMeNDCMessage_1 = require("./AbstractTicketMeNDCMessage");
 var ptc_1 = require("../mappers/dictionary/ptc");
 var cabin_1 = require("../mappers/dictionary/cabin");
 var OriginDestination = /** @class */ (function () {
@@ -155,5 +155,5 @@ var AirShoppingRQ = /** @class */ (function (_super) {
         this.Preference[0].AirlinePreferences.push({ Airline: airlines });
     };
     return AirShoppingRQ;
-}(GenericTicketMeNDCMessage_1.GenericTicketMeNDCMessage));
+}(AbstractTicketMeNDCMessage_1.AbstractTicketMeNDCMessage));
 exports.AirShoppingRQ = AirShoppingRQ;

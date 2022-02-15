@@ -2,7 +2,7 @@
  * Copyright (c) 2021
  */
 
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
@@ -25,7 +25,7 @@ export class MixvelEnvelope {
         }]
     }
 
-    set AppData(ndcMessage: MixvelAppData<GenericNDCMessage>|MixvelAuthAppData) {
+    set AppData(ndcMessage: MixvelAppData<INDCMessage>|MixvelAuthAppData) {
         this["MixEnv:Envelope"].Body[0].AppData = [ndcMessage]
     }
 

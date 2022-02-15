@@ -16,7 +16,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OfferPriceRQ = void 0;
-var GenericTicketMeNDCMessage_1 = require("./GenericTicketMeNDCMessage");
+var AbstractTicketMeNDCMessage_1 = require("./AbstractTicketMeNDCMessage");
 var OfferPriceRQ = /** @class */ (function (_super) {
     __extends(OfferPriceRQ, _super);
     function OfferPriceRQ(offers, dataLists) {
@@ -33,5 +33,5 @@ var OfferPriceRQ = /** @class */ (function (_super) {
         configurable: true
     });
     return OfferPriceRQ;
-}(GenericTicketMeNDCMessage_1.GenericTicketMeNDCMessage));
+}(AbstractTicketMeNDCMessage_1.AbstractTicketMeNDCMessage));
 exports.OfferPriceRQ = OfferPriceRQ;

@@ -1,6 +1,6 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 
-export class Mixvel_ServiceListRQ implements GenericNDCMessage {
+export class Mixvel_ServiceListRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:Service": "https://www.mixvel.com/API/XSD/Mixvel_ServiceListRQ/1_00"}
     }

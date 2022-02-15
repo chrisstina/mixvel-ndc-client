@@ -1,4 +1,4 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 export class OtherPaymentMethod {
     public readonly OtherPaymentMethod = null
@@ -14,7 +14,7 @@ export class DirectBill {
     }
 }
 
-export class Mixvel_OrderChangeRQ implements GenericNDCMessage {
+export class Mixvel_OrderChangeRQ implements INDCMessage {
     get endpoint() {
         return 'api/Order/change'
     }

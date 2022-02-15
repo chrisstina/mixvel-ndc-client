@@ -1,12 +1,12 @@
 import {IRequest} from "../../interfaces/IRequest";
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 
 export type PartyCredentials = { agencyId: string }
 
 export class TicketMeRequest implements IRequest {
-    constructor(public readonly message: GenericNDCMessage,
+    constructor(public readonly message: INDCMessage,
                 public options: IRequestOptions,
                 public conversionStrategy?: IConversionStrategy) {
         this.options = options;
@@ -17,7 +17,7 @@ export class TicketMeRequest implements IRequest {
             console.debug('No request body output converter found! Return as is')
             return this.message
         }
-        const obj: {[key: string]: GenericNDCMessage} = {}
+        const obj: {[key: string]: INDCMessage} = {}
         obj[this.message.nodeName] = this.message
         return this.conversionStrategy.execute(obj)
     }

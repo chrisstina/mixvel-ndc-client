@@ -1,4 +1,4 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {IATAxmlns} from "../constants/xmlns";
 import {PartyCredentials} from "../TicketMeRequest";
 
@@ -13,7 +13,7 @@ type Party = {
 
 export type StringValue = {_: string}
 
-export class GenericTicketMeNDCMessage implements GenericNDCMessage {
+export abstract class AbstractTicketMeNDCMessage implements INDCMessage {
     public get nodeName() {
         return ''
     }

@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 
 import {IRequest} from "../../interfaces/IRequest";
 import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 
 import {MixvelEnvelope} from "./MixvelEnvelope"
@@ -23,7 +23,7 @@ export class MixvelRequest implements IRequest {
      * @param options
      * @param conversionStrategy
      */
-    constructor(public readonly message: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData,
+    constructor(public readonly message: MixvelAppData<INDCMessage> | MixvelAuthAppData,
                         public options: IRequestOptions,
                         public conversionStrategy?: IConversionStrategy) {
         this.payload = new MixvelEnvelope()

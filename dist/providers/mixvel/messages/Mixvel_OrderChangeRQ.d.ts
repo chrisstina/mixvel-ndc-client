@@ -1,11 +1,11 @@
-import { GenericNDCMessage } from "../../../interfaces/GenericNDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 export declare class OtherPaymentMethod {
     readonly OtherPaymentMethod: null;
 }
 export declare class DirectBill {
     constructor(billInfo: string);
 }
-export declare class Mixvel_OrderChangeRQ implements GenericNDCMessage {
+export declare class Mixvel_OrderChangeRQ implements INDCMessage {
     get endpoint(): string;
     get xmlns(): {
         "xmlns:o": string;

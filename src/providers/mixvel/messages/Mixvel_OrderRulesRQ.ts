@@ -1,6 +1,6 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 
-export class Mixvel_OrderRulesRQ implements GenericNDCMessage {
+export class Mixvel_OrderRulesRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderRulesRQ/1_00"}
     }

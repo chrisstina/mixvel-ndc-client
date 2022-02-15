@@ -2,9 +2,9 @@
  * Copyright (c) 2021
  */
 
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 
-export class MixvelAppData<T extends GenericNDCMessage> {
+export class MixvelAppData<T extends INDCMessage> {
     [index: string]: {
         $: Record<string, string>,
         Request: T[]

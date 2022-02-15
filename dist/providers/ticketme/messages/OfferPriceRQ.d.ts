@@ -1,4 +1,4 @@
-import { GenericTicketMeNDCMessage } from "./GenericTicketMeNDCMessage";
+import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 export declare type Offer = {
     $: {
         Owner: string;
@@ -22,7 +22,7 @@ export declare type PaxDataList = {
         };
     };
 }[];
-export declare class OfferPriceRQ extends GenericTicketMeNDCMessage {
+export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;
     Query: {
         Offer: Offer[];

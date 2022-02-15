@@ -24,21 +24,21 @@ export declare class MixvelRequestManager implements IRequestManager {
     }): MixvelRequest;
     createSearchRequest(params: SearchParams): MixvelRequest;
     createPriceRequest(params: PriceParams): MixvelRequest;
-    createFareRulesRequest(params: PriceParams): MixvelRequest;
+    /**
+     * @param params
+     * @private
+     */
+    private static preparePriceParams;
     createBookRequest(params: BookParams): MixvelRequest;
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest;
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest;
     createTicketIssueRequest(params: TicketIssueParams): MixvelRequest;
     createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest;
     createRefundRequest(params: RefundParams): MixvelRequest;
-    createServiceListRequest(params: PriceParams): MixvelRequest;
+    createFareRulesRequest(params: PriceParams): MixvelRequest;
     createRequest(requestParams: object, services: {
         mapper: IMessageMapper;
         validator?: AbstractParamsValidator;
     }): MixvelRequest;
-    /**
-     * @param params
-     * @private
-     */
-    private static preparePriceParams;
+    createServiceListRequest(params: PriceParams): MixvelRequest;
 }

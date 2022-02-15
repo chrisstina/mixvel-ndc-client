@@ -1,4 +1,4 @@
-import { GenericNDCMessage } from "../../../interfaces/GenericNDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 export declare type SelectedOffer = {
     OfferRefID: string;
     SelectedOfferItem?: Array<{
@@ -6,7 +6,7 @@ export declare type SelectedOffer = {
         PaxRefID?: Array<string>;
     }>;
 };
-export declare class Mixvel_OfferPriceRQ implements GenericNDCMessage {
+export declare class Mixvel_OfferPriceRQ implements INDCMessage {
     get xmlns(): {
         "xmlns:OfferPrice": string;
     };

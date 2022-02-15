@@ -1,4 +1,4 @@
-import { GenericNDCMessage } from "../../../interfaces/GenericNDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { SelectedOffer } from "./Mixvel_OfferPriceRQ";
 import { MixvelDocumentType } from "../mappers/dictionary/documentType";
 declare type ContactTypeText = "personal";
@@ -55,7 +55,7 @@ export declare class ContactInfo {
         PhoneNumber: string;
     });
 }
-export declare class Mixvel_OrderCreateRQ implements GenericNDCMessage {
+export declare class Mixvel_OrderCreateRQ implements INDCMessage {
     get xmlns(): {
         "xmlns:m": string;
     };

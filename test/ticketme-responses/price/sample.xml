@@ -1,0 +1,373 @@
+<ns2:OfferPriceRS xmlns:ns2="http://www.iata.org/IATA/EDIST/2017.2" Version="17.2">
+    <ns2:Document/>
+    <ns2:Success/>
+    <ns2:ShoppingResponseID>
+        <ns2:Owner>KW</ns2:Owner>
+        <ns2:ResponseID>552df322f22cb9b3468733afe6fbeed7</ns2:ResponseID>
+    </ns2:ShoppingResponseID>
+    <ns2:PricedOffer OfferID="OF7bcf3cd6530aeccb98da61a28145e728" Owner="KW">
+        <ns2:Parameters ApplyToAllInd="true">
+            <ns2:TotalItemQuantity>4</ns2:TotalItemQuantity>
+        </ns2:Parameters>
+        <ns2:TotalPrice>
+            <ns2:DetailCurrencyPrice ApproxInd="false">
+                <ns2:Total Code="EUR">953.0</ns2:Total>
+            </ns2:DetailCurrencyPrice>
+        </ns2:TotalPrice>
+        <ns2:FlightsOverview>
+            <ns2:FlightRef ODRef="OD1" PriceClassRef="PC1">FL145c1db846840000348be6e6_0</ns2:FlightRef>
+            <ns2:FlightRef ODRef="OD2" PriceClassRef="PC2">FL1db8145c46870000f4b87c48_0</ns2:FlightRef>
+        </ns2:FlightsOverview>
+        <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-ADT" MandatoryInd="true">
+            <ns2:TotalPriceDetail>
+                <ns2:TotalAmount>
+                    <ns2:DetailCurrencyPrice>
+                        <ns2:Total Code="EUR">429.96</ns2:Total>
+                    </ns2:DetailCurrencyPrice>
+                </ns2:TotalAmount>
+                <ns2:BaseAmount Code="EUR">429.96</ns2:BaseAmount>
+            </ns2:TotalPriceDetail>
+            <ns2:Service ServiceID="SVC1">
+                <ns2:PassengerRefs>PAX1 PAX2</ns2:PassengerRefs>
+                <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            </ns2:Service>
+        </ns2:OfferItem>
+        <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-CHD" MandatoryInd="true">
+            <ns2:TotalPriceDetail>
+                <ns2:TotalAmount>
+                    <ns2:DetailCurrencyPrice>
+                        <ns2:Total Code="EUR">214.98</ns2:Total>
+                    </ns2:DetailCurrencyPrice>
+                </ns2:TotalAmount>
+                <ns2:BaseAmount Code="EUR">214.98</ns2:BaseAmount>
+            </ns2:TotalPriceDetail>
+            <ns2:Service ServiceID="SVC2">
+                <ns2:PassengerRefs>PAX4</ns2:PassengerRefs>
+                <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            </ns2:Service>
+        </ns2:OfferItem>
+        <ns2:OfferItem OfferItemID="OI145c1db846840000348be6e6_0-1db8145c46870000f4b87c48_0-INF" MandatoryInd="true">
+            <ns2:TotalPriceDetail>
+                <ns2:TotalAmount>
+                    <ns2:DetailCurrencyPrice>
+                        <ns2:Total Code="EUR">92.05</ns2:Total>
+                    </ns2:DetailCurrencyPrice>
+                </ns2:TotalAmount>
+                <ns2:BaseAmount Code="EUR">92.05</ns2:BaseAmount>
+            </ns2:TotalPriceDetail>
+            <ns2:Service ServiceID="SVC3">
+                <ns2:PassengerRefs>PAX3</ns2:PassengerRefs>
+                <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            </ns2:Service>
+        </ns2:OfferItem>
+        <ns2:OfferItem OfferItemID="ALC_BAG_OI2">
+            <ns2:TotalPriceDetail>
+                <ns2:TotalAmount>
+                    <ns2:DetailCurrencyPrice ApproxInd="false">
+                        <ns2:Total Code="EUR">72.0</ns2:Total>
+                    </ns2:DetailCurrencyPrice>
+                </ns2:TotalAmount>
+                <ns2:BaseAmount Code="EUR">72.0</ns2:BaseAmount>
+            </ns2:TotalPriceDetail>
+            <ns2:Service ServiceID="SVC_BAG2">
+                <ns2:PassengerRefs>PAX2</ns2:PassengerRefs>
+                <ns2:ServiceDefinitionRef SegmentRefs="SEG145c1db846840000348be6e6_0SEG1db8145c46870000f4b87c48_0">SD2</ns2:ServiceDefinitionRef>
+            </ns2:Service>
+        </ns2:OfferItem>
+        <ns2:BaggageAllowance>
+            <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            <ns2:PassengerRefs>PAX1 PAX2 PAX3 PAX4</ns2:PassengerRefs>
+            <ns2:BaggageAllowanceRef>CB1</ns2:BaggageAllowanceRef>
+        </ns2:BaggageAllowance>
+        <ns2:BaggageAllowance>
+            <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            <ns2:PassengerRefs>PAX1 PAX2 PAX3 PAX4</ns2:PassengerRefs>
+            <ns2:BaggageAllowanceRef>CB3</ns2:BaggageAllowanceRef>
+        </ns2:BaggageAllowance>
+        <ns2:BaggageAllowance>
+            <ns2:FlightRefs>FL145c1db846840000348be6e6_0 FL1db8145c46870000f4b87c48_0</ns2:FlightRefs>
+            <ns2:PassengerRefs>PAX1 PAX2 PAX3 PAX4</ns2:PassengerRefs>
+            <ns2:BaggageAllowanceRef>CB4</ns2:BaggageAllowanceRef>
+        </ns2:BaggageAllowance>
+    </ns2:PricedOffer>
+    <ns2:DataLists>
+        <ns2:PassengerList>
+            <ns2:Passenger PassengerID="PAX1">
+                <ns2:PTC>ADT</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX2">
+                <ns2:PTC>ADT</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX3">
+                <ns2:PTC>INF</ns2:PTC>
+            </ns2:Passenger>
+            <ns2:Passenger PassengerID="PAX4">
+                <ns2:PTC>CHD</ns2:PTC>
+            </ns2:Passenger>
+        </ns2:PassengerList>
+        <ns2:BaggageAllowanceList>
+            <ns2:BaggageAllowance BaggageAllowanceID="CB1">
+                <ns2:BaggageCategory>Checked</ns2:BaggageCategory>
+                <ns2:PieceAllowance>
+                    <ns2:ApplicableParty>Traveler</ns2:ApplicableParty>
+                    <ns2:TotalQuantity>1</ns2:TotalQuantity>
+                    <ns2:ApplicableBag>1 Checked Bag</ns2:ApplicableBag>
+                    <ns2:Descriptions>
+                        <ns2:Description>
+                            <ns2:Text>checked luggage</ns2:Text>
+                        </ns2:Description>
+                    </ns2:Descriptions>
+                    <ns2:PieceMeasurements Quantity="1">
+                        <ns2:PieceWeightAllowance>
+                            <ns2:MaximumWeight>
+                                <ns2:Value>20.0</ns2:Value>
+                                <ns2:UOM>K</ns2:UOM>
+                            </ns2:MaximumWeight>
+                        </ns2:PieceWeightAllowance>
+                        <ns2:PieceDimensionAllowance>
+                            <ns2:DimensionUOM>Centimeter</ns2:DimensionUOM>
+                            <ns2:Dimensions>
+                                <ns2:Category>Height</ns2:Category>
+                                <ns2:MaxValue>52.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Length</ns2:Category>
+                                <ns2:MaxValue>78.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Width</ns2:Category>
+                                <ns2:MaxValue>28.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                        </ns2:PieceDimensionAllowance>
+                    </ns2:PieceMeasurements>
+                </ns2:PieceAllowance>
+            </ns2:BaggageAllowance>
+            <ns2:BaggageAllowance BaggageAllowanceID="CB2">
+                <ns2:BaggageCategory>Checked</ns2:BaggageCategory>
+                <ns2:PieceAllowance>
+                    <ns2:ApplicableParty>Traveler</ns2:ApplicableParty>
+                    <ns2:TotalQuantity>2</ns2:TotalQuantity>
+                    <ns2:ApplicableBag>2 Checked Bag</ns2:ApplicableBag>
+                    <ns2:Descriptions>
+                        <ns2:Description>
+                            <ns2:Text>checked luggage</ns2:Text>
+                        </ns2:Description>
+                    </ns2:Descriptions>
+                    <ns2:PieceMeasurements Quantity="2">
+                        <ns2:PieceWeightAllowance>
+                            <ns2:MaximumWeight>
+                                <ns2:Value>20.0</ns2:Value>
+                                <ns2:UOM>K</ns2:UOM>
+                            </ns2:MaximumWeight>
+                        </ns2:PieceWeightAllowance>
+                        <ns2:PieceDimensionAllowance>
+                            <ns2:DimensionUOM>Centimeter</ns2:DimensionUOM>
+                            <ns2:Dimensions>
+                                <ns2:Category>Height</ns2:Category>
+                                <ns2:MaxValue>52.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Length</ns2:Category>
+                                <ns2:MaxValue>78.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Width</ns2:Category>
+                                <ns2:MaxValue>28.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                        </ns2:PieceDimensionAllowance>
+                    </ns2:PieceMeasurements>
+                </ns2:PieceAllowance>
+            </ns2:BaggageAllowance>
+            <ns2:BaggageAllowance BaggageAllowanceID="CB3">
+                <ns2:BaggageCategory>CarryOn</ns2:BaggageCategory>
+                <ns2:PieceAllowance>
+                    <ns2:ApplicableParty>Traveler</ns2:ApplicableParty>
+                    <ns2:TotalQuantity>1</ns2:TotalQuantity>
+                    <ns2:ApplicableBag>1st Carry-On</ns2:ApplicableBag>
+                    <ns2:Descriptions>
+                        <ns2:Description>
+                            <ns2:Text>cabin luggage</ns2:Text>
+                        </ns2:Description>
+                    </ns2:Descriptions>
+                    <ns2:PieceMeasurements Quantity="1">
+                        <ns2:PieceWeightAllowance>
+                            <ns2:MaximumWeight>
+                                <ns2:Value>8.0</ns2:Value>
+                                <ns2:UOM>K</ns2:UOM>
+                            </ns2:MaximumWeight>
+                        </ns2:PieceWeightAllowance>
+                        <ns2:PieceDimensionAllowance>
+                            <ns2:DimensionUOM>Centimeter</ns2:DimensionUOM>
+                            <ns2:Dimensions>
+                                <ns2:Category>Height</ns2:Category>
+                                <ns2:MaxValue>40.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Length</ns2:Category>
+                                <ns2:MaxValue>55.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Width</ns2:Category>
+                                <ns2:MaxValue>20.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                        </ns2:PieceDimensionAllowance>
+                    </ns2:PieceMeasurements>
+                </ns2:PieceAllowance>
+            </ns2:BaggageAllowance>
+            <ns2:BaggageAllowance BaggageAllowanceID="CB4">
+                <ns2:BaggageCategory>CarryOn</ns2:BaggageCategory>
+                <ns2:PieceAllowance>
+                    <ns2:ApplicableParty>Traveler</ns2:ApplicableParty>
+                    <ns2:TotalQuantity>1</ns2:TotalQuantity>
+                    <ns2:ApplicableBag>2nd Carry-On</ns2:ApplicableBag>
+                    <ns2:Descriptions>
+                        <ns2:Description>
+                            <ns2:Text>second cabin luggage</ns2:Text>
+                        </ns2:Description>
+                    </ns2:Descriptions>
+                    <ns2:PieceMeasurements Quantity="1">
+                        <ns2:PieceWeightAllowance>
+                            <ns2:MaximumWeight>
+                                <ns2:Value>3.0</ns2:Value>
+                                <ns2:UOM>K</ns2:UOM>
+                            </ns2:MaximumWeight>
+                        </ns2:PieceWeightAllowance>
+                        <ns2:PieceDimensionAllowance>
+                            <ns2:DimensionUOM>Centimeter</ns2:DimensionUOM>
+                            <ns2:Dimensions>
+                                <ns2:Category>Height</ns2:Category>
+                                <ns2:MaxValue>20.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Length</ns2:Category>
+                                <ns2:MaxValue>35.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                            <ns2:Dimensions>
+                                <ns2:Category>Width</ns2:Category>
+                                <ns2:MaxValue>20.0</ns2:MaxValue>
+                            </ns2:Dimensions>
+                        </ns2:PieceDimensionAllowance>
+                    </ns2:PieceMeasurements>
+                </ns2:PieceAllowance>
+            </ns2:BaggageAllowance>
+        </ns2:BaggageAllowanceList>
+        <ns2:FlightSegmentList>
+            <ns2:FlightSegment SegmentKey="SEG145c1db846840000348be6e6_0">
+                <ns2:Departure>
+                    <ns2:AirportCode>PRG</ns2:AirportCode>
+                    <ns2:Date>2019-06-05</ns2:Date>
+                    <ns2:Time>14:15</ns2:Time>
+                    <ns2:AirportName>Václav Havel Airport Prague</ns2:AirportName>
+                </ns2:Departure>
+                <ns2:Arrival>
+                    <ns2:AirportCode>SAW</ns2:AirportCode>
+                    <ns2:Date>2019-06-05</ns2:Date>
+                    <ns2:Time>17:55</ns2:Time>
+                    <ns2:AirportName>Sabiha Gökçen International</ns2:AirportName>
+                </ns2:Arrival>
+                <ns2:MarketingCarrier>
+                    <ns2:AirlineID>PC</ns2:AirlineID>
+                    <ns2:Name>Pegasus</ns2:Name>
+                    <ns2:FlightNumber>302</ns2:FlightNumber>
+                </ns2:MarketingCarrier>
+                <ns2:OperatingCarrier>
+                    <ns2:AirlineID>PC</ns2:AirlineID>
+                    <ns2:Name>Pegasus</ns2:Name>
+                </ns2:OperatingCarrier>
+                <ns2:ClassOfService>
+                    <ns2:Code>T</ns2:Code>
+                    <ns2:FareBasisCode>TWEB/INT</ns2:FareBasisCode>
+                </ns2:ClassOfService>
+            </ns2:FlightSegment>
+            <ns2:FlightSegment SegmentKey="SEG1db8145c46870000f4b87c48_0">
+                <ns2:Departure>
+                    <ns2:AirportCode>SAW</ns2:AirportCode>
+                    <ns2:Date>2019-06-08</ns2:Date>
+                    <ns2:Time>11:00</ns2:Time>
+                    <ns2:AirportName>Sabiha Gökçen International</ns2:AirportName>
+                </ns2:Departure>
+                <ns2:Arrival>
+                    <ns2:AirportCode>PRG</ns2:AirportCode>
+                    <ns2:Date>2019-06-08</ns2:Date>
+                    <ns2:Time>12:40</ns2:Time>
+                    <ns2:AirportName>Václav Havel Airport Prague</ns2:AirportName>
+                </ns2:Arrival>
+                <ns2:MarketingCarrier>
+                    <ns2:AirlineID>PC</ns2:AirlineID>
+                    <ns2:Name>Pegasus</ns2:Name>
+                    <ns2:FlightNumber>301</ns2:FlightNumber>
+                </ns2:MarketingCarrier>
+                <ns2:OperatingCarrier>
+                    <ns2:AirlineID>PC</ns2:AirlineID>
+                    <ns2:Name>Pegasus</ns2:Name>
+                </ns2:OperatingCarrier>
+                <ns2:ClassOfService>
+                    <ns2:Code>G</ns2:Code>
+                    <ns2:FareBasisCode>GWEB/INT</ns2:FareBasisCode>
+                </ns2:ClassOfService>
+            </ns2:FlightSegment>
+        </ns2:FlightSegmentList>
+        <ns2:FlightList>
+            <ns2:Flight FlightKey="FL145c1db846840000348be6e6_0">
+                <ns2:Journey>
+                    <ns2:Time>P0DT2H40M0S</ns2:Time>
+                </ns2:Journey>
+                <ns2:SegmentReferences>SEG145c1db846840000348be6e6_0</ns2:SegmentReferences>
+            </ns2:Flight>
+            <ns2:Flight FlightKey="FL1db8145c46870000f4b87c48_0">
+                <ns2:Journey>
+                    <ns2:Time>P0DT2H40M0S</ns2:Time>
+                </ns2:Journey>
+                <ns2:SegmentReferences>SEG1db8145c46870000f4b87c48_0</ns2:SegmentReferences>
+            </ns2:Flight>
+        </ns2:FlightList>
+        <ns2:OriginDestinationList>
+            <ns2:OriginDestination OriginDestinationKey="OD1">
+                <ns2:DepartureCode>PRG</ns2:DepartureCode>
+                <ns2:ArrivalCode>SAW</ns2:ArrivalCode>
+                <ns2:FlightReferences>FL145c1db846840000348be6e6_0</ns2:FlightReferences>
+            </ns2:OriginDestination>
+            <ns2:OriginDestination OriginDestinationKey="OD2">
+                <ns2:DepartureCode>SAW</ns2:DepartureCode>
+                <ns2:ArrivalCode>PRG</ns2:ArrivalCode>
+                <ns2:FlightReferences>FL1db8145c46870000f4b87c48_0</ns2:FlightReferences>
+            </ns2:OriginDestination>
+        </ns2:OriginDestinationList>
+        <ns2:PriceClassList>
+            <ns2:PriceClass PriceClassID="PC1">
+                <ns2:Name>PriceClass1</ns2:Name>
+                <ns2:ClassOfService refs="SEG145c1db846840000348be6e6_0">
+                    <ns2:Code>T</ns2:Code>
+                    <ns2:FareBasisCode>TWEB/INT</ns2:FareBasisCode>
+                </ns2:ClassOfService>
+            </ns2:PriceClass>
+            <ns2:PriceClass PriceClassID="PC2">
+                <ns2:Name>PriceClass2</ns2:Name>
+                <ns2:ClassOfService refs="SEG1db8145c46870000f4b87c48_0">
+                    <ns2:Code>G</ns2:Code>
+                    <ns2:FareBasisCode>GWEB/INT</ns2:FareBasisCode>
+                </ns2:ClassOfService>
+            </ns2:PriceClass>
+        </ns2:PriceClassList>
+        <ns2:ServiceDefinitionList>
+            <ns2:ServiceDefinition ServiceDefinitionID="SD1">
+                <ns2:Name>1 bag</ns2:Name>
+                <ns2:BaggageAllowanceRef>CB1</ns2:BaggageAllowanceRef>
+                <ns2:Descriptions>
+                    <ns2:Description>
+                        <ns2:Text>1 places of checked baggage</ns2:Text>
+                    </ns2:Description>
+                </ns2:Descriptions>
+            </ns2:ServiceDefinition>
+            <ns2:ServiceDefinition ServiceDefinitionID="SD2">
+                <ns2:Name>2 bag</ns2:Name>
+                <ns2:BaggageAllowanceRef>CB2</ns2:BaggageAllowanceRef>
+                <ns2:Descriptions>
+                    <ns2:Description>
+                        <ns2:Text>2 places of checked baggage</ns2:Text>
+                    </ns2:Description>
+                </ns2:Descriptions>
+            </ns2:ServiceDefinition>
+        </ns2:ServiceDefinitionList>
+    </ns2:DataLists>
+</ns2:OfferPriceRS>

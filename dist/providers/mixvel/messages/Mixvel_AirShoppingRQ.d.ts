@@ -1,4 +1,4 @@
-import { GenericNDCMessage } from "../../../interfaces/GenericNDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { MixvelPTC } from "../mappers/dictionary/ptc";
 import { MixvelCabin } from "../mappers/dictionary/cabin";
 export declare class OriginDestination {
@@ -21,7 +21,7 @@ export declare class OriginDestination {
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
  */
-export declare class Mixvel_AirShoppingRQ implements GenericNDCMessage {
+export declare class Mixvel_AirShoppingRQ implements INDCMessage {
     get xmlns(): {
         'xmlns:shop': string;
     };

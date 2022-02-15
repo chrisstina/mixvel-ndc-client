@@ -1,4 +1,4 @@
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 import {RequestGenerationError} from "../errors/RequestGenerationError";
 import {IEndpointManager} from "../../interfaces/IEndpointManager";
 
@@ -6,7 +6,7 @@ export class RequestEndpointManager implements IEndpointManager {
     constructor(public endpoints: Map<string, string>) {
     }
 
-    getEndpointForMessage(message: GenericNDCMessage): string | never {
+    getEndpointForMessage(message: INDCMessage): string | never {
         return this.getEndpointByKey(message.constructor.name)
     }
 

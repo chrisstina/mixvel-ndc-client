@@ -1,4 +1,4 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {SelectedOffer} from "./Mixvel_OfferPriceRQ";
 import {MixvelDocumentType} from "../mappers/dictionary/documentType";
 
@@ -24,7 +24,7 @@ export class ContactInfo {
     }
 }
 
-export class Mixvel_OrderCreateRQ implements GenericNDCMessage {
+export class Mixvel_OrderCreateRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01"}
     }

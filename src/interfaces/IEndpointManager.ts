@@ -1,9 +1,9 @@
-import {GenericNDCMessage} from "./GenericNDCMessage";
+import {INDCMessage} from "./INDCMessage";
 
 export interface IEndpointManager {
     endpoints: Map<string, string>;
 
-    getEndpointForMessage(message: GenericNDCMessage): string | never;
+    getEndpointForMessage(message: INDCMessage): string | never;
 
     getEndpointByKey(id: string): string | never;
 }

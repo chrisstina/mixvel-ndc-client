@@ -1,4 +1,4 @@
-import { GenericTicketMeNDCMessage, StringValue } from "./GenericTicketMeNDCMessage";
+import { AbstractTicketMeNDCMessage, StringValue } from "./AbstractTicketMeNDCMessage";
 import { TicketMePTC } from "../mappers/dictionary/ptc";
 import { TicketMeCabin } from "../mappers/dictionary/cabin";
 import { Preflevel } from "../constants/preflevel";
@@ -40,7 +40,7 @@ declare type FlightPreference = {
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
  */
-export declare class AirShoppingRQ extends GenericTicketMeNDCMessage {
+export declare class AirShoppingRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;
     CoreQuery: {
         "OriginDestinations": {

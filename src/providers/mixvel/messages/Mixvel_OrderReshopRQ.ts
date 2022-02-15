@@ -1,6 +1,6 @@
-import {GenericNDCMessage} from "../../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
 
-export class Mixvel_OrderReshopRQ implements GenericNDCMessage {
+export class Mixvel_OrderReshopRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:Reshop": "https://www.mixvel.com/API/XSD/Mixvel_OrderReshopRQ/1_00"}
     }

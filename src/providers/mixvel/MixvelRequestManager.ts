@@ -2,7 +2,7 @@ import {IRequestManager} from "../../interfaces/IRequestManager";
 import {IEndpointManager} from "../../interfaces/IEndpointManager";
 import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
 import {IMessageMapper} from "../../interfaces/IMessageMapper";
-import {GenericNDCMessage} from "../../interfaces/GenericNDCMessage";
+import {INDCMessage} from "../../interfaces/INDCMessage";
 
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 
@@ -58,7 +58,7 @@ export class MixvelRequestManager implements IRequestManager {
         const restructuredParams = MixvelRequestManager.preparePriceParams(params)
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
@@ -88,7 +88,7 @@ export class MixvelRequestManager implements IRequestManager {
     createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_OrderRetrieveRQ(params.orderId)
                 }
             }
@@ -98,7 +98,7 @@ export class MixvelRequestManager implements IRequestManager {
     createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_OrderCancelRQ(params.orderId)
                 }
             }
@@ -114,7 +114,7 @@ export class MixvelRequestManager implements IRequestManager {
     createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest {
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_OrderReshopRQ(params.orderId)
                 }
             }
@@ -131,7 +131,7 @@ export class MixvelRequestManager implements IRequestManager {
         const restructuredParams = MixvelRequestManager.preparePriceParams(params)
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
@@ -160,7 +160,7 @@ export class MixvelRequestManager implements IRequestManager {
         const restructuredParams = MixvelRequestManager.preparePriceParams(params)
         return this.createRequest(params, {
             mapper: {
-                map(): GenericNDCMessage {
+                map(): INDCMessage {
                     return new Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }

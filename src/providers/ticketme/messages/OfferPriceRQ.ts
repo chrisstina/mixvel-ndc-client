@@ -1,4 +1,4 @@
-import {GenericTicketMeNDCMessage} from "./GenericTicketMeNDCMessage";
+import {AbstractTicketMeNDCMessage} from "./AbstractTicketMeNDCMessage";
 
 export type Offer = {
     $: { Owner: string, OfferID: string, ResponseID: string },
@@ -12,7 +12,7 @@ type OfferItem = {
 
 export type PaxDataList = { Passenger: { $: { PassengerID: string } } }[]
 
-export class OfferPriceRQ extends GenericTicketMeNDCMessage {
+export class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName() {
         return "OfferPriceRQ"
     }

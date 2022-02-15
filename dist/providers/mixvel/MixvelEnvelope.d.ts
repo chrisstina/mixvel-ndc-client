@@ -1,4 +1,4 @@
-import { GenericNDCMessage } from "../../interfaces/GenericNDCMessage";
+import { INDCMessage } from "../../interfaces/INDCMessage";
 import { MixvelAppData } from "./MixvelAppData";
 import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 export declare class MixvelEnvelope {
@@ -17,7 +17,7 @@ export declare class MixvelEnvelope {
             AppData: {}[];
         }[];
     };
-    set AppData(ndcMessage: MixvelAppData<GenericNDCMessage> | MixvelAuthAppData);
+    set AppData(ndcMessage: MixvelAppData<INDCMessage> | MixvelAuthAppData);
     set MessageInfo({ messageId, timeSent }: {
         messageId: string;
         timeSent: string;
