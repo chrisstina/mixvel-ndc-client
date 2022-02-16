@@ -21,20 +21,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PriceParams = void 0;
+exports.PriceParams = exports.Offer = void 0;
 var AbstractParams_1 = require("./AbstractParams");
 var class_validator_1 = require("class-validator");
+var OfferItem = /** @class */ (function () {
+    function OfferItem(id, ptc, paxs) {
+        this.offerItemId = id;
+        this.ptc = ptc;
+        this.paxs = paxs;
+    }
+    __decorate([
+        (0, class_validator_1.IsString)()
+    ], OfferItem.prototype, "offerItemId", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+    ], OfferItem.prototype, "ptc", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.IsString)()
+    ], OfferItem.prototype, "paxs", void 0);
+    return OfferItem;
+}());
 var Offer = /** @class */ (function () {
     function Offer(offerId, offerItems, offerOwner, responseId) {
         this.offerId = offerId;
-        this.offerItems = offerItems;
         this.offerOwner = offerOwner;
         this.responseId = responseId;
+        this.offerItems = offerItems.map(function (item) { return new OfferItem(item.offerItemId, item.ptc, item.paxs); });
     }
     __decorate([
         (0, class_validator_1.IsString)(),
         (0, class_validator_1.Length)(1)
     ], Offer.prototype, "offerId", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)()
+    ], Offer.prototype, "offerItems", void 0);
     __decorate([
         (0, class_validator_1.IsOptional)(),
         (0, class_validator_1.IsString)(),
@@ -47,6 +69,7 @@ var Offer = /** @class */ (function () {
     ], Offer.prototype, "responseId", void 0);
     return Offer;
 }());
+exports.Offer = Offer;
 var PriceParams = /** @class */ (function (_super) {
     __extends(PriceParams, _super);
     function PriceParams(props) {

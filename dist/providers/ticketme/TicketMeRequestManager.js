@@ -9,6 +9,9 @@ var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
 var TicketMeRequest_1 = require("./TicketMeRequest");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
+var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
+var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
+var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var defaults_1 = require("./config/defaults");
 var TicketMeRequestManager = /** @class */ (function () {
     function TicketMeRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
@@ -25,7 +28,10 @@ var TicketMeRequestManager = /** @class */ (function () {
         throw new MethodNotImplemented_1.MethodNotImplemented('auth');
     };
     TicketMeRequestManager.prototype.createBookRequest = function (params) {
-        throw new MethodNotImplemented_1.MethodNotImplemented('book');
+        return this.createRequest(params, {
+            mapper: new BookMessageMapper_1.BookMessageMapper(params),
+            validator: BookParamsValidator_1.BookParamsValidator
+        });
     };
     TicketMeRequestManager.prototype.createFareRulesRequest = function (params) {
         throw new MethodNotImplemented_1.MethodNotImplemented('rules');
@@ -38,6 +44,7 @@ var TicketMeRequestManager = /** @class */ (function () {
     };
     TicketMeRequestManager.prototype.createPriceRequest = function (params) {
         return this.createRequest(params, {
+            validator: PriceParamsValidator_1.PriceParamsValidator,
             mapper: new PriceMessageMapper_1.PriceMessageMapper(params, this.extraConfiguration.party)
         });
     };

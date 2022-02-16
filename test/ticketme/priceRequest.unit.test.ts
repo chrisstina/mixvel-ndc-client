@@ -37,4 +37,26 @@ class PriceRequestUnitTest {
         expect(rq).to.contain('PassengerID="pax2"')
         expect(rq).to.contain('PassengerID="pax3"')
     }
+
+    @test 'Validate price RQ params' () {
+        const rq = getPriceRequest({
+            offers: [{
+                offerId: 'SOME_OFFER',
+                responseId: 'SOME_RESONSE_ID',
+                offerOwner: 'KW',
+                offerItems: [
+                    {
+                        offerItemId: 'OFFER_ITEM_1',
+                        paxs: 'pax1 pax2'
+                    },
+                    {
+                        offerItemId: 'OFFER_ITEM_2',
+                        paxs: 123
+                    }
+                ]
+            }]
+        })
+        expect(rq.isFailure).to.be.true
+        expect(rq.error).to.contain('paxs must be a string')
+    }
 }

@@ -24,22 +24,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Passenger = exports.BookParams = void 0;
 var class_validator_1 = require("class-validator");
 var AbstractParams_1 = require("./AbstractParams");
+var Price_1 = require("./Price");
 var BookParams = /** @class */ (function (_super) {
     __extends(BookParams, _super);
     function BookParams(props) {
         var _this = _super.call(this) || this;
-        _this.offerId = props.offerId;
-        _this.offerItemIds = props.offerItemIds;
+        _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
         _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo); });
         return _this;
     }
-    __decorate([
-        (0, class_validator_1.IsString)()
-    ], BookParams.prototype, "offerId", void 0);
-    __decorate([
-        (0, class_validator_1.IsArray)(),
-        (0, class_validator_1.ValidateNested)({ each: true })
-    ], BookParams.prototype, "offerItemIds", void 0);
     __decorate([
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)({ each: true })
@@ -47,19 +40,6 @@ var BookParams = /** @class */ (function (_super) {
     return BookParams;
 }(AbstractParams_1.AbstractParams));
 exports.BookParams = BookParams;
-var OfferItem = /** @class */ (function () {
-    function OfferItem(id, ptc) {
-        this.id = id;
-        this.ptc = ptc;
-    }
-    __decorate([
-        (0, class_validator_1.IsString)()
-    ], OfferItem.prototype, "id", void 0);
-    __decorate([
-        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
-    ], OfferItem.prototype, "ptc", void 0);
-    return OfferItem;
-}());
 var PersonalInfo = /** @class */ (function () {
     function PersonalInfo(firstName, lastName, gender, dob, middleName) {
         this.firstName = firstName;
@@ -96,7 +76,7 @@ var IdentityDocument = /** @class */ (function () {
         this.dateOfExpiry = dateOfExpiry;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(["PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL"])
+        (0, class_validator_1.IsIn)(["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT"])
     ], IdentityDocument.prototype, "type", void 0);
     __decorate([
         (0, class_validator_1.IsNotEmpty)({ message: 'Document number should not be empty' })
@@ -131,7 +111,8 @@ var Contact = /** @class */ (function () {
     return Contact;
 }());
 var Passenger = /** @class */ (function () {
-    function Passenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo) {
+    function Passenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, id) {
+        this.id = id;
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName);
         this.identityDocument = new IdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);

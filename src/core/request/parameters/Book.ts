@@ -15,27 +15,22 @@ import {
 
 import {AbstractParams} from "./AbstractParams";
 import {DocumentType, PaxCategory} from "../types";
+import {Offer} from "./Price";
 
 export type BookProps = {
-    offerId: string,
-    offerItemIds: Array<{ id: string, ptc: PaxCategory }>,
+    offer: Offer,
     passengers: Array<Passenger>
 }
 
 export class BookParams extends AbstractParams {
-    @IsString()
-    public readonly offerId: string
-    @IsArray()
-    @ValidateNested({each: true})
-    public readonly offerItemIds: Array<OfferItem>
+    public readonly offer: Offer
     @IsArray()
     @ValidateNested({each: true})
     public readonly passengers: Array<Passenger>
 
     private constructor(props: BookProps) {
         super()
-        this.offerId = props.offerId
-        this.offerItemIds = props.offerItemIds
+        this.offer = new Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId)
         this.passengers = props.passengers.map(passenger => new Passenger(
             passenger.ptc,
             passenger.personalInfo,
@@ -43,18 +38,6 @@ export class BookParams extends AbstractParams {
             passenger.contacts,
             passenger.loyaltyInfo
         ))
-    }
-}
-
-class OfferItem {
-    @IsString()
-    id: string
-    @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
-    ptc: PaxCategory
-
-    constructor(id: string, ptc: PaxCategory) {
-        this.id = id;
-        this.ptc = ptc;
     }
 }
 
@@ -82,7 +65,7 @@ class PersonalInfo {
 }
 
 class IdentityDocument {
-    @IsIn(["PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL"])
+    @IsIn(["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT"])
     public type: DocumentType
     @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string
@@ -132,7 +115,8 @@ export class Passenger {
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
-                contacts: { phoneNumber?: string; email?: string }, loyaltyInfo?: Record<string, unknown>) {
+                contacts: { phoneNumber?: string; email?: string }, loyaltyInfo?: Record<string, unknown>,
+                public readonly id?: string) {
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(
             personalInfo.firstName,

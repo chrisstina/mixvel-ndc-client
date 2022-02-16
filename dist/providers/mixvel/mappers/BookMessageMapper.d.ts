@@ -7,5 +7,4 @@ export declare class BookMessageMapper implements IMessageMapper {
     map(): Mixvel_OrderCreateRQ;
     private static passengerToPax;
     private passengerToContact;
-    private firstAvailableEmail;
 }

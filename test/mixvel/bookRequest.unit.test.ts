@@ -10,8 +10,10 @@ const {getBookRequest} = createNDCService('mixvel')
 class BookRequestUnitTest {
     @test 'Create Mixvel book RQ for 1ADT RT'() {
         const params: BookProps = {
-            offerId: 'SOME-OFFER',
-            offerItemIds: [{id: 'OFFER-1', ptc: "ADULT"}],
+            offer: {
+                offerId: 'SOME-OFFER',
+                offerItems: [{offerItemId: 'OFFER-1', ptc: "ADULT"}]
+            },
             passengers: [
                 {
                     ptc: "ADULT",
@@ -23,7 +25,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-02-15'),
                     },
                     identityDocument: {
-                        type: "PASSPORT",
+                        type: "REGULAR_PASSPORT",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',
@@ -49,12 +51,14 @@ class BookRequestUnitTest {
 
     @test 'Create Mixvel book RQ for 2ADT 1CHD 1INF RT'() {
         const params: BookProps = {
-            offerId: 'SOME-OFFER',
-            offerItemIds: [
-                {id: 'OFFER-1', ptc: "ADULT"},
-                {id: 'OFFER-2', ptc: "CHILD"},
-                {id: 'OFFER-3', ptc: "INFANT"}
-            ],
+            offer: {
+                offerId: 'SOME-OFFER',
+                offerItems: [
+                    {offerItemId: 'OFFER-1', ptc: "ADULT"},
+                    {offerItemId: 'OFFER-2', ptc: "CHILD"},
+                    {offerItemId: 'OFFER-3', ptc: "INFANT"}
+                ]
+            },
             passengers: [
                 {
                     ptc: "ADULT",
@@ -66,7 +70,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-02-15'),
                     },
                     identityDocument: {
-                        type: "PASSPORT",
+                        type: "REGULAR_PASSPORT",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',
@@ -87,7 +91,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-03-15'),
                     },
                     identityDocument: {
-                        type: "PASSPORT",
+                        type: "REGULAR_PASSPORT",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',

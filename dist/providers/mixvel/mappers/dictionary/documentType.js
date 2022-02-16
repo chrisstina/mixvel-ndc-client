@@ -8,12 +8,12 @@ var MixvelDocumentType;
 })(MixvelDocumentType = exports.MixvelDocumentType || (exports.MixvelDocumentType = {}));
 function toMixvel(docType) {
     switch (docType) {
-        case "PASSPORT":
+        case "REGULAR_PASSPORT":
             return MixvelDocumentType.PASSPORT;
         case "BIRTHDAY_CERTIFICATE":
             return MixvelDocumentType.BIRTHDAY_CERTIFICATE;
         default:
-            throw new Error("Unknown document type ".concat(docType));
+            throw new Error("Unsupported document type ".concat(docType));
     }
 }
 exports.toMixvel = toMixvel;

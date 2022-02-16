@@ -11,7 +11,8 @@ type Party = {
     }[]
 }[]
 
-export type StringValue = {_: string}
+export type NodeValue<T> = {_: T}
+export type StringValue = NodeValue<string>
 
 export abstract class AbstractTicketMeNDCMessage implements INDCMessage {
     public get nodeName() {

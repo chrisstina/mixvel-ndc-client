@@ -1,8 +1,7 @@
-import assert from "assert";
-
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
 import {BookParams, Passenger} from "../../../core/request/parameters/Book";
+import {FirstAvailableEmailService} from "../../../services/FirstAvailableEmailService";
 
 import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
 
@@ -15,7 +14,7 @@ export class BookMessageMapper implements IMessageMapper {
     }
 
     map(): Mixvel_OrderCreateRQ {
-        const mixvelRequestMessage = new Mixvel_OrderCreateRQ(this.params.offerId)
+        const mixvelRequestMessage = new Mixvel_OrderCreateRQ(this.params.offer.offerId)
         const paxRefs = new Map()
         this.params.passengers.forEach((passenger, idx) => {
             const pax = BookMessageMapper.passengerToPax(passenger, idx + 1)
@@ -24,9 +23,9 @@ export class BookMessageMapper implements IMessageMapper {
             // @todo LoyaltyProgramAccount
         })
 
-        this.params.offerItemIds.forEach(({id, ptc}) => {
+        this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
             if (paxRefs.has(ptc)) {
-                mixvelRequestMessage.addSelectedOfferItem(id, paxRefs.get(ptc))
+                mixvelRequestMessage.addSelectedOfferItem(offerItemId, paxRefs.get(ptc))
             }
         })
         return mixvelRequestMessage
@@ -57,23 +56,12 @@ export class BookMessageMapper implements IMessageMapper {
     }
 
     private passengerToContact(passenger: Passenger, paxId: number) {
-        const email = passenger.contacts.email || this.firstAvailableEmail()
-        assert(email !== undefined, `Missing email for pax #${paxId}`) //@todo move to params validation
-        assert(passenger.contacts.phoneNumber !== undefined, `Missing phone number for pax #${paxId}`) //@todo move to params validation and check for infant
-
+        const email = passenger.contacts.email || FirstAvailableEmailService.getFirstAvailableEmail(this.params) || ''
         return new ContactInfo(
             generateContactReference(paxId),
             {ContactTypeText: "personal", EmailAddressText: email},
-            {ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber)}
+            {ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '')}
         )
-    }
-
-    private firstAvailableEmail(): string | undefined {
-        for (const passengersKey in this.params.passengers) {
-            if (this.params.passengers[passengersKey].contacts.email !== undefined) {
-                return this.params.passengers[passengersKey].contacts.email
-            }
-        }
     }
 }
 

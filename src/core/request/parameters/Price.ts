@@ -1,10 +1,29 @@
 import {AbstractParams} from "./AbstractParams";
-import {IsArray, IsOptional, IsString, Length, ValidateNested} from "class-validator";
+import {IsArray, IsIn, IsOptional, IsString, Length, ValidateNested} from "class-validator";
+import {PaxCategory} from "../types";
 
-class Offer {
+class OfferItem {
+    @IsString()
+    offerItemId: string
+    @IsOptional()
+    @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+    ptc?: PaxCategory
+    @IsOptional()
+    @IsString()
+    paxs?: string
+
+    constructor(id: string, ptc?: PaxCategory, paxs?: string) {
+        this.offerItemId = id;
+        this.ptc = ptc;
+        this.paxs = paxs
+    }
+}
+
+export class Offer {
     @IsString()
     @Length(1)
     public readonly offerId: string
+    @ValidateNested()
     public readonly offerItems: OfferItem[]
     @IsOptional()
     @IsString()
@@ -17,15 +36,10 @@ class Offer {
 
     constructor(offerId: string, offerItems: OfferItem[], offerOwner?: string, responseId?: string) {
         this.offerId = offerId;
-        this.offerItems = offerItems;
         this.offerOwner = offerOwner;
         this.responseId = responseId;
+        this.offerItems = offerItems.map(item => new OfferItem(item.offerItemId, item.ptc, item.paxs))
     }
-}
-
-type OfferItem = {
-    offerItemId: string,
-    paxs?: string
 }
 
 export type PriceProps = {

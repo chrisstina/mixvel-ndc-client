@@ -8,12 +8,9 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookMessageMapper = void 0;
-var assert_1 = __importDefault(require("assert"));
+var FirstAvailableEmailService_1 = require("../../../services/FirstAvailableEmailService");
 var Mixvel_OrderCreateRQ_1 = require("../messages/Mixvel_OrderCreateRQ");
 var documentType_1 = require("./dictionary/documentType");
 var ptc_1 = require("./dictionary/ptc");
@@ -24,7 +21,7 @@ var BookMessageMapper = /** @class */ (function () {
     }
     BookMessageMapper.prototype.map = function () {
         var _this = this;
-        var mixvelRequestMessage = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offerId);
+        var mixvelRequestMessage = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offer.offerId);
         var paxRefs = new Map();
         this.params.passengers.forEach(function (passenger, idx) {
             var pax = BookMessageMapper.passengerToPax(passenger, idx + 1);
@@ -32,10 +29,10 @@ var BookMessageMapper = /** @class */ (function () {
             mixvelRequestMessage.addPax(pax, _this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
         });
-        this.params.offerItemIds.forEach(function (_a) {
-            var id = _a.id, ptc = _a.ptc;
+        this.params.offer.offerItems.forEach(function (_a) {
+            var offerItemId = _a.offerItemId, ptc = _a.ptc;
             if (paxRefs.has(ptc)) {
-                mixvelRequestMessage.addSelectedOfferItem(id, paxRefs.get(ptc));
+                mixvelRequestMessage.addSelectedOfferItem(offerItemId, paxRefs.get(ptc));
             }
         });
         return mixvelRequestMessage;
@@ -57,17 +54,8 @@ var BookMessageMapper = /** @class */ (function () {
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
-        var email = passenger.contacts.email || this.firstAvailableEmail();
-        (0, assert_1.default)(email !== undefined, "Missing email for pax #".concat(paxId)); //@todo move to params validation
-        (0, assert_1.default)(passenger.contacts.phoneNumber !== undefined, "Missing phone number for pax #".concat(paxId)); //@todo move to params validation and check for infant
-        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber) });
-    };
-    BookMessageMapper.prototype.firstAvailableEmail = function () {
-        for (var passengersKey in this.params.passengers) {
-            if (this.params.passengers[passengersKey].contacts.email !== undefined) {
-                return this.params.passengers[passengersKey].contacts.email;
-            }
-        }
+        var email = passenger.contacts.email || FirstAvailableEmailService_1.FirstAvailableEmailService.getFirstAvailableEmail(this.params) || '';
+        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '') });
     };
     return BookMessageMapper;
 }());

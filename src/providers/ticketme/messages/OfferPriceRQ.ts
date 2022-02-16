@@ -1,4 +1,4 @@
-import {AbstractTicketMeNDCMessage} from "./AbstractTicketMeNDCMessage";
+import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
 
 export type Offer = {
     $: { Owner: string, OfferID: string, ResponseID: string },
@@ -7,7 +7,7 @@ export type Offer = {
 
 type OfferItem = {
     $: { OfferItemID: string },
-    PassengerRefs: {_ : string}
+    PassengerRefs: StringValue
 }
 
 export type PaxDataList = { Passenger: { $: { PassengerID: string } } }[]

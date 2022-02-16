@@ -21,6 +21,11 @@ import {TicketMeRequest} from "./TicketMeRequest";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {PriceMessageMapper} from "./mappers/PriceMessageMapper";
+import {BookMessageMapper} from "./mappers/BookMessageMapper";
+
+import {PriceParamsValidator} from "./validators/PriceParamsValidator";
+import {BookParamsValidator} from "./validators/BookParamsValidator";
+
 import {DEFAULT_CURRENCY, DEFAULT_LANG} from "./config/defaults";
 
 export class TicketMeRequestManager implements IRequestManager {
@@ -41,7 +46,10 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createBookRequest(params: BookParams): IRequest {
-        throw new MethodNotImplemented('book')
+        return this.createRequest(params, {
+            mapper: new BookMessageMapper(params),
+            validator: BookParamsValidator
+        })
     }
 
     createFareRulesRequest(params: PriceParams): IRequest {
@@ -59,6 +67,7 @@ export class TicketMeRequestManager implements IRequestManager {
     createPriceRequest(params: PriceParams): IRequest {
         return this.createRequest(params,
             {
+                validator: PriceParamsValidator,
                 mapper: new PriceMessageMapper(params, this.extraConfiguration.party)
             })
     }

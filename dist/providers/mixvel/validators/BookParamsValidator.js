@@ -21,21 +21,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookParamsValidator = void 0;
 var assert_1 = __importDefault(require("assert"));
 var AbstractParamsValidator_1 = require("../../../core/request/AbstractParamsValidator");
+var documentType_1 = require("../mappers/dictionary/documentType");
+var FirstAvailableEmailService_1 = require("../../../services/FirstAvailableEmailService");
 var BookParamsValidator = /** @class */ (function (_super) {
     __extends(BookParamsValidator, _super);
     function BookParamsValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     BookParamsValidator.validate = function (props) {
-        var passengers = props.passengers, offerItemIds = props.offerItemIds;
+        var passengers = props.passengers, offer = props.offer;
         passengers.forEach(function (passenger, paxId) {
             // every passenger has to have an offer
-            (0, assert_1.default)(offerItemIds.findIndex(function (_a) {
+            (0, assert_1.default)(offer.offerItems.findIndex(function (_a) {
                 var ptc = _a.ptc;
                 return ptc === passenger.ptc;
             }) !== -1, "No offer found for ".concat(passenger.ptc));
             // middlename is required
             (0, assert_1.default)(passenger.personalInfo.middleName !== undefined && passenger.personalInfo.middleName.length > 0, "Missing middle name for pax #".concat(paxId));
+            // document type is supported or throw
+            (0, documentType_1.toMixvel)(passenger.identityDocument.type);
+            // contacts are required
+            var email = passenger.contacts.email || FirstAvailableEmailService_1.FirstAvailableEmailService.getFirstAvailableEmail(props);
+            (0, assert_1.default)(email !== undefined, "Missing email for pax #".concat(paxId));
+            (0, assert_1.default)(passenger.contacts.phoneNumber !== undefined, "Missing phone number for pax #".concat(paxId));
         });
         return true;
     };

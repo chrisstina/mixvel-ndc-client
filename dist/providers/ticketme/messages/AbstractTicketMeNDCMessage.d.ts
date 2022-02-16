@@ -9,9 +9,10 @@ declare type Party = {
         }[];
     }[];
 }[];
-export declare type StringValue = {
-    _: string;
+export declare type NodeValue<T> = {
+    _: T;
 };
+export declare type StringValue = NodeValue<string>;
 export declare abstract class AbstractTicketMeNDCMessage implements INDCMessage {
     get nodeName(): string;
     get xmlns(): {

@@ -7,12 +7,12 @@ export enum MixvelDocumentType {
 
 export function toMixvel(docType: DocumentType): MixvelDocumentType {
     switch (docType) {
-        case "PASSPORT":
+        case "REGULAR_PASSPORT":
             return MixvelDocumentType.PASSPORT
         case "BIRTHDAY_CERTIFICATE":
             return MixvelDocumentType.BIRTHDAY_CERTIFICATE
         default:
-            throw new Error(`Unknown document type ${docType}`)
+            throw new Error(`Unsupported document type ${docType}`)
     }
 }
 

@@ -26,13 +26,15 @@ var PriceParamsValidator = /** @class */ (function (_super) {
     function PriceParamsValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    PriceParamsValidator.validate = function (props) {
-        var offers = props.offers;
-        offers.forEach(function (offer) {
+    PriceParamsValidator.validate = function (params) {
+        params.offers.map(function (offer) {
             (0, assert_1.default)(offer.offerOwner, 'Missing offer owner');
             (0, assert_1.default)(offer.offerId, 'Missing offer id');
             (0, assert_1.default)(offer.responseId, 'Missing response id');
-            (0, assert_1.default)(offer.offerItems && offer.offerItems.length > 0 && offer.offerItems.every(function (item) { return item.offerItemId !== undefined && item.paxs !== undefined; }), 'Missing or empty offer items');
+            offer.offerItems.forEach(function (item) {
+                (0, assert_1.default)(item.offerItemId !== undefined, 'Missing offer item id');
+                (0, assert_1.default)(item.paxs !== undefined, 'Missing offer item paxs');
+            });
         });
         return true;
     };
