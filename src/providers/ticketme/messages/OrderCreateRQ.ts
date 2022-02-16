@@ -2,6 +2,14 @@ import {AbstractTicketMeNDCMessage, NodeValue, StringValue} from "./AbstractTick
 import {Offer} from "./OfferPriceRQ";
 import {TicketmeDocumentType} from "../mappers/dictionary/documentType";
 
+export type Individual = {
+    "GivenName": StringValue[],
+    "Surname": StringValue[],
+    "MiddleName": StringValue[],
+    "Birthdate": StringValue[],
+    "Gender": NodeValue<"Male" | "Female" | "Unspecified">[],
+}
+
 export type IdentityDocument = {
     "IdentityDocumentNumber": StringValue[],
     "IdentityDocumentType": NodeValue<TicketmeDocumentType>[],
@@ -16,8 +24,10 @@ export type Pax = {
     $: { PassengerID: string },
     PTC: StringValue[],
     CitizenshipCountryCode: StringValue[],
+    Individual: Individual[],
     IdentityDocument: IdentityDocument[],
     ContactInfoRef: StringValue[]
+    // @todo LoyaltyProgramAccount
 }
 
 export type PaxContact = {

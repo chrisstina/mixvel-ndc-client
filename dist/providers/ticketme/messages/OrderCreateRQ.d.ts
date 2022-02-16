@@ -1,6 +1,13 @@
 import { AbstractTicketMeNDCMessage, NodeValue, StringValue } from "./AbstractTicketMeNDCMessage";
 import { Offer } from "./OfferPriceRQ";
 import { TicketmeDocumentType } from "../mappers/dictionary/documentType";
+export declare type Individual = {
+    "GivenName": StringValue[];
+    "Surname": StringValue[];
+    "MiddleName": StringValue[];
+    "Birthdate": StringValue[];
+    "Gender": NodeValue<"Male" | "Female" | "Unspecified">[];
+};
 export declare type IdentityDocument = {
     "IdentityDocumentNumber": StringValue[];
     "IdentityDocumentType": NodeValue<TicketmeDocumentType>[];
@@ -16,6 +23,7 @@ export declare type Pax = {
     };
     PTC: StringValue[];
     CitizenshipCountryCode: StringValue[];
+    Individual: Individual[];
     IdentityDocument: IdentityDocument[];
     ContactInfoRef: StringValue[];
 };

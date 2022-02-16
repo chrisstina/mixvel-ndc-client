@@ -36,7 +36,8 @@ export class BookParams extends AbstractParams {
             passenger.personalInfo,
             passenger.identityDocument,
             passenger.contacts,
-            passenger.loyaltyInfo
+            passenger.loyaltyInfo,
+            passenger.id
         ))
     }
 }

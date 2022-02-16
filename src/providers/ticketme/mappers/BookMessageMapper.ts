@@ -1,13 +1,15 @@
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
 import {BookParams, Passenger} from "../../../core/request/parameters/Book";
+import {PartyCredentials} from "../TicketMeRequest";
 import {IdentityDocument, OrderCreateRQ, Pax, PaxContact} from "../messages/OrderCreateRQ";
 import {toTicketMe as toTicketMePTC} from "./dictionary/ptc";
 import {toTicketMe as toTicketMeDocument} from "./dictionary/documentType";
-import {genderToTitle, toTicketMeDate} from "./commonMappers";
+import {genderToTitle, toTicketMeDate, toTicketMeGender} from "./commonMappers";
 
 export class BookMessageMapper implements IMessageMapper {
-    constructor(public readonly params: BookParams) {
+    constructor(public readonly params: BookParams,
+        public readonly credentials: PartyCredentials) {
     }
 
     private static passengerToPax(passenger: Passenger, paxContact: PaxContact) {
@@ -25,6 +27,13 @@ export class BookMessageMapper implements IMessageMapper {
             $: {PassengerID: passenger.id || ''},
             PTC: [{_: toTicketMePTC(passenger.ptc)}],
             CitizenshipCountryCode: [{_: passenger.identityDocument.issuingCountry}],
+            Individual: [{
+                "GivenName": [{_: passenger.personalInfo.firstName}],
+                "Surname": [{_: passenger.personalInfo.lastName}],
+                "MiddleName": [{_: passenger.personalInfo.middleName || ''}],
+                "Birthdate": [{_: toTicketMeDate(passenger.personalInfo.dob)}],
+                "Gender": [{_: toTicketMeGender(passenger.personalInfo.gender)}],
+            }],
             IdentityDocument: [document],
             ContactInfoRef: [{_: paxContact.$.ContactID}]
         }
@@ -63,8 +72,9 @@ export class BookMessageMapper implements IMessageMapper {
             const paxContact = BookMessageMapper.passengerToContact(passenger)
             ticketmeRequestMessage.addPax(
                 BookMessageMapper.passengerToPax(passenger, paxContact),
-                BookMessageMapper.passengerToContact(passenger))
+                paxContact)
         })
+        ticketmeRequestMessage.addParty(this.credentials)
         return ticketmeRequestMessage
     }
 }

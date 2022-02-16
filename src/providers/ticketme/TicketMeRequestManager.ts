@@ -47,7 +47,7 @@ export class TicketMeRequestManager implements IRequestManager {
 
     createBookRequest(params: BookParams): IRequest {
         return this.createRequest(params, {
-            mapper: new BookMessageMapper(params),
+            mapper: new BookMessageMapper(params, this.extraConfiguration.party),
             validator: BookParamsValidator
         })
     }
@@ -108,6 +108,8 @@ export class TicketMeRequestManager implements IRequestManager {
 
         // map to ticketme message
         const rq = services.mapper.map()
+
+        console.log(JSON.stringify(rq))
 
         // @todo add currency info - optional
         return new TicketMeRequest(rq,

@@ -14,6 +14,9 @@ export class BookParamsValidator extends AbstractParamsValidator {
 
         params.passengers.forEach(passenger => {
             assert(passenger.id !== undefined, 'Missing passenger id')
+
+            // every passenger has to have an offer
+            assert(params.offer.offerItems.findIndex(({paxs}) => paxs?.split(' ').includes(passenger.id || '')) !== -1, `No offer found for passenger ${passenger.id}`)
         })
         return true
     }

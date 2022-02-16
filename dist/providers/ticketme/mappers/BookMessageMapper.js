@@ -6,8 +6,9 @@ var ptc_1 = require("./dictionary/ptc");
 var documentType_1 = require("./dictionary/documentType");
 var commonMappers_1 = require("./commonMappers");
 var BookMessageMapper = /** @class */ (function () {
-    function BookMessageMapper(params) {
+    function BookMessageMapper(params, credentials) {
         this.params = params;
+        this.credentials = credentials;
     }
     BookMessageMapper.passengerToPax = function (passenger, paxContact) {
         var document = {
@@ -23,6 +24,13 @@ var BookMessageMapper = /** @class */ (function () {
             $: { PassengerID: passenger.id || '' },
             PTC: [{ _: (0, ptc_1.toTicketMe)(passenger.ptc) }],
             CitizenshipCountryCode: [{ _: passenger.identityDocument.issuingCountry }],
+            Individual: [{
+                    "GivenName": [{ _: passenger.personalInfo.firstName }],
+                    "Surname": [{ _: passenger.personalInfo.lastName }],
+                    "MiddleName": [{ _: passenger.personalInfo.middleName || '' }],
+                    "Birthdate": [{ _: (0, commonMappers_1.toTicketMeDate)(passenger.personalInfo.dob) }],
+                    "Gender": [{ _: (0, commonMappers_1.toTicketMeGender)(passenger.personalInfo.gender) }],
+                }],
             IdentityDocument: [document],
             ContactInfoRef: [{ _: paxContact.$.ContactID }]
         };
@@ -59,6 +67,7 @@ var BookMessageMapper = /** @class */ (function () {
             var paxContact = BookMessageMapper.passengerToContact(passenger);
             ticketmeRequestMessage.addPax(BookMessageMapper.passengerToPax(passenger, paxContact), BookMessageMapper.passengerToContact(passenger));
         });
+        ticketmeRequestMessage.addParty(this.credentials);
         return ticketmeRequestMessage;
     };
     return BookMessageMapper;

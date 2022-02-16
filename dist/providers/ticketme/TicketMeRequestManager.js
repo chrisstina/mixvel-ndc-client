@@ -29,7 +29,7 @@ var TicketMeRequestManager = /** @class */ (function () {
     };
     TicketMeRequestManager.prototype.createBookRequest = function (params) {
         return this.createRequest(params, {
-            mapper: new BookMessageMapper_1.BookMessageMapper(params),
+            mapper: new BookMessageMapper_1.BookMessageMapper(params, this.extraConfiguration.party),
             validator: BookParamsValidator_1.BookParamsValidator
         });
     };

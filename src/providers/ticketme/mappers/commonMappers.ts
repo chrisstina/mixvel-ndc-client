@@ -10,3 +10,7 @@ export function genderToTitle(gender: "M" | "F"): "Mr" | "Mrs" {
     }
     return "Mr"
 }
+
+export function toTicketMeGender(gender: "M" | "F"): "Male" | "Female" | "Unspecified" {
+    return gender === "F" ? "Female" : "Male"
+}

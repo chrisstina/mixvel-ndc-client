@@ -36,6 +36,11 @@ var BookParamsValidator = /** @class */ (function (_super) {
         });
         params.passengers.forEach(function (passenger) {
             (0, assert_1.default)(passenger.id !== undefined, 'Missing passenger id');
+            // every passenger has to have an offer
+            (0, assert_1.default)(params.offer.offerItems.findIndex(function (_a) {
+                var paxs = _a.paxs;
+                return paxs === null || paxs === void 0 ? void 0 : paxs.split(' ').includes(passenger.id || '');
+            }) !== -1, "No offer found for passenger ".concat(passenger.id));
         });
         return true;
     };
