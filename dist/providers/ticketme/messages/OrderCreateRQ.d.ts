@@ -34,7 +34,6 @@ export declare type PaxContact = {
     }>;
 };
 export declare class OrderCreateRQ extends AbstractTicketMeNDCMessage {
-    get nodeName(): string;
     Query: {
         Order: {
             Offer: Offer[];
@@ -50,5 +49,6 @@ export declare class OrderCreateRQ extends AbstractTicketMeNDCMessage {
         Metadata?: [];
     }[];
     constructor(offer: Offer);
+    get nodeName(): string;
     addPax(pax: Pax, paxContact: PaxContact): void;
 }
