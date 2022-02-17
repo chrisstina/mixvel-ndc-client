@@ -20,17 +20,20 @@ var BookMessageMapper = /** @class */ (function () {
             GivenName: [{ _: passenger.personalInfo.firstName }],
             Surname: [{ _: passenger.personalInfo.lastName }],
         };
+        var individual = {
+            GivenName: [{ _: passenger.personalInfo.firstName }],
+            Surname: [{ _: passenger.personalInfo.lastName }],
+            Birthdate: [{ _: (0, commonMappers_1.toTicketMeDate)(passenger.personalInfo.dob) }],
+            Gender: [{ _: (0, commonMappers_1.toTicketMeGender)(passenger.personalInfo.gender) }],
+        };
+        if (passenger.personalInfo.middleName) {
+            individual["MiddleName"] = [{ _: passenger.personalInfo.middleName || '' }];
+        }
         var pax = {
             $: { PassengerID: passenger.id || '' },
             PTC: [{ _: (0, ptc_1.toTicketMe)(passenger.ptc) }],
             CitizenshipCountryCode: [{ _: passenger.identityDocument.issuingCountry }],
-            Individual: [{
-                    "GivenName": [{ _: passenger.personalInfo.firstName }],
-                    "Surname": [{ _: passenger.personalInfo.lastName }],
-                    "MiddleName": [{ _: passenger.personalInfo.middleName || '' }],
-                    "Birthdate": [{ _: (0, commonMappers_1.toTicketMeDate)(passenger.personalInfo.dob) }],
-                    "Gender": [{ _: (0, commonMappers_1.toTicketMeGender)(passenger.personalInfo.gender) }],
-                }],
+            Individual: [individual],
             IdentityDocument: [document],
             ContactInfoRef: [{ _: paxContact.$.ContactID }]
         };
@@ -65,7 +68,7 @@ var BookMessageMapper = /** @class */ (function () {
         });
         this.params.passengers.forEach(function (passenger) {
             var paxContact = BookMessageMapper.passengerToContact(passenger);
-            ticketmeRequestMessage.addPax(BookMessageMapper.passengerToPax(passenger, paxContact), BookMessageMapper.passengerToContact(passenger));
+            ticketmeRequestMessage.addPax(BookMessageMapper.passengerToPax(passenger, paxContact), paxContact);
         });
         ticketmeRequestMessage.addParty(this.credentials);
         return ticketmeRequestMessage;

@@ -24,7 +24,6 @@ class BookRequestUnitTest {
                     ptc: "ADULT",
                     personalInfo: {
                         firstName: 'Test',
-                        middleName: 'Test',
                         lastName: 'Test',
                         gender: "M",
                         dob: new Date('1999-02-15'),

@@ -2,7 +2,7 @@ import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
 import {BookParams, Passenger} from "../../../core/request/parameters/Book";
 import {PartyCredentials} from "../TicketMeRequest";
-import {IdentityDocument, OrderCreateRQ, Pax, PaxContact} from "../messages/OrderCreateRQ";
+import {IdentityDocument, Individual, OrderCreateRQ, Pax, PaxContact} from "../messages/OrderCreateRQ";
 import {toTicketMe as toTicketMePTC} from "./dictionary/ptc";
 import {toTicketMe as toTicketMeDocument} from "./dictionary/documentType";
 import {genderToTitle, toTicketMeDate, toTicketMeGender} from "./commonMappers";
@@ -23,17 +23,22 @@ export class BookMessageMapper implements IMessageMapper {
             Surname: [{_: passenger.personalInfo.lastName}],
         }
 
+        const individual: Individual = {
+            GivenName: [{_: passenger.personalInfo.firstName}],
+            Surname: [{_: passenger.personalInfo.lastName}],
+            Birthdate: [{_: toTicketMeDate(passenger.personalInfo.dob)}],
+            Gender: [{_: toTicketMeGender(passenger.personalInfo.gender)}],
+        }
+
+        if (passenger.personalInfo.middleName) {
+            individual["MiddleName"] = [{_: passenger.personalInfo.middleName || ''}]
+        }
+
         const pax: Pax = {
             $: {PassengerID: passenger.id || ''},
             PTC: [{_: toTicketMePTC(passenger.ptc)}],
             CitizenshipCountryCode: [{_: passenger.identityDocument.issuingCountry}],
-            Individual: [{
-                "GivenName": [{_: passenger.personalInfo.firstName}],
-                "Surname": [{_: passenger.personalInfo.lastName}],
-                "MiddleName": [{_: passenger.personalInfo.middleName || ''}],
-                "Birthdate": [{_: toTicketMeDate(passenger.personalInfo.dob)}],
-                "Gender": [{_: toTicketMeGender(passenger.personalInfo.gender)}],
-            }],
+            Individual: [individual],
             IdentityDocument: [document],
             ContactInfoRef: [{_: paxContact.$.ContactID}]
         }

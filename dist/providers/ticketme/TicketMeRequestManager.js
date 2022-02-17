@@ -73,6 +73,7 @@ var TicketMeRequestManager = /** @class */ (function () {
         }
         // map to ticketme message
         var rq = services.mapper.map();
+        console.log(JSON.stringify(rq));
         // @todo add currency info - optional
         return new TicketMeRequest_1.TicketMeRequest(rq, this.requestOptionsManager.create({ endpoint: this.endpointManager.getEndpointForMessage(rq) }), this.conversionStrategy);
     };

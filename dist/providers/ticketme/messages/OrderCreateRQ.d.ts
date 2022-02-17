@@ -4,7 +4,7 @@ import { TicketmeDocumentType } from "../mappers/dictionary/documentType";
 export declare type Individual = {
     "GivenName": StringValue[];
     "Surname": StringValue[];
-    "MiddleName": StringValue[];
+    "MiddleName"?: StringValue[];
     "Birthdate": StringValue[];
     "Gender": NodeValue<"Male" | "Female" | "Unspecified">[];
 };
