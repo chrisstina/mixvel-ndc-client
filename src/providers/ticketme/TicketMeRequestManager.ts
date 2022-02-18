@@ -22,6 +22,7 @@ import {TicketMeRequest} from "./TicketMeRequest";
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {PriceMessageMapper} from "./mappers/PriceMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
+import {OrderRetrieveMessageMapper} from "./mappers/OrderRetrieveMessageMapper";
 
 import {PriceParamsValidator} from "./validators/PriceParamsValidator";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
@@ -61,7 +62,10 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createOrderRetrieveRequest(params: OrderRetrieveParams): IRequest {
-        throw new MethodNotImplemented('view')
+        return this.createRequest(params,
+            {
+                mapper: new OrderRetrieveMessageMapper(params, this.extraConfiguration.party)
+            })
     }
 
     createPriceRequest(params: PriceParams): IRequest {
