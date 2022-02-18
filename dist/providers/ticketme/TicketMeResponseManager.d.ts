@@ -13,7 +13,7 @@ export declare class TicketMeResponseManager extends AbstractResponseManager {
      * @param rawXML
      */
     getResponse(rawXML: string): Promise<TicketMeResponseMessage>;
-    createDataList(title: string, source: Record<string, unknown>[]): IDataList;
+    createDataList(title: string, source: Record<string, unknown>[], entityName?: string): IDataList;
 }
 export declare class TicketMeResponseError implements IResponseError {
     code: string;

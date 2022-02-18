@@ -57,8 +57,8 @@ export class TicketMeResponseManager extends AbstractResponseManager {
         })
     }
 
-    createDataList(title: string, source: Record<string, unknown>[]): IDataList {
-        return TicketMeDataList.create(title, source);
+    createDataList(title: string, source: Record<string, unknown>[], entityName?: string): IDataList {
+        return TicketMeDataList.create(title, source, entityName);
     }
 }
 

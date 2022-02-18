@@ -4,7 +4,7 @@ import { IResponseMessage } from "./IResponseMessage";
 import { IResponseError } from "./IResponseError";
 export interface IResponseManager {
     conversionStrategy: IConversionStrategy;
-    allowedDatalists: Record<string, string>;
+    allowedDatalists: Record<string, string | string[]>;
     getResponse(rawXML: string): Promise<IResponseMessage | IResponseError>;
-    createDataList(title: string, source: Record<string, unknown>[]): IDataList;
+    createDataList(title: string, source: Record<string, unknown>[], entityTitle?: string): IDataList;
 }

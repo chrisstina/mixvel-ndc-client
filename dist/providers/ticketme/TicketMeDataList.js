@@ -20,10 +20,10 @@ var DataList_1 = require("../../core/response/DataList");
 var defaults_1 = require("./config/defaults");
 var TicketMeDataList = /** @class */ (function (_super) {
     __extends(TicketMeDataList, _super);
-    function TicketMeDataList(entityName, items) {
+    function TicketMeDataList(entityName, items, dataListEntityName) {
         var _this = _super.call(this, entityName, items) || this;
         try {
-            _this.list = items[0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(entityName, "List")][0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(entityName)];
+            _this.list = items[0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(entityName, "List")][0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(dataListEntityName || entityName)];
         }
         catch (e) {
             console.error("Failed to find ".concat(entityName, " DataList: ").concat(e.stack));
@@ -31,8 +31,8 @@ var TicketMeDataList = /** @class */ (function (_super) {
         }
         return _this;
     }
-    TicketMeDataList.create = function (dataListTitle, dataListSource) {
-        return new TicketMeDataList(dataListTitle, dataListSource);
+    TicketMeDataList.create = function (dataListTitle, dataListSource, dataListEntityName) {
+        return new TicketMeDataList(dataListTitle, dataListSource, dataListEntityName);
     };
     TicketMeDataList.prototype.findByReference = function (entityRef, keyName) {
         var _this = this;

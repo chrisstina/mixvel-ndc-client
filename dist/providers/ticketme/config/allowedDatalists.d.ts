@@ -1,6 +1,6 @@
 export declare const allowedDataLists: {
     paxList: string;
-    contactList: string;
+    contactList: string[];
     segmentList: string;
     flightList: string;
     odList: string;

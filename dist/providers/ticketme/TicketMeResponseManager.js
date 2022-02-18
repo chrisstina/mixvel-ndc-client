@@ -106,8 +106,8 @@ var TicketMeResponseManager = /** @class */ (function (_super) {
             });
         });
     };
-    TicketMeResponseManager.prototype.createDataList = function (title, source) {
-        return TicketMeDataList_1.TicketMeDataList.create(title, source);
+    TicketMeResponseManager.prototype.createDataList = function (title, source, entityName) {
+        return TicketMeDataList_1.TicketMeDataList.create(title, source, entityName);
     };
     return TicketMeResponseManager;
 }(AbstractResponseManager_1.AbstractResponseManager));

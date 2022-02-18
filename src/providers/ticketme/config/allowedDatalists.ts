@@ -15,7 +15,7 @@ import {
 
 export const allowedDataLists = {
     'paxList': PAX,
-    'contactList': CONTACT,
+    'contactList': [CONTACT, 'ContactInformation'],
     'segmentList': SEGMENT,
     'flightList': FLIGHT,
     'odList': OD,

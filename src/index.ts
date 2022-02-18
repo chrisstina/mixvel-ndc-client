@@ -185,8 +185,14 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
      */
     function extractDataLists(dataListSource: Record<string, unknown>[]) {
         const dl: { [key: string]: IDataList } = {}
-        for (const [keyTitle, dataListTitle] of Object.entries(responseManager.allowedDatalists)) {
-            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource)
+        for (const [keyTitle, dataListInfo] of Object.entries(responseManager.allowedDatalists)) {
+            let dataListTitle, entityTitle
+            if (typeof dataListInfo === "string") {
+                dataListTitle = dataListInfo
+            } else {
+                [dataListTitle, entityTitle] = dataListInfo
+            }
+            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource, entityTitle)
         }
         return dl
     }

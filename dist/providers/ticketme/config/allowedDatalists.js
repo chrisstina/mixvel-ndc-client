@@ -4,7 +4,7 @@ exports.allowedDataLists = void 0;
 var datalist_1 = require("../constants/datalist");
 exports.allowedDataLists = {
     'paxList': datalist_1.PAX,
-    'contactList': datalist_1.CONTACT,
+    'contactList': [datalist_1.CONTACT, 'ContactInformation'],
     'segmentList': datalist_1.SEGMENT,
     'flightList': datalist_1.FLIGHT,
     'odList': datalist_1.OD,

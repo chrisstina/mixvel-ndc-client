@@ -9,7 +9,7 @@ import ResponseParsingError from "../errors/ResponseParsingError";
 export abstract class AbstractResponseManager implements IResponseManager {
     protected constructor(public conversionStrategy: IConversionStrategy,
                           protected readonly mapper: IResponseMapper,
-                          public readonly allowedDatalists: Record<string, string>) {
+                          public readonly allowedDatalists: Record<string, string|string[]>) {
     }
 
     convert(rawXML: string): Promise<Record<string, any> | null> {

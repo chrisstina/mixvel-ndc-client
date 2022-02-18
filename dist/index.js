@@ -142,8 +142,15 @@ function createNDCService(provider, providerConfig) {
     function extractDataLists(dataListSource) {
         var dl = {};
         for (var _i = 0, _a = Object.entries(responseManager.allowedDatalists); _i < _a.length; _i++) {
-            var _b = _a[_i], keyTitle = _b[0], dataListTitle = _b[1];
-            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource);
+            var _b = _a[_i], keyTitle = _b[0], dataListInfo = _b[1];
+            var dataListTitle = void 0, entityTitle = void 0;
+            if (typeof dataListInfo === "string") {
+                dataListTitle = dataListInfo;
+            }
+            else {
+                dataListTitle = dataListInfo[0], entityTitle = dataListInfo[1];
+            }
+            dl[keyTitle] = responseManager.createDataList(dataListTitle, dataListSource, entityTitle);
         }
         return dl;
     }
