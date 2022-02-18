@@ -10,6 +10,7 @@ var TicketMeRequest_1 = require("./TicketMeRequest");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
+var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var defaults_1 = require("./config/defaults");
@@ -40,7 +41,9 @@ var TicketMeRequestManager = /** @class */ (function () {
         throw new MethodNotImplemented_1.MethodNotImplemented('cancel');
     };
     TicketMeRequestManager.prototype.createOrderRetrieveRequest = function (params) {
-        throw new MethodNotImplemented_1.MethodNotImplemented('view');
+        return this.createRequest(params, {
+            mapper: new OrderRetrieveMessageMapper_1.OrderRetrieveMessageMapper(params, this.extraConfiguration.party)
+        });
     };
     TicketMeRequestManager.prototype.createPriceRequest = function (params) {
         return this.createRequest(params, {

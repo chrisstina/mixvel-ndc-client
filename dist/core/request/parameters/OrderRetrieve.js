@@ -29,11 +29,16 @@ var OrderRetrieveParams = /** @class */ (function (_super) {
     function OrderRetrieveParams(props) {
         var _this = _super.call(this) || this;
         _this.orderId = props.orderId;
+        _this.offerOwner = props.offerOwner;
         return _this;
     }
     __decorate([
         (0, class_validator_1.IsString)()
     ], OrderRetrieveParams.prototype, "orderId", void 0);
+    __decorate([
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.IsOptional)()
+    ], OrderRetrieveParams.prototype, "offerOwner", void 0);
     return OrderRetrieveParams;
 }(AbstractParams_1.AbstractParams));
 exports.OrderRetrieveParams = OrderRetrieveParams;
