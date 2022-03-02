@@ -1,13 +1,9 @@
 import {IsNotEmpty, IsString} from "class-validator";
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 
-export type AuthProps = {
-    login: string
-    password: string
-    structureId: string
-}
+export type AuthProps = RequestProps<AuthParams>
 
-export class AuthParams extends AbstractParams {
+export class AuthParams extends AbstractRequestParams {
     @IsString()
     @IsNotEmpty()
     public readonly login: string

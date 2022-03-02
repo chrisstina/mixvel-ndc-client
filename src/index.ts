@@ -80,83 +80,80 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     // ========== Request management ==============
 
     function getAuthRequest(props: AuthProps): Result<IRequest> {
-        const paramsOrError = AuthParams.create<AuthProps, AuthParams>(props)
+        const paramsOrError = AuthParams.create<AuthParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createAuthRequest(paramsOrError.getValue()));
+            : requestManager.createAuthRequest(paramsOrError.getValue())
     }
 
     function getSearchRequest(props: SearchProps): Result<IRequest> {
-        const paramsOrError = SearchParams.create<typeof props, SearchParams>(props)
+        const paramsOrError = SearchParams.create<SearchParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createSearchRequest(paramsOrError.getValue()))
+            : requestManager.createSearchRequest(paramsOrError.getValue())
     }
 
     function getPriceRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<typeof props, PriceParams>(props)
+        const paramsOrError = PriceParams.create<PriceParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createPriceRequest(paramsOrError.getValue()))
+            : requestManager.createPriceRequest(paramsOrError.getValue())
     }
 
     function getFareRulesRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<typeof props, PriceParams>(props)
+        const paramsOrError = PriceParams.create<PriceParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createFareRulesRequest(paramsOrError.getValue()))
+            : requestManager.createFareRulesRequest(paramsOrError.getValue())
     }
 
-    /**
-     * @props {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
-     */
     function getBookRequest(props: BookProps): Result<IRequest> {
-        const paramsOrError = BookParams.create<typeof props, BookParams>(props)
+        const paramsOrError = BookParams.create<BookParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createBookRequest(paramsOrError.getValue()))
+            : requestManager.createBookRequest(paramsOrError.getValue())
     }
 
     function getOrderRetrieveRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<typeof props, OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createOrderRetrieveRequest(paramsOrError.getValue()))
+            : requestManager.createOrderRetrieveRequest(paramsOrError.getValue())
     }
 
     function getTicketIssueRequest(props: TicketIssueProps): Result<IRequest> {
-        const paramsOrError = TicketIssueParams.create<typeof props, TicketIssueParams>(props)
+        const paramsOrError = TicketIssueParams.create<TicketIssueParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createTicketIssueRequest(paramsOrError.getValue()))
+            : requestManager.createTicketIssueRequest(paramsOrError.getValue())
     }
 
     function getOrderCancelRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<typeof props, OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createOrderCancelRequest(paramsOrError.getValue()))
+            : requestManager.createOrderCancelRequest(paramsOrError.getValue())
     }
 
     function getServiceListRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<typeof props, PriceParams>(props)
+        const paramsOrError = PriceParams.create<PriceParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createServiceListRequest(paramsOrError.getValue()))
+            : requestManager.createServiceListRequest(paramsOrError.getValue())
     }
 
     function getRefundCalculationRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<typeof props, OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createRefundCalculationRequest(paramsOrError.getValue()))
+            : requestManager.createRefundCalculationRequest(paramsOrError.getValue())
     }
 
     function getRefundRequest(props: RefundProps): Result<IRequest> {
-        const paramsOrError = RefundParams.create<typeof props, RefundParams>(props)
+        const paramsOrError = RefundParams.create<RefundParams>(props)
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
-            : Result.ok<IRequest>(requestManager.createRefundRequest(paramsOrError.getValue()))
+            : requestManager.createRefundRequest(paramsOrError.getValue())
     }
 
     // ========== Response management ==============

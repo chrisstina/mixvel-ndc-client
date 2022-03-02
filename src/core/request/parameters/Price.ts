@@ -1,8 +1,8 @@
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {IsArray, IsIn, IsOptional, IsString, Length, ValidateNested} from "class-validator";
 import {PaxCategory} from "../types";
 
-class OfferItem {
+export class OfferItem {
     @IsString()
     offerItemId: string
     @IsOptional()
@@ -24,7 +24,7 @@ export class Offer {
     @Length(1)
     public readonly offerId: string
     @ValidateNested()
-    public readonly offerItems: OfferItem[]
+    public offerItems: OfferItem[]
     @IsOptional()
     @IsString()
     @Length(1)
@@ -42,11 +42,9 @@ export class Offer {
     }
 }
 
-export type PriceProps = {
-    offers: Offer[],
-}
+export type PriceProps = RequestProps<PriceParams>
 
-export class PriceParams extends AbstractParams {
+export class PriceParams extends AbstractRequestParams {
     @IsArray()
     @ValidateNested()
     public readonly offers: Offer[]

@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RefundParams = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var RefundParams = /** @class */ (function (_super) {
     __extends(RefundParams, _super);
     function RefundParams(props) {
@@ -36,5 +36,5 @@ var RefundParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsString)()
     ], RefundParams.prototype, "orderId", void 0);
     return RefundParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.RefundParams = RefundParams;

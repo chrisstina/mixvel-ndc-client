@@ -14,29 +14,21 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceParamsValidator = void 0;
-var assert_1 = __importDefault(require("assert"));
 var AbstractParamsValidator_1 = require("../../../core/request/AbstractParamsValidator");
+var Price_1 = require("../request/parameters/Price");
 var PriceParamsValidator = /** @class */ (function (_super) {
     __extends(PriceParamsValidator, _super);
     function PriceParamsValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PriceParamsValidator.validate = function (params) {
-        params.offers.map(function (offer) {
-            (0, assert_1.default)(offer.offerOwner, 'Missing offer owner');
-            (0, assert_1.default)(offer.offerId, 'Missing offer id');
-            (0, assert_1.default)(offer.responseId, 'Missing response id');
-            offer.offerItems.forEach(function (item) {
-                (0, assert_1.default)(item.offerItemId !== undefined, 'Missing offer item id');
-                (0, assert_1.default)(item.paxs !== undefined, 'Missing offer item paxs');
-            });
-        });
-        return true;
+        var paramsOrError = Price_1.TicketMePriceParams.create(params);
+        if (paramsOrError.isFailure) {
+            return paramsOrError.error || 'Generic parameter validation error';
+        }
+        return null;
     };
     return PriceParamsValidator;
 }(AbstractParamsValidator_1.AbstractParamsValidator));

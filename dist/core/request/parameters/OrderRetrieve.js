@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderRetrieveParams = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var OrderRetrieveParams = /** @class */ (function (_super) {
     __extends(OrderRetrieveParams, _super);
     function OrderRetrieveParams(props) {
@@ -40,5 +40,5 @@ var OrderRetrieveParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsOptional)()
     ], OrderRetrieveParams.prototype, "offerOwner", void 0);
     return OrderRetrieveParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.OrderRetrieveParams = OrderRetrieveParams;

@@ -53,70 +53,67 @@ function createNDCService(provider, providerConfig) {
         var paramsOrError = Auth_1.AuthParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createAuthRequest(paramsOrError.getValue()));
+            : requestManager.createAuthRequest(paramsOrError.getValue());
     }
     function getSearchRequest(props) {
         var paramsOrError = Search_1.SearchParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createSearchRequest(paramsOrError.getValue()));
+            : requestManager.createSearchRequest(paramsOrError.getValue());
     }
     function getPriceRequest(props) {
         var paramsOrError = Price_1.PriceParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createPriceRequest(paramsOrError.getValue()));
+            : requestManager.createPriceRequest(paramsOrError.getValue());
     }
     function getFareRulesRequest(props) {
         var paramsOrError = Price_1.PriceParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createFareRulesRequest(paramsOrError.getValue()));
+            : requestManager.createFareRulesRequest(paramsOrError.getValue());
     }
-    /**
-     * @props {{ offerId: string, offerItemIds: {id: string, ptc: "ADULT"|"CHILD"|"INFANT"}[],passengers: {ptc: "ADULT"|"CHILD"|"INFANT"personalInfo: {firstName: string,middleName: string,lastName: string,gender: "M"|"F",dob: Date,},identityDocument: {type: "PASSPORT" | "BIRTHDAY_CERTIFICATE" | "INTERNATIONAL",dateOfIssue: Date,dateOfExpiry: Date,issuingCountry: string,number: string},contacts: {email: string,phoneNumber: string}}[]}} params
-     */
     function getBookRequest(props) {
         var paramsOrError = Book_1.BookParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createBookRequest(paramsOrError.getValue()));
+            : requestManager.createBookRequest(paramsOrError.getValue());
     }
     function getOrderRetrieveRequest(props) {
         var paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createOrderRetrieveRequest(paramsOrError.getValue()));
+            : requestManager.createOrderRetrieveRequest(paramsOrError.getValue());
     }
     function getTicketIssueRequest(props) {
         var paramsOrError = TicketIssue_1.TicketIssueParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createTicketIssueRequest(paramsOrError.getValue()));
+            : requestManager.createTicketIssueRequest(paramsOrError.getValue());
     }
     function getOrderCancelRequest(props) {
         var paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createOrderCancelRequest(paramsOrError.getValue()));
+            : requestManager.createOrderCancelRequest(paramsOrError.getValue());
     }
     function getServiceListRequest(props) {
         var paramsOrError = Price_1.PriceParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createServiceListRequest(paramsOrError.getValue()));
+            : requestManager.createServiceListRequest(paramsOrError.getValue());
     }
     function getRefundCalculationRequest(props) {
         var paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createRefundCalculationRequest(paramsOrError.getValue()));
+            : requestManager.createRefundCalculationRequest(paramsOrError.getValue());
     }
     function getRefundRequest(props) {
         var paramsOrError = Refund_1.RefundParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
-            : Result_1.Result.ok(requestManager.createRefundRequest(paramsOrError.getValue()));
+            : requestManager.createRefundRequest(paramsOrError.getValue());
     }
     // ========== Response management ==============
     /**

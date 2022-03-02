@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TicketIssueParams = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var FormOfPayment = /** @class */ (function () {
     function FormOfPayment(type, data) {
         this.data = data;
@@ -66,5 +66,5 @@ var TicketIssueParams = /** @class */ (function (_super) {
         (0, class_validator_1.ValidateNested)()
     ], TicketIssueParams.prototype, "formOfPayment", void 0);
     return TicketIssueParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.TicketIssueParams = TicketIssueParams;

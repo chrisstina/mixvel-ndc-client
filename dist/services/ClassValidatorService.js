@@ -9,28 +9,28 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RequestValidationService = void 0;
+exports.ClassValidatorService = void 0;
 var class_validator_1 = require("class-validator");
-var RequestParamsValidator = /** @class */ (function () {
-    function RequestParamsValidator() {
+var ClassValidator = /** @class */ (function () {
+    function ClassValidator() {
     }
-    RequestParamsValidator.prototype.validate = function (params) {
+    ClassValidator.prototype.validate = function (params) {
         return (0, class_validator_1.validateSync)(params);
     };
-    return RequestParamsValidator;
+    return ClassValidator;
 }());
-var RequestValidationService = /** @class */ (function () {
-    function RequestValidationService() {
+var ClassValidatorService = /** @class */ (function () {
+    function ClassValidatorService() {
     }
-    RequestValidationService.prototype.getValidator = function () {
-        return new RequestParamsValidator();
+    ClassValidatorService.prototype.getValidator = function () {
+        return new ClassValidator();
     };
-    RequestValidationService.prototype.collectValidationErrors = function (validationErrors) {
+    ClassValidatorService.prototype.collectValidationErrors = function (validationErrors) {
         return collectValidationErrors(validationErrors, []);
     };
-    return RequestValidationService;
+    return ClassValidatorService;
 }());
-exports.RequestValidationService = RequestValidationService;
+exports.ClassValidatorService = ClassValidatorService;
 /**
  * @param {ValidationError[]} validationErrors
  * @param {string[]} errorStrings

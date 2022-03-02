@@ -1,14 +1,16 @@
 import {validateSync, ValidationError} from "class-validator";
+import {IValidator} from "../interfaces/IValidator";
+import {IValidatorService} from "../interfaces/IValidatorService";
 
-class RequestParamsValidator<T extends object> {
+class ClassValidator<T extends object> implements IValidator {
     public validate(params: T): ValidationError[] {
         return validateSync(params)
     }
 }
 
-export class RequestValidationService {
-    public getValidator<T extends object>() {
-        return new RequestParamsValidator<T>()
+export class ClassValidatorService implements IValidatorService {
+    public getValidator<T extends object>(): IValidator {
+        return new ClassValidator<T>()
     }
 
     public collectValidationErrors(validationErrors: ValidationError[]): string[] {

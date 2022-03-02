@@ -38,7 +38,7 @@ class BookRequestValidationUnitTest {
                         "issuingCountry": "RU",
                         "number": "2704542188"
                     },
-                    "contacts": {"email": "k.kirillova@ttbooking.ru", "phoneNumber": "75190498498"}
+                    "contacts": {"email": "mail@test.test", "phoneNumber": "75190498498"}
                 }, {
                     "ptc": "INFANT",
                     "personalInfo": {
@@ -55,7 +55,7 @@ class BookRequestValidationUnitTest {
                         "issuingCountry": "RU",
                         "number": "IVVVВВ123141"
                     },
-                    "contacts": {"email": "", "phoneNumber": "75190498498"}
+                    "contacts": {"phoneNumber": "75190498498"}
                 }]
             }
         )

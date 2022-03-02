@@ -13,7 +13,7 @@ import {
     ValidateNested
 } from "class-validator";
 
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {Cabin, PaxCategory} from "../types";
 
 export class OriginDestination {
@@ -64,15 +64,9 @@ class AnonymousTraveler {
  * @property {Cabin} cabin
  * @property {Array} preferredCarriers
  */
-export type SearchProps = {
-    originDestinations: OriginDestination[],
-    travelers: AnonymousTraveler[],
-    cabin: Cabin,
-    preferredCarriers: string[] | null,
-    onlyDirect?: boolean
-}
+export type SearchProps = RequestProps<SearchParams>
 
-export class SearchParams extends AbstractParams {
+export class SearchParams extends AbstractRequestParams {
     @ArrayNotEmpty()
     @ValidateNested({each: true})
     public originDestinations: OriginDestination[]
@@ -83,7 +77,7 @@ export class SearchParams extends AbstractParams {
     public readonly preferredCarriers: string[] | null
     @IsBoolean()
     @IsOptional()
-    public readonly onlyDirect: boolean = false
+    public readonly onlyDirect?: boolean = false
 
     private constructor(props: SearchProps) {
         super()

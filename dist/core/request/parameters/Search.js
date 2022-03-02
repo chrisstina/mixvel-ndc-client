@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchParams = exports.OriginDestination = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination(from, to, dateRangeStart, dateRangeEnd) {
         this.from = from;
@@ -100,5 +100,5 @@ var SearchParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsOptional)()
     ], SearchParams.prototype, "onlyDirect", void 0);
     return SearchParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.SearchParams = SearchParams;

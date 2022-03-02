@@ -1,6 +1,6 @@
 import { INDCMessage } from "./INDCMessage";
-import { AbstractParams } from "../core/request/parameters/AbstractParams";
+import { AbstractRequestParams } from "../core/request/parameters/AbstractRequestParams";
 export interface IMessageMapper {
-    params?: AbstractParams;
+    params?: AbstractRequestParams;
     map(): INDCMessage;
 }

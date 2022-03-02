@@ -4,13 +4,12 @@ import {expect} from 'chai';
 import {createNDCService} from "../../src"
 
 const {setProviderConfig, getPriceRequest} = createNDCService('ticketme')
+setProviderConfig({party: {agencyId: 'YOUR_KASSA'}})
 
 @suite
 class PriceRequestUnitTest {
     @test 'Create price RQ several offer items'() {
-        setProviderConfig({party: {agencyId: 'YOUR_KASSA'}})
-
-        const rq = getPriceRequest({
+        const request = getPriceRequest({
             offers: [{
                 offerId: 'SOME_OFFER',
                 responseId: 'SOME_RESONSE_ID',
@@ -26,7 +25,9 @@ class PriceRequestUnitTest {
                     }
                 ]
             }]
-        }).getValue().body
+        })
+
+        const rq = request.getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('OfferPriceRQ')
@@ -38,12 +39,12 @@ class PriceRequestUnitTest {
         expect(rq).to.contain('PassengerID="pax3"')
     }
 
-    @test 'Validate price RQ params' () {
+    @test 'Validate price RQ params with general rules' () {
         const rq = getPriceRequest({
+            responseId: '1234',
+            offerOwner: 'KW',
             offers: [{
                 offerId: 'SOME_OFFER',
-                responseId: 'SOME_RESONSE_ID',
-                offerOwner: 'KW',
                 offerItems: [
                     {
                         offerItemId: 'OFFER_ITEM_1',
@@ -57,6 +58,26 @@ class PriceRequestUnitTest {
             }]
         })
         expect(rq.isFailure).to.be.true
-        expect(rq.error).to.contain('paxs must be a string')
+        expect(rq.error).to.contain('paxs')
+    }
+
+    @test 'Validate price RQ params with specific provider rules' () {
+        const rq = getPriceRequest({
+            offers: [{
+                offerId: 'SOME_OFFER',
+                offerItems: [
+                    {
+                        offerItemId: 'OFFER_ITEM_1',
+                        paxs: 'pax1 pax2'
+                    },
+                    {
+                        offerItemId: 'OFFER_ITEM_2',
+                        paxs: '123'
+                    }
+                ]
+            }]
+        })
+        expect(rq.isFailure).to.be.true
+        expect(rq.error).to.contain('RequestValidationError: offerOwner must be longer than or equal to 1 characters')
     }
 }

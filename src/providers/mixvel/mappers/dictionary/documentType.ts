@@ -1,5 +1,10 @@
 import {DocumentType} from "../../../../core/request/types";
 
+export enum SupportedDocumentTypes {
+    "REGULAR_PASSPORT",
+    "BIRTHDAY_CERTIFICATE"
+}
+
 export enum MixvelDocumentType {
     PASSPORT = "PS",
     BIRTHDAY_CERTIFICATE = "SR"

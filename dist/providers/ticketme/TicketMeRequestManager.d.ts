@@ -1,17 +1,17 @@
+import { Result } from "../../core/Result";
 import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IRequest } from "../../interfaces/IRequest";
 import { IRequestManager } from "../../interfaces/IRequestManager";
 import { IMessageMapper } from "../../interfaces/IMessageMapper";
 import { IEndpointManager } from "../../interfaces/IEndpointManager";
 import { IRequestOptionsManager } from "../../interfaces/IRequestOptionsManager";
+import { AbstractRequestParams } from "../../core/request/parameters/AbstractRequestParams";
 import { BookParams } from "../../core/request/parameters/Book";
 import { PriceParams } from "../../core/request/parameters/Price";
 import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
 import { RefundParams } from "../../core/request/parameters/Refund";
-import { IRequest } from "../../interfaces/IRequest";
 import { SearchParams } from "../../core/request/parameters/Search";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
-import { AbstractParamsValidator } from "../../core/request/AbstractParamsValidator";
-import { TicketMeRequest } from "./TicketMeRequest";
 export declare class TicketMeRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;
@@ -28,19 +28,19 @@ export declare class TicketMeRequestManager implements IRequestManager {
         login: string;
         password: string;
         structureId: string;
-    }): IRequest;
-    createBookRequest(params: BookParams): IRequest;
-    createFareRulesRequest(params: PriceParams): IRequest;
-    createOrderCancelRequest(params: OrderRetrieveParams): IRequest;
-    createOrderRetrieveRequest(params: OrderRetrieveParams): IRequest;
-    createPriceRequest(params: PriceParams): IRequest;
-    createRefundCalculationRequest(params: OrderRetrieveParams): IRequest;
-    createRefundRequest(params: RefundParams): IRequest;
-    createSearchRequest(params: SearchParams): IRequest;
-    createServiceListRequest(params: PriceParams): IRequest;
-    createTicketIssueRequest(params: TicketIssueParams): IRequest;
-    createRequest(requestParams: object, services: {
+    }): Result<IRequest>;
+    createBookRequest(params: BookParams): Result<IRequest>;
+    createFareRulesRequest(params: PriceParams): Result<IRequest>;
+    createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createPriceRequest(params: PriceParams): Result<IRequest>;
+    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createRefundRequest(params: RefundParams): Result<IRequest>;
+    createSearchRequest(params: SearchParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams): Result<IRequest>;
+    createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
+    validateRequest(): string | null;
+    createRequest(requestParams: AbstractRequestParams, services: {
         mapper: IMessageMapper;
-        validator?: AbstractParamsValidator;
-    }): TicketMeRequest;
+    }): Result<IRequest>;
 }

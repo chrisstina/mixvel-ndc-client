@@ -1,4 +1,4 @@
-import { AbstractParams } from "./AbstractParams";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
 import { FopType } from "../types";
 declare class FormOfPayment {
     type: FopType;
@@ -10,18 +10,8 @@ declare class Payment {
     currency: string;
     constructor(amount: number, currency: string);
 }
-export declare type TicketIssueProps = {
-    orderId: string;
-    payment: {
-        amount: number;
-        currency: string;
-    };
-    formOfPayment: {
-        type: FopType;
-        data?: string | Record<string, unknown>;
-    };
-};
-export declare class TicketIssueParams extends AbstractParams {
+export declare type TicketIssueProps = RequestProps<TicketIssueParams>;
+export declare class TicketIssueParams extends AbstractRequestParams {
     orderId: string;
     payment: Payment;
     formOfPayment: FormOfPayment;

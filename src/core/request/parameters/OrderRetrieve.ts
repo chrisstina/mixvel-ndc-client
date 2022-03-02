@@ -1,13 +1,10 @@
 import {IsOptional, IsString} from "class-validator";
 
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 
-export type OrderRetrieveProps = {
-    orderId: string,
-    offerOwner?: string
-}
+export type OrderRetrieveProps = RequestProps<OrderRetrieveParams>
 
-export class OrderRetrieveParams extends AbstractParams {
+export class OrderRetrieveParams extends AbstractRequestParams {
     @IsString()
     public readonly orderId: string
     @IsString()

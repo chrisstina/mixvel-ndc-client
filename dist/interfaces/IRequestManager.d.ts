@@ -1,3 +1,4 @@
+import { Result } from "../core/Result";
 import { IRequest } from "./IRequest";
 import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
 import { SearchParams } from "../core/request/parameters/Search";
@@ -17,15 +18,15 @@ export interface IRequestManager {
         login: string;
         password: string;
         structureId: string;
-    }): IRequest;
-    createSearchRequest(params: SearchParams): IRequest;
-    createPriceRequest(params: PriceParams): IRequest;
-    createFareRulesRequest(params: PriceParams): IRequest;
-    createBookRequest(params: BookParams): IRequest;
-    createOrderRetrieveRequest(params: OrderRetrieveParams): IRequest;
-    createOrderCancelRequest(params: OrderRetrieveParams): IRequest;
-    createTicketIssueRequest(params: TicketIssueParams): IRequest;
-    createRefundCalculationRequest(params: OrderRetrieveParams): IRequest;
-    createRefundRequest(params: RefundParams): IRequest;
-    createServiceListRequest(params: PriceParams): IRequest;
+    }): Result<IRequest>;
+    createSearchRequest(params: SearchParams): Result<IRequest>;
+    createPriceRequest(params: PriceParams): Result<IRequest>;
+    createFareRulesRequest(params: PriceParams): Result<IRequest>;
+    createBookRequest(params: BookParams): Result<IRequest>;
+    createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
+    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
+    createRefundRequest(params: RefundParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams): Result<IRequest>;
 }

@@ -4,8 +4,8 @@ exports.AbstractParamsValidator = void 0;
 var AbstractParamsValidator = /** @class */ (function () {
     function AbstractParamsValidator() {
     }
-    AbstractParamsValidator.prototype.validate = function (props) {
-        return true;
+    AbstractParamsValidator.prototype.validate = function (params) {
+        return null;
     };
     return AbstractParamsValidator;
 }());

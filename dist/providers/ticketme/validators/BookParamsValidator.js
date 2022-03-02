@@ -14,35 +14,21 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookParamsValidator = void 0;
-var assert_1 = __importDefault(require("assert"));
 var AbstractParamsValidator_1 = require("../../../core/request/AbstractParamsValidator");
+var Book_1 = require("../request/parameters/Book");
 var BookParamsValidator = /** @class */ (function (_super) {
     __extends(BookParamsValidator, _super);
     function BookParamsValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     BookParamsValidator.validate = function (params) {
-        (0, assert_1.default)(params.offer.offerOwner, 'Missing offer owner');
-        (0, assert_1.default)(params.offer.offerId, 'Missing offer id');
-        (0, assert_1.default)(params.offer.responseId, 'Missing response id');
-        params.offer.offerItems.forEach(function (item) {
-            (0, assert_1.default)(item.offerItemId !== undefined, 'Missing offer item id');
-            (0, assert_1.default)(item.paxs !== undefined, 'Missing offer item paxs');
-        });
-        params.passengers.forEach(function (passenger) {
-            (0, assert_1.default)(passenger.id !== undefined, 'Missing passenger id');
-            // every passenger has to have an offer
-            (0, assert_1.default)(params.offer.offerItems.findIndex(function (_a) {
-                var paxs = _a.paxs;
-                return paxs === null || paxs === void 0 ? void 0 : paxs.split(' ').includes(passenger.id || '');
-            }) !== -1, "No offer found for passenger ".concat(passenger.id));
-        });
-        return true;
+        var paramsOrError = Book_1.TicketMeBookParams.create(params);
+        if (paramsOrError.isFailure) {
+            return paramsOrError.error || 'Generic parameter validation error';
+        }
+        return null;
     };
     return BookParamsValidator;
 }(AbstractParamsValidator_1.AbstractParamsValidator));

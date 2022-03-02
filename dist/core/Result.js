@@ -22,7 +22,7 @@ var Result = /** @class */ (function () {
     }
     Result.prototype.getValue = function () {
         if (!this.isSuccess || !this._value) {
-            throw new Error("Cant retrieve the value from a failed result.");
+            throw new Error("Cannot retrieve the value from a failed result.");
         }
         return this._value;
     };

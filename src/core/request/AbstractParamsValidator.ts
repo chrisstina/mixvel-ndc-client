@@ -1,7 +1,7 @@
-import {AbstractParams} from "./parameters/AbstractParams";
+import {AbstractRequestParams} from "./parameters/AbstractRequestParams";
 
 export abstract class AbstractParamsValidator {
-    validate(props: AbstractParams): true | never {
-        return true
+    validate(params: AbstractRequestParams): null | string {
+        return null
     }
 }

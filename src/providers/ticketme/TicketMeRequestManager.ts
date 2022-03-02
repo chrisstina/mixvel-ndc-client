@@ -1,22 +1,22 @@
-import assert from "assert";
+import {Result} from "../../core/Result";
 import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
 
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
 
+import {IRequest} from "../../interfaces/IRequest";
 import {IRequestManager} from "../../interfaces/IRequestManager";
 import {IMessageMapper} from "../../interfaces/IMessageMapper";
 import {IEndpointManager} from "../../interfaces/IEndpointManager";
 import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
 
+import {AbstractRequestParams} from "../../core/request/parameters/AbstractRequestParams";
 import {BookParams} from "../../core/request/parameters/Book";
 import {PriceParams} from "../../core/request/parameters/Price";
 import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
 import {RefundParams} from "../../core/request/parameters/Refund";
-import {IRequest} from "../../interfaces/IRequest";
 import {SearchParams} from "../../core/request/parameters/Search";
 import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
 
-import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidator";
 import {TicketMeRequest} from "./TicketMeRequest";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
@@ -24,10 +24,9 @@ import {PriceMessageMapper} from "./mappers/PriceMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
 import {OrderRetrieveMessageMapper} from "./mappers/OrderRetrieveMessageMapper";
 
-import {PriceParamsValidator} from "./validators/PriceParamsValidator";
-import {BookParamsValidator} from "./validators/BookParamsValidator";
-
 import {DEFAULT_CURRENCY, DEFAULT_LANG} from "./config/defaults";
+import {BookParamsValidator} from "./validators/BookParamsValidator";
+import {PriceParamsValidator} from "./validators/PriceParamsValidator";
 
 export class TicketMeRequestManager implements IRequestManager {
     constructor(
@@ -42,82 +41,90 @@ export class TicketMeRequestManager implements IRequestManager {
         lang: DEFAULT_LANG
     }
 
-    createAuthRequest(params: { login: string; password: string; structureId: string }): IRequest {
-        throw new MethodNotImplemented('auth')
+    createAuthRequest(params: { login: string; password: string; structureId: string }): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('auth').message)
     }
 
-    createBookRequest(params: BookParams): IRequest {
+    createBookRequest(params: BookParams): Result<IRequest> {
+        const validationError = this.validateRequest() || BookParamsValidator.validate(params)
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+
         return this.createRequest(params, {
-            mapper: new BookMessageMapper(params, this.extraConfiguration.party),
-            validator: BookParamsValidator
+            mapper: new BookMessageMapper(params, this.extraConfiguration.party)
         })
     }
 
-    createFareRulesRequest(params: PriceParams): IRequest {
-        throw new MethodNotImplemented('rules')
+    createFareRulesRequest(params: PriceParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('rules').message)
     }
 
-    createOrderCancelRequest(params: OrderRetrieveParams): IRequest {
-        throw new MethodNotImplemented('cancel')
+    createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('cancel').message)
     }
 
-    createOrderRetrieveRequest(params: OrderRetrieveParams): IRequest {
+    createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest> {
+        const validationError = this.validateRequest()
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+        return this.createRequest(params, {mapper: new OrderRetrieveMessageMapper(params, this.extraConfiguration.party)})
+    }
+
+    createPriceRequest(params: PriceParams): Result<IRequest> {
+        const validationError = this.validateRequest() || PriceParamsValidator.validate(params)
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
         return this.createRequest(params,
             {
-                mapper: new OrderRetrieveMessageMapper(params, this.extraConfiguration.party)
-            })
-    }
-
-    createPriceRequest(params: PriceParams): IRequest {
-        return this.createRequest(params,
-            {
-                validator: PriceParamsValidator,
                 mapper: new PriceMessageMapper(params, this.extraConfiguration.party)
             })
     }
 
-    createRefundCalculationRequest(params: OrderRetrieveParams): IRequest {
-        throw new MethodNotImplemented('refund calc')
+    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('refund calc').message)
     }
 
-    createRefundRequest(params: RefundParams): IRequest {
-        throw new MethodNotImplemented('refund')
+    createRefundRequest(params: RefundParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('refund').message)
     }
 
-    createSearchRequest(params: SearchParams): IRequest {
+    createSearchRequest(params: SearchParams): Result<IRequest> {
+        const validationError = this.validateRequest()
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+
         return this.createRequest(params,
             {
                 mapper: new SearchMessageMapper(params, this.extraConfiguration.party)
             })
     }
 
-    createServiceListRequest(params: PriceParams): IRequest {
-        throw new MethodNotImplemented('service list')
+    createServiceListRequest(params: PriceParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('service list').message)
     }
 
-    createTicketIssueRequest(params: TicketIssueParams): IRequest {
-        throw new MethodNotImplemented('ticket issue')
+    createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('ticket issue').message)
     }
 
-    createRequest(requestParams: object, services: {
-        mapper: IMessageMapper,
-        validator?: AbstractParamsValidator
-    }): TicketMeRequest {
-        assert(this.extraConfiguration.party.agencyId && this.extraConfiguration.party.agencyId.length > 0, 'No agency ID provided! Use setProviderConfig to set it.')
-
-        // run specific ticketme validation
-        if (services.validator) {
-            services.validator.validate(requestParams)
+    validateRequest(): string | null {
+        if (!this.extraConfiguration.party.agencyId || this.extraConfiguration.party.agencyId.length === 0) {
+            return 'No agency ID provided! Use setProviderConfig to set it.'
         }
+        return null
+    }
 
-        // map to ticketme message
-        const rq = services.mapper.map()
-
-        console.log(JSON.stringify(rq))
-
+    createRequest(requestParams: AbstractRequestParams, services: {
+        mapper: IMessageMapper,
+    }): Result<IRequest> {
         // @todo add currency info - optional
-        return new TicketMeRequest(rq,
+        const rq = services.mapper.map()
+        return Result.ok(new TicketMeRequest(rq,
             this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointForMessage(rq)}),
-            this.conversionStrategy)
+            this.conversionStrategy))
     }
 }

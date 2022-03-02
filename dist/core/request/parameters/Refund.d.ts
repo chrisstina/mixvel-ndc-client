@@ -1,9 +1,6 @@
-import { AbstractParams } from "./AbstractParams";
-export declare type RefundProps = {
-    orderId: string;
-    orderItemIds: string[][];
-};
-export declare class RefundParams extends AbstractParams {
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+export declare type RefundProps = RequestProps<RefundParams>;
+export declare class RefundParams extends AbstractRequestParams {
     readonly orderId: string;
     readonly orderItemIds: string[][];
     private constructor();

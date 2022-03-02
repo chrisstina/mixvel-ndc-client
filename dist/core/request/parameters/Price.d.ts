@@ -1,6 +1,6 @@
-import { AbstractParams } from "./AbstractParams";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
 import { PaxCategory } from "../types";
-declare class OfferItem {
+export declare class OfferItem {
     offerItemId: string;
     ptc?: PaxCategory;
     paxs?: string;
@@ -8,16 +8,13 @@ declare class OfferItem {
 }
 export declare class Offer {
     readonly offerId: string;
-    readonly offerItems: OfferItem[];
+    offerItems: OfferItem[];
     readonly offerOwner?: string;
     readonly responseId?: string;
     constructor(offerId: string, offerItems: OfferItem[], offerOwner?: string, responseId?: string);
 }
-export declare type PriceProps = {
-    offers: Offer[];
-};
-export declare class PriceParams extends AbstractParams {
+export declare type PriceProps = RequestProps<PriceParams>;
+export declare class PriceParams extends AbstractRequestParams {
     readonly offers: Offer[];
     private constructor();
 }
-export {};

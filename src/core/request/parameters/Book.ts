@@ -13,20 +13,17 @@ import {
     ValidateNested
 } from "class-validator";
 
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
 
-export type BookProps = {
-    offer: Offer,
-    passengers: Array<Passenger>
-}
+export type BookProps = RequestProps<BookParams>
 
-export class BookParams extends AbstractParams {
-    public readonly offer: Offer
+export class BookParams extends AbstractRequestParams {
+    public offer: Offer
     @IsArray()
     @ValidateNested({each: true})
-    public readonly passengers: Array<Passenger>
+    public passengers: Array<Passenger>
 
     private constructor(props: BookProps) {
         super()
@@ -107,9 +104,10 @@ export class Passenger {
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
     public readonly ptc: PaxCategory
     @ValidateNested()
-    public readonly personalInfo: PersonalInfo
+    public personalInfo: PersonalInfo
     @ValidateNested()
-    public readonly identityDocument: IdentityDocument
+    public identityDocument: IdentityDocument
+    @ValidateNested()
     public contacts: Contact
     public loyaltyInfo?: Record<string, unknown>
 

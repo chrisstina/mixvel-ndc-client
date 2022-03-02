@@ -1,3 +1,4 @@
+import {IRequest} from "../../interfaces/IRequest";
 import {IRequestManager} from "../../interfaces/IRequestManager";
 import {IEndpointManager} from "../../interfaces/IEndpointManager";
 import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
@@ -5,11 +6,13 @@ import {IMessageMapper} from "../../interfaces/IMessageMapper";
 import {INDCMessage} from "../../interfaces/INDCMessage";
 
 import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import {FirstAvailableEmailService} from "../../services/FirstAvailableEmailService";
 
 import {MixvelRequest} from "./MixvelRequest";
 import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
+import {Result} from "../../core/Result";
 import {SearchParams} from "../../core/request/parameters/Search";
 import {PriceParams} from "../../core/request/parameters/Price";
 import {BookParams} from "../../core/request/parameters/Book";
@@ -17,7 +20,8 @@ import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
 import {RefundParams} from "../../core/request/parameters/Refund";
 import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
 
-import {AbstractParamsValidator} from "../../core/request/AbstractParamsValidator";
+import {MixvelBookParams} from "./request/parameters/Book";
+
 import {BookParamsValidator} from "./validators/BookParamsValidator";
 
 import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
@@ -41,30 +45,6 @@ export class MixvelRequestManager implements IRequestManager {
 
     public extraConfiguration = {} // no extra config here
 
-    createAuthRequest(params: { login: string, password: string, structureId: string }): MixvelRequest {
-        return new MixvelRequest(
-            new MixvelAuthAppData(params.login, params.password, params.structureId),
-            this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointByKey('auth')}),
-            this.conversionStrategy)
-    }
-
-    createSearchRequest(params: SearchParams): MixvelRequest {
-        return this.createRequest(params, {
-            mapper: new SearchMessageMapper(params)
-        })
-    }
-
-    createPriceRequest(params: PriceParams): MixvelRequest {
-        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
-        return this.createRequest(params, {
-            mapper: {
-                map(): INDCMessage {
-                    return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
-                }
-            }
-        })
-    }
-
     /**
      * @param params
      * @private
@@ -78,92 +58,123 @@ export class MixvelRequestManager implements IRequestManager {
         return {offerId, offerItemIds}
     }
 
-    createBookRequest(params: BookParams): MixvelRequest {
-        return this.createRequest(params, {
-            mapper: new BookMessageMapper(params),
-            validator: BookParamsValidator
+    private static prepareBookParams(params: BookParams) {
+        const {passengers} = params
+        passengers.forEach((passenger) => {
+            if (!passenger.contacts.email) {
+                passenger.contacts.email = FirstAvailableEmailService.getFirstAvailableEmail(params)
+            }
         })
+        return params as MixvelBookParams
     }
 
-    createOrderRetrieveRequest(params: OrderRetrieveParams): MixvelRequest {
-        return this.createRequest(params, {
+    createAuthRequest(params: { login: string, password: string, structureId: string }): Result<IRequest> {
+        return Result.ok(new MixvelRequest(
+            new MixvelAuthAppData(params.login, params.password, params.structureId),
+            this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointByKey('auth')}),
+            this.conversionStrategy))
+    }
+
+    createSearchRequest(params: SearchParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
+            mapper: new SearchMessageMapper(params)
+        }))
+    }
+
+    createPriceRequest(params: PriceParams): Result<IRequest> {
+        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+        return Result.ok(this.createRequest(params, {
+            mapper: {
+                map(): INDCMessage {
+                    return new Mixvel_OfferPriceRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
+                }
+            }
+        }))
+    }
+
+    createBookRequest(params: BookParams): Result<IRequest> {
+        const restructuredParams = MixvelRequestManager.prepareBookParams(params)
+        const validationError = BookParamsValidator.validate(restructuredParams)
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+
+        return Result.ok(this.createRequest(params, {
+            mapper: new BookMessageMapper(restructuredParams)
+        }))
+    }
+
+    createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
                     return new Mixvel_OrderRetrieveRQ(params.orderId)
                 }
             }
-        })
+        }))
     }
 
-    createOrderCancelRequest(params: OrderRetrieveParams): MixvelRequest {
-        return this.createRequest(params, {
+    createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
                     return new Mixvel_OrderCancelRQ(params.orderId)
                 }
             }
-        })
+        }))
     }
 
-    createTicketIssueRequest(params: TicketIssueParams): MixvelRequest {
-        return this.createRequest(params, {
+    createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
             mapper: new IssueOrderMessageMapper(params), // @todo add specific validation
-        })
+        }))
     }
 
-    createRefundCalculationRequest(params: OrderRetrieveParams): MixvelRequest {
-        return this.createRequest(params, {
+    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
                     return new Mixvel_OrderReshopRQ(params.orderId)
                 }
             }
-        })
+        }))
     }
 
-    createRefundRequest(params: RefundParams): MixvelRequest {
-        return this.createRequest(params, {
+    createRefundRequest(params: RefundParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
             mapper: new RefundOrderMessageMapper(params),
-        })
+        }))
     }
 
-    createFareRulesRequest(params: PriceParams): MixvelRequest {
+    createFareRulesRequest(params: PriceParams): Result<IRequest> {
         const restructuredParams = MixvelRequestManager.preparePriceParams(params)
-        return this.createRequest(params, {
+        return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
                     return new Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
-        })
+        }))
     }
 
-    createRequest(requestParams: object, services: {
-        mapper: IMessageMapper,
-        validator?: AbstractParamsValidator
-    }): MixvelRequest {
-        // run specific mixvel validation
-        if (services.validator) {
-            services.validator.validate(requestParams)
-        }
-
-        // map to mixvel message
-        const rq = services.mapper.map()
-
-        return new MixvelRequest(
-            new MixvelAppData<typeof rq>(rq),
-            this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointForMessage(rq)}),
-            this.conversionStrategy)
-    }
-
-    createServiceListRequest(params: PriceParams): MixvelRequest {
+    createServiceListRequest(params: PriceParams): Result<IRequest> {
         const restructuredParams = MixvelRequestManager.preparePriceParams(params)
-        return this.createRequest(params, {
+        return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
                     return new Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
                 }
             }
-        })
+        }))
+    }
+
+    createRequest(requestParams: object, services: {
+        mapper: IMessageMapper,
+    }): IRequest {
+        const rq = services.mapper.map() // map to mixvel message
+        return new MixvelRequest(
+            new MixvelAppData<typeof rq>(rq),
+            this.requestOptionsManager.create({endpoint: this.endpointManager.getEndpointForMessage(rq)}),
+            this.conversionStrategy)
     }
 }

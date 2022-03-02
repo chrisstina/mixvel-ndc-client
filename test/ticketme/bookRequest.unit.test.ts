@@ -156,7 +156,6 @@ class BookRequestUnitTest {
                         number: '12346'
                     },
                     contacts: {
-                        email: '',
                         phoneNumber: ''
                     }
                 }

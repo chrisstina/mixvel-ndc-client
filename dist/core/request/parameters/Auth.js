@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthParams = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var AuthParams = /** @class */ (function (_super) {
     __extends(AuthParams, _super);
     function AuthParams(props) {
@@ -46,5 +46,5 @@ var AuthParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsNotEmpty)()
     ], AuthParams.prototype, "structureId", void 0);
     return AuthParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.AuthParams = AuthParams;

@@ -1,5 +1,5 @@
 import {IsIn, IsPositive, IsString, ValidateNested} from "class-validator";
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {FopType} from "../types";
 
 class FormOfPayment {
@@ -25,13 +25,9 @@ class Payment {
     }
 }
 
-export type TicketIssueProps = {
-    orderId: string
-    payment: { amount: number, currency: string }
-    formOfPayment: { type: FopType, data?: string | Record<string, unknown> }
-}
+export type TicketIssueProps = RequestProps<TicketIssueParams>
 
-export class TicketIssueParams extends AbstractParams {
+export class TicketIssueParams extends AbstractRequestParams {
     @IsString()
     orderId: string
     @ValidateNested()

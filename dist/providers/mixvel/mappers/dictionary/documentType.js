@@ -1,6 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toMixvel = exports.MixvelDocumentType = void 0;
+exports.toMixvel = exports.MixvelDocumentType = exports.SupportedDocumentTypes = void 0;
+var SupportedDocumentTypes;
+(function (SupportedDocumentTypes) {
+    SupportedDocumentTypes[SupportedDocumentTypes["REGULAR_PASSPORT"] = 0] = "REGULAR_PASSPORT";
+    SupportedDocumentTypes[SupportedDocumentTypes["BIRTHDAY_CERTIFICATE"] = 1] = "BIRTHDAY_CERTIFICATE";
+})(SupportedDocumentTypes = exports.SupportedDocumentTypes || (exports.SupportedDocumentTypes = {}));
 var MixvelDocumentType;
 (function (MixvelDocumentType) {
     MixvelDocumentType["PASSPORT"] = "PS";

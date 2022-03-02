@@ -1,4 +1,4 @@
-import { AbstractParams } from "./AbstractParams";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
 import { Cabin, PaxCategory } from "../types";
 export declare class OriginDestination {
     from: string;
@@ -20,19 +20,13 @@ declare class AnonymousTraveler {
  * @property {Cabin} cabin
  * @property {Array} preferredCarriers
  */
-export declare type SearchProps = {
-    originDestinations: OriginDestination[];
-    travelers: AnonymousTraveler[];
-    cabin: Cabin;
-    preferredCarriers: string[] | null;
-    onlyDirect?: boolean;
-};
-export declare class SearchParams extends AbstractParams {
+export declare type SearchProps = RequestProps<SearchParams>;
+export declare class SearchParams extends AbstractRequestParams {
     originDestinations: OriginDestination[];
     readonly travelers: AnonymousTraveler[];
     readonly cabin: Cabin;
     readonly preferredCarriers: string[] | null;
-    readonly onlyDirect: boolean;
+    readonly onlyDirect?: boolean;
     private constructor();
 }
 export {};

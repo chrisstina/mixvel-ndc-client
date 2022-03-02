@@ -10,7 +10,6 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookMessageMapper = void 0;
-var FirstAvailableEmailService_1 = require("../../../services/FirstAvailableEmailService");
 var Mixvel_OrderCreateRQ_1 = require("../messages/Mixvel_OrderCreateRQ");
 var documentType_1 = require("./dictionary/documentType");
 var ptc_1 = require("./dictionary/ptc");
@@ -19,24 +18,6 @@ var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params) {
         this.params = params;
     }
-    BookMessageMapper.prototype.map = function () {
-        var _this = this;
-        var mixvelRequestMessage = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offer.offerId);
-        var paxRefs = new Map();
-        this.params.passengers.forEach(function (passenger, idx) {
-            var pax = BookMessageMapper.passengerToPax(passenger, idx + 1);
-            paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], paxRefs.get(passenger.ptc) || [], true), [pax.PaxID], false));
-            mixvelRequestMessage.addPax(pax, _this.passengerToContact(passenger, idx + 1));
-            // @todo LoyaltyProgramAccount
-        });
-        this.params.offer.offerItems.forEach(function (_a) {
-            var offerItemId = _a.offerItemId, ptc = _a.ptc;
-            if (paxRefs.has(ptc)) {
-                mixvelRequestMessage.addSelectedOfferItem(offerItemId, paxRefs.get(ptc));
-            }
-        });
-        return mixvelRequestMessage;
-    };
     BookMessageMapper.passengerToPax = function (passenger, paxId) {
         return new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
             ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
@@ -53,9 +34,25 @@ var BookMessageMapper = /** @class */ (function () {
             Surname: passenger.personalInfo.lastName,
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));
     };
-    BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
-        var email = passenger.contacts.email || FirstAvailableEmailService_1.FirstAvailableEmailService.getFirstAvailableEmail(this.params) || '';
-        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '') });
+    BookMessageMapper.passengerToContact = function (passenger, paxId) {
+        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: passenger.contacts.email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '') });
+    };
+    BookMessageMapper.prototype.map = function () {
+        var mixvelRequestMessage = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offer.offerId);
+        var paxRefs = new Map();
+        this.params.passengers.forEach(function (passenger, idx) {
+            var pax = BookMessageMapper.passengerToPax(passenger, idx + 1);
+            paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], paxRefs.get(passenger.ptc) || [], true), [pax.PaxID], false));
+            mixvelRequestMessage.addPax(pax, BookMessageMapper.passengerToContact(passenger, idx + 1));
+            // @todo LoyaltyProgramAccount
+        });
+        this.params.offer.offerItems.forEach(function (_a) {
+            var offerItemId = _a.offerItemId, ptc = _a.ptc;
+            if (paxRefs.has(ptc)) {
+                mixvelRequestMessage.addSelectedOfferItem(offerItemId, paxRefs.get(ptc));
+            }
+        });
+        return mixvelRequestMessage;
     };
     return BookMessageMapper;
 }());

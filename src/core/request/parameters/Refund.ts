@@ -1,12 +1,9 @@
 import {IsString} from "class-validator";
-import {AbstractParams} from "./AbstractParams";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 
-export type RefundProps = {
-    orderId: string,
-    orderItemIds: string[][]
-}
+export type RefundProps = RequestProps<RefundParams>
 
-export class RefundParams extends AbstractParams {
+export class RefundParams extends AbstractRequestParams {
     @IsString()
     public readonly orderId: string
     public readonly orderItemIds: string[][]

@@ -139,14 +139,10 @@ class BookRequestUnitTest {
                         issuingCountry: 'RU',
                         number: '12346'
                     },
-                    contacts: {
-                        email: '',
-                        phoneNumber: ''
-                    }
+                    contacts: {}
                 }
             ]
         }
-
         const rq = getBookRequest(params).getValue().body
 
         expect(rq).to.not.contain('undefined')

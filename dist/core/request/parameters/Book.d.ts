@@ -1,13 +1,10 @@
-import { AbstractParams } from "./AbstractParams";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
 import { DocumentType, PaxCategory } from "../types";
 import { Offer } from "./Price";
-export declare type BookProps = {
+export declare type BookProps = RequestProps<BookParams>;
+export declare class BookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<Passenger>;
-};
-export declare class BookParams extends AbstractParams {
-    readonly offer: Offer;
-    readonly passengers: Array<Passenger>;
     private constructor();
 }
 declare class PersonalInfo {
@@ -34,8 +31,8 @@ declare class Contact {
 export declare class Passenger {
     readonly id?: string | undefined;
     readonly ptc: PaxCategory;
-    readonly personalInfo: PersonalInfo;
-    readonly identityDocument: IdentityDocument;
+    personalInfo: PersonalInfo;
+    identityDocument: IdentityDocument;
     contacts: Contact;
     loyaltyInfo?: Record<string, unknown>;
     constructor(ptc: PaxCategory, personalInfo: {

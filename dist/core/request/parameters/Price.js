@@ -21,8 +21,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PriceParams = exports.Offer = void 0;
-var AbstractParams_1 = require("./AbstractParams");
+exports.PriceParams = exports.Offer = exports.OfferItem = void 0;
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var class_validator_1 = require("class-validator");
 var OfferItem = /** @class */ (function () {
     function OfferItem(id, ptc, paxs) {
@@ -43,6 +43,7 @@ var OfferItem = /** @class */ (function () {
     ], OfferItem.prototype, "paxs", void 0);
     return OfferItem;
 }());
+exports.OfferItem = OfferItem;
 var Offer = /** @class */ (function () {
     function Offer(offerId, offerItems, offerOwner, responseId) {
         this.offerId = offerId;
@@ -82,5 +83,5 @@ var PriceParams = /** @class */ (function (_super) {
         (0, class_validator_1.ValidateNested)()
     ], PriceParams.prototype, "offers", void 0);
     return PriceParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.PriceParams = PriceParams;

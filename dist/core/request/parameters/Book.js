@@ -23,7 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Passenger = exports.BookParams = void 0;
 var class_validator_1 = require("class-validator");
-var AbstractParams_1 = require("./AbstractParams");
+var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var Price_1 = require("./Price");
 var BookParams = /** @class */ (function (_super) {
     __extends(BookParams, _super);
@@ -38,7 +38,7 @@ var BookParams = /** @class */ (function (_super) {
         (0, class_validator_1.ValidateNested)({ each: true })
     ], BookParams.prototype, "passengers", void 0);
     return BookParams;
-}(AbstractParams_1.AbstractParams));
+}(AbstractRequestParams_1.AbstractRequestParams));
 exports.BookParams = BookParams;
 var PersonalInfo = /** @class */ (function () {
     function PersonalInfo(firstName, lastName, gender, dob, middleName) {
@@ -128,6 +128,9 @@ var Passenger = /** @class */ (function () {
     __decorate([
         (0, class_validator_1.ValidateNested)()
     ], Passenger.prototype, "identityDocument", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)()
+    ], Passenger.prototype, "contacts", void 0);
     return Passenger;
 }());
 exports.Passenger = Passenger;
