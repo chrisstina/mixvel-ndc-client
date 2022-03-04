@@ -1,4 +1,4 @@
-import {IsIn, IsPositive, IsString, ValidateNested} from "class-validator";
+import {IsIn, IsOptional, IsPositive, IsString, ValidateNested} from "class-validator";
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {FopType} from "../types";
 
@@ -13,7 +13,7 @@ class FormOfPayment {
     }
 }
 
-class Payment {
+export class Payment {
     @IsPositive()
     amount: number
     @IsString()
@@ -34,11 +34,17 @@ export class TicketIssueParams extends AbstractRequestParams {
     payment: Payment
     @ValidateNested()
     formOfPayment: FormOfPayment
+    @IsOptional()
+    orderOwner?: string
+    @IsOptional()
+    paxs?: string[]
 
     private constructor(props: TicketIssueProps) {
         super()
         this.orderId = props.orderId
         this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data)
         this.payment = new Payment(props.payment.amount, props.payment.currency)
+        this.orderOwner = props.orderOwner
+        this.paxs = props.paxs
     }
 }

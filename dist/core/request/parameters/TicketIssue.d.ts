@@ -5,7 +5,7 @@ declare class FormOfPayment {
     data?: string | Record<string, unknown>;
     constructor(type: FopType, data?: string | Record<string, unknown>);
 }
-declare class Payment {
+export declare class Payment {
     amount: number;
     currency: string;
     constructor(amount: number, currency: string);
@@ -15,6 +15,8 @@ export declare class TicketIssueParams extends AbstractRequestParams {
     orderId: string;
     payment: Payment;
     formOfPayment: FormOfPayment;
+    orderOwner?: string;
+    paxs?: string[];
     private constructor();
 }
 export {};

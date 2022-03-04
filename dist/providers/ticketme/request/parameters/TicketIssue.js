@@ -21,59 +21,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TicketIssueParams = exports.Payment = void 0;
+exports.TicketMeTicketIssueParams = void 0;
+var AbstractRequestParams_1 = require("../../../../core/request/parameters/AbstractRequestParams");
 var class_validator_1 = require("class-validator");
-var AbstractRequestParams_1 = require("./AbstractRequestParams");
-var FormOfPayment = /** @class */ (function () {
-    function FormOfPayment(type, data) {
+var TicketIssue_1 = require("../../../../core/request/parameters/TicketIssue");
+var TicketMeFormOfPayment = /** @class */ (function () {
+    function TicketMeFormOfPayment(type, data) {
         this.data = data;
         this.type = type;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(["CASH", "BILL", "CARD"])
-    ], FormOfPayment.prototype, "type", void 0);
-    return FormOfPayment;
+        (0, class_validator_1.IsIn)(["CASH", "CARD", "OTHER"])
+    ], TicketMeFormOfPayment.prototype, "type", void 0);
+    return TicketMeFormOfPayment;
 }());
-var Payment = /** @class */ (function () {
-    function Payment(amount, currency) {
-        this.amount = amount;
-        this.currency = currency;
-    }
-    __decorate([
-        (0, class_validator_1.IsPositive)()
-    ], Payment.prototype, "amount", void 0);
-    __decorate([
-        (0, class_validator_1.IsString)()
-    ], Payment.prototype, "currency", void 0);
-    return Payment;
-}());
-exports.Payment = Payment;
-var TicketIssueParams = /** @class */ (function (_super) {
-    __extends(TicketIssueParams, _super);
-    function TicketIssueParams(props) {
+var TicketMeTicketIssueParams = /** @class */ (function (_super) {
+    __extends(TicketMeTicketIssueParams, _super);
+    function TicketMeTicketIssueParams(props) {
         var _this = _super.call(this) || this;
         _this.orderId = props.orderId;
-        _this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
-        _this.payment = new Payment(props.payment.amount, props.payment.currency);
-        _this.orderOwner = props.orderOwner;
+        _this.formOfPayment = new TicketMeFormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
+        _this.payment = new TicketIssue_1.Payment(props.payment.amount, props.payment.currency);
+        _this.orderOwner = props.orderOwner || '';
         _this.paxs = props.paxs;
         return _this;
     }
     __decorate([
-        (0, class_validator_1.IsString)()
-    ], TicketIssueParams.prototype, "orderId", void 0);
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.MinLength)(1)
+    ], TicketMeTicketIssueParams.prototype, "orderId", void 0);
+    __decorate([
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.MinLength)(1)
+    ], TicketMeTicketIssueParams.prototype, "orderOwner", void 0);
     __decorate([
         (0, class_validator_1.ValidateNested)()
-    ], TicketIssueParams.prototype, "payment", void 0);
+    ], TicketMeTicketIssueParams.prototype, "payment", void 0);
     __decorate([
         (0, class_validator_1.ValidateNested)()
-    ], TicketIssueParams.prototype, "formOfPayment", void 0);
+    ], TicketMeTicketIssueParams.prototype, "formOfPayment", void 0);
     __decorate([
-        (0, class_validator_1.IsOptional)()
-    ], TicketIssueParams.prototype, "orderOwner", void 0);
-    __decorate([
-        (0, class_validator_1.IsOptional)()
-    ], TicketIssueParams.prototype, "paxs", void 0);
-    return TicketIssueParams;
+        (0, class_validator_1.MinLength)(1, {
+            each: true,
+        })
+    ], TicketMeTicketIssueParams.prototype, "paxs", void 0);
+    return TicketMeTicketIssueParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
-exports.TicketIssueParams = TicketIssueParams;
+exports.TicketMeTicketIssueParams = TicketMeTicketIssueParams;

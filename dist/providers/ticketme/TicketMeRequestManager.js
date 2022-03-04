@@ -11,6 +11,8 @@ var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper
 var defaults_1 = require("./config/defaults");
 var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
+var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
+var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var TicketMeRequestManager = /** @class */ (function () {
     function TicketMeRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -75,7 +77,13 @@ var TicketMeRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented('service list').message);
     };
     TicketMeRequestManager.prototype.createTicketIssueRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented('ticket issue').message);
+        var validationError = this.validateRequest() || TicketIssueParamsValidator_1.TicketIssueParamsValidator.validate(params);
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new IssueTicketMessageMapper_1.IssueTicketMessageMapper(params, this.extraConfiguration.party)
+        });
     };
     TicketMeRequestManager.prototype.validateRequest = function () {
         if (!this.extraConfiguration.party.agencyId || this.extraConfiguration.party.agencyId.length === 0) {

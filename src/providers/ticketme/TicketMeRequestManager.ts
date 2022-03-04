@@ -27,6 +27,8 @@ import {OrderRetrieveMessageMapper} from "./mappers/OrderRetrieveMessageMapper";
 import {DEFAULT_CURRENCY, DEFAULT_LANG} from "./config/defaults";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
 import {PriceParamsValidator} from "./validators/PriceParamsValidator";
+import {IssueTicketMessageMapper} from "./mappers/IssueTicketMessageMapper";
+import {TicketIssueParamsValidator} from "./validators/TicketIssueParamsValidator";
 
 export class TicketMeRequestManager implements IRequestManager {
     constructor(
@@ -108,7 +110,15 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {
-        return Result.fail(new MethodNotImplemented('ticket issue').message)
+        const validationError = this.validateRequest() || TicketIssueParamsValidator.validate(params)
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+
+        return this.createRequest(params,
+            {
+                mapper: new IssueTicketMessageMapper(params, this.extraConfiguration.party)
+            })
     }
 
     validateRequest(): string | null {
