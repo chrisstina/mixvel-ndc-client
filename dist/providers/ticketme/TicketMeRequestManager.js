@@ -13,6 +13,7 @@ var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
+var RepriceMessageMapper_1 = require("./mappers/RepriceMessageMapper");
 var TicketMeRequestManager = /** @class */ (function () {
     function TicketMeRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -83,6 +84,15 @@ var TicketMeRequestManager = /** @class */ (function () {
         }
         return this.createRequest(params, {
             mapper: new IssueTicketMessageMapper_1.IssueTicketMessageMapper(params, this.extraConfiguration.party)
+        });
+    };
+    TicketMeRequestManager.prototype.createRepriceRequest = function (params) {
+        var validationError = this.validateRequest();
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new RepriceMessageMapper_1.RepriceMessageMapper(params, this.extraConfiguration.party)
         });
     };
     TicketMeRequestManager.prototype.validateRequest = function () {

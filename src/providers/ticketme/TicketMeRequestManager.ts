@@ -29,6 +29,8 @@ import {BookParamsValidator} from "./validators/BookParamsValidator";
 import {PriceParamsValidator} from "./validators/PriceParamsValidator";
 import {IssueTicketMessageMapper} from "./mappers/IssueTicketMessageMapper";
 import {TicketIssueParamsValidator} from "./validators/TicketIssueParamsValidator";
+import {RepriceParams} from "../../core/request/parameters/Reprice";
+import {RepriceMessageMapper} from "./mappers/RepriceMessageMapper";
 
 export class TicketMeRequestManager implements IRequestManager {
     constructor(
@@ -118,6 +120,18 @@ export class TicketMeRequestManager implements IRequestManager {
         return this.createRequest(params,
             {
                 mapper: new IssueTicketMessageMapper(params, this.extraConfiguration.party)
+            })
+    }
+
+    createRepriceRequest(params: RepriceParams): Result<IRequest> {
+        const validationError = this.validateRequest()
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+
+        return this.createRequest(params,
+            {
+                mapper: new RepriceMessageMapper(params, this.extraConfiguration.party)
             })
     }
 

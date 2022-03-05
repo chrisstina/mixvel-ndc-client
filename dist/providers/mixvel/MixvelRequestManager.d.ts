@@ -11,6 +11,7 @@ import { BookParams } from "../../core/request/parameters/Book";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RefundParams } from "../../core/request/parameters/Refund";
 import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
+import { RepriceParams } from "../../core/request/parameters/Reprice";
 export declare class MixvelRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     conversionStrategy: IConversionStrategy;
@@ -30,6 +31,7 @@ export declare class MixvelRequestManager implements IRequestManager {
     }): Result<IRequest>;
     createSearchRequest(params: SearchParams): Result<IRequest>;
     createPriceRequest(params: PriceParams): Result<IRequest>;
+    createRepriceRequest(params: RepriceParams): Result<IRequest>;
     createBookRequest(params: BookParams): Result<IRequest>;
     createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
     createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;

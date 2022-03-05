@@ -9,6 +9,7 @@ import {TicketIssueParams} from "../core/request/parameters/TicketIssue";
 import {RefundParams} from "../core/request/parameters/Refund";
 import {IEndpointManager} from "./IEndpointManager";
 import {IRequestOptionsManager} from "./IRequestOptionsManager";
+import {RepriceParams} from "../core/request/parameters/Reprice";
 
 export interface IRequestManager {
     endpointManager: IEndpointManager,
@@ -23,6 +24,8 @@ export interface IRequestManager {
     createSearchRequest(params: SearchParams): Result<IRequest>;
 
     createPriceRequest(params: PriceParams): Result<IRequest>;
+
+    createRepriceRequest(params: RepriceParams): Result<IRequest>;
 
     createFareRulesRequest(params: PriceParams): Result<IRequest>;
 

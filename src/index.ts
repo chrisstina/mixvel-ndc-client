@@ -23,6 +23,7 @@ import {OrderRetrieveParams, OrderRetrieveProps} from "./core/request/parameters
 import {BookParams, BookProps} from "./core/request/parameters/Book";
 import {TicketIssueParams, TicketIssueProps} from "./core/request/parameters/TicketIssue";
 import {RefundParams, RefundProps} from "./core/request/parameters/Refund";
+import {RepriceParams, RepriceProps} from "./core/request/parameters/Reprice";
 
 // Provider-specific
 import {MixvelRequestManager} from "./providers/mixvel/MixvelRequestManager";
@@ -156,6 +157,13 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
             : requestManager.createRefundRequest(paramsOrError.getValue())
     }
 
+    function getRepriceRequest(props: RepriceProps): Result<IRequest> {
+        const paramsOrError = RepriceParams.create<RepriceParams>(props)
+        return paramsOrError.isFailure && paramsOrError.error
+            ? Result.fail<IRequest>(paramsOrError.error)
+            : requestManager.createRepriceRequest(paramsOrError.getValue())
+    }
+
     // ========== Response management ==============
 
     /**
@@ -199,6 +207,7 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
         getSearchRequest,
         getPriceRequest,
         getBookRequest,
+        getRepriceRequest,
         getFareRulesRequest,
         getServiceListRequest,
         getOrderRetrieveRequest,

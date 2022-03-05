@@ -21,6 +21,7 @@ var OrderRetrieve_1 = require("./core/request/parameters/OrderRetrieve");
 var Book_1 = require("./core/request/parameters/Book");
 var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
 var Refund_1 = require("./core/request/parameters/Refund");
+var Reprice_1 = require("./core/request/parameters/Reprice");
 // Provider-specific
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
@@ -115,6 +116,12 @@ function createNDCService(provider, providerConfig) {
             ? Result_1.Result.fail(paramsOrError.error)
             : requestManager.createRefundRequest(paramsOrError.getValue());
     }
+    function getRepriceRequest(props) {
+        var paramsOrError = Reprice_1.RepriceParams.create(props);
+        return paramsOrError.isFailure && paramsOrError.error
+            ? Result_1.Result.fail(paramsOrError.error)
+            : requestManager.createRepriceRequest(paramsOrError.getValue());
+    }
     // ========== Response management ==============
     /**
      * @param {string|{}} data - response XML or JSON with errors
@@ -156,6 +163,7 @@ function createNDCService(provider, providerConfig) {
         getSearchRequest: getSearchRequest,
         getPriceRequest: getPriceRequest,
         getBookRequest: getBookRequest,
+        getRepriceRequest: getRepriceRequest,
         getFareRulesRequest: getFareRulesRequest,
         getServiceListRequest: getServiceListRequest,
         getOrderRetrieveRequest: getOrderRetrieveRequest,

@@ -35,6 +35,8 @@ import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
 import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
+import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
+import {RepriceParams} from "../../core/request/parameters/Reprice";
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(
@@ -90,6 +92,10 @@ export class MixvelRequestManager implements IRequestManager {
                 }
             }
         }))
+    }
+
+    createRepriceRequest(params: RepriceParams): Result<IRequest> {
+        return Result.fail(new MethodNotImplemented('reprice').message)
     }
 
     createBookRequest(params: BookParams): Result<IRequest> {

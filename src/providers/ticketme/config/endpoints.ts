@@ -3,5 +3,6 @@ export const endpoints = new Map([
     ['OfferPriceRQ', '/TA/NDC/Shopping/OfferPrice'],
     ['OrderCreateRQ', '/TA/NDC/OMBookingAndServicing/OrderCreate'],
     ['OrderRetrieveRQ', '/TA/NDC/OMPaymentAndTicketing/OrderRetrieve'],
-    ['AirDocIssueRQ', '/TA/NDC/OMPaymentAndTicketing/AirDocIssue']
+    ['AirDocIssueRQ', '/TA/NDC/OMPaymentAndTicketing/AirDocIssue'],
+    ['OrderReshopRQ', '/TA/NDC/OMBookingAndServicing/OrderReshop']
 ])

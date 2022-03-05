@@ -10,12 +10,14 @@ import { OrderRetrieveProps } from "./core/request/parameters/OrderRetrieve";
 import { BookProps } from "./core/request/parameters/Book";
 import { TicketIssueProps } from "./core/request/parameters/TicketIssue";
 import { RefundProps } from "./core/request/parameters/Refund";
+import { RepriceProps } from "./core/request/parameters/Reprice";
 import { IDataList } from "./interfaces/IDataList";
 export declare function createNDCService(provider: string | IProvider, providerConfig?: {}): {
     getAuthRequest: (props: AuthProps) => Result<IRequest>;
     getSearchRequest: (props: SearchProps) => Result<IRequest>;
     getPriceRequest: (props: PriceProps) => Result<IRequest>;
     getBookRequest: (props: BookProps) => Result<IRequest>;
+    getRepriceRequest: (props: RepriceProps) => Result<IRequest>;
     getFareRulesRequest: (props: PriceProps) => Result<IRequest>;
     getServiceListRequest: (props: PriceProps) => Result<IRequest>;
     getOrderRetrieveRequest: (props: OrderRetrieveProps) => Result<IRequest>;
