@@ -8,12 +8,13 @@ var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
 var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper");
+var RepriceMessageMapper_1 = require("./mappers/RepriceMessageMapper");
+var OrderCancelMessageMapper_1 = require("./mappers/OrderCancelMessageMapper");
 var defaults_1 = require("./config/defaults");
 var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
-var RepriceMessageMapper_1 = require("./mappers/RepriceMessageMapper");
 var TicketMeRequestManager = /** @class */ (function () {
     function TicketMeRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -41,7 +42,11 @@ var TicketMeRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented('rules').message);
     };
     TicketMeRequestManager.prototype.createOrderCancelRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented('cancel').message);
+        var validationError = this.validateRequest();
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, { mapper: new OrderCancelMessageMapper_1.OrderCancelMessageMapper(params, this.extraConfiguration.party) });
     };
     TicketMeRequestManager.prototype.createOrderRetrieveRequest = function (params) {
         var validationError = this.validateRequest();

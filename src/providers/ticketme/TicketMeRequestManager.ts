@@ -16,6 +16,7 @@ import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
 import {RefundParams} from "../../core/request/parameters/Refund";
 import {SearchParams} from "../../core/request/parameters/Search";
 import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
+import {RepriceParams} from "../../core/request/parameters/Reprice";
 
 import {TicketMeRequest} from "./TicketMeRequest";
 
@@ -23,14 +24,14 @@ import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {PriceMessageMapper} from "./mappers/PriceMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
 import {OrderRetrieveMessageMapper} from "./mappers/OrderRetrieveMessageMapper";
+import {RepriceMessageMapper} from "./mappers/RepriceMessageMapper";
+import {OrderCancelMessageMapper} from "./mappers/OrderCancelMessageMapper";
 
 import {DEFAULT_CURRENCY, DEFAULT_LANG} from "./config/defaults";
 import {BookParamsValidator} from "./validators/BookParamsValidator";
 import {PriceParamsValidator} from "./validators/PriceParamsValidator";
 import {IssueTicketMessageMapper} from "./mappers/IssueTicketMessageMapper";
 import {TicketIssueParamsValidator} from "./validators/TicketIssueParamsValidator";
-import {RepriceParams} from "../../core/request/parameters/Reprice";
-import {RepriceMessageMapper} from "./mappers/RepriceMessageMapper";
 
 export class TicketMeRequestManager implements IRequestManager {
     constructor(
@@ -65,7 +66,11 @@ export class TicketMeRequestManager implements IRequestManager {
     }
 
     createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {
-        return Result.fail(new MethodNotImplemented('cancel').message)
+        const validationError = this.validateRequest()
+        if (typeof validationError === "string") {
+            return Result.fail<IRequest>(validationError)
+        }
+        return this.createRequest(params, {mapper: new OrderCancelMessageMapper(params, this.extraConfiguration.party)})
     }
 
     createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest> {
