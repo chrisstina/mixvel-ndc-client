@@ -26,6 +26,7 @@ var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
 var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
 var Mixvel_OrderReshopRQ_1 = require("./messages/Mixvel_OrderReshopRQ");
 var Mixvel_OrderRulesRQ_1 = require("./messages/Mixvel_OrderRulesRQ");
+var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
 var MixvelRequestManager = /** @class */ (function () {
     function MixvelRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -73,6 +74,9 @@ var MixvelRequestManager = /** @class */ (function () {
                 }
             }
         }));
+    };
+    MixvelRequestManager.prototype.createRepriceRequest = function (params) {
+        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented('reprice').message);
     };
     MixvelRequestManager.prototype.createBookRequest = function (params) {
         var restructuredParams = MixvelRequestManager.prepareBookParams(params);

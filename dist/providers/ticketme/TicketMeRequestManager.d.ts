@@ -12,6 +12,7 @@ import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve
 import { RefundParams } from "../../core/request/parameters/Refund";
 import { SearchParams } from "../../core/request/parameters/Search";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
+import { RepriceParams } from "../../core/request/parameters/Reprice";
 export declare class TicketMeRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;
@@ -39,6 +40,7 @@ export declare class TicketMeRequestManager implements IRequestManager {
     createSearchRequest(params: SearchParams): Result<IRequest>;
     createServiceListRequest(params: PriceParams): Result<IRequest>;
     createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
+    createRepriceRequest(params: RepriceParams): Result<IRequest>;
     validateRequest(): string | null;
     createRequest(requestParams: AbstractRequestParams, services: {
         mapper: IMessageMapper;
