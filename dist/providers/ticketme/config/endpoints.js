@@ -7,5 +7,6 @@ exports.endpoints = new Map([
     ['OrderCreateRQ', '/TA/NDC/OMBookingAndServicing/OrderCreate'],
     ['OrderRetrieveRQ', '/TA/NDC/OMPaymentAndTicketing/OrderRetrieve'],
     ['AirDocIssueRQ', '/TA/NDC/OMPaymentAndTicketing/AirDocIssue'],
-    ['OrderReshopRQ', '/TA/NDC/OMBookingAndServicing/OrderReshop']
+    ['OrderReshopRQ', '/TA/NDC/OMBookingAndServicing/OrderReshop'],
+    ['OrderCancelRQ', '/TA/NDC/OMBookingAndServicing/OrderCancel']
 ]);
