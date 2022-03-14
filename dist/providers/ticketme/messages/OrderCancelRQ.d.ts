@@ -1,11 +1,11 @@
 import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 export declare class OrderCancelRQ extends AbstractTicketMeNDCMessage {
     Query: {
-        OrderID: {
+        Order: {
             $: {
+                OrderID: string;
                 Owner: string;
             };
-            _: string;
         };
     }[];
     constructor(orderId: string, offerOwner: string);

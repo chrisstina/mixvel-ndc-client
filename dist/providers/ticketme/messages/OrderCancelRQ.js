@@ -21,7 +21,7 @@ var OrderCancelRQ = /** @class */ (function (_super) {
     __extends(OrderCancelRQ, _super);
     function OrderCancelRQ(orderId, offerOwner) {
         var _this = _super.call(this) || this;
-        _this.Query = [{ OrderID: { $: { Owner: offerOwner }, _: orderId } }];
+        _this.Query = [{ Order: { $: { OrderID: orderId, Owner: offerOwner } } }];
         return _this;
     }
     Object.defineProperty(OrderCancelRQ.prototype, "nodeName", {

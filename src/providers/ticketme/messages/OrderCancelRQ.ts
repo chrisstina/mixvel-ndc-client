@@ -2,15 +2,14 @@ import {AbstractTicketMeNDCMessage} from "./AbstractTicketMeNDCMessage";
 
 export class OrderCancelRQ extends AbstractTicketMeNDCMessage {
     public Query: {
-        OrderID: {
-            $: { Owner: string },
-            _: string
+        Order: {
+            $: { OrderID: string, Owner: string },
         }
     }[]
 
     constructor(orderId: string, offerOwner: string) {
         super()
-        this.Query = [{OrderID: {$: {Owner: offerOwner}, _: orderId}}]
+        this.Query = [{Order: {$: {OrderID: orderId, Owner: offerOwner}}}]
     }
 
     get nodeName(): string {
