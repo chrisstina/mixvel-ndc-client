@@ -69,9 +69,4 @@ export class OrderCreateRQ extends AbstractTicketMeNDCMessage {
     get nodeName() {
         return "OrderCreateRQ"
     }
-
-    addPax(pax: Pax, paxContact: PaxContact) {
-        this.Query[0].DataLists[0].PassengerList[0].Passenger.push(pax)
-        this.Query[0].DataLists[0].ContactList[0].ContactInformation.push(paxContact)
-    }
 }

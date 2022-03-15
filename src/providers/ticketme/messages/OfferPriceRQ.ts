@@ -17,12 +17,10 @@ export class OfferPriceRQ extends AbstractTicketMeNDCMessage {
         return "OfferPriceRQ"
     }
 
-    public Query: {Offer: Offer[]}
-    public DataLists: { PassengerList: PaxDataList }
+    public Query?: { Offer: Offer[] }
+    public DataLists?: { PassengerList: PaxDataList }
 
-    constructor(offers: Offer[], dataLists: { PassengerList: PaxDataList }) {
+    constructor() {
         super();
-        this.Query = {Offer: offers}
-        this.DataLists = dataLists
     }
 }

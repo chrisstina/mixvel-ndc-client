@@ -1,5 +1,4 @@
 import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
-import {TicketMeFop} from "../mappers/dictionary/fop";
 
 export class CardPaymentMethod {
     public readonly PaymentCard = [{}]
@@ -13,7 +12,7 @@ export class OtherPaymentMethod {
     public readonly Other = [{}]
 }
 
-type PaymentMethod = CardPaymentMethod | CashPaymentMethod | OtherPaymentMethod
+export type PaymentMethod = CardPaymentMethod | CashPaymentMethod | OtherPaymentMethod
 
 type Payment = {
     "Type": StringValue[],
@@ -62,29 +61,5 @@ export class AirDocIssueRQ extends AbstractTicketMeNDCMessage {
 
     get nodeName() {
         return "AirDocIssueRQ"
-    }
-
-    setPaymentDetails(orderId: string,
-                      orderOwner: string,
-                      {amount, currency}: { amount: string, currency: string },
-                      {fopType, fopMethod}: { fopType: TicketMeFop, fopMethod: PaymentMethod }) {
-        if (!this.Query[0].TicketDocInfo[0].Payments) {
-            this.Query[0].TicketDocInfo[0].Payments = [{
-                Payment: [{
-                    Order: [{
-                        "$": {
-                            "OrderID": orderId,
-                            "Owner": orderOwner
-                        }
-                    }],
-                    Amount: [{
-                        "$": {"Code": currency},
-                        "_": amount
-                    }],
-                    Method: [fopMethod],
-                    Type: [{_: fopType}]
-                }]
-            }]
-        }
     }
 }

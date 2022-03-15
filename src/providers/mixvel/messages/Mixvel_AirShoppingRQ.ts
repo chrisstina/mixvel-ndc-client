@@ -3,15 +3,15 @@
  */
 
 import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {Preflevel} from "../constants/preflevel"
 import {MixvelPTC} from "../mappers/dictionary/ptc"
-import {MixvelCabin} from "../mappers/dictionary/cabin"
 
 export class OriginDestination {
     public CabinType = {
         "CabinTypeCode": "",
         "PrefLevel": {"PrefLevelCode": ""}
     }
+
+    public ConnectionPrefRefID?: string = ''
 
     public DestArrivalCriteria = {
         "IATA_LocationCode": ""
@@ -24,7 +24,7 @@ export class OriginDestination {
     }
 }
 
-class Pax {
+export class Pax {
     public readonly PaxID: string
     public readonly PTC: MixvelPTC
     public readonly AgeMeasure: string | undefined
@@ -64,41 +64,5 @@ export class Mixvel_AirShoppingRQ implements INDCMessage {
         "Pax": Array()
     }
 
-    public ShoppingCriteria = Array()
-
-    addPax(id: string, ptc: MixvelPTC, age?: string) {
-        this.Paxs.Pax.push(new Pax(id, ptc, age))
-    }
-
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} dateRangeStart ISO datetime 2021-11-25
-     * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {MixvelCabin} cabinTypeCode
-     */
-    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin) {
-        const OD = new OriginDestination()
-        OD.OriginDepCriteria = {
-            "DateRangeStart": dateRangeStart,
-            "DateRangeEnd": dateRangeEnd,
-            "IATA_LocationCode": originCode
-        }
-        OD.DestArrivalCriteria = {"IATA_LocationCode": destinationCode}
-        OD.CabinType = {CabinTypeCode: cabinTypeCode, PrefLevel: {PrefLevelCode: Preflevel.REQUIRED}}
-        this.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(OD)
-    }
-
-    addCarrierCriteria(allowedCarrierCodes: string[]) {
-        this.ShoppingCriteria.push({"CarrierCriteria": [{
-            "Carrier": []
-        }]})
-        allowedCarrierCodes.forEach(code => {
-            this.ShoppingCriteria[0].CarrierCriteria[0].Carrier.push(
-                {
-                    "AirlineDesigCode": code
-                }
-            )
-        })
-    }
+    public ShoppingCriteria: Record<string, any>[] = []
 }

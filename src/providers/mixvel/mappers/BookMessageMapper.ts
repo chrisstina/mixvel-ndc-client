@@ -1,17 +1,36 @@
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
 import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
-
+import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
 import {toMixvel as toMixvelDocument} from "./dictionary/documentType"
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc"
 import {toAge, toMixvelDate} from "./commonMappers";
-import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
 
 export class BookMessageMapper implements IMessageMapper {
+    message: Mixvel_OrderCreateRQ
+
     constructor(public readonly params: MixvelBookParams) {
+        this.message = new Mixvel_OrderCreateRQ(this.params.offer.offerId)
     }
 
-    private static passengerToPax(passenger: MixvelPassenger, paxId: number) {
+    map(): Mixvel_OrderCreateRQ {
+        const paxRefs = new Map()
+        this.params.passengers.forEach((passenger, idx) => {
+            const pax = this.passengerToPax(passenger, idx + 1)
+            paxRefs.set(passenger.ptc, [...paxRefs.get(passenger.ptc) || [], pax.PaxID])
+            this.addPax(pax, this.passengerToContact(passenger, idx + 1))
+            // @todo LoyaltyProgramAccount
+        })
+
+        this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
+            if (paxRefs.has(ptc)) {
+                this.addSelectedOfferItem(offerItemId, paxRefs.get(ptc))
+            }
+        })
+        return this.message
+    }
+
+    private passengerToPax(passenger: MixvelPassenger, paxId: number) {
         return new Pax(
             toAge(passenger.personalInfo.dob),
             '',
@@ -35,7 +54,7 @@ export class BookMessageMapper implements IMessageMapper {
         )
     }
 
-    private static passengerToContact(passenger: MixvelPassenger, paxId: number) {
+    private passengerToContact(passenger: MixvelPassenger, paxId: number) {
         return new ContactInfo(
             generateContactReference(paxId),
             {ContactTypeText: "personal", EmailAddressText: passenger.contacts.email},
@@ -43,22 +62,21 @@ export class BookMessageMapper implements IMessageMapper {
         )
     }
 
-    map(): Mixvel_OrderCreateRQ {
-        const mixvelRequestMessage = new Mixvel_OrderCreateRQ(this.params.offer.offerId)
-        const paxRefs = new Map()
-        this.params.passengers.forEach((passenger, idx) => {
-            const pax = BookMessageMapper.passengerToPax(passenger, idx + 1)
-            paxRefs.set(passenger.ptc, [...paxRefs.get(passenger.ptc) || [], pax.PaxID])
-            mixvelRequestMessage.addPax(pax, BookMessageMapper.passengerToContact(passenger, idx + 1))
-            // @todo LoyaltyProgramAccount
-        })
+    private addPax(pax: Pax, paxContact: ContactInfo) {
+        pax.ContactInfoRefID = paxContact.ContactInfoID
+        this.message.DataLists.PaxList.Pax.push(pax)
+        this.message.DataLists.ContactInfoList.ContactInfo.push(paxContact)
+    }
 
-        this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
-            if (paxRefs.has(ptc)) {
-                mixvelRequestMessage.addSelectedOfferItem(offerItemId, paxRefs.get(ptc))
-            }
-        })
-        return mixvelRequestMessage
+    /**
+     * @param {string} offerItemId
+     * @param {string[]} paxRefs
+     */
+    private addSelectedOfferItem(offerItemId: string, paxRefs: Array<string>) {
+        if (!this.message.CreateOrder.SelectedOffer.SelectedOfferItem) {
+            this.message.CreateOrder.SelectedOffer.SelectedOfferItem = []
+        }
+        this.message.CreateOrder.SelectedOffer.SelectedOfferItem.push({OfferItemRefID: offerItemId, PaxRefID: paxRefs})
     }
 }
 

@@ -12,7 +12,7 @@ export class OriginDestination {     // @todo <SegMaxTimePreferences>
     public Departure: { AirportCode: StringValue[], Date: StringValue[] }[] = []
 }
 
-class Pax {
+export class Pax {
     public $: { PassengerID: string }
     public PTC: StringValue[] = []
 
@@ -105,42 +105,6 @@ export class AirShoppingRQ extends AbstractTicketMeNDCMessage {
     //     }
     // ] // @todo
 
-    addPax(id: string, ptc: TicketMePTC) {
-        this.DataLists[0].PassengerList[0].Passenger.push(new Pax(id, ptc))
-    }
-
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} date ISO datetime 2021-11-25
-     */
-    addOriginDestination(originCode: string, destinationCode: string, date: string) {
-        const OD = new OriginDestination()
-        OD.Arrival.push({AirportCode: [{_: destinationCode}]})
-        OD.Departure.push({AirportCode: [{_: originCode}], Date: [{_: date}]})
-        this.CoreQuery[0].OriginDestinations[0].OriginDestination.push(OD)
-    }
-
-    setCabinPreference(cabin: TicketMeCabin) {
-        this.Preference[0].CabinPreferences[0].CabinType[0].Code[0]._ = cabin
-    }
-
-    setDirectPreference(preference: Preflevel) {
-        this.Preference[0]['FlightPreferences'] = [{Characteristic: [{DirectPreferences: [{_: preference}]}]}]
-    }
-
-    addCarrierFilters(carriers: string[], level: Preflevel) {
-        const airlines = carriers.map(carrier => {
-            return {
-                $: {PreferencesLevel: level},
-                AirlineID: [{_: carrier}]
-            }
-        })
-        if (!this.Preference[0].AirlinePreferences) {
-            this.Preference[0]['AirlinePreferences'] = []
-        }
-        this.Preference[0].AirlinePreferences.push({Airline: airlines})
-    }
     //
     // setCurrencyPreference(currencyCode) {
     //

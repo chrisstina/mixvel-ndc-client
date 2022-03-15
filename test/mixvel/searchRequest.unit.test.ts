@@ -2,6 +2,7 @@ import {suite, test} from '@testdeck/mocha';
 import {expect} from 'chai';
 
 import {createNDCService} from "../../src"
+
 const {getSearchRequest} = createNDCService('mixvel')
 
 let dateOut = new Date(), dateReturn = new Date()
@@ -76,5 +77,33 @@ class SearchRequestUnitTest {
             "              <Carrier>\n" +
             "                <AirlineDesigCode>U6</AirlineDesigCode>\n" +
             "              </Carrier>")
+
+        expect(rq).to.not.contain('Connection-1')
+    }
+
+    @test 'Create Mixvel search RQ for 1ADT with only direct filter'() {
+        const rq = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"},
+                {ptc: 'CHILD', age: 5, id: "2"}
+            ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "ECONOMY",
+            preferredCarriers: [],
+            onlyDirect: true
+        }).getValue().body
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
+        expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
+        expect(rq).to.contain("<PTC>ADT</PTC>")
+        expect(rq).to.contain("<CabinTypeCode>Economy</CabinTypeCode>\n" +
+            "                  <PrefLevel>\n" +
+            "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
+            "                  </PrefLevel>")
+        expect(rq).to.contain('<MaximumConnectionQty>1</MaximumConnectionQty>')
     }
 }

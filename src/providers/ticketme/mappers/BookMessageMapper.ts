@@ -8,11 +8,42 @@ import {toTicketMe as toTicketMeDocument} from "./dictionary/documentType";
 import {genderToTitle, toTicketMeDate, toTicketMeGender} from "./commonMappers";
 
 export class BookMessageMapper implements IMessageMapper {
+    message: OrderCreateRQ
+
     constructor(public readonly params: BookParams,
-        public readonly credentials: PartyCredentials) {
+                public readonly credentials: PartyCredentials) {
+        this.message = new OrderCreateRQ({
+            $: {
+                Owner: this.params.offer.offerOwner || '',
+                OfferID: this.params.offer.offerId,
+                ResponseID: this.params.offer.responseId || ''
+            },
+            OfferItem: this.params.offer.offerItems.map(item => {
+                return {
+                    $: {OfferItemID: item.offerItemId},
+                    PassengerRefs: {_: item.paxs || ''}
+                }
+            })
+        })
+        this.message.addParty(this.credentials)
     }
 
-    private static passengerToPax(passenger: Passenger, paxContact: PaxContact) {
+    map(): OrderCreateRQ {
+        this.params.passengers.forEach((passenger) => {
+            const paxContact = this.passengerToContact(passenger)
+            this.addPax(
+                this.passengerToPax(passenger, paxContact),
+                paxContact)
+        })
+        return this.message
+    }
+
+    private addPax(pax: Pax, paxContact: PaxContact) {
+        this.message.Query[0].DataLists[0].PassengerList[0].Passenger.push(pax)
+        this.message.Query[0].DataLists[0].ContactList[0].ContactInformation.push(paxContact)
+    }
+
+    private passengerToPax(passenger: Passenger, paxContact: PaxContact) {
         const document: IdentityDocument = {
             IdentityDocumentNumber: [{_: passenger.identityDocument.number}],
             IdentityDocumentType: [{_: toTicketMeDocument(passenger.identityDocument.type)}],
@@ -45,7 +76,7 @@ export class BookMessageMapper implements IMessageMapper {
         return pax
     }
 
-    private static passengerToContact(passenger: Passenger) {
+    private passengerToContact(passenger: Passenger) {
         const contact: PaxContact = {
             $: {"ContactID": generateContactReference(passenger.id || '')},
             ContactProvided: []
@@ -57,30 +88,6 @@ export class BookMessageMapper implements IMessageMapper {
             contact.ContactProvided.push({"EmailAddress": [{"EmailAddressValue": [{_: passenger.contacts.email}]}]})
         }
         return contact
-    }
-
-    map(): OrderCreateRQ {
-        const ticketmeRequestMessage = new OrderCreateRQ({
-            $: {
-                Owner: this.params.offer.offerOwner || '',
-                OfferID: this.params.offer.offerId,
-                ResponseID: this.params.offer.responseId || ''
-            },
-            OfferItem: this.params.offer.offerItems.map(item => {
-                return {
-                    $: {OfferItemID: item.offerItemId},
-                    PassengerRefs: {_: item.paxs || ''}
-                }
-            })
-        })
-        this.params.passengers.forEach((passenger) => {
-            const paxContact = BookMessageMapper.passengerToContact(passenger)
-            ticketmeRequestMessage.addPax(
-                BookMessageMapper.passengerToPax(passenger, paxContact),
-                paxContact)
-        })
-        ticketmeRequestMessage.addParty(this.credentials)
-        return ticketmeRequestMessage
     }
 }
 

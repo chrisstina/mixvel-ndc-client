@@ -49,28 +49,4 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
     constructor(orderId: string) {
         this.MixOrder = {MixOrderID: orderId}
     }
-
-    setPaymentDetails({amount, currency}: { amount: string, currency: string }, fop: OtherPaymentMethod | DirectBill) {
-        this.PaymentFunctions = {
-            "PaymentProcessingDetails": {
-                "Amount": {"_": amount, "$": {"CurCode": currency}},
-                "PaymentProcessingDetailsPaymentMethod": fop
-            }
-        }
-    }
-
-    setItemsToDelete(orderItems: string[][]) {
-        this.ChangeOrder = {
-            UpdateOrderItem: {
-                DeleteOrderItemList: orderItems.map(([orderId, orderItemId]) => {
-                    return {
-                        DeleteOrderItem: {
-                            OrderID: orderId,
-                            OrderItemID: orderItemId
-                        }
-                    }
-                })
-            }
-        }
-    }
 }

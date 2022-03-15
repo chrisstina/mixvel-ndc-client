@@ -36,6 +36,9 @@ export class BookParams extends AbstractRequestParams {
             passenger.loyaltyInfo,
             passenger.id
         ))
+        // ancillaries
+
+
     }
 }
 

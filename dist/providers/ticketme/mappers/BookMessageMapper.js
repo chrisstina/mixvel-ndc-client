@@ -9,8 +9,34 @@ var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params, credentials) {
         this.params = params;
         this.credentials = credentials;
+        this.message = new OrderCreateRQ_1.OrderCreateRQ({
+            $: {
+                Owner: this.params.offer.offerOwner || '',
+                OfferID: this.params.offer.offerId,
+                ResponseID: this.params.offer.responseId || ''
+            },
+            OfferItem: this.params.offer.offerItems.map(function (item) {
+                return {
+                    $: { OfferItemID: item.offerItemId },
+                    PassengerRefs: { _: item.paxs || '' }
+                };
+            })
+        });
+        this.message.addParty(this.credentials);
     }
-    BookMessageMapper.passengerToPax = function (passenger, paxContact) {
+    BookMessageMapper.prototype.map = function () {
+        var _this = this;
+        this.params.passengers.forEach(function (passenger) {
+            var paxContact = _this.passengerToContact(passenger);
+            _this.addPax(_this.passengerToPax(passenger, paxContact), paxContact);
+        });
+        return this.message;
+    };
+    BookMessageMapper.prototype.addPax = function (pax, paxContact) {
+        this.message.Query[0].DataLists[0].PassengerList[0].Passenger.push(pax);
+        this.message.Query[0].DataLists[0].ContactList[0].ContactInformation.push(paxContact);
+    };
+    BookMessageMapper.prototype.passengerToPax = function (passenger, paxContact) {
         var document = {
             IdentityDocumentNumber: [{ _: passenger.identityDocument.number }],
             IdentityDocumentType: [{ _: (0, documentType_1.toTicketMe)(passenger.identityDocument.type) }],
@@ -39,7 +65,7 @@ var BookMessageMapper = /** @class */ (function () {
         };
         return pax;
     };
-    BookMessageMapper.passengerToContact = function (passenger) {
+    BookMessageMapper.prototype.passengerToContact = function (passenger) {
         var contact = {
             $: { "ContactID": generateContactReference(passenger.id || '') },
             ContactProvided: []
@@ -51,27 +77,6 @@ var BookMessageMapper = /** @class */ (function () {
             contact.ContactProvided.push({ "EmailAddress": [{ "EmailAddressValue": [{ _: passenger.contacts.email }] }] });
         }
         return contact;
-    };
-    BookMessageMapper.prototype.map = function () {
-        var ticketmeRequestMessage = new OrderCreateRQ_1.OrderCreateRQ({
-            $: {
-                Owner: this.params.offer.offerOwner || '',
-                OfferID: this.params.offer.offerId,
-                ResponseID: this.params.offer.responseId || ''
-            },
-            OfferItem: this.params.offer.offerItems.map(function (item) {
-                return {
-                    $: { OfferItemID: item.offerItemId },
-                    PassengerRefs: { _: item.paxs || '' }
-                };
-            })
-        });
-        this.params.passengers.forEach(function (passenger) {
-            var paxContact = BookMessageMapper.passengerToContact(passenger);
-            ticketmeRequestMessage.addPax(BookMessageMapper.passengerToPax(passenger, paxContact), paxContact);
-        });
-        ticketmeRequestMessage.addParty(this.credentials);
-        return ticketmeRequestMessage;
     };
     return BookMessageMapper;
 }());

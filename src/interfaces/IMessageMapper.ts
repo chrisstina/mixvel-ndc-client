@@ -3,5 +3,6 @@ import {AbstractRequestParams} from "../core/request/parameters/AbstractRequestP
 
 export interface IMessageMapper {
     params?: AbstractRequestParams
+    message?: INDCMessage
     map(): INDCMessage
 }

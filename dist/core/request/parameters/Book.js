@@ -32,6 +32,7 @@ var BookParams = /** @class */ (function (_super) {
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
         _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.id); });
         return _this;
+        // ancillaries
     }
     __decorate([
         (0, class_validator_1.IsArray)(),

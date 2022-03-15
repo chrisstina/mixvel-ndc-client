@@ -5,6 +5,7 @@ import { OrderCancelRQ } from "../messages/OrderCancelRQ";
 export declare class OrderCancelMessageMapper implements IMessageMapper {
     readonly params: OrderRetrieveParams;
     readonly credentials: PartyCredentials;
+    message: OrderCancelRQ;
     constructor(params: OrderRetrieveParams, credentials: PartyCredentials);
     map(): OrderCancelRQ;
 }

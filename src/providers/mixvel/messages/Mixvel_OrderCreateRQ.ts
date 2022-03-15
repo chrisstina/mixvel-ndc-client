@@ -54,22 +54,4 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
         }
         this.DataLists = {ContactInfoList: {ContactInfo: []}, PaxList: {Pax: []}}
     }
-
-    addPax(pax: Pax, paxContact: ContactInfo) {
-        pax.ContactInfoRefID = paxContact.ContactInfoID
-
-        this.DataLists.PaxList.Pax.push(pax)
-        this.DataLists.ContactInfoList.ContactInfo.push(paxContact)
-    }
-
-    /**
-     * @param {string} offerItemId
-     * @param {string[]} paxRefs
-     */
-    addSelectedOfferItem(offerItemId: string, paxRefs: Array<string>) {
-        if (!this.CreateOrder.SelectedOffer.SelectedOfferItem) {
-            this.CreateOrder.SelectedOffer.SelectedOfferItem = []
-        }
-        this.CreateOrder.SelectedOffer.SelectedOfferItem.push({OfferItemRefID: offerItemId, PaxRefID: paxRefs})
-    }
 }
