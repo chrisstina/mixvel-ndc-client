@@ -22,14 +22,12 @@ export declare type PaxDataList = {
 }[];
 export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;
-    Query: {
+    Query?: {
         Offer: Offer[];
     };
-    DataLists: {
+    DataLists?: {
         PassengerList: PaxDataList;
     };
-    constructor(offers: Offer[], dataLists: {
-        PassengerList: PaxDataList;
-    });
+    constructor();
 }
 export {};

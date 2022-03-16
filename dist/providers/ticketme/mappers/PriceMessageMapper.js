@@ -6,28 +6,31 @@ var PriceMessageMapper = /** @class */ (function () {
     function PriceMessageMapper(params, credentials) {
         this.params = params;
         this.credentials = credentials;
+        this.message = new OfferPriceRQ_1.OfferPriceRQ();
+        this.message.addParty(this.credentials);
     }
     PriceMessageMapper.prototype.map = function () {
         var paxs = [];
-        var offers = this.params.offers.map(function (offer) {
-            return {
-                $: { Owner: offer.offerOwner || '', OfferID: offer.offerId, ResponseID: offer.responseId || '' },
-                OfferItem: offer.offerItems.map(function (item) {
-                    if (item.paxs !== undefined) {
-                        paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
-                            return { Passenger: { $: { PassengerID: paxId } } };
-                        }));
-                    }
-                    return {
-                        $: { OfferItemID: item.offerItemId },
-                        PassengerRefs: { _: item.paxs || '' }
-                    };
-                })
-            };
-        });
-        var ticketMeOfferPriceRQ = new OfferPriceRQ_1.OfferPriceRQ(offers, { PassengerList: paxs });
-        ticketMeOfferPriceRQ.addParty(this.credentials);
-        return ticketMeOfferPriceRQ;
+        this.message.Query = {
+            Offer: this.params.offers.map(function (offer) {
+                return {
+                    $: { Owner: offer.offerOwner || '', OfferID: offer.offerId, ResponseID: offer.responseId || '' },
+                    OfferItem: offer.offerItems.map(function (item) {
+                        if (item.paxs !== undefined) {
+                            paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
+                                return { Passenger: { $: { PassengerID: paxId } } };
+                            }));
+                        }
+                        return {
+                            $: { OfferItemID: item.offerItemId },
+                            PassengerRefs: { _: item.paxs || '' }
+                        };
+                    })
+                };
+            })
+        };
+        this.message.DataLists = { PassengerList: paxs };
+        return this.message;
     };
     return PriceMessageMapper;
 }());

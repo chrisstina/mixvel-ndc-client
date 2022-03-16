@@ -18,7 +18,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AirShoppingRQ = exports.OriginDestination = void 0;
+exports.AirShoppingRQ = exports.Pax = exports.OriginDestination = void 0;
 var AbstractTicketMeNDCMessage_1 = require("./AbstractTicketMeNDCMessage");
 var ptc_1 = require("../mappers/dictionary/ptc");
 var cabin_1 = require("../mappers/dictionary/cabin");
@@ -39,6 +39,7 @@ var Pax = /** @class */ (function () {
     }
     return Pax;
 }());
+exports.Pax = Pax;
 /**
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
@@ -65,6 +66,51 @@ var AirShoppingRQ = /** @class */ (function (_super) {
             }
         ];
         return _this;
+        // public "Metadata" = [
+        //     {
+        //         "Other": [
+        //             {
+        //                 "OtherMetadata": [
+        //                     {
+        //                         "LanguageMetadatas": [
+        //                             {
+        //                                 "LanguageMetadata": [
+        //                                     {
+        //                                         "$": {
+        //                                             "MetadataKey": "LG1"
+        //                                         },
+        //                                         "Code_ISO": [
+        //                                             {
+        //                                                 "_": "ru"
+        //                                             }
+        //                                         ]
+        //                                     }
+        //                                 ]
+        //                             }
+        //                         ]
+        //                     }
+        //                 ]
+        //             }
+        //         ]
+        //     }
+        // ]
+        // public Parameters = [
+        //     {
+        //         "CurrCodes": [
+        //             {
+        //                 "FiledInCurrency": [
+        //                     {
+        //                         "CurrCode": [
+        //                             {
+        //                                 "_": "EUR"
+        //                             }
+        //                         ]
+        //                     }
+        //                 ]
+        //             }
+        //         ]
+        //     }
+        // ] // @todo
         //
         // setCurrencyPreference(currencyCode) {
         //
@@ -77,83 +123,6 @@ var AirShoppingRQ = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    // public "Metadata" = [
-    //     {
-    //         "Other": [
-    //             {
-    //                 "OtherMetadata": [
-    //                     {
-    //                         "LanguageMetadatas": [
-    //                             {
-    //                                 "LanguageMetadata": [
-    //                                     {
-    //                                         "$": {
-    //                                             "MetadataKey": "LG1"
-    //                                         },
-    //                                         "Code_ISO": [
-    //                                             {
-    //                                                 "_": "ru"
-    //                                             }
-    //                                         ]
-    //                                     }
-    //                                 ]
-    //                             }
-    //                         ]
-    //                     }
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // ]
-    // public Parameters = [
-    //     {
-    //         "CurrCodes": [
-    //             {
-    //                 "FiledInCurrency": [
-    //                     {
-    //                         "CurrCode": [
-    //                             {
-    //                                 "_": "EUR"
-    //                             }
-    //                         ]
-    //                     }
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // ] // @todo
-    AirShoppingRQ.prototype.addPax = function (id, ptc) {
-        this.DataLists[0].PassengerList[0].Passenger.push(new Pax(id, ptc));
-    };
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} date ISO datetime 2021-11-25
-     */
-    AirShoppingRQ.prototype.addOriginDestination = function (originCode, destinationCode, date) {
-        var OD = new OriginDestination();
-        OD.Arrival.push({ AirportCode: [{ _: destinationCode }] });
-        OD.Departure.push({ AirportCode: [{ _: originCode }], Date: [{ _: date }] });
-        this.CoreQuery[0].OriginDestinations[0].OriginDestination.push(OD);
-    };
-    AirShoppingRQ.prototype.setCabinPreference = function (cabin) {
-        this.Preference[0].CabinPreferences[0].CabinType[0].Code[0]._ = cabin;
-    };
-    AirShoppingRQ.prototype.setDirectPreference = function (preference) {
-        this.Preference[0]['FlightPreferences'] = [{ Characteristic: [{ DirectPreferences: [{ _: preference }] }] }];
-    };
-    AirShoppingRQ.prototype.addCarrierFilters = function (carriers, level) {
-        var airlines = carriers.map(function (carrier) {
-            return {
-                $: { PreferencesLevel: level },
-                AirlineID: [{ _: carrier }]
-            };
-        });
-        if (!this.Preference[0].AirlinePreferences) {
-            this.Preference[0]['AirlinePreferences'] = [];
-        }
-        this.Preference[0].AirlinePreferences.push({ Airline: airlines });
-    };
     return AirShoppingRQ;
 }(AbstractTicketMeNDCMessage_1.AbstractTicketMeNDCMessage));
 exports.AirShoppingRQ = AirShoppingRQ;

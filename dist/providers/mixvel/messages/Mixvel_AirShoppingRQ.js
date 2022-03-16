@@ -3,8 +3,7 @@
  * Copyright (c) 2021
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Mixvel_AirShoppingRQ = exports.OriginDestination = void 0;
-var preflevel_1 = require("../constants/preflevel");
+exports.Mixvel_AirShoppingRQ = exports.Pax = exports.OriginDestination = void 0;
 var ptc_1 = require("../mappers/dictionary/ptc");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination() {
@@ -12,6 +11,7 @@ var OriginDestination = /** @class */ (function () {
             "CabinTypeCode": "",
             "PrefLevel": { "PrefLevelCode": "" }
         };
+        this.ConnectionPrefRefID = '';
         this.DestArrivalCriteria = {
             "IATA_LocationCode": ""
         };
@@ -36,6 +36,7 @@ var Pax = /** @class */ (function () {
     }
     return Pax;
 }());
+exports.Pax = Pax;
 /**
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
  * Остальное можно реализовать геттерами.
@@ -50,7 +51,7 @@ var Mixvel_AirShoppingRQ = /** @class */ (function () {
         this["Paxs"] = {
             "Pax": Array()
         };
-        this.ShoppingCriteria = Array();
+        this.ShoppingCriteria = [];
     }
     Object.defineProperty(Mixvel_AirShoppingRQ.prototype, "xmlns", {
         get: function () {
@@ -66,38 +67,6 @@ var Mixvel_AirShoppingRQ = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Mixvel_AirShoppingRQ.prototype.addPax = function (id, ptc, age) {
-        this.Paxs.Pax.push(new Pax(id, ptc, age));
-    };
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} dateRangeStart ISO datetime 2021-11-25
-     * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {MixvelCabin} cabinTypeCode
-     */
-    Mixvel_AirShoppingRQ.prototype.addOriginDestination = function (originCode, destinationCode, dateRangeStart, dateRangeEnd, cabinTypeCode) {
-        var OD = new OriginDestination();
-        OD.OriginDepCriteria = {
-            "DateRangeStart": dateRangeStart,
-            "DateRangeEnd": dateRangeEnd,
-            "IATA_LocationCode": originCode
-        };
-        OD.DestArrivalCriteria = { "IATA_LocationCode": destinationCode };
-        OD.CabinType = { CabinTypeCode: cabinTypeCode, PrefLevel: { PrefLevelCode: preflevel_1.Preflevel.REQUIRED } };
-        this.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(OD);
-    };
-    Mixvel_AirShoppingRQ.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
-        var _this = this;
-        this.ShoppingCriteria.push({ "CarrierCriteria": [{
-                    "Carrier": []
-                }] });
-        allowedCarrierCodes.forEach(function (code) {
-            _this.ShoppingCriteria[0].CarrierCriteria[0].Carrier.push({
-                "AirlineDesigCode": code
-            });
-        });
-    };
     return Mixvel_AirShoppingRQ;
 }());
 exports.Mixvel_AirShoppingRQ = Mixvel_AirShoppingRQ;

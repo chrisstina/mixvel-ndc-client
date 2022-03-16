@@ -58,5 +58,4 @@ export declare class OrderCreateRQ extends AbstractTicketMeNDCMessage {
     }[];
     constructor(offer: Offer);
     get nodeName(): string;
-    addPax(pax: Pax, paxContact: PaxContact): void;
 }

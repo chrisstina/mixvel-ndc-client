@@ -59,28 +59,6 @@ var AirDocIssueRQ = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    AirDocIssueRQ.prototype.setPaymentDetails = function (orderId, orderOwner, _a, _b) {
-        var amount = _a.amount, currency = _a.currency;
-        var fopType = _b.fopType, fopMethod = _b.fopMethod;
-        if (!this.Query[0].TicketDocInfo[0].Payments) {
-            this.Query[0].TicketDocInfo[0].Payments = [{
-                    Payment: [{
-                            Order: [{
-                                    "$": {
-                                        "OrderID": orderId,
-                                        "Owner": orderOwner
-                                    }
-                                }],
-                            Amount: [{
-                                    "$": { "Code": currency },
-                                    "_": amount
-                                }],
-                            Method: [fopMethod],
-                            Type: [{ _: fopType }]
-                        }]
-                }];
-        }
-    };
     return AirDocIssueRQ;
 }(AbstractTicketMeNDCMessage_1.AbstractTicketMeNDCMessage));
 exports.AirDocIssueRQ = AirDocIssueRQ;

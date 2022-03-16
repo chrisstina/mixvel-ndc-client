@@ -45,21 +45,6 @@ var Mixvel_OrderCreateRQ = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Mixvel_OrderCreateRQ.prototype.addPax = function (pax, paxContact) {
-        pax.ContactInfoRefID = paxContact.ContactInfoID;
-        this.DataLists.PaxList.Pax.push(pax);
-        this.DataLists.ContactInfoList.ContactInfo.push(paxContact);
-    };
-    /**
-     * @param {string} offerItemId
-     * @param {string[]} paxRefs
-     */
-    Mixvel_OrderCreateRQ.prototype.addSelectedOfferItem = function (offerItemId, paxRefs) {
-        if (!this.CreateOrder.SelectedOffer.SelectedOfferItem) {
-            this.CreateOrder.SelectedOffer.SelectedOfferItem = [];
-        }
-        this.CreateOrder.SelectedOffer.SelectedOfferItem.push({ OfferItemRefID: offerItemId, PaxRefID: paxRefs });
-    };
     return Mixvel_OrderCreateRQ;
 }());
 exports.Mixvel_OrderCreateRQ = Mixvel_OrderCreateRQ;

@@ -9,11 +9,20 @@ var Mixvel_OrderChangeRQ_1 = require("../messages/Mixvel_OrderChangeRQ");
 var IssueOrderMessageMapper = /** @class */ (function () {
     function IssueOrderMessageMapper(params) {
         this.params = params;
+        this.message = new Mixvel_OrderChangeRQ_1.Mixvel_OrderChangeRQ(this.params.orderId);
     }
     IssueOrderMessageMapper.prototype.map = function () {
-        var rq = new Mixvel_OrderChangeRQ_1.Mixvel_OrderChangeRQ(this.params.orderId);
-        rq.setPaymentDetails({ amount: this.params.payment.amount.toString(), currency: this.params.payment.currency }, createFOP(this.params.formOfPayment));
-        return rq;
+        this.setPaymentDetails({ amount: this.params.payment.amount.toString(), currency: this.params.payment.currency }, createFOP(this.params.formOfPayment));
+        return this.message;
+    };
+    IssueOrderMessageMapper.prototype.setPaymentDetails = function (_a, fop) {
+        var amount = _a.amount, currency = _a.currency;
+        this.message.PaymentFunctions = {
+            "PaymentProcessingDetails": {
+                "Amount": { "_": amount, "$": { "CurCode": currency } },
+                "PaymentProcessingDetailsPaymentMethod": fop
+            }
+        };
     };
     return IssueOrderMessageMapper;
 }());

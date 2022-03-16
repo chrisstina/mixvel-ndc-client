@@ -19,11 +19,8 @@ exports.OfferPriceRQ = void 0;
 var AbstractTicketMeNDCMessage_1 = require("./AbstractTicketMeNDCMessage");
 var OfferPriceRQ = /** @class */ (function (_super) {
     __extends(OfferPriceRQ, _super);
-    function OfferPriceRQ(offers, dataLists) {
-        var _this = _super.call(this) || this;
-        _this.Query = { Offer: offers };
-        _this.DataLists = dataLists;
-        return _this;
+    function OfferPriceRQ() {
+        return _super.call(this) || this;
     }
     Object.defineProperty(OfferPriceRQ.prototype, "nodeName", {
         get: function () {

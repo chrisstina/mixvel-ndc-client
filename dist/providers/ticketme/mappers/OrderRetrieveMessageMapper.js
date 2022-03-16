@@ -6,11 +6,11 @@ var OrderRetrieveMessageMapper = /** @class */ (function () {
     function OrderRetrieveMessageMapper(params, credentials) {
         this.params = params;
         this.credentials = credentials;
+        this.message = new OrderRetrieveRQ_1.OrderRetrieveRQ(this.params.orderId, this.params.offerOwner || '');
+        this.message.addParty(this.credentials);
     }
     OrderRetrieveMessageMapper.prototype.map = function () {
-        var ticketMeOfferPriceRQ = new OrderRetrieveRQ_1.OrderRetrieveRQ(this.params.orderId, this.params.offerOwner || '');
-        ticketMeOfferPriceRQ.addParty(this.credentials);
-        return ticketMeOfferPriceRQ;
+        return this.message;
     };
     return OrderRetrieveMessageMapper;
 }());

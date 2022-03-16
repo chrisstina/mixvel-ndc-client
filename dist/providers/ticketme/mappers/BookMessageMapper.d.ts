@@ -5,8 +5,10 @@ import { OrderCreateRQ } from "../messages/OrderCreateRQ";
 export declare class BookMessageMapper implements IMessageMapper {
     readonly params: BookParams;
     readonly credentials: PartyCredentials;
+    message: OrderCreateRQ;
     constructor(params: BookParams, credentials: PartyCredentials);
-    private static passengerToPax;
-    private static passengerToContact;
     map(): OrderCreateRQ;
+    private addPax;
+    private passengerToPax;
+    private passengerToContact;
 }

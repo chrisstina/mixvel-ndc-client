@@ -1,6 +1,5 @@
 import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { MixvelPTC } from "../mappers/dictionary/ptc";
-import { MixvelCabin } from "../mappers/dictionary/cabin";
 export declare class OriginDestination {
     CabinType: {
         CabinTypeCode: string;
@@ -8,6 +7,7 @@ export declare class OriginDestination {
             PrefLevelCode: string;
         };
     };
+    ConnectionPrefRefID?: string;
     DestArrivalCriteria: {
         IATA_LocationCode: string;
     };
@@ -16,6 +16,12 @@ export declare class OriginDestination {
         DateRangeEnd: string;
         IATA_LocationCode: string;
     };
+}
+export declare class Pax {
+    readonly PaxID: string;
+    readonly PTC: MixvelPTC;
+    readonly AgeMeasure: string | undefined;
+    constructor(id: string, ptc?: MixvelPTC, age?: string);
 }
 /**
  * Объекты этого класса будут конвертироваться в XML, поэтому в полях можно держать только то, что уйдет в итоговый запрос.
@@ -34,15 +40,5 @@ export declare class Mixvel_AirShoppingRQ implements INDCMessage {
     "Paxs": {
         Pax: any[];
     };
-    ShoppingCriteria: any[];
-    addPax(id: string, ptc: MixvelPTC, age?: string): void;
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} dateRangeStart ISO datetime 2021-11-25
-     * @param {string} dateRangeEnd ISO datetime 2021-11-25
-     * @param {MixvelCabin} cabinTypeCode
-     */
-    addOriginDestination(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin): void;
-    addCarrierCriteria(allowedCarrierCodes: string[]): void;
+    ShoppingCriteria: Record<string, any>[];
 }

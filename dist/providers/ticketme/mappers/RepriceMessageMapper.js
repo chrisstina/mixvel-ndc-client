@@ -6,11 +6,11 @@ var RepriceMessageMapper = /** @class */ (function () {
     function RepriceMessageMapper(params, credentials) {
         this.params = params;
         this.credentials = credentials;
+        this.message = new OrderReshopRQ_1.OrderReshopRQ(this.params.orderId);
+        this.message.addParty(this.credentials);
     }
     RepriceMessageMapper.prototype.map = function () {
-        var ticketMeReshopRQ = new OrderReshopRQ_1.OrderReshopRQ(this.params.orderId);
-        ticketMeReshopRQ.addParty(this.credentials);
-        return ticketMeReshopRQ;
+        return this.message;
     };
     return RepriceMessageMapper;
 }());

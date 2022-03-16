@@ -1,6 +1,5 @@
 import { AbstractTicketMeNDCMessage, StringValue } from "./AbstractTicketMeNDCMessage";
 import { TicketMePTC } from "../mappers/dictionary/ptc";
-import { TicketMeCabin } from "../mappers/dictionary/cabin";
 import { Preflevel } from "../constants/preflevel";
 export declare class OriginDestination {
     Arrival: {
@@ -11,7 +10,7 @@ export declare class OriginDestination {
         Date: StringValue[];
     }[];
 }
-declare class Pax {
+export declare class Pax {
     $: {
         PassengerID: string;
     };
@@ -57,15 +56,5 @@ export declare class AirShoppingRQ extends AbstractTicketMeNDCMessage {
             Passenger: Pax[];
         }[];
     }[];
-    addPax(id: string, ptc: TicketMePTC): void;
-    /**
-     * @param {string} originCode
-     * @param {string} destinationCode
-     * @param {string} date ISO datetime 2021-11-25
-     */
-    addOriginDestination(originCode: string, destinationCode: string, date: string): void;
-    setCabinPreference(cabin: TicketMeCabin): void;
-    setDirectPreference(preference: Preflevel): void;
-    addCarrierFilters(carriers: string[], level: Preflevel): void;
 }
 export {};

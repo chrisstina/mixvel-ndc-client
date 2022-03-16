@@ -33,9 +33,4 @@ export declare class Mixvel_OrderChangeRQ implements INDCMessage {
      */
     ChangeOrder?: Record<string, unknown>;
     constructor(orderId: string);
-    setPaymentDetails({ amount, currency }: {
-        amount: string;
-        currency: string;
-    }, fop: OtherPaymentMethod | DirectBill): void;
-    setItemsToDelete(orderItems: string[][]): void;
 }

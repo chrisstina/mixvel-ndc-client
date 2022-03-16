@@ -43,10 +43,6 @@ var OrderCreateRQ = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    OrderCreateRQ.prototype.addPax = function (pax, paxContact) {
-        this.Query[0].DataLists[0].PassengerList[0].Passenger.push(pax);
-        this.Query[0].DataLists[0].ContactList[0].ContactInformation.push(paxContact);
-    };
     return OrderCreateRQ;
 }(AbstractTicketMeNDCMessage_1.AbstractTicketMeNDCMessage));
 exports.OrderCreateRQ = OrderCreateRQ;

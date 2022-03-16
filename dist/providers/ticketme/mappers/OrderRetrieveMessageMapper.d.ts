@@ -5,6 +5,7 @@ import { OrderRetrieveRQ } from "../messages/OrderRetrieveRQ";
 export declare class OrderRetrieveMessageMapper implements IMessageMapper {
     readonly params: OrderRetrieveParams;
     readonly credentials: PartyCredentials;
+    message: OrderRetrieveRQ;
     constructor(params: OrderRetrieveParams, credentials: PartyCredentials);
     map(): OrderRetrieveRQ;
 }

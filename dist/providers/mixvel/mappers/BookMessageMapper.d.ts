@@ -3,8 +3,15 @@ import { Mixvel_OrderCreateRQ } from "../messages/Mixvel_OrderCreateRQ";
 import { MixvelBookParams } from "../request/parameters/Book";
 export declare class BookMessageMapper implements IMessageMapper {
     readonly params: MixvelBookParams;
+    message: Mixvel_OrderCreateRQ;
     constructor(params: MixvelBookParams);
-    private static passengerToPax;
-    private static passengerToContact;
     map(): Mixvel_OrderCreateRQ;
+    private passengerToPax;
+    private passengerToContact;
+    private addPax;
+    /**
+     * @param {string} offerItemId
+     * @param {string[]} paxRefs
+     */
+    private addSelectedOfferItem;
 }

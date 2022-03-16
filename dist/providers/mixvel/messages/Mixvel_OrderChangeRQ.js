@@ -44,30 +44,6 @@ var Mixvel_OrderChangeRQ = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Mixvel_OrderChangeRQ.prototype.setPaymentDetails = function (_a, fop) {
-        var amount = _a.amount, currency = _a.currency;
-        this.PaymentFunctions = {
-            "PaymentProcessingDetails": {
-                "Amount": { "_": amount, "$": { "CurCode": currency } },
-                "PaymentProcessingDetailsPaymentMethod": fop
-            }
-        };
-    };
-    Mixvel_OrderChangeRQ.prototype.setItemsToDelete = function (orderItems) {
-        this.ChangeOrder = {
-            UpdateOrderItem: {
-                DeleteOrderItemList: orderItems.map(function (_a) {
-                    var orderId = _a[0], orderItemId = _a[1];
-                    return {
-                        DeleteOrderItem: {
-                            OrderID: orderId,
-                            OrderItemID: orderItemId
-                        }
-                    };
-                })
-            }
-        };
-    };
     return Mixvel_OrderChangeRQ;
 }());
 exports.Mixvel_OrderChangeRQ = Mixvel_OrderChangeRQ;

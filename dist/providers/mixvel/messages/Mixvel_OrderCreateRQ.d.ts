@@ -72,11 +72,5 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
         };
     };
     constructor(offerId: string);
-    addPax(pax: Pax, paxContact: ContactInfo): void;
-    /**
-     * @param {string} offerItemId
-     * @param {string[]} paxRefs
-     */
-    addSelectedOfferItem(offerItemId: string, paxRefs: Array<string>): void;
 }
 export {};
