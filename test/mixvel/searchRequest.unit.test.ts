@@ -122,6 +122,8 @@ class SearchRequestUnitTest {
             onlyDirect: true
         }).getValue().body
 
+        console.log(rq)
+
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
         expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")

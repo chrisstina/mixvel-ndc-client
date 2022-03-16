@@ -14,10 +14,6 @@ var SearchMessageMapper = /** @class */ (function () {
     SearchMessageMapper.prototype.map = function () {
         var _this = this;
         var connectionId;
-        if (this.params.onlyDirect) {
-            connectionId = 'Connection-1'; // @todo
-            this.addConnectionCriteria(connectionId, '1');
-        }
         this.params.originDestinations.forEach(function (od) {
             _this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin), connectionId));
         });
@@ -27,6 +23,10 @@ var SearchMessageMapper = /** @class */ (function () {
         });
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers);
+        }
+        if (this.params.onlyDirect) {
+            connectionId = 'Connection-1'; // @todo
+            this.addConnectionCriteria(connectionId, '1');
         }
         return this.message;
     };
@@ -55,25 +55,25 @@ var SearchMessageMapper = /** @class */ (function () {
         return OD;
     };
     SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
-        var _this = this;
-        var shoppingCriteriaLength = this.message.ShoppingCriteria.push({
-            "CarrierCriteria": [{
-                    "Carrier": []
-                }]
-        });
-        allowedCarrierCodes.forEach(function (code) {
-            _this.message.ShoppingCriteria[shoppingCriteriaLength - 1].CarrierCriteria[0].Carrier.push({
-                "AirlineDesigCode": code
-            });
-        });
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({ 'CarrierCriteria': [] });
+        }
+        this.message.ShoppingCriteria[0].CarrierCriteria = [{
+                "Carrier": allowedCarrierCodes.map(function (code) {
+                    return {
+                        "AirlineDesigCode": code
+                    };
+                })
+            }];
     };
     SearchMessageMapper.prototype.addConnectionCriteria = function (connectionId, maxConnections) {
-        this.message.ShoppingCriteria.push({
-            "ConnectionCriteria": [{
-                    "ConnectionPrefID": connectionId,
-                    "MaximumConnectionQty": maxConnections
-                }]
-        });
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({ 'ConnectionCriteria': [] });
+        }
+        this.message.ShoppingCriteria[0].ConnectionCriteria = [{
+                "ConnectionPrefID": connectionId,
+                "MaximumConnectionQty": maxConnections
+            }];
     };
     return SearchMessageMapper;
 }());

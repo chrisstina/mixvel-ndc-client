@@ -16,10 +16,6 @@ export class SearchMessageMapper implements IMessageMapper {
 
     map(): Mixvel_AirShoppingRQ {
         let connectionId: string
-        if (this.params.onlyDirect) {
-            connectionId = 'Connection-1' // @todo
-            this.addConnectionCriteria(connectionId, '1')
-        }
         this.params.originDestinations.forEach(od => {
             this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(this.createOD(
                 od.from,
@@ -35,6 +31,10 @@ export class SearchMessageMapper implements IMessageMapper {
         })
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers)
+        }
+        if (this.params.onlyDirect) {
+            connectionId = 'Connection-1' // @todo
+            this.addConnectionCriteria(connectionId, '1')
         }
         return this.message
     }
@@ -64,26 +64,25 @@ export class SearchMessageMapper implements IMessageMapper {
     }
 
     private addCarrierCriteria(allowedCarrierCodes: string[]) {
-        const shoppingCriteriaLength = this.message.ShoppingCriteria.push({
-            "CarrierCriteria": [{
-                "Carrier": []
-            }]
-        })
-        allowedCarrierCodes.forEach(code => {
-            this.message.ShoppingCriteria[shoppingCriteriaLength - 1].CarrierCriteria[0].Carrier.push(
-                {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({'CarrierCriteria': []})
+        }
+        this.message.ShoppingCriteria[0].CarrierCriteria = [{
+            "Carrier": allowedCarrierCodes.map(code => {
+                return {
                     "AirlineDesigCode": code
                 }
-            )
-        })
+            })
+        }]
     }
 
     private addConnectionCriteria(connectionId: string, maxConnections: string) {
-        this.message.ShoppingCriteria.push({
-            "ConnectionCriteria": [{
-                "ConnectionPrefID": connectionId,
-                "MaximumConnectionQty": maxConnections
-            }]
-        })
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({'ConnectionCriteria': []})
+        }
+        this.message.ShoppingCriteria[0].ConnectionCriteria = [{
+            "ConnectionPrefID": connectionId,
+            "MaximumConnectionQty": maxConnections
+        }]
     }
 }

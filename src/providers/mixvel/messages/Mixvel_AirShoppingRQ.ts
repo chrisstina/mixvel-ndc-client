@@ -64,5 +64,19 @@ export class Mixvel_AirShoppingRQ implements INDCMessage {
         "Pax": Array()
     }
 
-    public ShoppingCriteria: Record<string, any>[] = []
+    public ShoppingCriteria: ShoppingCriteria[] = []
+}
+
+export type CarrierCriteria = {
+    Carrier: { AirlineDesigCode: string }[]
+}
+
+export type ConnectionCriteria = {
+    "ConnectionPrefID": string,
+    "MaximumConnectionQty": string
+}
+
+type ShoppingCriteria = {
+    CarrierCriteria?: CarrierCriteria[],
+    ConnectionCriteria?: ConnectionCriteria[]
 }
