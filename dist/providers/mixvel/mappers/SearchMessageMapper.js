@@ -56,13 +56,13 @@ var SearchMessageMapper = /** @class */ (function () {
     };
     SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
         var _this = this;
-        this.message.ShoppingCriteria.push({
+        var shoppingCriteriaLength = this.message.ShoppingCriteria.push({
             "CarrierCriteria": [{
                     "Carrier": []
                 }]
         });
         allowedCarrierCodes.forEach(function (code) {
-            _this.message.ShoppingCriteria[0].CarrierCriteria[0].Carrier.push({
+            _this.message.ShoppingCriteria[shoppingCriteriaLength - 1].CarrierCriteria[0].Carrier.push({
                 "AirlineDesigCode": code
             });
         });

@@ -64,13 +64,13 @@ export class SearchMessageMapper implements IMessageMapper {
     }
 
     private addCarrierCriteria(allowedCarrierCodes: string[]) {
-        this.message.ShoppingCriteria.push({
+        const shoppingCriteriaLength = this.message.ShoppingCriteria.push({
             "CarrierCriteria": [{
                 "Carrier": []
             }]
         })
         allowedCarrierCodes.forEach(code => {
-            this.message.ShoppingCriteria[0].CarrierCriteria[0].Carrier.push(
+            this.message.ShoppingCriteria[shoppingCriteriaLength - 1].CarrierCriteria[0].Carrier.push(
                 {
                     "AirlineDesigCode": code
                 }
