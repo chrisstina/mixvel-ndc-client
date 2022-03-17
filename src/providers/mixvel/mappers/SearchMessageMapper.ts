@@ -2,10 +2,12 @@ const {DateTime} = require('luxon')
 
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 import {SearchProps} from "../../../core/request/parameters/Search";
+import {PricingOption} from "../../../core/request/types";
 
 import {Mixvel_AirShoppingRQ, OriginDestination, Pax} from "../messages/Mixvel_AirShoppingRQ";
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc";
 import {MixvelCabin, toMixvel as toMixvelCabin} from "./dictionary/cabin";
+import {toMixvel as toMixvelPricingOption} from "./dictionary/pricingoption";
 import {Preflevel} from "../constants/preflevel";
 
 export class SearchMessageMapper implements IMessageMapper {
@@ -15,7 +17,8 @@ export class SearchMessageMapper implements IMessageMapper {
     }
 
     map(): Mixvel_AirShoppingRQ {
-        let connectionId: string
+        // mind the order of fields!
+        let connectionId = this.generateConnectionId()
         this.params.originDestinations.forEach(od => {
             this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(this.createOD(
                 od.from,
@@ -32,9 +35,11 @@ export class SearchMessageMapper implements IMessageMapper {
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers)
         }
-        if (this.params.onlyDirect) {
-            connectionId = 'Connection-1' // @todo
+        if (connectionId) {
             this.addConnectionCriteria(connectionId, '1')
+        }
+        if (this.params.pricingOption) {
+            this.addPricingCriteria(this.params.pricingOption)
         }
         return this.message
     }
@@ -84,5 +89,21 @@ export class SearchMessageMapper implements IMessageMapper {
             "ConnectionPrefID": connectionId,
             "MaximumConnectionQty": maxConnections
         }]
+    }
+
+    private addPricingCriteria(pricingOption: PricingOption) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({'PricingMethodCriteria': []})
+        }
+        this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
+            "BestPricingOptionText": toMixvelPricingOption(pricingOption)
+        }]
+    }
+
+    private generateConnectionId(): string|undefined {
+        if (this.params.onlyDirect) {
+            return 'Connection-1'
+        }
+        return undefined
     }
 }

@@ -51,8 +51,12 @@ export declare type ConnectionCriteria = {
     "ConnectionPrefID": string;
     "MaximumConnectionQty": string;
 };
+export declare type PricingMethodCriteria = {
+    "BestPricingOptionText": string;
+};
 declare type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[];
     ConnectionCriteria?: ConnectionCriteria[];
+    PricingMethodCriteria?: PricingMethodCriteria[];
 };
 export {};

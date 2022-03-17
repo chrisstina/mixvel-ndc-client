@@ -14,7 +14,7 @@ import {
 } from "class-validator";
 
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Cabin, PaxCategory} from "../types";
+import {Cabin, PaxCategory, PricingOption} from "../types";
 
 export class OriginDestination {
     @IsAlpha()
@@ -78,6 +78,9 @@ export class SearchParams extends AbstractRequestParams {
     @IsBoolean()
     @IsOptional()
     public readonly onlyDirect?: boolean = false
+    @IsOptional()
+    @IsIn(['LOWEST_FARE', 'ALL_FARES'])
+    public readonly pricingOption?: PricingOption
 
     private constructor(props: SearchProps) {
         super()
@@ -92,6 +95,9 @@ export class SearchParams extends AbstractRequestParams {
         this.preferredCarriers = props.preferredCarriers;
         if (props.onlyDirect) {
             this.onlyDirect = props.onlyDirect
+        }
+        if (props.pricingOption) {
+            this.pricingOption = props.pricingOption
         }
     }
 }

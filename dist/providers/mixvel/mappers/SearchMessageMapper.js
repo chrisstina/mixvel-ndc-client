@@ -5,6 +5,7 @@ var DateTime = require('luxon').DateTime;
 var Mixvel_AirShoppingRQ_1 = require("../messages/Mixvel_AirShoppingRQ");
 var ptc_1 = require("./dictionary/ptc");
 var cabin_1 = require("./dictionary/cabin");
+var pricingoption_1 = require("./dictionary/pricingoption");
 var preflevel_1 = require("../constants/preflevel");
 var SearchMessageMapper = /** @class */ (function () {
     function SearchMessageMapper(params) {
@@ -13,7 +14,8 @@ var SearchMessageMapper = /** @class */ (function () {
     }
     SearchMessageMapper.prototype.map = function () {
         var _this = this;
-        var connectionId;
+        // mind the order of fields!
+        var connectionId = this.generateConnectionId();
         this.params.originDestinations.forEach(function (od) {
             _this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin), connectionId));
         });
@@ -24,9 +26,11 @@ var SearchMessageMapper = /** @class */ (function () {
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers);
         }
-        if (this.params.onlyDirect) {
-            connectionId = 'Connection-1'; // @todo
+        if (connectionId) {
             this.addConnectionCriteria(connectionId, '1');
+        }
+        if (this.params.pricingOption) {
+            this.addPricingCriteria(this.params.pricingOption);
         }
         return this.message;
     };
@@ -74,6 +78,20 @@ var SearchMessageMapper = /** @class */ (function () {
                 "ConnectionPrefID": connectionId,
                 "MaximumConnectionQty": maxConnections
             }];
+    };
+    SearchMessageMapper.prototype.addPricingCriteria = function (pricingOption) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({ 'PricingMethodCriteria': [] });
+        }
+        this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
+                "BestPricingOptionText": (0, pricingoption_1.toMixvel)(pricingOption)
+            }];
+    };
+    SearchMessageMapper.prototype.generateConnectionId = function () {
+        if (this.params.onlyDirect) {
+            return 'Connection-1';
+        }
+        return undefined;
     };
     return SearchMessageMapper;
 }());
