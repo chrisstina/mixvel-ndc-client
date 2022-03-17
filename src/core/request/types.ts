@@ -22,3 +22,4 @@ export type DocumentType =
     | "SEAMANS_ID"
     | "RETURN_ID"
 export type FopType = "CASH" | "BILL" | "CARD"
+export type PricingOption = "LOWEST_FARE" | "ALL_FARES"

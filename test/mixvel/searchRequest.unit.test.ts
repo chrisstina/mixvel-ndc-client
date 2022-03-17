@@ -104,6 +104,8 @@ class SearchRequestUnitTest {
             "                  <PrefLevel>\n" +
             "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
             "                  </PrefLevel>")
+        expect(rq).to.contain('<ConnectionPrefRefID>Connection-1')
+        expect(rq).to.contain('<ConnectionPrefID>Connection-1')
         expect(rq).to.contain('<MaximumConnectionQty>1</MaximumConnectionQty>')
     }
 
@@ -122,7 +124,43 @@ class SearchRequestUnitTest {
             onlyDirect: true
         }).getValue().body
 
-        console.log(rq)
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
+        expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
+        expect(rq).to.contain("<PTC>CNN</PTC>")
+        expect(rq).to.contain("<PTC>ADT</PTC>")
+        expect(rq).to.contain("<CabinTypeCode>Economy</CabinTypeCode>\n" +
+            "                  <PrefLevel>\n" +
+            "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
+            "                  </PrefLevel>")
+        expect(rq).to.contain("<Carrier>\n" +
+            "                <AirlineDesigCode>SU</AirlineDesigCode>\n" +
+            "              </Carrier>\n" +
+            "              <Carrier>\n" +
+            "                <AirlineDesigCode>U6</AirlineDesigCode>\n" +
+            "              </Carrier>")
+
+        expect(rq).to.contain('Connection-1')
+        expect(rq).to.contain('</CarrierCriteria>\n' + // check the order
+            '            <ConnectionCriteria>')
+    }
+
+
+    @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY with SU and U6 preferred only direct simple pricing'() {
+        const rq = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"},
+                {ptc: 'CHILD', age: 5, id: "2"}
+            ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "ECONOMY",
+            preferredCarriers: ['SU', 'U6'],
+            onlyDirect: true,
+            pricingOption: "LOWEST_FARE"
+        }).getValue().body
 
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
@@ -141,5 +179,9 @@ class SearchRequestUnitTest {
             "              </Carrier>")
 
         expect(rq).to.contain('Connection-1')
+        expect(rq).to.contain('</CarrierCriteria>\n' + // check the order
+            '            <ConnectionCriteria>')
+        expect(rq).to.contain('</ConnectionCriteria>\n' + // check the order
+            '            <PricingMethodCriteria>')
     }
 }

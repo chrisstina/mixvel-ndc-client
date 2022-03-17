@@ -18,4 +18,6 @@ export declare class SearchMessageMapper implements IMessageMapper {
     private createOD;
     private addCarrierCriteria;
     private addConnectionCriteria;
+    private addPricingCriteria;
+    private generateConnectionId;
 }

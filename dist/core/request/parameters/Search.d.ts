@@ -1,5 +1,5 @@
 import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { Cabin, PaxCategory } from "../types";
+import { Cabin, PaxCategory, PricingOption } from "../types";
 export declare class OriginDestination {
     from: string;
     to: string;
@@ -27,6 +27,7 @@ export declare class SearchParams extends AbstractRequestParams {
     readonly cabin: Cabin;
     readonly preferredCarriers: string[] | null;
     readonly onlyDirect?: boolean;
+    readonly pricingOption?: PricingOption;
     private constructor();
 }
 export {};

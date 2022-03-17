@@ -76,7 +76,12 @@ export type ConnectionCriteria = {
     "MaximumConnectionQty": string
 }
 
+export type PricingMethodCriteria = {
+    "BestPricingOptionText": string
+}
+
 type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[],
-    ConnectionCriteria?: ConnectionCriteria[]
+    ConnectionCriteria?: ConnectionCriteria[],
+    PricingMethodCriteria?: PricingMethodCriteria[]
 }
