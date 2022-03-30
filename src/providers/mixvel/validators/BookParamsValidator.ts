@@ -2,6 +2,8 @@ import assert from "assert";
 import {AbstractParamsValidator} from "../../../core/request/AbstractParamsValidator";
 import {MixvelBookParams} from "../request/parameters/Book";
 
+export const SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE"]
+
 export class BookParamsValidator extends AbstractParamsValidator {
     public static validate(params: MixvelBookParams): null | string {
         const paramsOrError = MixvelBookParams.create<MixvelBookParams>(params)

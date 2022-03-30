@@ -18,10 +18,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookParamsValidator = void 0;
+exports.BookParamsValidator = exports.SUPPORTED_DOCTYPES = void 0;
 var assert_1 = __importDefault(require("assert"));
 var AbstractParamsValidator_1 = require("../../../core/request/AbstractParamsValidator");
 var Book_1 = require("../request/parameters/Book");
+exports.SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE"];
 var BookParamsValidator = /** @class */ (function (_super) {
     __extends(BookParamsValidator, _super);
     function BookParamsValidator() {

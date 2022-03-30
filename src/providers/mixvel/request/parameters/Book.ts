@@ -16,7 +16,7 @@ import {AbstractRequestParams} from "../../../../core/request/parameters/Abstrac
 import {BookProps, Passenger} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
-import {SupportedDocumentTypes} from "../../mappers/dictionary/documentType";
+import {SUPPORTED_DOCTYPES} from "../../validators/BookParamsValidator";
 
 class MixvelContact {
     @IsOptional()
@@ -32,7 +32,7 @@ class MixvelContact {
 }
 
 class MixvelIdentityDocument {
-    @IsIn(Object.keys(SupportedDocumentTypes), {message: `Mixvel supports only following document types: ${Object.keys(SupportedDocumentTypes)}`})
+    @IsIn(SUPPORTED_DOCTYPES, {message: `Mixvel supports only following document types: ${SUPPORTED_DOCTYPES}`})
     public type: DocumentType
     @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string
