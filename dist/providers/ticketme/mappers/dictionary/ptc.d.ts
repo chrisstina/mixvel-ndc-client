@@ -1,9 +1,9 @@
 import { PaxCategory } from "../../../../core/request/types";
 export declare enum TicketMePTC {
     ADULT = "ADT",
-    CHILD = "CNN",
+    CHILD = "CHD",
     INFANT = "INF",
-    WSEATINFANT = "CNN",
+    WSEATINFANT = "CHD",
     YOUTH = "ADT",
     SENIOR = "ADT",
     DISABLED = "ADT",

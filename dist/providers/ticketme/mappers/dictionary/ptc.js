@@ -4,9 +4,9 @@ exports.toTicketMe = exports.TicketMePTC = void 0;
 var TicketMePTC;
 (function (TicketMePTC) {
     TicketMePTC["ADULT"] = "ADT";
-    TicketMePTC["CHILD"] = "CNN";
+    TicketMePTC["CHILD"] = "CHD";
     TicketMePTC["INFANT"] = "INF";
-    TicketMePTC["WSEATINFANT"] = "CNN";
+    TicketMePTC["WSEATINFANT"] = "CHD";
     TicketMePTC["YOUTH"] = "ADT";
     TicketMePTC["SENIOR"] = "ADT";
     TicketMePTC["DISABLED"] = "ADT";
