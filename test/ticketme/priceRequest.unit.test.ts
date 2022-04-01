@@ -17,11 +17,13 @@ class PriceRequestUnitTest {
                 offerItems: [
                     {
                         offerItemId: 'OFFER_ITEM_1',
-                        paxs: 'pax1 pax2'
+                        paxs: 'pax1 pax2',
+                        ptc: 'ADULT'
                     },
                     {
                         offerItemId: 'OFFER_ITEM_2',
-                        paxs: 'pax3'
+                        paxs: 'pax3',
+                        ptc: 'CHILD'
                     }
                 ]
             }]
@@ -48,7 +50,7 @@ console.log(rq)
                 offerItems: [
                     {
                         offerItemId: 'OFFER_ITEM_1',
-                        paxs: 'pax1 pax2'
+                        paxs: 'pax1 pax2',
                     },
                     {
                         offerItemId: 'OFFER_ITEM_2',

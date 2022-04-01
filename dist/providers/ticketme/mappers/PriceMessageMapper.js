@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceMessageMapper = void 0;
 var OfferPriceRQ_1 = require("../messages/OfferPriceRQ");
+var ptc_1 = require("./dictionary/ptc");
 var PriceMessageMapper = /** @class */ (function () {
     function PriceMessageMapper(params, credentials) {
         this.params = params;
@@ -18,7 +19,7 @@ var PriceMessageMapper = /** @class */ (function () {
                     OfferItem: offer.offerItems.map(function (item) {
                         if (item.paxs !== undefined) {
                             paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
-                                return { $: { PassengerID: paxId } };
+                                return { $: { PassengerID: paxId }, PTC: [{ _: (0, ptc_1.toTicketMe)(item.ptc || "ADULT") }] };
                             }));
                         }
                         return {

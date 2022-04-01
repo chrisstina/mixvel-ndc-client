@@ -14,11 +14,13 @@ declare type OfferItem = {
     PassengerRefs: StringValue;
 };
 export declare type PaxDataList = {
-    Passenger: {
-        $: {
-            PassengerID: string;
-        };
-    }[];
+    Passenger: Passenger[];
+};
+export declare type Passenger = {
+    $: {
+        PassengerID: string;
+    };
+    PTC: StringValue[];
 };
 export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;

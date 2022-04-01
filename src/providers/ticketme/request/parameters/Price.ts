@@ -1,8 +1,11 @@
-import {IsArray, IsString, Length, ValidateNested} from "class-validator";
+import {IsArray, IsIn, IsString, Length, ValidateNested} from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
 import {OfferItem, PriceProps} from "../../../../core/request/parameters/Price";
+import {PaxCategory} from "../../../../core/request/types";
 
 class TicketMeOfferItem extends OfferItem {
+    @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+    ptc?: PaxCategory
     @IsString()
     paxs?: string
 }
