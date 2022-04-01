@@ -49,7 +49,7 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('<Passenger PassengerID="PAX1">')
         expect(rq).to.contain('<Passenger PassengerID="PAX2">')
         expect(rq).to.contain('ADT')
-        expect(rq).to.contain('CNN')
+        expect(rq).to.contain('CHD')
         expect(rq).to.contain('<CabinType>\n\t\t\t\t<Code>3')
     }
 
@@ -89,7 +89,7 @@ class SearchRequestUnitTest {
         expect(rq).to.contain('<Passenger PassengerID="PAX1">')
         expect(rq).to.contain('<Passenger PassengerID="PAX2">')
         expect(rq).to.contain('ADT')
-        expect(rq).to.contain('CNN')
+        expect(rq).to.contain('CHD')
 
         expect(rq).to.contain('<AirlinePreferences>\n\t\t\t<Airline PreferencesLevel="Preferred">\n\t\t\t\t<AirlineID>SU')
         expect(rq).to.contain('Airline PreferencesLevel="Preferred">\n\t\t\t\t<AirlineID>U6')

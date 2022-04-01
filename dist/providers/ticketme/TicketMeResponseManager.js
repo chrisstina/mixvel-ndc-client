@@ -62,6 +62,11 @@ var TicketMeDataList_1 = require("./TicketMeDataList");
 var TicketMeResponseMapper = /** @class */ (function () {
     function TicketMeResponseMapper() {
     }
+    TicketMeResponseMapper.toError = function (errorNode) {
+        var _a, _b, _c;
+        var errorText = errorNode._ || ((_a = errorNode.$) === null || _a === void 0 ? void 0 : _a.ShortText);
+        return new TicketMeResponseError({ DescText: errorText, ErrorType: (_b = errorNode.$) === null || _b === void 0 ? void 0 : _b.Type, Code: (_c = errorNode.$) === null || _c === void 0 ? void 0 : _c.Code });
+    };
     TicketMeResponseMapper.prototype.map = function (completeResponseObject) {
         if (completeResponseObject == undefined) {
             throw new ResponseParsingError_1.default('Could not find Body node');
@@ -79,11 +84,6 @@ var TicketMeResponseMapper = /** @class */ (function () {
             }
         }
         return completeResponseObject;
-    };
-    TicketMeResponseMapper.toError = function (errorNode) {
-        var _a, _b, _c;
-        var errorText = errorNode._ || ((_a = errorNode.$) === null || _a === void 0 ? void 0 : _a.ShortText);
-        return new TicketMeResponseError({ DescText: errorText, ErrorType: (_b = errorNode.$) === null || _b === void 0 ? void 0 : _b.Type, Code: (_c = errorNode.$) === null || _c === void 0 ? void 0 : _c.Code });
     };
     return TicketMeResponseMapper;
 }());
