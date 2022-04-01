@@ -15,6 +15,11 @@ type TicketMeCompleteResponse<Namespace extends string> = Record<string,
         Record<string, never>[] | any[]>>
 
 class TicketMeResponseMapper implements IResponseMapper {
+    private static toError(errorNode: {_?: string, $?: Record<string, string>}): TicketMeResponseError {
+        const errorText = errorNode._ || errorNode.$?.ShortText
+        return new TicketMeResponseError({DescText: errorText, ErrorType: errorNode.$?.Type, Code: errorNode.$?.Code})
+    }
+
     public map(completeResponseObject: Partial<TicketMeCompleteResponse<CurrentNamespace>>): TicketMeResponseError | TicketMeResponseMessage {
         if (completeResponseObject == undefined) {
             throw new ResponseParsingError('Could not find Body node')
@@ -30,7 +35,7 @@ class TicketMeResponseMapper implements IResponseMapper {
         if (content !== undefined) {
             const errors = content['ns2:Errors']
             if (errors && errors.length > 0) {
-                return new TicketMeResponseError({DescText: errors[0]['ns2:Error'][0]._})
+                return TicketMeResponseMapper.toError(errors[0]['ns2:Error'][0])
             }
         }
         return completeResponseObject

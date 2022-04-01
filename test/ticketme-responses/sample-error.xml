@@ -1,5 +1,5 @@
 <ns2:AirShoppingRS xmlns:ns2="http://www.iata.org/IATA/EDIST/2017.2" Version="17.2">
     <ns2:Errors>
-        <ns2:Error Owner="Z9">Airline does not operate at requested Departure airport: MOW</ns2:Error>
+        <ns2:Error Type="0" ShortText="Invalid passenger type" Code="0"/>
     </ns2:Errors>
 </ns2:AirShoppingRS>

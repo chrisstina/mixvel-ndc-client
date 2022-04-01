@@ -37,6 +37,6 @@ class SearchResponseUnitTest {
         expect(rs.isSuccess).to.be.true
 
         const airShoppongRS = rs.getValue()
-        expect(airShoppongRS).to.have.property('text').equals('Airline does not operate at requested Departure airport: MOW')
+        expect(airShoppongRS).to.have.property('text').equals('Invalid passenger type')
     }
 }

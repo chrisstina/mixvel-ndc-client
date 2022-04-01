@@ -75,10 +75,15 @@ var TicketMeResponseMapper = /** @class */ (function () {
         if (content !== undefined) {
             var errors = content['ns2:Errors'];
             if (errors && errors.length > 0) {
-                return new TicketMeResponseError({ DescText: errors[0]['ns2:Error'][0]._ });
+                return TicketMeResponseMapper.toError(errors[0]['ns2:Error'][0]);
             }
         }
         return completeResponseObject;
+    };
+    TicketMeResponseMapper.toError = function (errorNode) {
+        var _a, _b, _c;
+        var errorText = errorNode._ || ((_a = errorNode.$) === null || _a === void 0 ? void 0 : _a.ShortText);
+        return new TicketMeResponseError({ DescText: errorText, ErrorType: (_b = errorNode.$) === null || _b === void 0 ? void 0 : _b.Type, Code: (_c = errorNode.$) === null || _c === void 0 ? void 0 : _c.Code });
     };
     return TicketMeResponseMapper;
 }());
