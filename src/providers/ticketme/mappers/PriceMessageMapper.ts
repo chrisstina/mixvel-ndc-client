@@ -1,7 +1,7 @@
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 import {PartyCredentials} from "../TicketMeRequest";
 import {PriceParams} from "../../../core/request/parameters/Price";
-import {OfferPriceRQ, PaxDataList} from "../messages/OfferPriceRQ";
+import {OfferPriceRQ} from "../messages/OfferPriceRQ";
 
 export class PriceMessageMapper implements IMessageMapper {
     message: OfferPriceRQ
@@ -13,7 +13,7 @@ export class PriceMessageMapper implements IMessageMapper {
     }
 
     map(): OfferPriceRQ {
-        const paxs: PaxDataList = []
+        const paxs: { $: { PassengerID: string; }; }[] = []
         this.message.Query = {
             Offer: this.params.offers.map(offer => {
                 return {
@@ -21,7 +21,7 @@ export class PriceMessageMapper implements IMessageMapper {
                     OfferItem: offer.offerItems.map(item => {
                         if (item.paxs !== undefined) {
                             paxs.push(...item.paxs.split(' ').map(paxId => {
-                                return {Passenger: {$: {PassengerID: paxId}}}
+                                return { $: { PassengerID: paxId } }
                             }))
                         }
                         return {
@@ -32,7 +32,7 @@ export class PriceMessageMapper implements IMessageMapper {
                 }
             })
         }
-        this.message.DataLists = {PassengerList: paxs}
+        this.message.DataLists = {PassengerList: {Passenger: paxs}}
         return this.message
     }
 }

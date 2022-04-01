@@ -18,7 +18,7 @@ var PriceMessageMapper = /** @class */ (function () {
                     OfferItem: offer.offerItems.map(function (item) {
                         if (item.paxs !== undefined) {
                             paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
-                                return { Passenger: { $: { PassengerID: paxId } } };
+                                return { $: { PassengerID: paxId } };
                             }));
                         }
                         return {
@@ -29,7 +29,7 @@ var PriceMessageMapper = /** @class */ (function () {
                 };
             })
         };
-        this.message.DataLists = { PassengerList: paxs };
+        this.message.DataLists = { PassengerList: { Passenger: paxs } };
         return this.message;
     };
     return PriceMessageMapper;

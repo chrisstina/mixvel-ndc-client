@@ -10,7 +10,7 @@ type OfferItem = {
     PassengerRefs: StringValue
 }
 
-export type PaxDataList = { Passenger: { $: { PassengerID: string } } }[]
+export type PaxDataList = { Passenger: { $: { PassengerID: string } }[] }
 
 export class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName() {

@@ -28,7 +28,7 @@ class PriceRequestUnitTest {
         })
 
         const rq = request.getValue().body
-
+console.log(rq)
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('OfferPriceRQ')
         expect(rq).to.contain('<Offer Owner="KW" OfferID="SOME_OFFER" ResponseID="SOME_RESONSE_ID">')

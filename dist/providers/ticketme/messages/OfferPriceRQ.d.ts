@@ -18,8 +18,8 @@ export declare type PaxDataList = {
         $: {
             PassengerID: string;
         };
-    };
-}[];
+    }[];
+};
 export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;
     Query?: {
