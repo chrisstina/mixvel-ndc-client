@@ -20,5 +20,6 @@ class ReshopRequestUnitTest {
         expect(rq).to.contain('OrderReshopRQ')
         expect(rq).to.contain('<AgencyID>YOUR_KASSA</AgencyID>')
         expect(rq).to.contain('<OrderID>ORDER_ID</OrderID>')
+        expect(rq).to.contain('<Reprice></Reprice>')
     }
 }

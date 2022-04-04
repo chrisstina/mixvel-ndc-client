@@ -15,7 +15,7 @@ class OrderRetrieveRequestUnitTest {
             orderId: "ORDER_ID",
             offerOwner: "KW"
         }
-
+        const r = getOrderRetrieveRequest(params).getValue()
         const rq = getOrderRetrieveRequest(params).getValue().body
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('OrderRetrieveRQ')

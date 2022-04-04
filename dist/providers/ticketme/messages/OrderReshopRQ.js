@@ -23,7 +23,7 @@ var OrderReshopRQ = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.Query = [{
                 OrderID: [{ _: orderId }],
-                Reprice: [] // @todo support various types of reshop
+                Reprice: [{ "_": "" }] // @todo support various types of reshop
             }];
         return _this;
     }

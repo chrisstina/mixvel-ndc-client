@@ -4,7 +4,7 @@ export declare class OrderReshopRQ extends AbstractTicketMeNDCMessage {
         OrderID: {
             _: string;
         }[];
-        Reprice?: [];
+        Reprice?: Record<string, string>[];
     }[];
     constructor(orderId: string);
     get nodeName(): string;
