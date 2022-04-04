@@ -11,7 +11,6 @@ var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponsePars
 var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var ObjectToXmlNDCConversionStrategy_1 = require("./services/conversion/ObjectToXmlNDCConversionStrategy");
-var XmlNDCToObjectConversionStrategy_1 = require("./services/conversion/XmlNDCToObjectConversionStrategy");
 var RequestEndpointManager_1 = require("./core/request/RequestEndpointManager");
 var RequestOptionsManager_1 = require("./core/request/RequestOptionsManager");
 var Auth_1 = require("./core/request/parameters/Auth");
@@ -35,9 +34,9 @@ pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseMan
 xmlToPojo)));
 // TicketMe provider
 var ndcVersion = '172'; // @todo take from config
-var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion), NDCToPojo = new XmlNDCToObjectConversionStrategy_1.XmlNDCToObjectConversionStrategy(ndcVersion);
+var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion);
 ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
-pojoToNDC, requestOptionsManager), new TicketMeResponseManager_1.TicketMeResponseManager(NDCToPojo)));
+pojoToNDC, requestOptionsManager), new TicketMeResponseManager_1.TicketMeResponseManager(xmlToPojo)));
 function createNDCService(provider, providerConfig) {
     if (providerConfig === void 0) { providerConfig = {}; }
     var theProvider = (typeof provider === "string")

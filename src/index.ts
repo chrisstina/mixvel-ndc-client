@@ -13,7 +13,6 @@ import ResponseParsingError from "./core/errors/ResponseParsingError";
 import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlConversionStrategy";
 import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
 import {ObjectToXmlNDCConversionStrategy} from "./services/conversion/ObjectToXmlNDCConversionStrategy";
-import {XmlNDCToObjectConversionStrategy} from "./services/conversion/XmlNDCToObjectConversionStrategy";
 import {RequestEndpointManager} from "./core/request/RequestEndpointManager";
 import {RequestOptionsManager} from "./core/request/RequestOptionsManager";
 import {AuthParams, AuthProps} from "./core/request/parameters/Auth";
@@ -53,15 +52,15 @@ ProviderLocator.register('mixvel', new Provider(
 
 // TicketMe provider
 const ndcVersion = '172' // @todo take from config
-const pojoToNDC = new ObjectToXmlNDCConversionStrategy(ndcVersion),
-    NDCToPojo = new XmlNDCToObjectConversionStrategy(ndcVersion)
+const pojoToNDC = new ObjectToXmlNDCConversionStrategy(ndcVersion)
+
 ProviderLocator.register('ticketme', new Provider(
     new TicketMeRequestManager(
         new RequestEndpointManager(require('./providers/ticketme/config/endpoints').endpoints),  // @todo take from config
         pojoToNDC,
         requestOptionsManager
     ),
-    new TicketMeResponseManager(NDCToPojo)
+    new TicketMeResponseManager(xmlToPojo)
 ))
 
 export function createNDCService(provider: string | IProvider, providerConfig = {}) {

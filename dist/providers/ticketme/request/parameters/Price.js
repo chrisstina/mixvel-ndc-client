@@ -31,6 +31,9 @@ var TicketMeOfferItem = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
+        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+    ], TicketMeOfferItem.prototype, "ptc", void 0);
+    __decorate([
         (0, class_validator_1.IsString)()
     ], TicketMeOfferItem.prototype, "paxs", void 0);
     return TicketMeOfferItem;
