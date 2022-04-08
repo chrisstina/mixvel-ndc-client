@@ -199,7 +199,7 @@ class SearchRequestUnitTest {
             contract3D: {
                 clientCode: 'RB2715',
                 contractNumber: 'ACC453',
-                contractCode: 'TC'
+                contractType: 'TC'
             }
         }).getValue().body
 

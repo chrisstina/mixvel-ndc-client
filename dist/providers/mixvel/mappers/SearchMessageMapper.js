@@ -103,8 +103,8 @@ var SearchMessageMapper = /** @class */ (function () {
             criterion.ProgramAccount = [];
             criterion.ProgramAccount.push({ AccountID: contract.clientCode });
         }
-        if (contract.contractCode) {
-            criterion.TypeCode = contract.contractCode;
+        if (contract.contractType) {
+            criterion.TypeCode = contract.contractType;
         }
         this.message.ShoppingCriteria[0].ProgramCriteria = [criterion];
     };

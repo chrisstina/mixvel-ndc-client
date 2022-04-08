@@ -15,8 +15,9 @@ declare class AnonymousTraveler {
 }
 export declare type Contract3D = {
     clientCode: string;
+    agencyCode?: string;
     contractNumber?: string;
-    contractCode?: string;
+    contractType?: string;
     discountPercent?: number;
 };
 /**
