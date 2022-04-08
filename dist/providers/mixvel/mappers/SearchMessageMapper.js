@@ -32,6 +32,9 @@ var SearchMessageMapper = /** @class */ (function () {
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption);
         }
+        if (this.params.contract3D) {
+            this.addProgramCriteria(this.params.contract3D);
+        }
         return this.message;
     };
     /**
@@ -86,6 +89,24 @@ var SearchMessageMapper = /** @class */ (function () {
         this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
                 "BestPricingOptionText": (0, pricingoption_1.toMixvel)(pricingOption)
             }];
+    };
+    SearchMessageMapper.prototype.addProgramCriteria = function (contract) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({ 'ProgramCriteria': [] });
+        }
+        var criterion = {};
+        if (contract.contractNumber) {
+            criterion.ProgramContract = [];
+            criterion.ProgramContract.push({ ContractID: contract.contractNumber });
+        }
+        if (contract.clientCode) {
+            criterion.ProgramAccount = [];
+            criterion.ProgramAccount.push({ AccountID: contract.clientCode });
+        }
+        if (contract.contractCode) {
+            criterion.TypeCode = contract.contractCode;
+        }
+        this.message.ShoppingCriteria[0].ProgramCriteria = [criterion];
     };
     SearchMessageMapper.prototype.generateConnectionId = function () {
         if (this.params.onlyDirect) {

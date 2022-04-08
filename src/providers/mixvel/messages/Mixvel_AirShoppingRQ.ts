@@ -80,8 +80,15 @@ export type PricingMethodCriteria = {
     "BestPricingOptionText": string
 }
 
+export type ProgramCriteria = {
+    ProgramContract?: { ContractID: string }[], // contract number
+    ProgramAccount?: { AccountID: string }[] // promo code
+    TypeCode?: string
+}
+
 type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[],
     ConnectionCriteria?: ConnectionCriteria[],
+    ProgramCriteria?: ProgramCriteria[],
     PricingMethodCriteria?: PricingMethodCriteria[]
 }

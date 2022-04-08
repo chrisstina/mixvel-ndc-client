@@ -54,9 +54,19 @@ export declare type ConnectionCriteria = {
 export declare type PricingMethodCriteria = {
     "BestPricingOptionText": string;
 };
+export declare type ProgramCriteria = {
+    ProgramContract?: {
+        ContractID: string;
+    }[];
+    ProgramAccount?: {
+        AccountID: string;
+    }[];
+    TypeCode?: string;
+};
 declare type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[];
     ConnectionCriteria?: ConnectionCriteria[];
+    ProgramCriteria?: ProgramCriteria[];
     PricingMethodCriteria?: PricingMethodCriteria[];
 };
 export {};

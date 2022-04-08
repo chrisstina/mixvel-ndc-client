@@ -145,7 +145,6 @@ class SearchRequestUnitTest {
             '            <ConnectionCriteria>')
     }
 
-
     @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY with SU and U6 preferred only direct simple pricing'() {
         const rq = getSearchRequest({
             travelers: [
@@ -183,5 +182,41 @@ class SearchRequestUnitTest {
             '            <ConnectionCriteria>')
         expect(rq).to.contain('</ConnectionCriteria>\n' + // check the order
             '            <PricingMethodCriteria>')
+    }
+
+    @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY with 3D contract applied'() {
+        const rq = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"},
+                {ptc: 'CHILD', age: 5, id: "2"}
+            ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "ECONOMY",
+            pricingOption: "LOWEST_FARE",
+            contract3D: {
+                clientCode: 'RB2715',
+                contractNumber: 'ACC453',
+                contractCode: 'TC'
+            }
+        }).getValue().body
+
+        console.log(rq)
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
+        expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
+        expect(rq).to.contain("<PTC>CNN</PTC>")
+        expect(rq).to.contain("<PTC>ADT</PTC>")
+        expect(rq).to.contain("<CabinTypeCode>Economy</CabinTypeCode>\n" +
+            "                  <PrefLevel>\n" +
+            "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
+            "                  </PrefLevel>")
+        expect(rq).to.contain("<ProgramCriteria>")
+        expect(rq).to.contain("<ContractID>ACC453</ContractID>")
+        expect(rq).to.contain("<AccountID>RB2715</AccountID>")
+        expect(rq).to.contain("<TypeCode>TC</TypeCode>")
     }
 }

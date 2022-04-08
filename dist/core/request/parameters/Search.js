@@ -88,6 +88,9 @@ var SearchParams = /** @class */ (function (_super) {
         if (props.pricingOption) {
             _this.pricingOption = props.pricingOption;
         }
+        if (props.contract3D) {
+            _this.contract3D = props.contract3D;
+        }
         return _this;
     }
     __decorate([
@@ -106,6 +109,9 @@ var SearchParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsOptional)(),
         (0, class_validator_1.IsIn)(['LOWEST_FARE', 'ALL_FARES'])
     ], SearchParams.prototype, "pricingOption", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)()
+    ], SearchParams.prototype, "contract3D", void 0);
     return SearchParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.SearchParams = SearchParams;

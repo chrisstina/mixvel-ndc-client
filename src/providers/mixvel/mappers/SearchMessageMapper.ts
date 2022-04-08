@@ -1,10 +1,10 @@
 const {DateTime} = require('luxon')
 
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {SearchProps} from "../../../core/request/parameters/Search";
+import {Contract3D, SearchProps} from "../../../core/request/parameters/Search";
 import {PricingOption} from "../../../core/request/types";
 
-import {Mixvel_AirShoppingRQ, OriginDestination, Pax} from "../messages/Mixvel_AirShoppingRQ";
+import {Mixvel_AirShoppingRQ, OriginDestination, Pax, ProgramCriteria} from "../messages/Mixvel_AirShoppingRQ";
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc";
 import {MixvelCabin, toMixvel as toMixvelCabin} from "./dictionary/cabin";
 import {toMixvel as toMixvelPricingOption} from "./dictionary/pricingoption";
@@ -40,6 +40,9 @@ export class SearchMessageMapper implements IMessageMapper {
         }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption)
+        }
+        if (this.params.contract3D) {
+            this.addProgramCriteria(this.params.contract3D)
         }
         return this.message
     }
@@ -98,6 +101,25 @@ export class SearchMessageMapper implements IMessageMapper {
         this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
             "BestPricingOptionText": toMixvelPricingOption(pricingOption)
         }]
+    }
+
+    private addProgramCriteria(contract: Contract3D) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({'ProgramCriteria': []})
+        }
+        const criterion: ProgramCriteria = {}
+        if (contract.contractNumber) {
+            criterion.ProgramContract = []
+            criterion.ProgramContract.push({ContractID: contract.contractNumber})
+        }
+        if (contract.clientCode) {
+            criterion.ProgramAccount = []
+            criterion.ProgramAccount.push({AccountID: contract.clientCode})
+        }
+        if (contract.contractCode) {
+            criterion.TypeCode = contract.contractCode
+        }
+        this.message.ShoppingCriteria[0].ProgramCriteria = [criterion]
     }
 
     private generateConnectionId(): string|undefined {

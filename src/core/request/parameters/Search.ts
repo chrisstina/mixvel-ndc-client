@@ -57,6 +57,13 @@ class AnonymousTraveler {
     }
 }
 
+export type Contract3D = {
+    clientCode: string,
+    contractNumber?: string
+    contractCode?: string
+    discountPercent?: number
+}
+
 /**
  * @typedef SearchProps
  * @property {Array} originDestinations
@@ -81,6 +88,8 @@ export class SearchParams extends AbstractRequestParams {
     @IsOptional()
     @IsIn(['LOWEST_FARE', 'ALL_FARES'])
     public readonly pricingOption?: PricingOption
+    @IsOptional()
+    public readonly contract3D?: Contract3D
 
     private constructor(props: SearchProps) {
         super()
@@ -98,6 +107,9 @@ export class SearchParams extends AbstractRequestParams {
         }
         if (props.pricingOption) {
             this.pricingOption = props.pricingOption
+        }
+        if (props.contract3D) {
+            this.contract3D = props.contract3D
         }
     }
 }
