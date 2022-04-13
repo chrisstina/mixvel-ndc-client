@@ -84,7 +84,8 @@ var MixvelPersonalInfo = /** @class */ (function () {
         (0, class_validator_1.IsAlpha)()
     ], MixvelPersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.IsAlpha)(),
+        (0, class_validator_1.IsOptional)()
     ], MixvelPersonalInfo.prototype, "middleName", void 0);
     __decorate([
         (0, class_validator_1.IsIn)(["M", "F"])

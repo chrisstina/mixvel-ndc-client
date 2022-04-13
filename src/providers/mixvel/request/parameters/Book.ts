@@ -61,6 +61,7 @@ class MixvelPersonalInfo {
     @IsAlpha()
     public lastName: string
     @IsAlpha()
+    @IsOptional()
     public middleName: string
     @IsIn(["M", "F"])
     public gender: "M" | "F"
