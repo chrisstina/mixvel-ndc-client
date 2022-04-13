@@ -1,7 +1,15 @@
-import { INDCMessage } from "../../../interfaces/INDCMessage";
-import { SelectedOffer } from "./Mixvel_OfferPriceRQ";
-import { MixvelDocumentType } from "../mappers/dictionary/documentType";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
+import {SelectedOffer} from "./Mixvel_OfferPriceRQ";
+import {MixvelDocumentType} from "../mappers/dictionary/documentType";
+
 declare type ContactTypeText = "personal";
+declare type Individual = {
+    GenderCode: string;
+    GivenName: string;
+    Birthdate: string;
+    MiddleName?: string;
+    Surname: string;
+};
 export declare class Pax {
     AgeMeasure: string;
     ContactInfoRefID: string;
@@ -13,13 +21,7 @@ export declare class Pax {
         IdentityDocTypeCode: MixvelDocumentType;
         IssuingCountryCode: string;
     };
-    Individual: {
-        GenderCode: string;
-        GivenName: string;
-        Birthdate: string;
-        MiddleName: string;
-        Surname: string;
-    };
+    Individual: Individual;
     PaxID: string;
     PTC: string;
     constructor(AgeMeasure: string, ContactInfoRefID: string, IdentityDoc: {
@@ -29,13 +31,7 @@ export declare class Pax {
         Surname: string;
         IdentityDocTypeCode: MixvelDocumentType;
         IssuingCountryCode: string;
-    }, Individual: {
-        GenderCode: string;
-        GivenName: string;
-        Birthdate: string;
-        MiddleName: string;
-        Surname: string;
-    }, PaxID: string, PTC: string);
+    }, Individual: Individual, PaxID: string, PTC: string);
 }
 export declare class ContactInfo {
     ContactInfoID: string;

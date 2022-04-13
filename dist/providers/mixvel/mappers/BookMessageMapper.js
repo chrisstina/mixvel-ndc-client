@@ -37,7 +37,7 @@ var BookMessageMapper = /** @class */ (function () {
         return this.message;
     };
     BookMessageMapper.prototype.passengerToPax = function (passenger, paxId) {
-        return new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
+        var pax = new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
             ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
             IdentityDocID: passenger.identityDocument.number,
             IdentityDocTypeCode: (0, documentType_1.toMixvel)(passenger.identityDocument.type),
@@ -48,9 +48,13 @@ var BookMessageMapper = /** @class */ (function () {
             Birthdate: (0, commonMappers_1.toMixvelDate)(passenger.personalInfo.dob),
             GenderCode: passenger.personalInfo.gender,
             GivenName: passenger.personalInfo.firstName,
-            MiddleName: passenger.personalInfo.middleName || "",
+            MiddleName: passenger.personalInfo.middleName || undefined,
             Surname: passenger.personalInfo.lastName,
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));
+        if (!pax.Individual.MiddleName) { // mind the nodes order
+            delete pax.Individual.MiddleName;
+        }
+        return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
         return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: passenger.contacts.email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '') });

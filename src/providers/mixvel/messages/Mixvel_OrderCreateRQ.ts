@@ -4,12 +4,14 @@ import {MixvelDocumentType} from "../mappers/dictionary/documentType";
 
 type ContactTypeText = "personal"
 
+type Individual = { GenderCode: string, GivenName: string, Birthdate: string, MiddleName?: string, Surname: string}
+
 export class Pax {
     constructor(
         public AgeMeasure: string,
         public ContactInfoRefID: string,
-        public IdentityDoc: { ExpiryDate: string; IdentityDocID: string; IssueDate: string; Surname: string; IdentityDocTypeCode: MixvelDocumentType; IssuingCountryCode: string },
-        public Individual: { GenderCode: string; GivenName: string; Birthdate: string; MiddleName: string; Surname: string },
+        public IdentityDoc: { ExpiryDate: string, IdentityDocID: string, IssueDate: string, Surname: string, IdentityDocTypeCode: MixvelDocumentType, IssuingCountryCode: string },
+        public Individual: Individual,
         public PaxID: string,
         public PTC: string
     ) {

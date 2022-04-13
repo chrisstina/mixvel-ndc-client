@@ -31,7 +31,7 @@ export class BookMessageMapper implements IMessageMapper {
     }
 
     private passengerToPax(passenger: MixvelPassenger, paxId: number) {
-        return new Pax(
+        const pax = new Pax(
             toAge(passenger.personalInfo.dob),
             '',
             {
@@ -46,12 +46,16 @@ export class BookMessageMapper implements IMessageMapper {
                 Birthdate: toMixvelDate(passenger.personalInfo.dob),
                 GenderCode: passenger.personalInfo.gender,
                 GivenName: passenger.personalInfo.firstName,
-                MiddleName: passenger.personalInfo.middleName || "", // @todo ??
+                MiddleName: passenger.personalInfo.middleName || undefined,
                 Surname: passenger.personalInfo.lastName,
             },
             generatePaxReference(paxId),
             toMixvelPTC(passenger.ptc)
         )
+        if (! pax.Individual.MiddleName) { // mind the nodes order
+            delete pax.Individual.MiddleName
+        }
+        return pax
     }
 
     private passengerToContact(passenger: MixvelPassenger, paxId: number) {
