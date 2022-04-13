@@ -61,14 +61,15 @@ class MixvelPersonalInfo {
     @IsAlpha()
     public lastName: string
     @IsAlpha()
-    public middleName: string
+    @IsOptional()
+    public middleName?: string
     @IsIn(["M", "F"])
     public gender: "M" | "F"
     @IsDate()
     @MaxDate(new Date())
     public dob: Date
 
-    constructor(firstName: string, lastName: string, gender: "M" | "F", dob: Date, middleName: string) {
+    constructor(firstName: string, lastName: string, gender: "M" | "F", dob: Date, middleName?: string) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -93,7 +94,7 @@ export class MixvelPassenger extends Passenger {
             personalInfo.lastName,
             personalInfo.gender,
             personalInfo.dob,
-            personalInfo.middleName || '',
+            personalInfo.middleName || undefined,
         );
         this.identityDocument = new MixvelIdentityDocument(
             identityDocument.type,

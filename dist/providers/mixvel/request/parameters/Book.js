@@ -84,7 +84,8 @@ var MixvelPersonalInfo = /** @class */ (function () {
         (0, class_validator_1.IsAlpha)()
     ], MixvelPersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.IsAlpha)(),
+        (0, class_validator_1.IsOptional)()
     ], MixvelPersonalInfo.prototype, "middleName", void 0);
     __decorate([
         (0, class_validator_1.IsIn)(["M", "F"])
@@ -99,7 +100,7 @@ var MixvelPassenger = /** @class */ (function (_super) {
     __extends(MixvelPassenger, _super);
     function MixvelPassenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, id) {
         var _this = _super.call(this, ptc, personalInfo, identityDocument, contacts, loyaltyInfo, id) || this;
-        _this.personalInfo = new MixvelPersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName || '');
+        _this.personalInfo = new MixvelPersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName || undefined);
         _this.identityDocument = new MixvelIdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);
         _this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         return _this;
