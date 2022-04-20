@@ -23,6 +23,7 @@ import {BookParams, BookProps} from "./core/request/parameters/Book";
 import {TicketIssueParams, TicketIssueProps} from "./core/request/parameters/TicketIssue";
 import {RefundParams, RefundProps} from "./core/request/parameters/Refund";
 import {RepriceParams, RepriceProps} from "./core/request/parameters/Reprice";
+import {isOrderRetrieveProps, isPriceProps} from "./core/request/typeguards";
 
 // Provider-specific
 import {MixvelRequestManager} from "./providers/mixvel/MixvelRequestManager";
@@ -100,8 +101,16 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
             : requestManager.createPriceRequest(paramsOrError.getValue())
     }
 
-    function getFareRulesRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<PriceParams>(props)
+    function getFareRulesRequest(props: PriceProps | OrderRetrieveParams): Result<IRequest> {
+        let paramsOrError
+        if (isPriceProps(props)) {
+            paramsOrError = PriceParams.create<PriceParams>(props as PriceProps)
+        } else if (isOrderRetrieveProps(props)) {
+            paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props as OrderRetrieveParams)
+        }
+        if (paramsOrError === undefined) {
+            return Result.fail<IRequest>('Could not guess params type')
+        }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createFareRulesRequest(paramsOrError.getValue())

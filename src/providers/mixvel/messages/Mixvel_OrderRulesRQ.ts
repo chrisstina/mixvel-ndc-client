@@ -11,15 +11,23 @@ export class Mixvel_OrderRulesRQ implements INDCMessage {
 
     public RulesCoreRequest: Record<string, unknown>
 
-    constructor(offerId: string, offerItemIds: string[]) {
-        this.RulesCoreRequest = {
-            "OfferRequest": {
-                "OfferID": offerId,
-                "OfferItem": offerItemIds.map(offerItemId => {
-                    return {
-                        "OfferItemID": offerItemId
-                    }
-                })
+    constructor(offerOrOrderId: string, offerItemIds?: string[]) {
+        if (offerItemIds) { // request by offer
+            this.RulesCoreRequest = {
+                "OfferRequest": {
+                    "OfferID": offerOrOrderId,
+                    "OfferItem": offerItemIds.map(offerItemId => {
+                        return {
+                            "OfferItemID": offerItemId
+                        }
+                    })
+                }
+            }
+        } else {
+            this.RulesCoreRequest = { // request by order
+                "OrderRequest": {
+                    "OrderID": offerOrOrderId
+                }
             }
         }
     }

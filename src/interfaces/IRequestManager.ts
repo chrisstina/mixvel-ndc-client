@@ -27,7 +27,7 @@ export interface IRequestManager {
 
     createRepriceRequest(params: RepriceParams): Result<IRequest>;
 
-    createFareRulesRequest(params: PriceParams): Result<IRequest>;
+    createFareRulesRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest>;
 
     createBookRequest(params: BookParams): Result<IRequest>;
 

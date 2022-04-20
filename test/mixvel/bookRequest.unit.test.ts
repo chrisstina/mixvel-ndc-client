@@ -159,7 +159,7 @@ class BookRequestUnitTest {
                         number: '12346'
                     },
                     contacts: {
-                        email: 'test@test.test',
+                        // email: 'test@test.test',
                         phoneNumber: '89112311441'
                     }
                 },

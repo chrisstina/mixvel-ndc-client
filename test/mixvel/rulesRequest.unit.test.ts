@@ -30,4 +30,15 @@ class RulesRequestUnitTest {
         expect(rq).to.contain('<OfferItemID>OFFER_ITEM_1')
         expect(rq).to.contain('<OfferItemID>OFFER_ITEM_2')
     }
+
+    @test 'Create fare rules RQ for order'() {
+        const rq = getFareRulesRequest({
+            orderId: 'ME12345'
+        }).getValue().body
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('Mixvel_OrderRulesRQ')
+        expect(rq).to.contain('<RulesCoreRequest>')
+        expect(rq).to.contain('<OrderID>ME12345')
+    }
 }

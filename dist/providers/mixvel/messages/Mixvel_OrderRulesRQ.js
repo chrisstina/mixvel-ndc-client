@@ -2,17 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mixvel_OrderRulesRQ = void 0;
 var Mixvel_OrderRulesRQ = /** @class */ (function () {
-    function Mixvel_OrderRulesRQ(offerId, offerItemIds) {
-        this.RulesCoreRequest = {
-            "OfferRequest": {
-                "OfferID": offerId,
-                "OfferItem": offerItemIds.map(function (offerItemId) {
-                    return {
-                        "OfferItemID": offerItemId
-                    };
-                })
-            }
-        };
+    function Mixvel_OrderRulesRQ(offerOrOrderId, offerItemIds) {
+        if (offerItemIds) { // request by offer
+            this.RulesCoreRequest = {
+                "OfferRequest": {
+                    "OfferID": offerOrOrderId,
+                    "OfferItem": offerItemIds.map(function (offerItemId) {
+                        return {
+                            "OfferItemID": offerItemId
+                        };
+                    })
+                }
+            };
+        }
+        else {
+            this.RulesCoreRequest = {
+                "OrderRequest": {
+                    "OrderID": offerOrOrderId
+                }
+            };
+        }
     }
     Object.defineProperty(Mixvel_OrderRulesRQ.prototype, "xmlns", {
         get: function () {

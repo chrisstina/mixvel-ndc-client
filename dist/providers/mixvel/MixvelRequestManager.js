@@ -15,6 +15,7 @@ var MixvelRequest_1 = require("./MixvelRequest");
 var MixvelAppData_1 = require("./MixvelAppData");
 var MixvelAuthAppData_1 = require("./auth/MixvelAuthAppData");
 var Result_1 = require("../../core/Result");
+var typeguards_1 = require("../../core/request/typeguards");
 var BookParamsValidator_1 = require("./validators/BookParamsValidator");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
@@ -126,11 +127,20 @@ var MixvelRequestManager = /** @class */ (function () {
         }));
     };
     MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
-        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
+        if ((0, typeguards_1.isPriceParams)(params)) {
+            var restructuredParams_1 = MixvelRequestManager.preparePriceParams(params);
+            return Result_1.Result.ok(this.createRequest(params, {
+                mapper: {
+                    map: function () {
+                        return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(restructuredParams_1.offerId, restructuredParams_1.offerItemIds);
+                    }
+                }
+            }));
+        }
         return Result_1.Result.ok(this.createRequest(params, {
             mapper: {
                 map: function () {
-                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
+                    return new Mixvel_OrderRulesRQ_1.Mixvel_OrderRulesRQ(params.orderId);
                 }
             }
         }));

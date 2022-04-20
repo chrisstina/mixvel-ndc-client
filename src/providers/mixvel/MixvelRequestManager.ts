@@ -13,12 +13,14 @@ import {MixvelAppData} from "./MixvelAppData";
 import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
 
 import {Result} from "../../core/Result";
+import {isPriceParams} from "../../core/request/typeguards";
 import {SearchParams} from "../../core/request/parameters/Search";
 import {PriceParams} from "../../core/request/parameters/Price";
 import {BookParams} from "../../core/request/parameters/Book";
 import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
 import {RefundParams} from "../../core/request/parameters/Refund";
 import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
+import {RepriceParams} from "../../core/request/parameters/Reprice";
 
 import {MixvelBookParams} from "./request/parameters/Book";
 
@@ -36,7 +38,6 @@ import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
 import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
-import {RepriceParams} from "../../core/request/parameters/Reprice";
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(
@@ -152,12 +153,21 @@ export class MixvelRequestManager implements IRequestManager {
         }))
     }
 
-    createFareRulesRequest(params: PriceParams): Result<IRequest> {
-        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+    createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest> {
+        if (isPriceParams(params)) {
+            const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+            return Result.ok(this.createRequest(params, {
+                mapper: {
+                    map(): INDCMessage {
+                        return new Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
+                    }
+                }
+            }))
+        }
         return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
-                    return new Mixvel_OrderRulesRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
+                    return new Mixvel_OrderRulesRQ(params.orderId)
                 }
             }
         }))

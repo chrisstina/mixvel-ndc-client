@@ -21,6 +21,7 @@ var Book_1 = require("./core/request/parameters/Book");
 var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
 var Refund_1 = require("./core/request/parameters/Refund");
 var Reprice_1 = require("./core/request/parameters/Reprice");
+var typeguards_1 = require("./core/request/typeguards");
 // Provider-specific
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
@@ -68,7 +69,16 @@ function createNDCService(provider, providerConfig) {
             : requestManager.createPriceRequest(paramsOrError.getValue());
     }
     function getFareRulesRequest(props) {
-        var paramsOrError = Price_1.PriceParams.create(props);
+        var paramsOrError;
+        if ((0, typeguards_1.isPriceProps)(props)) {
+            paramsOrError = Price_1.PriceParams.create(props);
+        }
+        else if ((0, typeguards_1.isOrderRetrieveProps)(props)) {
+            paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
+        }
+        if (paramsOrError === undefined) {
+            return Result_1.Result.fail('Could not guess params type');
+        }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
             : requestManager.createFareRulesRequest(paramsOrError.getValue());
