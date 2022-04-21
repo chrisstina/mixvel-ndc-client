@@ -81,7 +81,7 @@ function generatePaxReference(paxId) {
     return "Pax_".concat(paxId);
 }
 function generateContactReference(paxId) {
-    return "Pax_".concat(paxId);
+    return "PaxContact_".concat(paxId);
 }
 /**
  * Phone has to contain '+' sign

@@ -1,6 +1,8 @@
-import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { DocumentType, PaxCategory } from "../types";
-import { Offer } from "./Price";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
+import {DocumentType, PaxCategory} from "../types";
+import {Offer} from "./Price";
+
+export declare const SUPPORTED_DOCTYPES: string[];
 export declare type BookProps = RequestProps<BookParams>;
 export declare class BookParams extends AbstractRequestParams {
     offer: Offer;
