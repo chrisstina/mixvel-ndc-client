@@ -17,6 +17,8 @@ import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
 
+export const SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"]
+
 export type BookProps = RequestProps<BookParams>
 
 export class BookParams extends AbstractRequestParams {
@@ -66,7 +68,7 @@ class PersonalInfo {
 }
 
 class IdentityDocument {
-    @IsIn(["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT"])
+    @IsIn( SUPPORTED_DOCTYPES)
     public type: DocumentType
     @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string

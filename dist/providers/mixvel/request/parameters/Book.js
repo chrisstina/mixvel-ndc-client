@@ -26,7 +26,6 @@ var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("../../../../core/request/parameters/AbstractRequestParams");
 var Book_1 = require("../../../../core/request/parameters/Book");
 var Price_1 = require("../../../../core/request/parameters/Price");
-var BookParamsValidator_1 = require("../../validators/BookParamsValidator");
 var MixvelContact = /** @class */ (function () {
     function MixvelContact(phoneNumber, email) {
         this.phoneNumber = phoneNumber;
@@ -50,7 +49,7 @@ var MixvelIdentityDocument = /** @class */ (function () {
         this.dateOfExpiry = dateOfExpiry;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(BookParamsValidator_1.SUPPORTED_DOCTYPES, { message: "Mixvel supports only following document types: ".concat(BookParamsValidator_1.SUPPORTED_DOCTYPES) })
+        (0, class_validator_1.IsIn)(Book_1.SUPPORTED_DOCTYPES)
     ], MixvelIdentityDocument.prototype, "type", void 0);
     __decorate([
         (0, class_validator_1.IsNotEmpty)({ message: 'Document number should not be empty' })

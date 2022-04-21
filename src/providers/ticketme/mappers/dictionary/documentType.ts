@@ -21,9 +21,9 @@ export enum TicketmeDocumentType {
 
 export function toTicketMe(docType: DocumentType): TicketmeDocumentType {
     switch (docType) {
-        case "REGULAR_PASSPORT":
+        case "REGULAR_PASSPORT_RU":
             return TicketmeDocumentType.REGULAR_PASSPORT
-        case "INTERNATIONAL_PASSPORT":
+        case "INTERNATIONAL_PASSPORT_RU":
             return TicketmeDocumentType.INTERNATIONAL_PASSPORT
         case "BIRTHDAY_CERTIFICATE":
             return TicketmeDocumentType.BIRTHDAY_CERTIFICATE

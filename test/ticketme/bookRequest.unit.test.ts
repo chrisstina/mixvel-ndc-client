@@ -29,7 +29,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-02-15'),
                     },
                     identityDocument: {
-                        type: "REGULAR_PASSPORT",
+                        type: "REGULAR_PASSPORT_RU",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',
@@ -83,7 +83,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-02-15'),
                     },
                     identityDocument: {
-                        type: "REGULAR_PASSPORT",
+                        type: "REGULAR_PASSPORT_RU",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',
@@ -105,7 +105,7 @@ class BookRequestUnitTest {
                         dob: new Date('1999-03-15'),
                     },
                     identityDocument: {
-                        type: "REGULAR_PASSPORT",
+                        type: "REGULAR_PASSPORT_RU",
                         dateOfIssue: new Date('2015-02-15'),
                         dateOfExpiry: new Date('2025-02-15'),
                         issuingCountry: 'RU',

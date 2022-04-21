@@ -21,10 +21,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Passenger = exports.BookParams = void 0;
+exports.Passenger = exports.BookParams = exports.SUPPORTED_DOCTYPES = void 0;
 var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var Price_1 = require("./Price");
+exports.SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"];
 var BookParams = /** @class */ (function (_super) {
     __extends(BookParams, _super);
     function BookParams(props) {
@@ -77,7 +78,7 @@ var IdentityDocument = /** @class */ (function () {
         this.dateOfExpiry = dateOfExpiry;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(["REGULAR_PASSPORT", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT"])
+        (0, class_validator_1.IsIn)(exports.SUPPORTED_DOCTYPES)
     ], IdentityDocument.prototype, "type", void 0);
     __decorate([
         (0, class_validator_1.IsNotEmpty)({ message: 'Document number should not be empty' })

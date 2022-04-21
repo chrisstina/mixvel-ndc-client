@@ -13,10 +13,9 @@ import {
     ValidateNested
 } from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {BookProps, Passenger} from "../../../../core/request/parameters/Book";
+import {BookProps, Passenger, SUPPORTED_DOCTYPES} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
-import {SUPPORTED_DOCTYPES} from "../../validators/BookParamsValidator";
 
 class MixvelContact {
     @IsOptional()
@@ -32,7 +31,7 @@ class MixvelContact {
 }
 
 class MixvelIdentityDocument {
-    @IsIn(SUPPORTED_DOCTYPES, {message: `Mixvel supports only following document types: ${SUPPORTED_DOCTYPES}`})
+    @IsIn(SUPPORTED_DOCTYPES)
     public type: DocumentType
     @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string

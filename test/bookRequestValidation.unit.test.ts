@@ -32,7 +32,7 @@ class BookRequestValidationUnitTest {
                         "dob": new Date("2000-09-01T08:00:00.000Z")
                     },
                     "identityDocument": {
-                        "type": "REGULAR_PASSPORT",
+                        "type": "REGULAR_PASSPORT_RU",
                         "dateOfIssue": new Date("2021-02-07T08:00:00.000Z"),
                         "dateOfExpiry": new Date("2027-02-06T08:00:00.000Z"),
                         "issuingCountry": "RU",
