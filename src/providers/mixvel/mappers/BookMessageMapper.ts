@@ -89,7 +89,7 @@ function generatePaxReference(paxId: number): string {
 }
 
 function generateContactReference(paxId: number): string {
-    return `Pax_${paxId}`
+    return `PaxContact_${paxId}`
 }
 
 /**

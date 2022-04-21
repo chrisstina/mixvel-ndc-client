@@ -46,6 +46,8 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
         expect(rq).to.contain('<OfferItemRefID>OFFER-1')
         expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
+        expect(rq).to.contain('<ContactInfoID>PaxContact_1')
+        expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
         expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
     }
 
