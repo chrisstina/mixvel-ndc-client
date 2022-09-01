@@ -36,7 +36,7 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
     }
 
     public CreateOrder: {
-        SelectedOffer: SelectedOffer,
+        SelectedOffer: SelectedOffer[],
     }
 
     public DataLists: {
@@ -48,11 +48,9 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
         }
     }
 
-    constructor(offerId: string) {
+    constructor() {
         this.CreateOrder = {
-            SelectedOffer: {
-                OfferRefID: offerId,
-            },
+            SelectedOffer: [],
         }
         this.DataLists = {ContactInfoList: {ContactInfo: []}, PaxList: {Pax: []}}
     }

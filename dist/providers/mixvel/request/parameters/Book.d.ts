@@ -1,7 +1,8 @@
-import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
-import { Passenger } from "../../../../core/request/parameters/Book";
-import { Offer } from "../../../../core/request/parameters/Price";
-import { DocumentType, PaxCategory } from "../../../../core/request/types";
+import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
+import {Passenger} from "../../../../core/request/parameters/Book";
+import {Offer} from "../../../../core/request/parameters/Price";
+import {DocumentType, PaxCategory} from "../../../../core/request/types";
+
 declare class MixvelContact {
     phoneNumber?: string;
     email: string;
@@ -24,7 +25,7 @@ export declare class MixvelPassenger extends Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: Record<string, unknown>, id?: string);
+    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string);
 }
 export declare class MixvelBookParams extends AbstractRequestParams {
     offer: Offer;

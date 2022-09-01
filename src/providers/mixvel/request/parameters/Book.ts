@@ -86,8 +86,9 @@ export class MixvelPassenger extends Passenger {
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
                 contacts: { phoneNumber?: string; email?: string },
                 loyaltyInfo?: Record<string, unknown>,
+                ancillaries?: Array<Offer>,
                 id?: string) {
-        super(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, id);
+        super(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id);
         this.personalInfo = new MixvelPersonalInfo(
             personalInfo.firstName,
             personalInfo.lastName,
@@ -102,6 +103,7 @@ export class MixvelPassenger extends Passenger {
             identityDocument.dateOfIssue,
             identityDocument.dateOfExpiry);
         this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
+        this.ancillaries = ancillaries;
     }
 }
 
@@ -121,6 +123,7 @@ export class MixvelBookParams extends AbstractRequestParams {
             passenger.identityDocument,
             passenger.contacts,
             passenger.loyaltyInfo,
+            passenger.ancillaries,
             passenger.id
         ))
     }

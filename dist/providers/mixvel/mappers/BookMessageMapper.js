@@ -17,22 +17,38 @@ var commonMappers_1 = require("./commonMappers");
 var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params) {
         this.params = params;
-        this.message = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ(this.params.offer.offerId);
+        this.message = new Mixvel_OrderCreateRQ_1.Mixvel_OrderCreateRQ();
     }
     BookMessageMapper.prototype.map = function () {
         var _this = this;
-        var paxRefs = new Map();
+        var paxRefs = new Map(), ancillaryOffers = [];
         this.params.passengers.forEach(function (passenger, idx) {
             var pax = _this.passengerToPax(passenger, idx + 1);
             paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], paxRefs.get(passenger.ptc) || [], true), [pax.PaxID], false));
             _this.addPax(pax, _this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
+            if (passenger.ancillaries && passenger.ancillaries.length > 0) { // collect ancillaries
+                ancillaryOffers.push.apply(// collect ancillaries
+                ancillaryOffers, passenger.ancillaries.map(function (ancillary) {
+                    return { ancillary: ancillary, paxRef: pax.PaxID };
+                }));
+            }
         });
+        var flightOffer = this.addSelectedOffer(this.params.offer);
         this.params.offer.offerItems.forEach(function (_a) {
             var offerItemId = _a.offerItemId, ptc = _a.ptc;
             if (paxRefs.has(ptc)) {
-                _this.addSelectedOfferItem(offerItemId, paxRefs.get(ptc));
+                _this.addSelectedOfferItem(flightOffer, offerItemId, paxRefs.get(ptc));
             }
+        });
+        // ancillaries
+        ancillaryOffers.forEach(function (_a) {
+            var ancillary = _a.ancillary, paxRef = _a.paxRef;
+            var ancillaryOffer = _this.addSelectedOffer(ancillary);
+            ancillary.offerItems.forEach(function (_a) {
+                var offerItemId = _a.offerItemId, ptc = _a.ptc;
+                _this.addSelectedOfferItem(ancillaryOffer, offerItemId, [paxRef]);
+            });
         });
         return this.message;
     };
@@ -65,14 +81,26 @@ var BookMessageMapper = /** @class */ (function () {
         this.message.DataLists.ContactInfoList.ContactInfo.push(paxContact);
     };
     /**
+     * @param {Offer} offer
+     * @return {SelectedOffer}
+     */
+    BookMessageMapper.prototype.addSelectedOffer = function (offer) {
+        this.message.CreateOrder.SelectedOffer.push({ OfferRefID: offer.offerId, SelectedOfferItem: [] });
+        return this.message.CreateOrder.SelectedOffer[this.message.CreateOrder.SelectedOffer.length - 1];
+    };
+    /**
+     * @param {SelectedOffer} selectedOffer
      * @param {string} offerItemId
      * @param {string[]} paxRefs
      */
-    BookMessageMapper.prototype.addSelectedOfferItem = function (offerItemId, paxRefs) {
-        if (!this.message.CreateOrder.SelectedOffer.SelectedOfferItem) {
-            this.message.CreateOrder.SelectedOffer.SelectedOfferItem = [];
+    BookMessageMapper.prototype.addSelectedOfferItem = function (selectedOffer, offerItemId, paxRefs) {
+        if (!selectedOffer.SelectedOfferItem) {
+            selectedOffer.SelectedOfferItem = [];
         }
-        this.message.CreateOrder.SelectedOffer.SelectedOfferItem.push({ OfferItemRefID: offerItemId, PaxRefID: paxRefs });
+        selectedOffer.SelectedOfferItem.push({
+            OfferItemRefID: offerItemId,
+            PaxRefID: paxRefs
+        });
     };
     return BookMessageMapper;
 }());

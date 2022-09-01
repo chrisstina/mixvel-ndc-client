@@ -5,29 +5,46 @@ import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
 import {toMixvel as toMixvelDocument} from "./dictionary/documentType"
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc"
 import {toAge, toMixvelDate} from "./commonMappers";
+import {Offer} from "../../../core/request/parameters/Price";
+import {SelectedOffer} from "../messages/Mixvel_OfferPriceRQ";
 
 export class BookMessageMapper implements IMessageMapper {
     message: Mixvel_OrderCreateRQ
 
     constructor(public readonly params: MixvelBookParams) {
-        this.message = new Mixvel_OrderCreateRQ(this.params.offer.offerId)
+        this.message = new Mixvel_OrderCreateRQ()
     }
 
     map(): Mixvel_OrderCreateRQ {
-        const paxRefs = new Map()
+        const paxRefs = new Map(),
+            ancillaryOffers: Array<{ ancillary: Offer, paxRef: string }> = [];
         this.params.passengers.forEach((passenger, idx) => {
-            const pax = this.passengerToPax(passenger, idx + 1)
-            paxRefs.set(passenger.ptc, [...paxRefs.get(passenger.ptc) || [], pax.PaxID])
-            this.addPax(pax, this.passengerToContact(passenger, idx + 1))
+            const pax = this.passengerToPax(passenger, idx + 1);
+            paxRefs.set(passenger.ptc, [...paxRefs.get(passenger.ptc) || [], pax.PaxID]);
+            this.addPax(pax, this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
-        })
-
-        this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
-            if (paxRefs.has(ptc)) {
-                this.addSelectedOfferItem(offerItemId, paxRefs.get(ptc))
+            if (passenger.ancillaries && passenger.ancillaries.length > 0) { // collect ancillaries
+                ancillaryOffers.push(...passenger.ancillaries.map(ancillary => {
+                    return {ancillary, paxRef: pax.PaxID}
+                }));
             }
         })
-        return this.message
+
+        const flightOffer = this.addSelectedOffer(this.params.offer);
+        this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
+            if (paxRefs.has(ptc)) {
+                this.addSelectedOfferItem(flightOffer, offerItemId, paxRefs.get(ptc))
+            }
+        });
+
+        // ancillaries
+        ancillaryOffers.forEach(({ancillary, paxRef}) => {
+            const ancillaryOffer = this.addSelectedOffer(ancillary);
+            ancillary.offerItems.forEach(({offerItemId, ptc}) => {
+                this.addSelectedOfferItem(ancillaryOffer, offerItemId, [paxRef]);
+            });
+        })
+        return this.message;
     }
 
     private passengerToPax(passenger: MixvelPassenger, paxId: number) {
@@ -52,7 +69,7 @@ export class BookMessageMapper implements IMessageMapper {
             generatePaxReference(paxId),
             toMixvelPTC(passenger.ptc)
         )
-        if (! pax.Individual.MiddleName) { // mind the nodes order
+        if (!pax.Individual.MiddleName) { // mind the nodes order
             delete pax.Individual.MiddleName
         }
         return pax
@@ -73,14 +90,27 @@ export class BookMessageMapper implements IMessageMapper {
     }
 
     /**
+     * @param {Offer} offer
+     * @return {SelectedOffer}
+     */
+    private addSelectedOffer(offer: Offer) {
+        this.message.CreateOrder.SelectedOffer.push({OfferRefID: offer.offerId, SelectedOfferItem: []});
+        return this.message.CreateOrder.SelectedOffer[this.message.CreateOrder.SelectedOffer.length - 1];
+    }
+
+    /**
+     * @param {SelectedOffer} selectedOffer
      * @param {string} offerItemId
      * @param {string[]} paxRefs
      */
-    private addSelectedOfferItem(offerItemId: string, paxRefs: Array<string>) {
-        if (!this.message.CreateOrder.SelectedOffer.SelectedOfferItem) {
-            this.message.CreateOrder.SelectedOffer.SelectedOfferItem = []
+    private addSelectedOfferItem(selectedOffer: SelectedOffer, offerItemId: string, paxRefs: Array<string>) {
+        if (!selectedOffer.SelectedOfferItem) {
+            selectedOffer.SelectedOfferItem = [];
         }
-        this.message.CreateOrder.SelectedOffer.SelectedOfferItem.push({OfferItemRefID: offerItemId, PaxRefID: paxRefs})
+        selectedOffer.SelectedOfferItem.push({
+            OfferItemRefID: offerItemId,
+            PaxRefID: paxRefs
+        });
     }
 }
 

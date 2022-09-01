@@ -37,6 +37,7 @@ export declare class Passenger {
     identityDocument: IdentityDocument;
     contacts: Contact;
     loyaltyInfo?: Record<string, unknown>;
+    ancillaries?: Array<Offer>;
     constructor(ptc: PaxCategory, personalInfo: {
         firstName: string;
         lastName: string;
@@ -52,6 +53,6 @@ export declare class Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: Record<string, unknown>, id?: string | undefined);
+    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string | undefined);
 }
 export {};

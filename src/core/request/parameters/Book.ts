@@ -36,11 +36,9 @@ export class BookParams extends AbstractRequestParams {
             passenger.identityDocument,
             passenger.contacts,
             passenger.loyaltyInfo,
+            passenger.ancillaries,
             passenger.id
         ))
-        // ancillaries
-
-
     }
 }
 
@@ -115,11 +113,14 @@ export class Passenger {
     @ValidateNested()
     public contacts: Contact
     public loyaltyInfo?: Record<string, unknown>
+    public ancillaries?: Array<Offer>
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
-                contacts: { phoneNumber?: string; email?: string }, loyaltyInfo?: Record<string, unknown>,
+                contacts: { phoneNumber?: string; email?: string },
+                loyaltyInfo?: Record<string, unknown>,
+                ancillaries?: Array<Offer>,
                 public readonly id?: string) {
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(
@@ -137,5 +138,6 @@ export class Passenger {
             identityDocument.dateOfExpiry);
         this.contacts = new Contact(contacts.phoneNumber, contacts.email);
         this.loyaltyInfo = loyaltyInfo;
+        this.ancillaries = ancillaries;
     }
 }

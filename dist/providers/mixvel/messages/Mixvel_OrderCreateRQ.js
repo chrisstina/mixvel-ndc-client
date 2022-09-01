@@ -23,11 +23,9 @@ var ContactInfo = /** @class */ (function () {
 }());
 exports.ContactInfo = ContactInfo;
 var Mixvel_OrderCreateRQ = /** @class */ (function () {
-    function Mixvel_OrderCreateRQ(offerId) {
+    function Mixvel_OrderCreateRQ() {
         this.CreateOrder = {
-            SelectedOffer: {
-                OfferRefID: offerId,
-            },
+            SelectedOffer: [],
         };
         this.DataLists = { ContactInfoList: { ContactInfo: [] }, PaxList: { Pax: [] } };
     }

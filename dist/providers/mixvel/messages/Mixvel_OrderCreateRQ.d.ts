@@ -57,7 +57,7 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
     };
     get nodeName(): string;
     CreateOrder: {
-        SelectedOffer: SelectedOffer;
+        SelectedOffer: SelectedOffer[];
     };
     DataLists: {
         "ContactInfoList": {
@@ -67,6 +67,6 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
             "Pax": Array<Pax>;
         };
     };
-    constructor(offerId: string);
+    constructor();
 }
 export {};
