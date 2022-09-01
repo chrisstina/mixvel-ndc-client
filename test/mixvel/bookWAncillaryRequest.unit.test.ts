@@ -39,6 +39,10 @@ class BookWAncillaryRequestUnitTest {
                         {
                             offerId: 'BAG-OFFER',
                             offerItems: [{offerItemId: 'SOME-BAG-OFFER-1'}]
+                        },
+                        {
+                            offerId: 'SEAT-OFFER',
+                            offerItems: [{offerItemId: 'SOME-SEAT-OFFER-1'}]
                         }
                     ]
                 }
@@ -46,6 +50,8 @@ class BookWAncillaryRequestUnitTest {
         }
 
         const rq = getBookRequest(params).getValue().body
+        console.log(rq.toString())
+
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderCreateRQ')
         expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
