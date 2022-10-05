@@ -1,5 +1,6 @@
-import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { Cabin, PaxCategory, PricingOption } from "../types";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
+import {Cabin, PaxCategory, PricingOption} from "../types";
+
 export declare class OriginDestination {
     from: string;
     to: string;
@@ -32,7 +33,7 @@ export declare class SearchParams extends AbstractRequestParams {
     originDestinations: OriginDestination[];
     readonly travelers: AnonymousTraveler[];
     readonly cabin: Cabin;
-    readonly preferredCarriers: string[] | null;
+    readonly preferredCarriers?: string[];
     readonly onlyDirect?: boolean;
     readonly pricingOption?: PricingOption;
     readonly contract3D?: Contract3D;

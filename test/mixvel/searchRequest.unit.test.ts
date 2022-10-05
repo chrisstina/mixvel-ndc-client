@@ -22,8 +22,7 @@ class SearchRequestUnitTest {
                 {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
                 {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
             ],
-            cabin: "ECONOMY",
-            preferredCarriers: []
+            cabin: "ECONOMY"
         })
 
         if (request.isFailure) {
@@ -92,7 +91,6 @@ class SearchRequestUnitTest {
                 {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
             ],
             cabin: "ECONOMY",
-            preferredCarriers: [],
             onlyDirect: true
         }).getValue().body
 

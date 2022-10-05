@@ -71,16 +71,15 @@ export class SearchMessageMapper implements IMessageMapper {
         return OD
     }
 
-    private addCarrierCriteria(allowedCarrierCodes: string[]) {
+    private addCarrierCriteria(allowedCarrierCodes: string[], prefType: Preflevel = Preflevel.REQUIRED) {
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({'CarrierCriteria': []})
         }
         this.message.ShoppingCriteria[0].CarrierCriteria = [{
-            "Carrier": allowedCarrierCodes.map(code => {
-                return {
-                    "AirlineDesigCode": code
-                }
-            })
+            Carrier: allowedCarrierCodes.map(code => {
+                return {AirlineDesigCode: code}
+            }),
+            CarrierPrefID: prefType
         }]
     }
 
@@ -122,7 +121,7 @@ export class SearchMessageMapper implements IMessageMapper {
         this.message.ShoppingCriteria[0].ProgramCriteria = [criterion]
     }
 
-    private generateConnectionId(): string|undefined {
+    private generateConnectionId(): string | undefined {
         if (this.params.onlyDirect) {
             return 'Connection-1'
         }

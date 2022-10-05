@@ -1,5 +1,7 @@
-import { INDCMessage } from "../../../interfaces/INDCMessage";
-import { MixvelPTC } from "../mappers/dictionary/ptc";
+import {INDCMessage} from "../../../interfaces/INDCMessage";
+import {MixvelPTC} from "../mappers/dictionary/ptc";
+import {Preflevel} from "../constants/preflevel";
+
 export declare class OriginDestination {
     CabinType: {
         CabinTypeCode: string;
@@ -46,6 +48,7 @@ export declare type CarrierCriteria = {
     Carrier: {
         AirlineDesigCode: string;
     }[];
+    CarrierPrefID: Preflevel;
 };
 export declare type ConnectionCriteria = {
     "ConnectionPrefID": string;

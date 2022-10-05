@@ -61,16 +61,16 @@ var SearchMessageMapper = /** @class */ (function () {
         OD.CabinType = { CabinTypeCode: cabinTypeCode, PrefLevel: { PrefLevelCode: preflevel_1.Preflevel.REQUIRED } };
         return OD;
     };
-    SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
+    SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes, prefType) {
+        if (prefType === void 0) { prefType = preflevel_1.Preflevel.REQUIRED; }
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({ 'CarrierCriteria': [] });
         }
         this.message.ShoppingCriteria[0].CarrierCriteria = [{
-                "Carrier": allowedCarrierCodes.map(function (code) {
-                    return {
-                        "AirlineDesigCode": code
-                    };
-                })
+                Carrier: allowedCarrierCodes.map(function (code) {
+                    return { AirlineDesigCode: code };
+                }),
+                CarrierPrefID: prefType
             }];
     };
     SearchMessageMapper.prototype.addConnectionCriteria = function (connectionId, maxConnections) {

@@ -24,8 +24,7 @@ class SearchRequestUnitTest {
                 {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
                 {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
             ],
-            cabin: "ECONOMY",
-            preferredCarriers: []
+            cabin: "ECONOMY"
         })
         const rq = request.getValue().body
 

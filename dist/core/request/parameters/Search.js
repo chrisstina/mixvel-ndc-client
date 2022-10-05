@@ -102,6 +102,10 @@ var SearchParams = /** @class */ (function (_super) {
         (0, class_validator_1.ValidateNested)({ each: true })
     ], SearchParams.prototype, "travelers", void 0);
     __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.ArrayNotEmpty)()
+    ], SearchParams.prototype, "preferredCarriers", void 0);
+    __decorate([
         (0, class_validator_1.IsBoolean)(),
         (0, class_validator_1.IsOptional)()
     ], SearchParams.prototype, "onlyDirect", void 0);

@@ -82,7 +82,9 @@ export class SearchParams extends AbstractRequestParams {
     @ValidateNested({each: true})
     public readonly travelers: AnonymousTraveler[]
     public readonly cabin: Cabin
-    public readonly preferredCarriers: string[] | null
+    @IsOptional()
+    @ArrayNotEmpty()
+    public readonly preferredCarriers?: string[]
     @IsBoolean()
     @IsOptional()
     public readonly onlyDirect?: boolean = false

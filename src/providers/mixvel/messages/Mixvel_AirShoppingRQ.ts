@@ -4,6 +4,7 @@
 
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {MixvelPTC} from "../mappers/dictionary/ptc"
+import {Preflevel} from "../constants/preflevel";
 
 export class OriginDestination {
     public CabinType = {
@@ -68,7 +69,8 @@ export class Mixvel_AirShoppingRQ implements INDCMessage {
 }
 
 export type CarrierCriteria = {
-    Carrier: { AirlineDesigCode: string }[]
+    Carrier: { AirlineDesigCode: string }[],
+    CarrierPrefID: Preflevel
 }
 
 export type ConnectionCriteria = {
