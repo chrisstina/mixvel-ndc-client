@@ -25,8 +25,14 @@ var SearchMessageMapper = /** @class */ (function () {
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers);
         }
+        else { // remove unused ref field
+            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.CarrierPrefRefID; });
+        }
         if (this.params.onlyDirect) {
             this.addConnectionCriteria('1');
+        }
+        else { // remove unused ref field
+            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.ConnectionPrefRefID; });
         }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption);

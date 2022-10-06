@@ -32,9 +32,13 @@ export class SearchMessageMapper implements IMessageMapper {
         })
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers);
+        } else { // remove unused ref field
+            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.CarrierPrefRefID);
         }
         if (this.params.onlyDirect) {
             this.addConnectionCriteria('1')
+        } else { // remove unused ref field
+            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.ConnectionPrefRefID);
         }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption)

@@ -8,6 +8,8 @@ export declare class OriginDestination {
             PrefLevelCode: string;
         };
     };
+    CarrierPrefRefID?: string;
+    ConnectionPrefRefID?: string;
     DestArrivalCriteria: {
         IATA_LocationCode: string;
     };
@@ -16,8 +18,6 @@ export declare class OriginDestination {
         DateRangeEnd: string;
         IATA_LocationCode: string;
     };
-    ConnectionPrefRefID?: string;
-    CarrierPrefRefID?: string;
 }
 export declare class Pax {
     readonly PaxID: string;

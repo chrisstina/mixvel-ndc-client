@@ -11,6 +11,8 @@ var OriginDestination = /** @class */ (function () {
             "CabinTypeCode": "",
             "PrefLevel": { "PrefLevelCode": "" }
         };
+        this.CarrierPrefRefID = ''; // initialize to preserve field order
+        this.ConnectionPrefRefID = ''; // initialize to preserve field order
         this.DestArrivalCriteria = {
             "IATA_LocationCode": ""
         };

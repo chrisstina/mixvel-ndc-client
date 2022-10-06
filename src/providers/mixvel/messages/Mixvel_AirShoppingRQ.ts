@@ -10,6 +10,9 @@ export class OriginDestination {
         "CabinTypeCode": "",
         "PrefLevel": {"PrefLevelCode": ""}
     }
+    public CarrierPrefRefID?: string = ''; // initialize to preserve field order
+
+    public ConnectionPrefRefID?: string = ''; // initialize to preserve field order
 
     public DestArrivalCriteria = {
         "IATA_LocationCode": ""
@@ -20,10 +23,6 @@ export class OriginDestination {
         "DateRangeEnd": "",
         "IATA_LocationCode": ""
     }
-
-    public ConnectionPrefRefID?: string;
-
-    public CarrierPrefRefID?: string;
 }
 
 export class Pax {
