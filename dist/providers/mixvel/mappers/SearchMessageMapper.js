@@ -15,9 +15,8 @@ var SearchMessageMapper = /** @class */ (function () {
     SearchMessageMapper.prototype.map = function () {
         var _this = this;
         // mind the order of fields!
-        var connectionId = this.generateConnectionId();
         this.params.originDestinations.forEach(function (od) {
-            _this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin), connectionId));
+            _this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin)));
         });
         this.params.travelers.forEach(function (_a) {
             var id = _a.id, ptc = _a.ptc, age = _a.age;
@@ -26,8 +25,8 @@ var SearchMessageMapper = /** @class */ (function () {
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
             this.addCarrierCriteria(this.params.preferredCarriers);
         }
-        if (connectionId) {
-            this.addConnectionCriteria(connectionId, '1');
+        if (this.params.onlyDirect) {
+            this.addConnectionCriteria('1');
         }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption);
@@ -43,17 +42,10 @@ var SearchMessageMapper = /** @class */ (function () {
      * @param {string} dateRangeStart ISO datetime 2021-11-25
      * @param {string} dateRangeEnd ISO datetime 2021-11-25
      * @param {MixvelCabin} cabinTypeCode
-     * @param {string} connectionId
      * @return {OriginDestination}
      */
-    SearchMessageMapper.prototype.createOD = function (originCode, destinationCode, dateRangeStart, dateRangeEnd, cabinTypeCode, connectionId) {
+    SearchMessageMapper.prototype.createOD = function (originCode, destinationCode, dateRangeStart, dateRangeEnd, cabinTypeCode) {
         var OD = new Mixvel_AirShoppingRQ_1.OriginDestination();
-        if (connectionId) {
-            OD.ConnectionPrefRefID = connectionId;
-        }
-        else {
-            delete OD.ConnectionPrefRefID;
-        }
         OD.OriginDepCriteria.DateRangeStart = dateRangeStart;
         OD.OriginDepCriteria.DateRangeEnd = dateRangeEnd;
         OD.OriginDepCriteria.IATA_LocationCode = originCode;
@@ -61,8 +53,8 @@ var SearchMessageMapper = /** @class */ (function () {
         OD.CabinType = { CabinTypeCode: cabinTypeCode, PrefLevel: { PrefLevelCode: preflevel_1.Preflevel.REQUIRED } };
         return OD;
     };
-    SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes, prefType) {
-        if (prefType === void 0) { prefType = preflevel_1.Preflevel.REQUIRED; }
+    SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
+        var carrierPrefRefId = this.generateCarrierPrefId();
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({ 'CarrierCriteria': [] });
         }
@@ -70,10 +62,12 @@ var SearchMessageMapper = /** @class */ (function () {
                 Carrier: allowedCarrierCodes.map(function (code) {
                     return { AirlineDesigCode: code };
                 }),
-                CarrierPrefID: prefType
+                CarrierPrefID: carrierPrefRefId
             }];
+        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.CarrierPrefRefID = carrierPrefRefId; });
     };
-    SearchMessageMapper.prototype.addConnectionCriteria = function (connectionId, maxConnections) {
+    SearchMessageMapper.prototype.addConnectionCriteria = function (maxConnections) {
+        var connectionId = this.generateConnectionId();
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({ 'ConnectionCriteria': [] });
         }
@@ -81,6 +75,7 @@ var SearchMessageMapper = /** @class */ (function () {
                 "ConnectionPrefID": connectionId,
                 "MaximumConnectionQty": maxConnections
             }];
+        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.ConnectionPrefRefID = connectionId; });
     };
     SearchMessageMapper.prototype.addPricingCriteria = function (pricingOption) {
         if (this.message.ShoppingCriteria.length === 0) {
@@ -109,10 +104,10 @@ var SearchMessageMapper = /** @class */ (function () {
         this.message.ShoppingCriteria[0].ProgramCriteria = [criterion];
     };
     SearchMessageMapper.prototype.generateConnectionId = function () {
-        if (this.params.onlyDirect) {
-            return 'Connection-1';
-        }
-        return undefined;
+        return 'Connection-1';
+    };
+    SearchMessageMapper.prototype.generateCarrierPrefId = function () {
+        return 'Carrier-1';
     };
     return SearchMessageMapper;
 }());

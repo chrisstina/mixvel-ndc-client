@@ -1,6 +1,5 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {MixvelPTC} from "../mappers/dictionary/ptc";
-import {Preflevel} from "../constants/preflevel";
 
 export declare class OriginDestination {
     CabinType: {
@@ -9,7 +8,6 @@ export declare class OriginDestination {
             PrefLevelCode: string;
         };
     };
-    ConnectionPrefRefID?: string;
     DestArrivalCriteria: {
         IATA_LocationCode: string;
     };
@@ -18,6 +16,8 @@ export declare class OriginDestination {
         DateRangeEnd: string;
         IATA_LocationCode: string;
     };
+    ConnectionPrefRefID?: string;
+    CarrierPrefRefID?: string;
 }
 export declare class Pax {
     readonly PaxID: string;
@@ -34,13 +34,13 @@ export declare class Mixvel_AirShoppingRQ implements INDCMessage {
         'xmlns:shop': string;
     };
     get nodeName(): string;
-    "FlightRequest": {
+    FlightRequest: {
         FlightRequestOriginDestinationsCriteria: {
-            OriginDestCriteria: any[];
+            OriginDestCriteria: OriginDestination[];
         };
     };
-    "Paxs": {
-        Pax: any[];
+    Paxs: {
+        Pax: Pax[];
     };
     ShoppingCriteria: ShoppingCriteria[];
 }
@@ -48,7 +48,7 @@ export declare type CarrierCriteria = {
     Carrier: {
         AirlineDesigCode: string;
     }[];
-    CarrierPrefID: Preflevel;
+    CarrierPrefID: string;
 };
 export declare type ConnectionCriteria = {
     "ConnectionPrefID": string;

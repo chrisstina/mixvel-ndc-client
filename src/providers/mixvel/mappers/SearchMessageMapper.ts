@@ -18,25 +18,23 @@ export class SearchMessageMapper implements IMessageMapper {
 
     map(): Mixvel_AirShoppingRQ {
         // mind the order of fields!
-        let connectionId = this.generateConnectionId()
         this.params.originDestinations.forEach(od => {
             this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(this.createOD(
                 od.from,
                 od.to,
                 DateTime.fromJSDate(od.dateRangeStart).toISODate(),
                 DateTime.fromJSDate(od.dateRangeEnd).toISODate(),
-                toMixvelCabin(this.params.cabin),
-                connectionId
+                toMixvelCabin(this.params.cabin)
             ))
         })
         this.params.travelers.forEach(({id, ptc, age}) => { // @todo maybe autogenerate id?
             this.message.Paxs.Pax.push(new Pax(id, toMixvelPTC(ptc), age.toString()))
         })
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
-            this.addCarrierCriteria(this.params.preferredCarriers)
+            this.addCarrierCriteria(this.params.preferredCarriers);
         }
-        if (connectionId) {
-            this.addConnectionCriteria(connectionId, '1')
+        if (this.params.onlyDirect) {
+            this.addConnectionCriteria('1')
         }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption)
@@ -53,16 +51,10 @@ export class SearchMessageMapper implements IMessageMapper {
      * @param {string} dateRangeStart ISO datetime 2021-11-25
      * @param {string} dateRangeEnd ISO datetime 2021-11-25
      * @param {MixvelCabin} cabinTypeCode
-     * @param {string} connectionId
      * @return {OriginDestination}
      */
-    private createOD(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin, connectionId: string | undefined) {
+    private createOD(originCode: string, destinationCode: string, dateRangeStart: string, dateRangeEnd: string, cabinTypeCode: MixvelCabin) {
         const OD = new OriginDestination()
-        if (connectionId) {
-            OD.ConnectionPrefRefID = connectionId
-        } else {
-            delete OD.ConnectionPrefRefID
-        }
         OD.OriginDepCriteria.DateRangeStart = dateRangeStart
         OD.OriginDepCriteria.DateRangeEnd = dateRangeEnd
         OD.OriginDepCriteria.IATA_LocationCode = originCode
@@ -71,7 +63,8 @@ export class SearchMessageMapper implements IMessageMapper {
         return OD
     }
 
-    private addCarrierCriteria(allowedCarrierCodes: string[], prefType: Preflevel = Preflevel.REQUIRED) {
+    private addCarrierCriteria(allowedCarrierCodes: string[]) {
+        const carrierPrefRefId = this.generateCarrierPrefId();
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({'CarrierCriteria': []})
         }
@@ -79,11 +72,13 @@ export class SearchMessageMapper implements IMessageMapper {
             Carrier: allowedCarrierCodes.map(code => {
                 return {AirlineDesigCode: code}
             }),
-            CarrierPrefID: prefType
-        }]
+            CarrierPrefID: carrierPrefRefId
+        }];
+        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.CarrierPrefRefID = carrierPrefRefId);
     }
 
-    private addConnectionCriteria(connectionId: string, maxConnections: string) {
+    private addConnectionCriteria(maxConnections: string) {
+        const connectionId = this.generateConnectionId();
         if (this.message.ShoppingCriteria.length === 0) {
             this.message.ShoppingCriteria.push({'ConnectionCriteria': []})
         }
@@ -91,6 +86,7 @@ export class SearchMessageMapper implements IMessageMapper {
             "ConnectionPrefID": connectionId,
             "MaximumConnectionQty": maxConnections
         }]
+        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.ConnectionPrefRefID = connectionId);
     }
 
     private addPricingCriteria(pricingOption: PricingOption) {
@@ -121,10 +117,11 @@ export class SearchMessageMapper implements IMessageMapper {
         this.message.ShoppingCriteria[0].ProgramCriteria = [criterion]
     }
 
-    private generateConnectionId(): string | undefined {
-        if (this.params.onlyDirect) {
-            return 'Connection-1'
-        }
-        return undefined
+    private generateConnectionId(): string {
+        return 'Connection-1';
+    }
+
+    private generateCarrierPrefId(): string {
+        return 'Carrier-1'
     }
 }

@@ -4,15 +4,12 @@
 
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {MixvelPTC} from "../mappers/dictionary/ptc"
-import {Preflevel} from "../constants/preflevel";
 
 export class OriginDestination {
     public CabinType = {
         "CabinTypeCode": "",
         "PrefLevel": {"PrefLevelCode": ""}
     }
-
-    public ConnectionPrefRefID?: string = ''
 
     public DestArrivalCriteria = {
         "IATA_LocationCode": ""
@@ -23,6 +20,10 @@ export class OriginDestination {
         "DateRangeEnd": "",
         "IATA_LocationCode": ""
     }
+
+    public ConnectionPrefRefID?: string;
+
+    public CarrierPrefRefID?: string;
 }
 
 export class Pax {
@@ -55,14 +56,14 @@ export class Mixvel_AirShoppingRQ implements INDCMessage {
         return "shop:Mixvel_AirShoppingRQ"
     }
 
-    public "FlightRequest" = {
+    public FlightRequest: { FlightRequestOriginDestinationsCriteria: { OriginDestCriteria: OriginDestination[] } } = {
         "FlightRequestOriginDestinationsCriteria": {
-            "OriginDestCriteria": Array()
+            "OriginDestCriteria": []
         }
     }
 
-    public "Paxs" = {
-        "Pax": Array()
+    public Paxs: {Pax: Pax[]} = {
+        "Pax": []
     }
 
     public ShoppingCriteria: ShoppingCriteria[] = []
@@ -70,7 +71,7 @@ export class Mixvel_AirShoppingRQ implements INDCMessage {
 
 export type CarrierCriteria = {
     Carrier: { AirlineDesigCode: string }[],
-    CarrierPrefID: Preflevel
+    CarrierPrefID: string
 }
 
 export type ConnectionCriteria = {

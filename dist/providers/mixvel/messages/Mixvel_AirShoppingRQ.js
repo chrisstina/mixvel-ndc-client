@@ -11,7 +11,6 @@ var OriginDestination = /** @class */ (function () {
             "CabinTypeCode": "",
             "PrefLevel": { "PrefLevelCode": "" }
         };
-        this.ConnectionPrefRefID = '';
         this.DestArrivalCriteria = {
             "IATA_LocationCode": ""
         };
@@ -43,13 +42,13 @@ exports.Pax = Pax;
  */
 var Mixvel_AirShoppingRQ = /** @class */ (function () {
     function Mixvel_AirShoppingRQ() {
-        this["FlightRequest"] = {
+        this.FlightRequest = {
             "FlightRequestOriginDestinationsCriteria": {
-                "OriginDestCriteria": Array()
+                "OriginDestCriteria": []
             }
         };
-        this["Paxs"] = {
-            "Pax": Array()
+        this.Paxs = {
+            "Pax": []
         };
         this.ShoppingCriteria = [];
     }
