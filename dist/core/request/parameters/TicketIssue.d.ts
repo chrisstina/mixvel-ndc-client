@@ -1,6 +1,7 @@
-import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { FopType } from "../types";
-declare class FormOfPayment {
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
+import {FopType} from "../types";
+
+export declare class FormOfPayment {
     type: FopType;
     data?: string | Record<string, unknown>;
     constructor(type: FopType, data?: string | Record<string, unknown>);
@@ -19,4 +20,3 @@ export declare class TicketIssueParams extends AbstractRequestParams {
     paxs?: string[];
     private constructor();
 }
-export {};

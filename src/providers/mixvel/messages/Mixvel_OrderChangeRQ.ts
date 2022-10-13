@@ -1,18 +1,5 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
-
-export class OtherPaymentMethod {
-    public readonly OtherPaymentMethod = null
-}
-
-export class DirectBill {
-    constructor(billInfo: string) {
-        return {
-            'DirectBill': {
-                'BillInfo': billInfo
-            }
-        }
-    }
-}
+import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
 
 export class Mixvel_OrderChangeRQ implements INDCMessage {
     get endpoint() {
@@ -37,7 +24,7 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
     public PaymentFunctions?: {
         "PaymentProcessingDetails": {
             "Amount": { "_": string, "$": { "CurCode": string } },
-            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill
+            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc
         }
     }
 

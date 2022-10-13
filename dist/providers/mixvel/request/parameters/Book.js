@@ -26,6 +26,7 @@ var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("../../../../core/request/parameters/AbstractRequestParams");
 var Book_1 = require("../../../../core/request/parameters/Book");
 var Price_1 = require("../../../../core/request/parameters/Price");
+var TicketIssue_1 = require("../../../../core/request/parameters/TicketIssue");
 var MixvelContact = /** @class */ (function () {
     function MixvelContact(phoneNumber, email) {
         this.phoneNumber = phoneNumber;
@@ -117,6 +118,9 @@ var MixvelBookParams = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
         _this.passengers = props.passengers.map(function (passenger) { return new MixvelPassenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id); });
+        if (props.formOfPayment) {
+            _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
+        }
         return _this;
     }
     __decorate([
@@ -126,6 +130,10 @@ var MixvelBookParams = /** @class */ (function (_super) {
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)({ each: true })
     ], MixvelBookParams.prototype, "passengers", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)(),
+        (0, class_validator_1.IsOptional)()
+    ], MixvelBookParams.prototype, "formOfPayment", void 0);
     return MixvelBookParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.MixvelBookParams = MixvelBookParams;

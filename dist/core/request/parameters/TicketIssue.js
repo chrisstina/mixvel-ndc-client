@@ -21,7 +21,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TicketIssueParams = exports.Payment = void 0;
+exports.TicketIssueParams = exports.Payment = exports.FormOfPayment = void 0;
 var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var FormOfPayment = /** @class */ (function () {
@@ -34,6 +34,7 @@ var FormOfPayment = /** @class */ (function () {
     ], FormOfPayment.prototype, "type", void 0);
     return FormOfPayment;
 }());
+exports.FormOfPayment = FormOfPayment;
 var Payment = /** @class */ (function () {
     function Payment(amount, currency) {
         this.amount = amount;

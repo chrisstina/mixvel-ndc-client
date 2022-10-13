@@ -2,10 +2,10 @@ import {IsIn, IsOptional, IsPositive, IsString, ValidateNested} from "class-vali
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {FopType} from "../types";
 
-class FormOfPayment {
+export class FormOfPayment {
     @IsIn(["CASH", "BILL", "CARD"])
     public type: FopType
-    public data?: string | Record<string, unknown>
+    public data?: string | Record<string, unknown> //@todo check data for BILL FOP must be string
 
     constructor(type: FopType, data?: string | Record<string, unknown>) {
         this.data = data

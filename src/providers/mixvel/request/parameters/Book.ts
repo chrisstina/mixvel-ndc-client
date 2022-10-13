@@ -15,6 +15,7 @@ import {
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
 import {BookProps, Passenger, SUPPORTED_DOCTYPES} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
+import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
 
 class MixvelContact {
@@ -113,6 +114,9 @@ export class MixvelBookParams extends AbstractRequestParams {
     @IsArray()
     @ValidateNested({each: true})
     public passengers: Array<MixvelPassenger>
+    @ValidateNested()
+    @IsOptional()
+    formOfPayment?: FormOfPayment;
 
     private constructor(props: BookProps) {
         super()
@@ -126,5 +130,8 @@ export class MixvelBookParams extends AbstractRequestParams {
             passenger.ancillaries,
             passenger.id
         ))
+        if (props.formOfPayment) {
+            this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
+        }
     }
 }

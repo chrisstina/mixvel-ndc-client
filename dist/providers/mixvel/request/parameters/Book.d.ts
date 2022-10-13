@@ -1,6 +1,7 @@
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
 import {Passenger} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
+import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
 
 declare class MixvelContact {
@@ -30,6 +31,7 @@ export declare class MixvelPassenger extends Passenger {
 export declare class MixvelBookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<MixvelPassenger>;
+    formOfPayment?: FormOfPayment;
     private constructor();
 }
 export {};

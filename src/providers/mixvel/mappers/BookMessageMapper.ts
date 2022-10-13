@@ -1,12 +1,16 @@
 import {IMessageMapper} from "../../../interfaces/IMessageMapper";
 
+import {FopType} from "../../../core/request/types";
+import {Offer} from "../../../core/request/parameters/Price";
 import {ContactInfo, Mixvel_OrderCreateRQ, Pax} from "../messages/Mixvel_OrderCreateRQ";
+import {SelectedOffer} from "../messages/Mixvel_OfferPriceRQ";
+import {AccountableDoc, DirectBill, OtherPaymentMethod} from "../messages/Mixvel_CommonTypes";
 import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
 import {toMixvel as toMixvelDocument} from "./dictionary/documentType"
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc"
-import {toAge, toMixvelDate} from "./commonMappers";
-import {Offer} from "../../../core/request/parameters/Price";
-import {SelectedOffer} from "../messages/Mixvel_OfferPriceRQ";
+import {toAge, toFOP, toMixvelDate} from "./commonMappers";
+
+const DEFAULT_FOP: FopType = 'CASH';
 
 export class BookMessageMapper implements IMessageMapper {
     message: Mixvel_OrderCreateRQ
@@ -43,7 +47,11 @@ export class BookMessageMapper implements IMessageMapper {
             ancillary.offerItems.forEach(({offerItemId, ptc}) => {
                 this.addSelectedOfferItem(ancillaryOffer, offerItemId, [paxRef]);
             });
-        })
+        });
+
+        // form of payment
+        this.setPaymentDetails(toFOP(this.params.formOfPayment || {type: DEFAULT_FOP}));
+
         return this.message;
     }
 
@@ -111,6 +119,14 @@ export class BookMessageMapper implements IMessageMapper {
             OfferItemRefID: offerItemId,
             PaxRefID: paxRefs
         });
+    }
+
+    private setPaymentDetails(fop: OtherPaymentMethod | DirectBill | AccountableDoc) {
+        this.message.PaymentFunctions = {
+            "PaymentProcessingDetails": {
+                "PaymentProcessingDetailsPaymentMethod": fop
+            }
+        }
     }
 }
 

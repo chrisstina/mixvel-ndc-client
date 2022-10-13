@@ -1,10 +1,6 @@
-import { INDCMessage } from "../../../interfaces/INDCMessage";
-export declare class OtherPaymentMethod {
-    readonly OtherPaymentMethod: null;
-}
-export declare class DirectBill {
-    constructor(billInfo: string);
-}
+import {INDCMessage} from "../../../interfaces/INDCMessage";
+import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
+
 export declare class Mixvel_OrderChangeRQ implements INDCMessage {
     get endpoint(): string;
     get xmlns(): {
@@ -25,7 +21,7 @@ export declare class Mixvel_OrderChangeRQ implements INDCMessage {
                     "CurCode": string;
                 };
             };
-            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill;
+            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc;
         };
     };
     /**

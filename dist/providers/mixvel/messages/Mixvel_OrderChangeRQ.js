@@ -1,24 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Mixvel_OrderChangeRQ = exports.DirectBill = exports.OtherPaymentMethod = void 0;
-var OtherPaymentMethod = /** @class */ (function () {
-    function OtherPaymentMethod() {
-        this.OtherPaymentMethod = null;
-    }
-    return OtherPaymentMethod;
-}());
-exports.OtherPaymentMethod = OtherPaymentMethod;
-var DirectBill = /** @class */ (function () {
-    function DirectBill(billInfo) {
-        return {
-            'DirectBill': {
-                'BillInfo': billInfo
-            }
-        };
-    }
-    return DirectBill;
-}());
-exports.DirectBill = DirectBill;
+exports.Mixvel_OrderChangeRQ = void 0;
 var Mixvel_OrderChangeRQ = /** @class */ (function () {
     function Mixvel_OrderChangeRQ(orderId) {
         this.MixOrder = { MixOrderID: orderId };

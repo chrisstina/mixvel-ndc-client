@@ -25,6 +25,7 @@ exports.Passenger = exports.BookParams = exports.SUPPORTED_DOCTYPES = void 0;
 var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var Price_1 = require("./Price");
+var TicketIssue_1 = require("./TicketIssue");
 exports.SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"];
 var BookParams = /** @class */ (function (_super) {
     __extends(BookParams, _super);
@@ -32,12 +33,19 @@ var BookParams = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
         _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id); });
+        if (props.formOfPayment) {
+            _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
+        }
         return _this;
     }
     __decorate([
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)({ each: true })
     ], BookParams.prototype, "passengers", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)(),
+        (0, class_validator_1.IsOptional)()
+    ], BookParams.prototype, "formOfPayment", void 0);
     return BookParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.BookParams = BookParams;

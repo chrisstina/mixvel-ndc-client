@@ -14,6 +14,7 @@ var Mixvel_OrderCreateRQ_1 = require("../messages/Mixvel_OrderCreateRQ");
 var documentType_1 = require("./dictionary/documentType");
 var ptc_1 = require("./dictionary/ptc");
 var commonMappers_1 = require("./commonMappers");
+var DEFAULT_FOP = 'CASH';
 var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params) {
         this.params = params;
@@ -50,6 +51,8 @@ var BookMessageMapper = /** @class */ (function () {
                 _this.addSelectedOfferItem(ancillaryOffer, offerItemId, [paxRef]);
             });
         });
+        // form of payment
+        this.setPaymentDetails((0, commonMappers_1.toFOP)(this.params.formOfPayment || { type: DEFAULT_FOP }));
         return this.message;
     };
     BookMessageMapper.prototype.passengerToPax = function (passenger, paxId) {
@@ -101,6 +104,13 @@ var BookMessageMapper = /** @class */ (function () {
             OfferItemRefID: offerItemId,
             PaxRefID: paxRefs
         });
+    };
+    BookMessageMapper.prototype.setPaymentDetails = function (fop) {
+        this.message.PaymentFunctions = {
+            "PaymentProcessingDetails": {
+                "PaymentProcessingDetailsPaymentMethod": fop
+            }
+        };
     };
     return BookMessageMapper;
 }());

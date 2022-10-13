@@ -16,6 +16,7 @@ import {
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
+import {FormOfPayment} from "./TicketIssue";
 
 export const SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"]
 
@@ -26,6 +27,9 @@ export class BookParams extends AbstractRequestParams {
     @IsArray()
     @ValidateNested({each: true})
     public passengers: Array<Passenger>
+    @ValidateNested()
+    @IsOptional()
+    formOfPayment?: FormOfPayment
 
     private constructor(props: BookProps) {
         super()
@@ -38,7 +42,10 @@ export class BookParams extends AbstractRequestParams {
             passenger.loyaltyInfo,
             passenger.ancillaries,
             passenger.id
-        ))
+        ));
+        if (props.formOfPayment) {
+            this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data)
+        }
     }
 }
 

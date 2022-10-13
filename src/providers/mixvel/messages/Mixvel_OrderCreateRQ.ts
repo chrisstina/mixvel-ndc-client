@@ -1,6 +1,7 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {SelectedOffer} from "./Mixvel_OfferPriceRQ";
 import {MixvelDocumentType} from "../mappers/dictionary/documentType";
+import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
 
 type ContactTypeText = "personal"
 
@@ -37,6 +38,12 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
 
     public CreateOrder: {
         SelectedOffer: SelectedOffer[],
+    }
+
+    public PaymentFunctions?: {
+        "PaymentProcessingDetails": {
+            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc
+        }
     }
 
     public DataLists: {
