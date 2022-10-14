@@ -41,5 +41,5 @@ export interface IRequestManager {
 
     createRefundRequest(params: RefundParams): Result<IRequest>;
 
-    createServiceListRequest(params: PriceParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest>;
 }

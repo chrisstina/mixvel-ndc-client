@@ -144,8 +144,16 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
             : requestManager.createOrderCancelRequest(paramsOrError.getValue())
     }
 
-    function getServiceListRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<PriceParams>(props)
+    function getServiceListRequest(props: PriceProps | OrderRetrieveProps): Result<IRequest> {
+        let paramsOrError;
+        if (isPriceProps(props)) {
+            paramsOrError = PriceParams.create<PriceParams>(props as PriceProps)
+        } else if (isOrderRetrieveProps(props)) {
+            paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props as OrderRetrieveParams)
+        }
+        if (paramsOrError === undefined) {
+            return Result.fail<IRequest>('Could not guess params type')
+        }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createServiceListRequest(paramsOrError.getValue())

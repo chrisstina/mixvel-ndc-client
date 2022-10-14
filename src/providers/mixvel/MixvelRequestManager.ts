@@ -34,10 +34,10 @@ import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
-import {Mixvel_ServiceListRQ} from "./messages/Mixvel_ServiceListRQ";
 import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
 import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
+import {ServiceListMessageMapper} from "./mappers/ServiceListMessageMapper";
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(
@@ -47,19 +47,6 @@ export class MixvelRequestManager implements IRequestManager {
     }
 
     public extraConfiguration = {} // no extra config here
-
-    /**
-     * @param params
-     * @private
-     */
-    private static preparePriceParams(params: PriceParams) {
-        const offerId = params.offers[0].offerId,
-            offerItemIds = params.offers.reduce((items: string[], {offerItems}) => {
-                return [...items, ...offerItems.map(({offerItemId}) => offerItemId)]
-            }, [])
-
-        return {offerId, offerItemIds}
-    }
 
     private static prepareBookParams(params: BookParams) {
         const {passengers} = params
@@ -85,7 +72,7 @@ export class MixvelRequestManager implements IRequestManager {
     }
 
     createPriceRequest(params: PriceParams): Result<IRequest> {
-        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+        const restructuredParams = params.asPlain();
         return Result.ok(this.createRequest(params, {
             mapper: {
                 map(): INDCMessage {
@@ -155,7 +142,7 @@ export class MixvelRequestManager implements IRequestManager {
 
     createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest> {
         if (isPriceParams(params)) {
-            const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+            const restructuredParams = params.asPlain();
             return Result.ok(this.createRequest(params, {
                 mapper: {
                     map(): INDCMessage {
@@ -173,14 +160,9 @@ export class MixvelRequestManager implements IRequestManager {
         }))
     }
 
-    createServiceListRequest(params: PriceParams): Result<IRequest> {
-        const restructuredParams = MixvelRequestManager.preparePriceParams(params)
+    createServiceListRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest> {
         return Result.ok(this.createRequest(params, {
-            mapper: {
-                map(): INDCMessage {
-                    return new Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds)
-                }
-            }
+            mapper: new ServiceListMessageMapper(params)
         }))
     }
 

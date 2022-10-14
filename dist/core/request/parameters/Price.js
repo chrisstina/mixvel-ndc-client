@@ -20,6 +20,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceParams = exports.Offer = exports.OfferItem = void 0;
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
@@ -78,6 +87,19 @@ var PriceParams = /** @class */ (function (_super) {
         _this.offers = props.offers.map(function (offerData) { return new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
         return _this;
     }
+    /**
+     * @return {offerId: string, offerItemIds: string[]}
+     */
+    PriceParams.prototype.asPlain = function () {
+        var offerId = this.offers[0].offerId, offerItemIds = this.offers.reduce(function (items, _a) {
+            var offerItems = _a.offerItems;
+            return __spreadArray(__spreadArray([], items, true), offerItems.map(function (_a) {
+                var offerItemId = _a.offerItemId;
+                return offerItemId;
+            }), true);
+        }, []);
+        return { offerId: offerId, offerItemIds: offerItemIds };
+    };
     __decorate([
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)()

@@ -19,11 +19,6 @@ export declare class MixvelRequestManager implements IRequestManager {
     requestOptionsManager: IRequestOptionsManager;
     constructor(endpointManager: IEndpointManager, conversionStrategy: IConversionStrategy, requestOptionsManager: IRequestOptionsManager);
     extraConfiguration: {};
-    /**
-     * @param params
-     * @private
-     */
-    private static preparePriceParams;
     private static prepareBookParams;
     createAuthRequest(params: {
         login: string;
@@ -40,7 +35,7 @@ export declare class MixvelRequestManager implements IRequestManager {
     createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
     createRefundRequest(params: RefundParams): Result<IRequest>;
     createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
-    createServiceListRequest(params: PriceParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
     createRequest(requestParams: object, services: {
         mapper: IMessageMapper;
     }): IRequest;

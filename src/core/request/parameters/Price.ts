@@ -53,4 +53,15 @@ export class PriceParams extends AbstractRequestParams {
         super()
         this.offers = props.offers.map(offerData => new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId))
     }
+
+    /**
+     * @return {offerId: string, offerItemIds: string[]}
+     */
+    asPlain() {
+        const offerId = this.offers[0].offerId,
+            offerItemIds = this.offers.reduce((items: string[], {offerItems}) => {
+                return [...items, ...offerItems.map(({offerItemId}) => offerItemId)]
+            }, []);
+        return {offerId, offerItemIds};
+    }
 }

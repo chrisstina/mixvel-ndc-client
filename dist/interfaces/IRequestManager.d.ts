@@ -31,5 +31,5 @@ export interface IRequestManager {
     createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
     createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
     createRefundRequest(params: RefundParams): Result<IRequest>;
-    createServiceListRequest(params: PriceParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
 }

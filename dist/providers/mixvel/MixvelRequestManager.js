@@ -1,13 +1,4 @@
 "use strict";
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MixvelRequestManager = void 0;
 var FirstAvailableEmailService_1 = require("../../services/FirstAvailableEmailService");
@@ -24,10 +15,10 @@ var RefundOrderMessageMapper_1 = require("./mappers/RefundOrderMessageMapper");
 var Mixvel_OfferPriceRQ_1 = require("./messages/Mixvel_OfferPriceRQ");
 var Mixvel_OrderRetrieveRQ_1 = require("./messages/Mixvel_OrderRetrieveRQ");
 var Mixvel_OrderCancelRQ_1 = require("./messages/Mixvel_OrderCancelRQ");
-var Mixvel_ServiceListRQ_1 = require("./messages/Mixvel_ServiceListRQ");
 var Mixvel_OrderReshopRQ_1 = require("./messages/Mixvel_OrderReshopRQ");
 var Mixvel_OrderRulesRQ_1 = require("./messages/Mixvel_OrderRulesRQ");
 var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
+var ServiceListMessageMapper_1 = require("./mappers/ServiceListMessageMapper");
 var MixvelRequestManager = /** @class */ (function () {
     function MixvelRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -35,20 +26,6 @@ var MixvelRequestManager = /** @class */ (function () {
         this.requestOptionsManager = requestOptionsManager;
         this.extraConfiguration = {}; // no extra config here
     }
-    /**
-     * @param params
-     * @private
-     */
-    MixvelRequestManager.preparePriceParams = function (params) {
-        var offerId = params.offers[0].offerId, offerItemIds = params.offers.reduce(function (items, _a) {
-            var offerItems = _a.offerItems;
-            return __spreadArray(__spreadArray([], items, true), offerItems.map(function (_a) {
-                var offerItemId = _a.offerItemId;
-                return offerItemId;
-            }), true);
-        }, []);
-        return { offerId: offerId, offerItemIds: offerItemIds };
-    };
     MixvelRequestManager.prepareBookParams = function (params) {
         var passengers = params.passengers;
         passengers.forEach(function (passenger) {
@@ -67,7 +44,7 @@ var MixvelRequestManager = /** @class */ (function () {
         }));
     };
     MixvelRequestManager.prototype.createPriceRequest = function (params) {
-        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
+        var restructuredParams = params.asPlain();
         return Result_1.Result.ok(this.createRequest(params, {
             mapper: {
                 map: function () {
@@ -128,7 +105,7 @@ var MixvelRequestManager = /** @class */ (function () {
     };
     MixvelRequestManager.prototype.createFareRulesRequest = function (params) {
         if ((0, typeguards_1.isPriceParams)(params)) {
-            var restructuredParams_1 = MixvelRequestManager.preparePriceParams(params);
+            var restructuredParams_1 = params.asPlain();
             return Result_1.Result.ok(this.createRequest(params, {
                 mapper: {
                     map: function () {
@@ -146,13 +123,8 @@ var MixvelRequestManager = /** @class */ (function () {
         }));
     };
     MixvelRequestManager.prototype.createServiceListRequest = function (params) {
-        var restructuredParams = MixvelRequestManager.preparePriceParams(params);
         return Result_1.Result.ok(this.createRequest(params, {
-            mapper: {
-                map: function () {
-                    return new Mixvel_ServiceListRQ_1.Mixvel_ServiceListRQ(restructuredParams.offerId, restructuredParams.offerItemIds);
-                }
-            }
+            mapper: new ServiceListMessageMapper_1.ServiceListMessageMapper(params)
         }));
     };
     MixvelRequestManager.prototype.createRequest = function (requestParams, services) {

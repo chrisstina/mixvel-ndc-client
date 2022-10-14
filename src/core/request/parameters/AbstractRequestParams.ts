@@ -3,7 +3,8 @@ import {RequestValidationError} from "../../errors/RequestValidationError";
 import {IValidatorService} from "../../../interfaces/IValidatorService";
 import {ClassValidatorService} from "../../../services/ClassValidatorService";
 
-export type RequestProps<ParamsType> = {[Property in keyof ParamsType]: ParamsType[Property]}
+type JustMethodKeys<ParamsType> = ({[P in keyof ParamsType]: ParamsType[P] extends Function ? P : never })[keyof ParamsType]; // set of method filed names
+export type RequestProps<ParamsType> = Omit<{ [Property in keyof ParamsType]: ParamsType[Property] }, JustMethodKeys<ParamsType>> // request object with methods excluded
 
 export abstract class AbstractRequestParams {
     public static validatorService: IValidatorService = new ClassValidatorService()

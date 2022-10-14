@@ -20,7 +20,7 @@ export declare function createNDCService(provider: string | IProvider, providerC
     getBookRequest: (props: BookProps) => Result<IRequest>;
     getRepriceRequest: (props: RepriceProps) => Result<IRequest>;
     getFareRulesRequest: (props: PriceProps | OrderRetrieveParams) => Result<IRequest>;
-    getServiceListRequest: (props: PriceProps) => Result<IRequest>;
+    getServiceListRequest: (props: PriceProps | OrderRetrieveProps) => Result<IRequest>;
     getOrderRetrieveRequest: (props: OrderRetrieveProps) => Result<IRequest>;
     getTicketIssueRequest: (props: TicketIssueProps) => Result<IRequest>;
     getOrderCancelRequest: (props: OrderRetrieveProps) => Result<IRequest>;

@@ -1,12 +1,14 @@
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
+import {FormOfPayment} from "./TicketIssue";
 
 export declare const SUPPORTED_DOCTYPES: string[];
 export declare type BookProps = RequestProps<BookParams>;
 export declare class BookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<Passenger>;
+    formOfPayment?: FormOfPayment;
     private constructor();
 }
 declare class PersonalInfo {

@@ -108,7 +108,16 @@ function createNDCService(provider, providerConfig) {
             : requestManager.createOrderCancelRequest(paramsOrError.getValue());
     }
     function getServiceListRequest(props) {
-        var paramsOrError = Price_1.PriceParams.create(props);
+        var paramsOrError;
+        if ((0, typeguards_1.isPriceProps)(props)) {
+            paramsOrError = Price_1.PriceParams.create(props);
+        }
+        else if ((0, typeguards_1.isOrderRetrieveProps)(props)) {
+            paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
+        }
+        if (paramsOrError === undefined) {
+            return Result_1.Result.fail('Could not guess params type');
+        }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
             : requestManager.createServiceListRequest(paramsOrError.getValue());

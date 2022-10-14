@@ -1,5 +1,6 @@
-import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { PaxCategory } from "../types";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
+import {PaxCategory} from "../types";
+
 export declare class OfferItem {
     offerItemId: string;
     ptc?: PaxCategory;
@@ -17,4 +18,11 @@ export declare type PriceProps = RequestProps<PriceParams>;
 export declare class PriceParams extends AbstractRequestParams {
     readonly offers: Offer[];
     private constructor();
+    /**
+     * @return {offerId: string, offerItemIds: string[]}
+     */
+    asPlain(): {
+        offerId: string;
+        offerItemIds: string[];
+    };
 }
