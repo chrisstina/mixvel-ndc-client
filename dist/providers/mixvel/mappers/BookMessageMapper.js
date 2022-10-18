@@ -73,6 +73,16 @@ var BookMessageMapper = /** @class */ (function () {
         if (!pax.Individual.MiddleName) { // mind the nodes order
             delete pax.Individual.MiddleName;
         }
+        if (passenger.osiRemarks && passenger.osiRemarks.length > 0) {
+            pax.Remark = [];
+            passenger.osiRemarks.forEach(function (remarkText) {
+                var _a;
+                (_a = pax.Remark) === null || _a === void 0 ? void 0 : _a.push({ RemarkText: remarkText });
+            });
+        }
+        else {
+            delete pax.Remark;
+        }
         return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {

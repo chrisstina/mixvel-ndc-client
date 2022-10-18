@@ -98,12 +98,13 @@ var MixvelPersonalInfo = /** @class */ (function () {
 }());
 var MixvelPassenger = /** @class */ (function (_super) {
     __extends(MixvelPassenger, _super);
-    function MixvelPassenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id) {
+    function MixvelPassenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id, osiRemarks) {
         var _this = _super.call(this, ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id) || this;
         _this.personalInfo = new MixvelPersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName || undefined);
         _this.identityDocument = new MixvelIdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);
         _this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         _this.ancillaries = ancillaries;
+        _this.osiRemarks = osiRemarks;
         return _this;
     }
     __decorate([
@@ -117,7 +118,7 @@ var MixvelBookParams = /** @class */ (function (_super) {
     function MixvelBookParams(props) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
-        _this.passengers = props.passengers.map(function (passenger) { return new MixvelPassenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id); });
+        _this.passengers = props.passengers.map(function (passenger) { return new MixvelPassenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks); });
         if (props.formOfPayment) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }

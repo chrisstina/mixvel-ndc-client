@@ -13,7 +13,7 @@ import {
     ValidateNested
 } from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {BookProps, Passenger, SUPPORTED_DOCTYPES} from "../../../../core/request/parameters/Book";
+import {BookProps, OSIRemark, Passenger, SUPPORTED_DOCTYPES} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
@@ -88,7 +88,8 @@ export class MixvelPassenger extends Passenger {
                 contacts: { phoneNumber?: string; email?: string },
                 loyaltyInfo?: Record<string, unknown>,
                 ancillaries?: Array<Offer>,
-                id?: string) {
+                id?: string,
+                osiRemarks?: Array<OSIRemark>) {
         super(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id);
         this.personalInfo = new MixvelPersonalInfo(
             personalInfo.firstName,
@@ -105,6 +106,7 @@ export class MixvelPassenger extends Passenger {
             identityDocument.dateOfExpiry);
         this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         this.ancillaries = ancillaries;
+        this.osiRemarks = osiRemarks;
     }
 }
 
@@ -128,7 +130,8 @@ export class MixvelBookParams extends AbstractRequestParams {
             passenger.contacts,
             passenger.loyaltyInfo,
             passenger.ancillaries,
-            passenger.id
+            passenger.id,
+            passenger.osiRemarks,
         ))
         if (props.formOfPayment) {
             this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);

@@ -41,7 +41,8 @@ export class BookParams extends AbstractRequestParams {
             passenger.contacts,
             passenger.loyaltyInfo,
             passenger.ancillaries,
-            passenger.id
+            passenger.id,
+            passenger.osiRemarks
         ));
         if (props.formOfPayment) {
             this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data)
@@ -110,6 +111,8 @@ class Contact {
     }
 }
 
+export type OSIRemark = string;
+
 export class Passenger {
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
     public readonly ptc: PaxCategory
@@ -121,6 +124,7 @@ export class Passenger {
     public contacts: Contact
     public loyaltyInfo?: Record<string, unknown>
     public ancillaries?: Array<Offer>
+    public osiRemarks?: Array<OSIRemark>
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
@@ -128,7 +132,8 @@ export class Passenger {
                 contacts: { phoneNumber?: string; email?: string },
                 loyaltyInfo?: Record<string, unknown>,
                 ancillaries?: Array<Offer>,
-                public readonly id?: string) {
+                public readonly id?: string,
+                osiRemarks?: Array<OSIRemark>,) {
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(
             personalInfo.firstName,
@@ -146,5 +151,6 @@ export class Passenger {
         this.contacts = new Contact(contacts.phoneNumber, contacts.email);
         this.loyaltyInfo = loyaltyInfo;
         this.ancillaries = ancillaries;
+        this.osiRemarks = osiRemarks;
     }
 }

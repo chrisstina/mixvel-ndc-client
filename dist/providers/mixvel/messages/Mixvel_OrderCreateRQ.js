@@ -2,13 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mixvel_OrderCreateRQ = exports.ContactInfo = exports.Pax = void 0;
 var Pax = /** @class */ (function () {
-    function Pax(AgeMeasure, ContactInfoRefID, IdentityDoc, Individual, PaxID, PTC) {
+    function Pax(AgeMeasure, ContactInfoRefID, IdentityDoc, Individual, PaxID, PTC, Remark) {
         this.AgeMeasure = AgeMeasure;
         this.ContactInfoRefID = ContactInfoRefID;
         this.IdentityDoc = IdentityDoc;
         this.Individual = Individual;
         this.PaxID = PaxID;
         this.PTC = PTC;
+        this.Remark = Remark;
     }
     return Pax;
 }());

@@ -80,6 +80,14 @@ export class BookMessageMapper implements IMessageMapper {
         if (!pax.Individual.MiddleName) { // mind the nodes order
             delete pax.Individual.MiddleName
         }
+        if (passenger.osiRemarks && passenger.osiRemarks.length > 0) {
+            pax.Remark = [];
+            passenger.osiRemarks.forEach(remarkText => {
+                pax.Remark?.push({RemarkText: remarkText});
+            });
+        } else {
+            delete pax.Remark;
+        }
         return pax
     }
 

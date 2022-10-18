@@ -5,7 +5,9 @@ import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTyp
 
 type ContactTypeText = "personal"
 
-type Individual = { GenderCode: string, GivenName: string, Birthdate: string, MiddleName?: string, Surname: string}
+type Individual = { GenderCode: string, GivenName: string, Birthdate: string, MiddleName?: string, Surname: string }
+
+type OsiRemark = { RemarkText: string }
 
 export class Pax {
     constructor(
@@ -14,7 +16,8 @@ export class Pax {
         public IdentityDoc: { ExpiryDate: string, IdentityDocID: string, IssueDate: string, Surname: string, IdentityDocTypeCode: MixvelDocumentType, IssuingCountryCode: string },
         public Individual: Individual,
         public PaxID: string,
-        public PTC: string
+        public PTC: string,
+        public Remark?: OsiRemark[]
     ) {
     }
 }
