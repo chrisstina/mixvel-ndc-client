@@ -96,20 +96,41 @@ var MixvelPersonalInfo = /** @class */ (function () {
     ], MixvelPersonalInfo.prototype, "dob", void 0);
     return MixvelPersonalInfo;
 }());
+var MixvelSubsidyInformation = /** @class */ (function () {
+    function MixvelSubsidyInformation(program, type) {
+        this.program = program;
+        this.type = type;
+    }
+    __decorate([
+        (0, class_validator_1.IsAlpha)(),
+        (0, class_validator_1.IsOptional)()
+    ], MixvelSubsidyInformation.prototype, "program", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)(),
+        (0, class_validator_1.IsIn)(["LARGE", "ATTENDANT", "INVALID_TEEN", "INVALID_CHILD", "CHILD", "INFANT", "INVALID_23", "INVALID_1", "RESIDENT_DFO", "ELDERLY", "YOUTH", "OCEAN"])
+    ], MixvelSubsidyInformation.prototype, "type", void 0);
+    return MixvelSubsidyInformation;
+}());
 var MixvelPassenger = /** @class */ (function (_super) {
     __extends(MixvelPassenger, _super);
-    function MixvelPassenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id, osiRemarks) {
+    function MixvelPassenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id, osiRemarks, subsidyData) {
         var _this = _super.call(this, ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id) || this;
         _this.personalInfo = new MixvelPersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName || undefined);
         _this.identityDocument = new MixvelIdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);
         _this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         _this.ancillaries = ancillaries;
         _this.osiRemarks = osiRemarks;
+        if (subsidyData) {
+            _this.subsidyData = new MixvelSubsidyInformation(subsidyData.program, subsidyData.type);
+        }
         return _this;
     }
     __decorate([
         (0, class_validator_1.ValidateNested)()
     ], MixvelPassenger.prototype, "contacts", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)()
+    ], MixvelPassenger.prototype, "subsidyData", void 0);
     return MixvelPassenger;
 }(Book_1.Passenger));
 exports.MixvelPassenger = MixvelPassenger;
@@ -118,7 +139,7 @@ var MixvelBookParams = /** @class */ (function (_super) {
     function MixvelBookParams(props) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
-        _this.passengers = props.passengers.map(function (passenger) { return new MixvelPassenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks); });
+        _this.passengers = props.passengers.map(function (passenger) { return new MixvelPassenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks, passenger.subsidyData); });
         if (props.formOfPayment) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }

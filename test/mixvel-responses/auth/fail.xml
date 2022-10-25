@@ -1,0 +1,16 @@
+<MixEnv:Envelope xmlns:MixEnv="https://www.mixvel.com/API/XSD/mixvel_envelope/1_06">
+    <Header/>
+    <Body>
+        <MessageInfo MessageId="7753a2a5-8dcd-4cef-8237-60cdb1c003f0" ReplyTo="4186cc12-e6ba-4425-80c3-60c8b5942248" TimeSent="2022-10-20T13:56:55.0823166Z"/>
+        <AppData>
+            <Auth:AuthResponse xmlns:Auth="https://www.mixvel.com/API/XSD/mixvel_auth/1_01">
+                <Error>
+                    <ErrorType>BadRequest</ErrorType>
+                    <CanRetry>false</CanRetry>
+                    <Code>MIX-101002</Code>
+                    <DescText>AuthenticationFailed</DescText>
+                </Error>
+            </Auth:AuthResponse>
+        </AppData>
+    </Body>
+</MixEnv:Envelope>

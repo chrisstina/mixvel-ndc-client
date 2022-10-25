@@ -13,7 +13,13 @@ import {
     ValidateNested
 } from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {BookProps, OSIRemark, Passenger, SUPPORTED_DOCTYPES} from "../../../../core/request/parameters/Book";
+import {
+    BookProps,
+    OSIRemark,
+    Passenger,
+    SubsidyData,
+    SUPPORTED_DOCTYPES
+} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
@@ -78,9 +84,25 @@ class MixvelPersonalInfo {
     }
 }
 
+class MixvelSubsidyInformation {
+    @IsAlpha()
+    @IsOptional()
+    public program?: string;
+    @IsOptional()
+    @IsIn(["LARGE", "ATTENDANT", "INVALID_TEEN", "INVALID_CHILD", "CHILD", "INFANT", "INVALID_23", "INVALID_1", "RESIDENT_DFO", "ELDERLY", "YOUTH", "OCEAN"])
+    public type?: string;
+
+    constructor(program?: string, type?: string) {
+        this.program = program;
+        this.type = type;
+    }
+}
+
 export class MixvelPassenger extends Passenger {
     @ValidateNested()
     public contacts: MixvelContact
+    @ValidateNested()
+    public subsidyData?: MixvelSubsidyInformation;
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
@@ -89,7 +111,9 @@ export class MixvelPassenger extends Passenger {
                 loyaltyInfo?: Record<string, unknown>,
                 ancillaries?: Array<Offer>,
                 id?: string,
-                osiRemarks?: Array<OSIRemark>) {
+                osiRemarks?: Array<OSIRemark>,
+                subsidyData?: SubsidyData
+    ) {
         super(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id);
         this.personalInfo = new MixvelPersonalInfo(
             personalInfo.firstName,
@@ -107,6 +131,9 @@ export class MixvelPassenger extends Passenger {
         this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         this.ancillaries = ancillaries;
         this.osiRemarks = osiRemarks;
+        if (subsidyData) {
+            this.subsidyData = new MixvelSubsidyInformation(subsidyData.program, subsidyData.type);
+        }
     }
 }
 
@@ -132,6 +159,7 @@ export class MixvelBookParams extends AbstractRequestParams {
             passenger.ancillaries,
             passenger.id,
             passenger.osiRemarks,
+            passenger.subsidyData
         ))
         if (props.formOfPayment) {
             this.formOfPayment = new FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);

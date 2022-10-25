@@ -13,7 +13,7 @@ var MixvelPTC;
     MixvelPTC["DISABLEDCHILD"] = "DCD";
     MixvelPTC["ESCORT"] = "ADD";
     MixvelPTC["LARGEFAMILY"] = "PDB";
-    MixvelPTC["STATERESIDENT"] = "LJA";
+    MixvelPTC["STATERESIDENT"] = "ADT";
 })(MixvelPTC = exports.MixvelPTC || (exports.MixvelPTC = {}));
 function toMixvel(paxCategory) {
     return MixvelPTC[paxCategory];

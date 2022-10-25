@@ -14,6 +14,10 @@ declare type Individual = {
 declare type OsiRemark = {
     RemarkText: string;
 };
+declare type SubsidyInformation = {
+    SubsidyProgram?: string;
+    SubsidyType?: string;
+};
 export declare class Pax {
     AgeMeasure: string;
     ContactInfoRefID: string;
@@ -29,6 +33,7 @@ export declare class Pax {
     PaxID: string;
     PTC: string;
     Remark?: OsiRemark[] | undefined;
+    SubsidyInformation?: SubsidyInformation | undefined;
     constructor(AgeMeasure: string, ContactInfoRefID: string, IdentityDoc: {
         ExpiryDate: string;
         IdentityDocID: string;
@@ -36,7 +41,7 @@ export declare class Pax {
         Surname: string;
         IdentityDocTypeCode: MixvelDocumentType;
         IssuingCountryCode: string;
-    }, Individual: Individual, PaxID: string, PTC: string, Remark?: OsiRemark[] | undefined);
+    }, Individual: Individual, PaxID: string, PTC: string, Remark?: OsiRemark[] | undefined, SubsidyInformation?: SubsidyInformation | undefined);
 }
 export declare class ContactInfo {
     ContactInfoID: string;

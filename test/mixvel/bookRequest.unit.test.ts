@@ -49,6 +49,8 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<ContactInfoID>PaxContact_1')
         expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
         expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
+        expect(rq).to.not.contain('Subsidy')
+        expect(rq).to.not.contain('Remark')
     }
 
     @test 'Create Mixvel book RQ for 1ADT RT with no middlename'() {
@@ -89,6 +91,8 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<OfferItemRefID>OFFER-1')
         expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
         expect(rq).to.contain('<GivenName>Test</GivenName>\n                  <Surname>Test</Surname>')
+        expect(rq).to.not.contain('Subsidy')
+        expect(rq).to.not.contain('Remark')
     }
 
     @test 'Create Mixvel book RQ for 2ADT 1CHD 1INF RT'() {
@@ -199,6 +203,8 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
         expect(rq).to.contain('<PaxID>Pax_3</PaxID>\n                <PTC>CNN</PTC>')
         expect(rq).to.contain('<PaxID>Pax_4</PaxID>\n                <PTC>INF</PTC>')
+        expect(rq).to.not.contain('Subsidy')
+        expect(rq).to.not.contain('Remark')
     }
 
     @test 'Create Mixvel book RQ for 1ADT RT with OSI remark'() {
@@ -246,6 +252,54 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
         expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
         expect(rq).to.contain('<RemarkText>FLY WITH WMTOTA</RemarkText>')
+        expect(rq).to.not.contain('Subsidy')
+    }
 
+    @test 'Create Mixvel book RQ for 1ADT RT with subsidy info'() {
+        const params: BookProps = {
+            offer: {
+                offerId: 'SOME-OFFER',
+                offerItems: [{offerItemId: 'OFFER-1', ptc: "ADULT"}]
+            },
+            passengers: [
+                {
+                    ptc: "ADULT",
+                    personalInfo: {
+                        firstName: 'Test',
+                        middleName: 'Test',
+                        lastName: 'Test',
+                        gender: "M",
+                        dob: new Date('1999-02-15'),
+                    },
+                    identityDocument: {
+                        type: "REGULAR_PASSPORT_RU",
+                        dateOfIssue: new Date('2015-02-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12345'
+                    },
+                    contacts: {
+                        email: 'test@test.test',
+                        phoneNumber: '89112311441'
+                    },
+                    subsidyData: {
+                        type: 'RESIDENT_DFO'
+                    }
+                }
+            ]
+        }
+
+        const rq = getBookRequest(params).getValue().body
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('Mixvel_OrderCreateRQ')
+        expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
+        expect(rq).to.contain('<OfferItemRefID>OFFER-1')
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
+        expect(rq).to.contain('<ContactInfoID>PaxContact_1')
+        expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
+        expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
+        expect(rq).to.contain('<SubsidyType>RESIDENT_DFO</SubsidyType>')
+        expect(rq).to.not.contain('Remark')
     }
 }

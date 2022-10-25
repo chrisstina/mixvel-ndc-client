@@ -83,6 +83,15 @@ var BookMessageMapper = /** @class */ (function () {
         else {
             delete pax.Remark;
         }
+        if (passenger.subsidyData) {
+            pax.SubsidyInformation = {
+                SubsidyProgram: passenger.subsidyData.program,
+                SubsidyType: passenger.subsidyData.type,
+            };
+        }
+        else {
+            delete pax.SubsidyInformation;
+        }
         return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {

@@ -88,7 +88,15 @@ export class BookMessageMapper implements IMessageMapper {
         } else {
             delete pax.Remark;
         }
-        return pax
+        if (passenger.subsidyData) {
+            pax.SubsidyInformation = {
+                SubsidyProgram: passenger.subsidyData.program,
+                SubsidyType: passenger.subsidyData.type,
+            };
+        } else {
+            delete pax.SubsidyInformation;
+        }
+        return pax;
     }
 
     private passengerToContact(passenger: MixvelPassenger, paxId: number) {

@@ -4,10 +4,9 @@ import {MixvelDocumentType} from "../mappers/dictionary/documentType";
 import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
 
 type ContactTypeText = "personal"
-
 type Individual = { GenderCode: string, GivenName: string, Birthdate: string, MiddleName?: string, Surname: string }
-
 type OsiRemark = { RemarkText: string }
+type SubsidyInformation = { SubsidyProgram?: string, SubsidyType?: string }
 
 export class Pax {
     constructor(
@@ -17,7 +16,8 @@ export class Pax {
         public Individual: Individual,
         public PaxID: string,
         public PTC: string,
-        public Remark?: OsiRemark[]
+        public Remark?: OsiRemark[],
+        public SubsidyInformation?: SubsidyInformation
     ) {
     }
 }
