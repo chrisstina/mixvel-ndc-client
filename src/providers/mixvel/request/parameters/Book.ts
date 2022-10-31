@@ -85,7 +85,6 @@ class MixvelPersonalInfo {
 }
 
 class MixvelSubsidyInformation {
-    @IsAlpha()
     @IsOptional()
     public program?: string;
     @IsOptional()

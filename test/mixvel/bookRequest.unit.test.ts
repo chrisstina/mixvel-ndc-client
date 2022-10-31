@@ -283,6 +283,7 @@ class BookRequestUnitTest {
                         phoneNumber: '89112311441'
                     },
                     subsidyData: {
+                        program: 'АВК',
                         type: 'RESIDENT_DFO'
                     }
                 }
