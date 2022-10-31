@@ -102,7 +102,6 @@ var MixvelSubsidyInformation = /** @class */ (function () {
         this.type = type;
     }
     __decorate([
-        (0, class_validator_1.IsAlpha)(),
         (0, class_validator_1.IsOptional)()
     ], MixvelSubsidyInformation.prototype, "program", void 0);
     __decorate([
