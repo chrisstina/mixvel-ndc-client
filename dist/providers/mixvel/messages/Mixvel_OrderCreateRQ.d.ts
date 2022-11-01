@@ -61,6 +61,14 @@ export declare class ContactInfo {
         PhoneNumber: string;
     });
 }
+export declare class PaxSegmentRemark {
+    PaxSegmentRefID: string;
+    PaxRefID: string;
+    ActionCode: "add" | "delete";
+    Type?: string | undefined;
+    Text?: string | undefined;
+    constructor(PaxSegmentRefID: string, PaxRefID: string, ActionCode: "add" | "delete", Type?: string | undefined, Text?: string | undefined);
+}
 export declare class Mixvel_OrderCreateRQ implements INDCMessage {
     get xmlns(): {
         "xmlns:m": string;
@@ -80,6 +88,9 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
         };
         "PaxList": {
             "Pax": Array<Pax>;
+        };
+        PaxSegmentRemarkList?: {
+            PaxSegmentRemark: Array<PaxSegmentRemark>;
         };
     };
     constructor();

@@ -33,20 +33,28 @@ declare class Contact {
     constructor(phoneNumber?: string, email?: string);
 }
 export declare type OSIRemark = string;
+export declare type SSRRemark = {
+    type: string;
+    text: string;
+    action: "add" | "delete";
+    paxs?: string[];
+    segments?: string[];
+};
 export declare type SubsidyData = {
     program?: string;
     type?: string;
 };
 export declare class Passenger {
     readonly id?: string | undefined;
+    osiRemarks?: string[] | undefined;
+    ssrRemarks?: SSRRemark[] | undefined;
+    subsidyData?: SubsidyData | undefined;
     readonly ptc: PaxCategory;
     personalInfo: PersonalInfo;
     identityDocument: IdentityDocument;
     contacts: Contact;
     loyaltyInfo?: Record<string, unknown>;
     ancillaries?: Array<Offer>;
-    osiRemarks?: Array<OSIRemark>;
-    subsidyData?: SubsidyData;
     constructor(ptc: PaxCategory, personalInfo: {
         firstName: string;
         lastName: string;
@@ -62,6 +70,6 @@ export declare class Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string | undefined, osiRemarks?: Array<OSIRemark>, subsidyData?: SubsidyData);
+    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string | undefined, osiRemarks?: string[] | undefined, ssrRemarks?: SSRRemark[] | undefined, subsidyData?: SubsidyData | undefined);
 }
 export {};

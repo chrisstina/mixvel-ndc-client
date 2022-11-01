@@ -21,5 +21,6 @@ export declare class BookMessageMapper implements IMessageMapper {
      * @param {string[]} paxRefs
      */
     private addSelectedOfferItem;
+    private addPaxRemarks;
     private setPaymentDetails;
 }

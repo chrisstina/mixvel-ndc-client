@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Mixvel_OrderCreateRQ = exports.ContactInfo = exports.Pax = void 0;
+exports.Mixvel_OrderCreateRQ = exports.PaxSegmentRemark = exports.ContactInfo = exports.Pax = void 0;
 var Pax = /** @class */ (function () {
     function Pax(AgeMeasure, ContactInfoRefID, IdentityDoc, Individual, PaxID, PTC, Remark, SubsidyInformation) {
         this.AgeMeasure = AgeMeasure;
@@ -24,6 +24,17 @@ var ContactInfo = /** @class */ (function () {
     return ContactInfo;
 }());
 exports.ContactInfo = ContactInfo;
+var PaxSegmentRemark = /** @class */ (function () {
+    function PaxSegmentRemark(PaxSegmentRefID, PaxRefID, ActionCode, Type, Text) {
+        this.PaxSegmentRefID = PaxSegmentRefID;
+        this.PaxRefID = PaxRefID;
+        this.ActionCode = ActionCode;
+        this.Type = Type;
+        this.Text = Text;
+    }
+    return PaxSegmentRemark;
+}());
+exports.PaxSegmentRemark = PaxSegmentRemark;
 var Mixvel_OrderCreateRQ = /** @class */ (function () {
     function Mixvel_OrderCreateRQ() {
         this.CreateOrder = {

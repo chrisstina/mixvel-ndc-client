@@ -9,6 +9,7 @@ import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
 import {toMixvel as toMixvelDocument} from "./dictionary/documentType"
 import {toMixvel as toMixvelPTC} from "./dictionary/ptc"
 import {toAge, toFOP, toMixvelDate} from "./commonMappers";
+import {SSRRemark} from "../../../core/request/parameters/Book";
 
 const DEFAULT_FOP: FopType = 'CASH';
 
@@ -21,10 +22,14 @@ export class BookMessageMapper implements IMessageMapper {
 
     map(): Mixvel_OrderCreateRQ {
         const paxRefs = new Map(),
-            ancillaryOffers: Array<{ ancillary: Offer, paxRef: string }> = [];
+            ancillaryOffers: Array<{ ancillary: Offer, paxRef: string }> = [],
+            paxRemarks = new Map();
         this.params.passengers.forEach((passenger, idx) => {
             const pax = this.passengerToPax(passenger, idx + 1);
             paxRefs.set(passenger.ptc, [...paxRefs.get(passenger.ptc) || [], pax.PaxID]);
+            if (passenger.ssrRemarks) {
+                paxRemarks.set(pax.PaxID, passenger.ssrRemarks);
+            }
             this.addPax(pax, this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
             if (passenger.ancillaries && passenger.ancillaries.length > 0) { // collect ancillaries
@@ -33,6 +38,10 @@ export class BookMessageMapper implements IMessageMapper {
                 }));
             }
         })
+
+        if (paxRemarks.size > 0) {
+            this.addPaxRemarks(paxRemarks);
+        }
 
         const flightOffer = this.addSelectedOffer(this.params.offer);
         this.params.offer.offerItems.forEach(({offerItemId, ptc}) => {
@@ -55,7 +64,7 @@ export class BookMessageMapper implements IMessageMapper {
         return this.message;
     }
 
-    private passengerToPax(passenger: MixvelPassenger, paxId: number) {
+    private passengerToPax(passenger: MixvelPassenger, paxId: number): Pax {
         const pax = new Pax(
             toAge(passenger.personalInfo.dob),
             '',
@@ -99,7 +108,7 @@ export class BookMessageMapper implements IMessageMapper {
         return pax;
     }
 
-    private passengerToContact(passenger: MixvelPassenger, paxId: number) {
+    private passengerToContact(passenger: MixvelPassenger, paxId: number): ContactInfo {
         return new ContactInfo(
             generateContactReference(paxId),
             {ContactTypeText: "personal", EmailAddressText: passenger.contacts.email},
@@ -137,6 +146,21 @@ export class BookMessageMapper implements IMessageMapper {
         });
     }
 
+    private addPaxRemarks(paxRemarks: Map<string, Array<SSRRemark>>) {
+        this.message.DataLists.PaxSegmentRemarkList = {PaxSegmentRemark: []};
+        paxRemarks.forEach((ssrRemarks, paxRef) => {
+            ssrRemarks.forEach(remark => {
+                this.message.DataLists.PaxSegmentRemarkList?.PaxSegmentRemark.push({
+                    PaxSegmentRefID: generatePaxRemarkReference(paxRef),
+                    PaxRefID: paxRef,
+                    ActionCode: remark.action,
+                    Type: remark.type,
+                    Text: remark.text
+                });
+            });
+        });
+    }
+
     private setPaymentDetails(fop: OtherPaymentMethod | DirectBill | AccountableDoc) {
         this.message.PaymentFunctions = {
             "PaymentProcessingDetails": {
@@ -152,6 +176,10 @@ function generatePaxReference(paxId: number): string {
 
 function generateContactReference(paxId: number): string {
     return `PaxContact_${paxId}`
+}
+
+function generatePaxRemarkReference(paxId: string): string {
+    return `PaxRemark_${paxId}`
 }
 
 /**

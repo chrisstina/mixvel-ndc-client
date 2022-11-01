@@ -22,10 +22,13 @@ var BookMessageMapper = /** @class */ (function () {
     }
     BookMessageMapper.prototype.map = function () {
         var _this = this;
-        var paxRefs = new Map(), ancillaryOffers = [];
+        var paxRefs = new Map(), ancillaryOffers = [], paxRemarks = new Map();
         this.params.passengers.forEach(function (passenger, idx) {
             var pax = _this.passengerToPax(passenger, idx + 1);
             paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], paxRefs.get(passenger.ptc) || [], true), [pax.PaxID], false));
+            if (passenger.ssrRemarks) {
+                paxRemarks.set(pax.PaxID, passenger.ssrRemarks);
+            }
             _this.addPax(pax, _this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
             if (passenger.ancillaries && passenger.ancillaries.length > 0) { // collect ancillaries
@@ -35,6 +38,9 @@ var BookMessageMapper = /** @class */ (function () {
                 }));
             }
         });
+        if (paxRemarks.size > 0) {
+            this.addPaxRemarks(paxRemarks);
+        }
         var flightOffer = this.addSelectedOffer(this.params.offer);
         this.params.offer.offerItems.forEach(function (_a) {
             var offerItemId = _a.offerItemId, ptc = _a.ptc;
@@ -124,6 +130,22 @@ var BookMessageMapper = /** @class */ (function () {
             PaxRefID: paxRefs
         });
     };
+    BookMessageMapper.prototype.addPaxRemarks = function (paxRemarks) {
+        var _this = this;
+        this.message.DataLists.PaxSegmentRemarkList = { PaxSegmentRemark: [] };
+        paxRemarks.forEach(function (ssrRemarks, paxRef) {
+            ssrRemarks.forEach(function (remark) {
+                var _a;
+                (_a = _this.message.DataLists.PaxSegmentRemarkList) === null || _a === void 0 ? void 0 : _a.PaxSegmentRemark.push({
+                    PaxSegmentRefID: generatePaxRemarkReference(paxRef),
+                    PaxRefID: paxRef,
+                    ActionCode: remark.action,
+                    Type: remark.type,
+                    Text: remark.text
+                });
+            });
+        });
+    };
     BookMessageMapper.prototype.setPaymentDetails = function (fop) {
         this.message.PaymentFunctions = {
             "PaymentProcessingDetails": {
@@ -139,6 +161,9 @@ function generatePaxReference(paxId) {
 }
 function generateContactReference(paxId) {
     return "PaxContact_".concat(paxId);
+}
+function generatePaxRemarkReference(paxId) {
+    return "PaxRemark_".concat(paxId);
 }
 /**
  * Phone has to contain '+' sign

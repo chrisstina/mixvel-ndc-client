@@ -1,5 +1,5 @@
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {OSIRemark, Passenger, SubsidyData} from "../../../../core/request/parameters/Book";
+import {OSIRemark, Passenger, SSRRemark, SubsidyData} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
@@ -32,7 +32,7 @@ export declare class MixvelPassenger extends Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string, osiRemarks?: Array<OSIRemark>, subsidyData?: SubsidyData);
+    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string, osiRemarks?: Array<OSIRemark>, ssrRemarks?: Array<SSRRemark>, subsidyData?: SubsidyData);
 }
 export declare class MixvelBookParams extends AbstractRequestParams {
     offer: Offer;

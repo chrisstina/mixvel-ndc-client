@@ -236,9 +236,10 @@ class BookRequestUnitTest {
                     },
                     osiRemarks: [
                         'FLY WITH WMTOTA'
-                    ]
+                    ],
+                    ssrRemarks: []
                 }
-            ]
+            ],
         }
 
         const rq = getBookRequest(params).getValue().body
@@ -285,7 +286,12 @@ class BookRequestUnitTest {
                     subsidyData: {
                         program: 'АВК',
                         type: 'RESIDENT_DFO'
-                    }
+                    },
+                    ssrRemarks: [{
+                        type: '',
+                        text: 'some remark text',
+                        action: "add"
+                    }]
                 }
             ]
         }
@@ -301,6 +307,6 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
         expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
         expect(rq).to.contain('<SubsidyType>RESIDENT_DFO</SubsidyType>')
-        expect(rq).to.not.contain('Remark')
+        expect(rq).to.contain('PaxSegmentRemarkList')
     }
 }

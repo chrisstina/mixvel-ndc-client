@@ -1,5 +1,6 @@
 import {
     IsAlpha,
+    IsAlphanumeric,
     IsArray,
     IsDate,
     IsEmail,
@@ -17,6 +18,7 @@ import {
     BookProps,
     OSIRemark,
     Passenger,
+    SSRRemark,
     SubsidyData,
     SUPPORTED_DOCTYPES
 } from "../../../../core/request/parameters/Book";
@@ -97,6 +99,19 @@ class MixvelSubsidyInformation {
     }
 }
 
+class MixvelSSRRemark {
+    @IsIn(["add", "delete"])
+    public action: "add" | "delete";
+    @IsOptional()
+    @IsAlphanumeric()
+    public paxRef?: string;
+
+    constructor(public type: string, public text: string, action: "add" | "delete", paxRef?: string) {
+        this.action = action;
+        this.paxRef = paxRef;
+    }
+}
+
 export class MixvelPassenger extends Passenger {
     @ValidateNested()
     public contacts: MixvelContact
@@ -111,6 +126,7 @@ export class MixvelPassenger extends Passenger {
                 ancillaries?: Array<Offer>,
                 id?: string,
                 osiRemarks?: Array<OSIRemark>,
+                ssrRemarks?: Array<SSRRemark>,
                 subsidyData?: SubsidyData
     ) {
         super(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id);
@@ -130,6 +146,12 @@ export class MixvelPassenger extends Passenger {
         this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         this.ancillaries = ancillaries;
         this.osiRemarks = osiRemarks;
+        if (ssrRemarks) {
+            this.ssrRemarks = [];
+            ssrRemarks.forEach(remark => {
+                this.ssrRemarks?.push(new MixvelSSRRemark(remark.type, remark.text, remark.action, id));
+            });
+        }
         if (subsidyData) {
             this.subsidyData = new MixvelSubsidyInformation(subsidyData.program, subsidyData.type);
         }
@@ -158,6 +180,7 @@ export class MixvelBookParams extends AbstractRequestParams {
             passenger.ancillaries,
             passenger.id,
             passenger.osiRemarks,
+            passenger.ssrRemarks,
             passenger.subsidyData
         ))
         if (props.formOfPayment) {

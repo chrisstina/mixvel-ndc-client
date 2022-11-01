@@ -32,7 +32,7 @@ var BookParams = /** @class */ (function (_super) {
     function BookParams(props) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
-        _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks, passenger.subsidyData); });
+        _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks, passenger.ssrRemarks, passenger.subsidyData); });
         if (props.formOfPayment) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }
@@ -120,16 +120,17 @@ var Contact = /** @class */ (function () {
     return Contact;
 }());
 var Passenger = /** @class */ (function () {
-    function Passenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id, osiRemarks, subsidyData) {
+    function Passenger(ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id, osiRemarks, ssrRemarks, subsidyData) {
         this.id = id;
+        this.osiRemarks = osiRemarks;
+        this.ssrRemarks = ssrRemarks;
+        this.subsidyData = subsidyData;
         this.ptc = ptc;
         this.personalInfo = new PersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName);
         this.identityDocument = new IdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);
         this.contacts = new Contact(contacts.phoneNumber, contacts.email);
         this.loyaltyInfo = loyaltyInfo;
         this.ancillaries = ancillaries;
-        this.osiRemarks = osiRemarks;
-        this.subsidyData = subsidyData;
     }
     __decorate([
         (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])

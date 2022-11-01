@@ -30,6 +30,16 @@ export class ContactInfo {
     }
 }
 
+export class PaxSegmentRemark {
+    constructor(public PaxSegmentRefID: string,
+                public PaxRefID: string,
+                public ActionCode: "add" | "delete",
+                public Type?: string,
+                public Text?: string
+    ) {
+    }
+}
+
 export class Mixvel_OrderCreateRQ implements INDCMessage {
     get xmlns() {
         return {"xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01"}
@@ -55,6 +65,9 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
         },
         "PaxList": {
             "Pax": Array<Pax>
+        }
+        PaxSegmentRemarkList?: {
+            PaxSegmentRemark: Array<PaxSegmentRemark>
         }
     }
 
