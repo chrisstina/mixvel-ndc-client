@@ -25,12 +25,12 @@ var ContactInfo = /** @class */ (function () {
 }());
 exports.ContactInfo = ContactInfo;
 var PaxSegmentRemark = /** @class */ (function () {
-    function PaxSegmentRemark(PaxSegmentRefID, PaxRefID, ActionCode, Type, Text) {
+    function PaxSegmentRemark(PaxSegmentRefID, PaxRefID, Type, Text, ActionType) {
         this.PaxSegmentRefID = PaxSegmentRefID;
         this.PaxRefID = PaxRefID;
-        this.ActionCode = ActionCode;
         this.Type = Type;
         this.Text = Text;
+        this.ActionType = ActionType;
     }
     return PaxSegmentRemark;
 }());

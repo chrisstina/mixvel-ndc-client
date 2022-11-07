@@ -62,12 +62,12 @@ export declare class ContactInfo {
     });
 }
 export declare class PaxSegmentRemark {
-    PaxSegmentRefID: string;
-    PaxRefID: string;
-    ActionCode: "add" | "delete";
+    PaxSegmentRefID?: string | undefined;
+    PaxRefID?: string | undefined;
     Type?: string | undefined;
     Text?: string | undefined;
-    constructor(PaxSegmentRefID: string, PaxRefID: string, ActionCode: "add" | "delete", Type?: string | undefined, Text?: string | undefined);
+    ActionType?: "add" | "delete" | undefined;
+    constructor(PaxSegmentRefID?: string | undefined, PaxRefID?: string | undefined, Type?: string | undefined, Text?: string | undefined, ActionType?: "add" | "delete" | undefined);
 }
 export declare class Mixvel_OrderCreateRQ implements INDCMessage {
     get xmlns(): {

@@ -118,6 +118,7 @@ var MixvelSSRRemark = /** @class */ (function () {
         this.paxRef = paxRef;
     }
     __decorate([
+        (0, class_validator_1.IsOptional)(),
         (0, class_validator_1.IsIn)(["add", "delete"])
     ], MixvelSSRRemark.prototype, "action", void 0);
     __decorate([

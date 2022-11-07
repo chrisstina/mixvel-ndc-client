@@ -6,8 +6,7 @@ export class MixvelDataList extends DataList {
         try {
             this.list = items[0][`${entityName}List`][0][entityName]
         } catch (e: any) {
-            console.error(`Failed to find ${entityName} DataList: ${e.stack}`)
-            this.list = []
+            this.list = [];
         }
     }
 

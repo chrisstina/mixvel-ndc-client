@@ -100,13 +100,14 @@ class MixvelSubsidyInformation {
 }
 
 class MixvelSSRRemark {
+    @IsOptional()
     @IsIn(["add", "delete"])
-    public action: "add" | "delete";
+    public action?: "add" | "delete";
     @IsOptional()
     @IsAlphanumeric()
     public paxRef?: string;
 
-    constructor(public type: string, public text: string, action: "add" | "delete", paxRef?: string) {
+    constructor(public type: string, public text: string, action?: "add" | "delete", paxRef?: string) {
         this.action = action;
         this.paxRef = paxRef;
     }

@@ -289,15 +289,13 @@ class BookRequestUnitTest {
                     },
                     ssrRemarks: [{
                         type: '',
-                        text: 'some remark text',
-                        action: "add"
+                        text: 'some remark text'
                     }]
                 }
             ]
         }
 
         const rq = getBookRequest(params).getValue().body
-
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderCreateRQ')
         expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')

@@ -136,13 +136,12 @@ var BookMessageMapper = /** @class */ (function () {
         paxRemarks.forEach(function (ssrRemarks, paxRef) {
             ssrRemarks.forEach(function (remark) {
                 var _a;
-                (_a = _this.message.DataLists.PaxSegmentRemarkList) === null || _a === void 0 ? void 0 : _a.PaxSegmentRemark.push({
-                    PaxSegmentRefID: generatePaxRemarkReference(paxRef),
+                var paxremark = {
                     PaxRefID: paxRef,
-                    ActionCode: remark.action,
                     Type: remark.type,
                     Text: remark.text
-                });
+                };
+                (_a = _this.message.DataLists.PaxSegmentRemarkList) === null || _a === void 0 ? void 0 : _a.PaxSegmentRemark.push(paxremark);
             });
         });
     };
@@ -161,9 +160,6 @@ function generatePaxReference(paxId) {
 }
 function generateContactReference(paxId) {
     return "PaxContact_".concat(paxId);
-}
-function generatePaxRemarkReference(paxId) {
-    return "PaxRemark_".concat(paxId);
 }
 /**
  * Phone has to contain '+' sign

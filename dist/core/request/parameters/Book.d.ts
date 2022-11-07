@@ -36,7 +36,7 @@ export declare type OSIRemark = string;
 export declare type SSRRemark = {
     type: string;
     text: string;
-    action: "add" | "delete";
+    action?: "add" | "delete";
     paxs?: string[];
     segments?: string[];
 };

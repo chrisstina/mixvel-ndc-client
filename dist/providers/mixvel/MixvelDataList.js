@@ -25,7 +25,6 @@ var MixvelDataList = /** @class */ (function (_super) {
             _this.list = items[0]["".concat(entityName, "List")][0][entityName];
         }
         catch (e) {
-            console.error("Failed to find ".concat(entityName, " DataList: ").concat(e.stack));
             _this.list = [];
         }
         return _this;

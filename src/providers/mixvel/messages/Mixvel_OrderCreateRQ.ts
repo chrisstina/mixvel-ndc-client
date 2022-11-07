@@ -31,11 +31,11 @@ export class ContactInfo {
 }
 
 export class PaxSegmentRemark {
-    constructor(public PaxSegmentRefID: string,
-                public PaxRefID: string,
-                public ActionCode: "add" | "delete",
+    constructor(public PaxSegmentRefID?: string,
+                public PaxRefID?: string,
                 public Type?: string,
-                public Text?: string
+                public Text?: string,
+                public ActionType?: "add" | "delete"
     ) {
     }
 }

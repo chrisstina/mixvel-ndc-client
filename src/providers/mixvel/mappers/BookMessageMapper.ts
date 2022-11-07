@@ -150,13 +150,12 @@ export class BookMessageMapper implements IMessageMapper {
         this.message.DataLists.PaxSegmentRemarkList = {PaxSegmentRemark: []};
         paxRemarks.forEach((ssrRemarks, paxRef) => {
             ssrRemarks.forEach(remark => {
-                this.message.DataLists.PaxSegmentRemarkList?.PaxSegmentRemark.push({
-                    PaxSegmentRefID: generatePaxRemarkReference(paxRef),
+                const paxremark = {
                     PaxRefID: paxRef,
-                    ActionCode: remark.action,
                     Type: remark.type,
                     Text: remark.text
-                });
+                }
+                this.message.DataLists.PaxSegmentRemarkList?.PaxSegmentRemark.push(paxremark);
             });
         });
     }
@@ -176,10 +175,6 @@ function generatePaxReference(paxId: number): string {
 
 function generateContactReference(paxId: number): string {
     return `PaxContact_${paxId}`
-}
-
-function generatePaxRemarkReference(paxId: string): string {
-    return `PaxRemark_${paxId}`
 }
 
 /**

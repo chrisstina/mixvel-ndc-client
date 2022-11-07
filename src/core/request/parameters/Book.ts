@@ -115,7 +115,7 @@ class Contact {
 
 export type OSIRemark = string;
 
-export type SSRRemark = { type: string, text: string, action: "add"|"delete", paxs?: string[], segments?: string[] };
+export type SSRRemark = { type: string, text: string, action?: "add"|"delete", paxs?: string[], segments?: string[] };
 
 export type SubsidyData = { program?: string, type?: string };
 
