@@ -91,6 +91,9 @@ var SearchParams = /** @class */ (function (_super) {
         if (props.contract3D) {
             _this.contract3D = props.contract3D;
         }
+        if (props.preferredRBD) {
+            _this.preferredRBD = props.preferredRBD;
+        }
         return _this;
     }
     __decorate([
@@ -116,6 +119,9 @@ var SearchParams = /** @class */ (function (_super) {
     __decorate([
         (0, class_validator_1.IsOptional)()
     ], SearchParams.prototype, "contract3D", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)()
+    ], SearchParams.prototype, "preferredRBD", void 0);
     return SearchParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.SearchParams = SearchParams;

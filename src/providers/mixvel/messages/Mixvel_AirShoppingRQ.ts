@@ -88,9 +88,14 @@ export type ProgramCriteria = {
     TypeCode?: string
 }
 
+export type FlightCriteria = {
+    RBD: { MixRBDInd: boolean, RBD_Code?: string[] },
+}
+
 type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[],
     ConnectionCriteria?: ConnectionCriteria[],
+    FlightCriteria?: FlightCriteria[],
     ProgramCriteria?: ProgramCriteria[],
     PricingMethodCriteria?: PricingMethodCriteria[]
 }

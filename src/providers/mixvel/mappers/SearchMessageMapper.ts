@@ -40,6 +40,9 @@ export class SearchMessageMapper implements IMessageMapper {
         } else { // remove unused ref field
             this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.ConnectionPrefRefID);
         }
+        if (this.params.preferredRBD) {
+            this.addFlightCriteria({allowMixing: false, RBDCodes: this.params.preferredRBD})
+        }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption)
         }
@@ -91,6 +94,15 @@ export class SearchMessageMapper implements IMessageMapper {
             "MaximumConnectionQty": maxConnections
         }]
         this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.ConnectionPrefRefID = connectionId);
+    }
+
+    private addFlightCriteria(rbdCriteria: {allowMixing: boolean, RBDCodes?: string[]}) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({'FlightCriteria': []})
+        }
+        this.message.ShoppingCriteria[0].FlightCriteria = [{
+            RBD: { MixRBDInd: rbdCriteria.allowMixing, RBD_Code: rbdCriteria.RBDCodes }
+        }]
     }
 
     private addPricingCriteria(pricingOption: PricingOption) {

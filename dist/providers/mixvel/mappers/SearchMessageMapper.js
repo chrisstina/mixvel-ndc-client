@@ -34,6 +34,9 @@ var SearchMessageMapper = /** @class */ (function () {
         else { // remove unused ref field
             this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.ConnectionPrefRefID; });
         }
+        if (this.params.preferredRBD) {
+            this.addFlightCriteria({ allowMixing: false, RBDCodes: this.params.preferredRBD });
+        }
         if (this.params.pricingOption) {
             this.addPricingCriteria(this.params.pricingOption);
         }
@@ -82,6 +85,14 @@ var SearchMessageMapper = /** @class */ (function () {
                 "MaximumConnectionQty": maxConnections
             }];
         this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.ConnectionPrefRefID = connectionId; });
+    };
+    SearchMessageMapper.prototype.addFlightCriteria = function (rbdCriteria) {
+        if (this.message.ShoppingCriteria.length === 0) {
+            this.message.ShoppingCriteria.push({ 'FlightCriteria': [] });
+        }
+        this.message.ShoppingCriteria[0].FlightCriteria = [{
+                RBD: { MixRBDInd: rbdCriteria.allowMixing, RBD_Code: rbdCriteria.RBDCodes }
+            }];
     };
     SearchMessageMapper.prototype.addPricingCriteria = function (pricingOption) {
         if (this.message.ShoppingCriteria.length === 0) {

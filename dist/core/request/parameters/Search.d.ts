@@ -37,6 +37,7 @@ export declare class SearchParams extends AbstractRequestParams {
     readonly onlyDirect?: boolean;
     readonly pricingOption?: PricingOption;
     readonly contract3D?: Contract3D;
+    readonly preferredRBD?: string[];
     private constructor();
 }
 export {};

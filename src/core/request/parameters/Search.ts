@@ -93,6 +93,8 @@ export class SearchParams extends AbstractRequestParams {
     public readonly pricingOption?: PricingOption
     @IsOptional()
     public readonly contract3D?: Contract3D
+    @IsOptional()
+    public readonly preferredRBD?: string[]
 
     private constructor(props: SearchProps) {
         super()
@@ -113,6 +115,9 @@ export class SearchParams extends AbstractRequestParams {
         }
         if (props.contract3D) {
             this.contract3D = props.contract3D
+        }
+        if (props.preferredRBD) {
+            this.preferredRBD = props.preferredRBD
         }
     }
 }

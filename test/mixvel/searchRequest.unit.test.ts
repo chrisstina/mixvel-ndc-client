@@ -201,8 +201,6 @@ class SearchRequestUnitTest {
             }
         }).getValue().body
 
-        console.log(rq)
-
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
         expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
@@ -216,5 +214,34 @@ class SearchRequestUnitTest {
         expect(rq).to.contain("<ContractID>ACC453</ContractID>")
         expect(rq).to.contain("<AccountID>RB2715</AccountID>")
         expect(rq).to.contain("<TypeCode>TC</TypeCode>")
+    }
+
+    @test 'Create Mixvel search RQ with required RBD codes'() {
+        const rq = getSearchRequest({
+            travelers: [
+                {ptc: 'ADULT', age: 30, id: "1"}
+            ],
+            originDestinations: [
+                {from: "LED", to: "MOW", dateRangeEnd: dateOut, dateRangeStart: dateOut},
+                {from: "MOW", to: "LED", dateRangeEnd: dateReturn, dateRangeStart: dateReturn}
+            ],
+            cabin: "ECONOMY",
+            preferredRBD: ["P"]
+        }).getValue().body
+
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('shop:Mixvel_AirShoppingRQ')
+        expect(rq).to.contain("<DestArrivalCriteria>\n                  <IATA_LocationCode>LED</IATA_LocationCode>")
+        expect(rq).to.contain("<PTC>ADT</PTC>")
+        expect(rq).to.contain("<CabinTypeCode>Economy</CabinTypeCode>\n" +
+            "                  <PrefLevel>\n" +
+            "                    <PrefLevelCode>Required</PrefLevelCode>\n" +
+            "                  </PrefLevel>")
+        expect(rq).to.contain("<FlightCriteria>\n" +
+            "              <RBD>\n" +
+            "                <MixRBDInd>false</MixRBDInd>\n" +
+            "                <RBD_Code>P</RBD_Code>\n" +
+            "              </RBD>\n" +
+            "            </FlightCriteria>")
     }
 }

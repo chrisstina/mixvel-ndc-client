@@ -66,9 +66,16 @@ export declare type ProgramCriteria = {
     }[];
     TypeCode?: string;
 };
+export declare type FlightCriteria = {
+    RBD: {
+        MixRBDInd: boolean;
+        RBD_Code?: string[];
+    };
+};
 declare type ShoppingCriteria = {
     CarrierCriteria?: CarrierCriteria[];
     ConnectionCriteria?: ConnectionCriteria[];
+    FlightCriteria?: FlightCriteria[];
     ProgramCriteria?: ProgramCriteria[];
     PricingMethodCriteria?: PricingMethodCriteria[];
 };
