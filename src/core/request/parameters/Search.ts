@@ -15,6 +15,7 @@ import {
 
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {Cabin, PaxCategory, PricingOption} from "../types";
+import {Result} from "../../Result";
 
 export class OriginDestination {
     @IsAlpha()
@@ -95,6 +96,11 @@ export class SearchParams extends AbstractRequestParams {
     public readonly contract3D?: Contract3D
     @IsOptional()
     public readonly preferredRBD?: string[]
+
+    public static create(props: SearchProps): Result<SearchParams> {
+        const params = new SearchParams(props);
+        return AbstractRequestParams.validate<SearchParams>(params);
+    }
 
     private constructor(props: SearchProps) {
         super()

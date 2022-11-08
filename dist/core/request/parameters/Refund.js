@@ -32,6 +32,10 @@ var RefundParams = /** @class */ (function (_super) {
         _this.orderItemIds = props.orderItemIds;
         return _this;
     }
+    RefundParams.create = function (props) {
+        var params = new RefundParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], RefundParams.prototype, "orderId", void 0);

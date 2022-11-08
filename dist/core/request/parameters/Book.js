@@ -38,6 +38,10 @@ var BookParams = /** @class */ (function (_super) {
         }
         return _this;
     }
+    BookParams.create = function (props) {
+        var params = new BookParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)({ each: true })

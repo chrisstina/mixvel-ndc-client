@@ -87,6 +87,10 @@ var PriceParams = /** @class */ (function (_super) {
         _this.offers = props.offers.map(function (offerData) { return new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
         return _this;
     }
+    PriceParams.create = function (props) {
+        var params = new PriceParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     /**
      * @return {offerId: string, offerItemIds: string[]}
      */

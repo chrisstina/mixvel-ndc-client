@@ -33,6 +33,10 @@ var AuthParams = /** @class */ (function (_super) {
         _this.structureId = props.structureId;
         return _this;
     }
+    AuthParams.create = function (props) {
+        var params = new AuthParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)(),
         (0, class_validator_1.IsNotEmpty)()

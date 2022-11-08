@@ -2,6 +2,7 @@ import {IsArray, IsIn, IsString, Length, ValidateNested} from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
 import {OfferItem, PriceProps} from "../../../../core/request/parameters/Price";
 import {PaxCategory} from "../../../../core/request/types";
+import {Result} from "../../../../core/Result";
 
 class TicketMeOfferItem extends OfferItem {
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
@@ -35,6 +36,11 @@ export class TicketMePriceParams extends AbstractRequestParams {
     @IsArray()
     @ValidateNested()
     public readonly offers: TicketMeOffer[]
+
+    public static create(props: PriceProps): Result<TicketMePriceParams> {
+        const params = new TicketMePriceParams(props);
+        return AbstractRequestParams.validate<TicketMePriceParams>(params);
+    }
 
     private constructor(props: PriceProps) {
         super()

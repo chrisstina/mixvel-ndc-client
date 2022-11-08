@@ -4,7 +4,7 @@ import {MixvelBookParams} from "../request/parameters/Book";
 
 export class BookParamsValidator extends AbstractParamsValidator {
     public static validate(params: MixvelBookParams): null | string {
-        const paramsOrError = MixvelBookParams.create<MixvelBookParams>(params)
+        const paramsOrError = MixvelBookParams.create(params)
         if (paramsOrError.isFailure) {
             return paramsOrError.error || 'Generic parameter validation error'
         }

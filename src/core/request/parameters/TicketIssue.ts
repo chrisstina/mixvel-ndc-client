@@ -1,6 +1,7 @@
 import {IsIn, IsOptional, IsPositive, IsString, ValidateNested} from "class-validator";
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {FopType} from "../types";
+import {Result} from "../../Result";
 
 export class FormOfPayment {
     @IsIn(["CASH", "BILL", "CARD"])
@@ -38,6 +39,11 @@ export class TicketIssueParams extends AbstractRequestParams {
     orderOwner?: string
     @IsOptional()
     paxs?: string[]
+
+    public static create(props: TicketIssueProps): Result<TicketIssueParams> {
+        const params = new TicketIssueParams(props);
+        return AbstractRequestParams.validate<TicketIssueParams>(params);
+    }
 
     private constructor(props: TicketIssueProps) {
         super()

@@ -46,6 +46,10 @@ var TicketMeTicketIssueParams = /** @class */ (function (_super) {
         _this.paxs = props.paxs;
         return _this;
     }
+    TicketMeTicketIssueParams.create = function (props) {
+        var params = new TicketMeTicketIssueParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)(),
         (0, class_validator_1.MinLength)(1)

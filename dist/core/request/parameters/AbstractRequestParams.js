@@ -8,16 +8,18 @@ var AbstractRequestParams = /** @class */ (function () {
     function AbstractRequestParams() {
     }
     AbstractRequestParams.validate = function (params) {
-        var validationErrors = AbstractRequestParams.validatorService.getValidator().validate(params);
+        var validationErrors = this.getValidator().validate(params);
         if (validationErrors.length > 0) {
-            var validationErrorText = AbstractRequestParams.validatorService.collectValidationErrors(validationErrors).join(', ');
+            var validationErrorText = this.collectValidationErrors(validationErrors).join(', ');
             return Result_1.Result.fail(new RequestValidationError_1.RequestValidationError(validationErrorText).message);
         }
         return Result_1.Result.ok(params);
     };
-    AbstractRequestParams.create = function (props) {
-        var params = this.prototype.constructor(props);
-        return AbstractRequestParams.validate(params);
+    AbstractRequestParams.getValidator = function () {
+        return this.validatorService.getValidator();
+    };
+    AbstractRequestParams.collectValidationErrors = function (validationErrors) {
+        return this.validatorService.collectValidationErrors(validationErrors);
     };
     AbstractRequestParams.validatorService = new ClassValidatorService_1.ClassValidatorService();
     return AbstractRequestParams;

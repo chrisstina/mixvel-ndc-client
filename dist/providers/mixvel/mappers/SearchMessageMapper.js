@@ -10,40 +10,40 @@ var preflevel_1 = require("../constants/preflevel");
 var SearchMessageMapper = /** @class */ (function () {
     function SearchMessageMapper(params) {
         this.params = params;
-        this.message = new Mixvel_AirShoppingRQ_1.Mixvel_AirShoppingRQ();
     }
     SearchMessageMapper.prototype.map = function () {
         var _this = this;
+        var message = new Mixvel_AirShoppingRQ_1.Mixvel_AirShoppingRQ();
         // mind the order of fields!
         this.params.originDestinations.forEach(function (od) {
-            _this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin)));
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(_this.createOD(od.from, od.to, DateTime.fromJSDate(od.dateRangeStart).toISODate(), DateTime.fromJSDate(od.dateRangeEnd).toISODate(), (0, cabin_1.toMixvel)(_this.params.cabin)));
         });
         this.params.travelers.forEach(function (_a) {
             var id = _a.id, ptc = _a.ptc, age = _a.age;
-            _this.message.Paxs.Pax.push(new Mixvel_AirShoppingRQ_1.Pax(id, (0, ptc_1.toMixvel)(ptc), age.toString()));
+            message.Paxs.Pax.push(new Mixvel_AirShoppingRQ_1.Pax(id, (0, ptc_1.toMixvel)(ptc), age.toString()));
         });
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
-            this.addCarrierCriteria(this.params.preferredCarriers);
+            this.addCarrierCriteria(message, this.params.preferredCarriers);
         }
         else { // remove unused ref field
-            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.CarrierPrefRefID; });
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.CarrierPrefRefID; });
         }
         if (this.params.onlyDirect) {
-            this.addConnectionCriteria('1');
+            this.addConnectionCriteria(message, '1');
         }
         else { // remove unused ref field
-            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.ConnectionPrefRefID; });
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return delete od.ConnectionPrefRefID; });
         }
         if (this.params.preferredRBD) {
-            this.addFlightCriteria({ allowMixing: false, RBDCodes: this.params.preferredRBD });
+            this.addFlightCriteria(message, { allowMixing: false, RBDCodes: this.params.preferredRBD });
         }
         if (this.params.pricingOption) {
-            this.addPricingCriteria(this.params.pricingOption);
+            this.addPricingCriteria(message, this.params.pricingOption);
         }
         if (this.params.contract3D) {
-            this.addProgramCriteria(this.params.contract3D);
+            this.addProgramCriteria(message, this.params.contract3D);
         }
-        return this.message;
+        return message;
     };
     /**
      * @param {string} originCode
@@ -62,49 +62,49 @@ var SearchMessageMapper = /** @class */ (function () {
         OD.CabinType = { CabinTypeCode: cabinTypeCode, PrefLevel: { PrefLevelCode: preflevel_1.Preflevel.REQUIRED } };
         return OD;
     };
-    SearchMessageMapper.prototype.addCarrierCriteria = function (allowedCarrierCodes) {
+    SearchMessageMapper.prototype.addCarrierCriteria = function (message, allowedCarrierCodes) {
         var carrierPrefRefId = this.generateCarrierPrefId();
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({ 'CarrierCriteria': [] });
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({ 'CarrierCriteria': [] });
         }
-        this.message.ShoppingCriteria[0].CarrierCriteria = [{
+        message.ShoppingCriteria[0].CarrierCriteria = [{
                 Carrier: allowedCarrierCodes.map(function (code) {
                     return { AirlineDesigCode: code };
                 }),
                 CarrierPrefID: carrierPrefRefId
             }];
-        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.CarrierPrefRefID = carrierPrefRefId; });
+        message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.CarrierPrefRefID = carrierPrefRefId; });
     };
-    SearchMessageMapper.prototype.addConnectionCriteria = function (maxConnections) {
+    SearchMessageMapper.prototype.addConnectionCriteria = function (message, maxConnections) {
         var connectionId = this.generateConnectionId();
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({ 'ConnectionCriteria': [] });
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({ 'ConnectionCriteria': [] });
         }
-        this.message.ShoppingCriteria[0].ConnectionCriteria = [{
+        message.ShoppingCriteria[0].ConnectionCriteria = [{
                 "ConnectionPrefID": connectionId,
                 "MaximumConnectionQty": maxConnections
             }];
-        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.ConnectionPrefRefID = connectionId; });
+        message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(function (od) { return od.ConnectionPrefRefID = connectionId; });
     };
-    SearchMessageMapper.prototype.addFlightCriteria = function (rbdCriteria) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({ 'FlightCriteria': [] });
+    SearchMessageMapper.prototype.addFlightCriteria = function (message, rbdCriteria) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({ 'FlightCriteria': [] });
         }
-        this.message.ShoppingCriteria[0].FlightCriteria = [{
+        message.ShoppingCriteria[0].FlightCriteria = [{
                 RBD: { MixRBDInd: rbdCriteria.allowMixing, RBD_Code: rbdCriteria.RBDCodes }
             }];
     };
-    SearchMessageMapper.prototype.addPricingCriteria = function (pricingOption) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({ 'PricingMethodCriteria': [] });
+    SearchMessageMapper.prototype.addPricingCriteria = function (message, pricingOption) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({ 'PricingMethodCriteria': [] });
         }
-        this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
+        message.ShoppingCriteria[0].PricingMethodCriteria = [{
                 "BestPricingOptionText": (0, pricingoption_1.toMixvel)(pricingOption)
             }];
     };
-    SearchMessageMapper.prototype.addProgramCriteria = function (contract) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({ 'ProgramCriteria': [] });
+    SearchMessageMapper.prototype.addProgramCriteria = function (message, contract) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({ 'ProgramCriteria': [] });
         }
         var criterion = {};
         if (contract.contractNumber) {
@@ -118,7 +118,7 @@ var SearchMessageMapper = /** @class */ (function () {
         if (contract.contractType) {
             criterion.TypeCode = contract.contractType;
         }
-        this.message.ShoppingCriteria[0].ProgramCriteria = [criterion];
+        message.ShoppingCriteria[0].ProgramCriteria = [criterion];
     };
     SearchMessageMapper.prototype.generateConnectionId = function () {
         return 'Connection-1';

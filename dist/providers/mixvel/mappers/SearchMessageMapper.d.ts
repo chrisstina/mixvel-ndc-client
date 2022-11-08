@@ -4,7 +4,6 @@ import {Mixvel_AirShoppingRQ} from "../messages/Mixvel_AirShoppingRQ";
 
 export declare class SearchMessageMapper implements IMessageMapper {
     readonly params: SearchProps;
-    message: Mixvel_AirShoppingRQ;
     constructor(params: SearchProps);
     map(): Mixvel_AirShoppingRQ;
     /**

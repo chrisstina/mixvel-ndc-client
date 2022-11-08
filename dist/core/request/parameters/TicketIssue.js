@@ -60,6 +60,10 @@ var TicketIssueParams = /** @class */ (function (_super) {
         _this.paxs = props.paxs;
         return _this;
     }
+    TicketIssueParams.create = function (props) {
+        var params = new TicketIssueParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], TicketIssueParams.prototype, "orderId", void 0);

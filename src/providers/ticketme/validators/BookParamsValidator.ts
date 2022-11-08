@@ -4,7 +4,7 @@ import {TicketMeBookParams} from "../request/parameters/Book";
 
 export class BookParamsValidator extends AbstractParamsValidator {
     public static validate(params: BookParams): null | string {
-        const paramsOrError = TicketMeBookParams.create<TicketMeBookParams>(params)
+        const paramsOrError = TicketMeBookParams.create(params)
         if (paramsOrError.isFailure) {
             return paramsOrError.error || 'Generic parameter validation error'
         }

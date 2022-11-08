@@ -96,6 +96,10 @@ var SearchParams = /** @class */ (function (_super) {
         }
         return _this;
     }
+    SearchParams.create = function (props) {
+        var params = new SearchParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.ArrayNotEmpty)(),
         (0, class_validator_1.ValidateNested)({ each: true })

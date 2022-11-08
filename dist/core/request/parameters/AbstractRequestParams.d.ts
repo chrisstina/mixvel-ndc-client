@@ -1,5 +1,6 @@
 import {Result} from "../../Result";
 import {IValidatorService} from "../../../interfaces/IValidatorService";
+import {IValidator} from "../../../interfaces/IValidator";
 
 declare type JustMethodKeys<ParamsType> = ({
     [P in keyof ParamsType]: ParamsType[P] extends Function ? P : never;
@@ -10,6 +11,7 @@ export declare type RequestProps<ParamsType> = Omit<{
 export declare abstract class AbstractRequestParams {
     static validatorService: IValidatorService;
     static validate<T extends AbstractRequestParams>(params: T): Result<T>;
-    static create<T extends AbstractRequestParams>(props: RequestProps<T>): Result<T>;
+    static getValidator<T extends object>(): IValidator;
+    static collectValidationErrors(validationErrors: object[] | string[]): string[];
 }
 export {};

@@ -1,5 +1,6 @@
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {FopType} from "../types";
+import {Result} from "../../Result";
 
 export declare class FormOfPayment {
     type: FopType;
@@ -18,5 +19,6 @@ export declare class TicketIssueParams extends AbstractRequestParams {
     formOfPayment: FormOfPayment;
     orderOwner?: string;
     paxs?: string[];
+    static create(props: TicketIssueProps): Result<TicketIssueParams>;
     private constructor();
 }

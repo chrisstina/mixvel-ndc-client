@@ -17,6 +17,7 @@ import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
 import {FormOfPayment} from "./TicketIssue";
+import {Result} from "../../Result";
 
 export const SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"]
 
@@ -30,6 +31,11 @@ export class BookParams extends AbstractRequestParams {
     @ValidateNested()
     @IsOptional()
     formOfPayment?: FormOfPayment
+
+    public static create(props: BookProps): Result<BookParams> {
+        const params = new BookParams(props);
+        return AbstractRequestParams.validate<BookParams>(params);
+    }
 
     private constructor(props: BookProps) {
         super()
@@ -76,7 +82,7 @@ class PersonalInfo {
 }
 
 class IdentityDocument {
-    @IsIn( SUPPORTED_DOCTYPES)
+    @IsIn(SUPPORTED_DOCTYPES)
     public type: DocumentType
     @IsNotEmpty({message: 'Document number should not be empty'})
     public number: string
@@ -115,7 +121,7 @@ class Contact {
 
 export type OSIRemark = string;
 
-export type SSRRemark = { type: string, text: string, action?: "add"|"delete", paxs?: string[], segments?: string[] };
+export type SSRRemark = { type: string, text: string, action?: "add" | "delete", paxs?: string[], segments?: string[] };
 
 export type SubsidyData = { program?: string, type?: string };
 

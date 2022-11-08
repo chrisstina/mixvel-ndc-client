@@ -25,6 +25,7 @@ import {
 import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
+import {Result} from "../../../../core/Result";
 
 class MixvelContact {
     @IsOptional()
@@ -168,6 +169,11 @@ export class MixvelBookParams extends AbstractRequestParams {
     @ValidateNested()
     @IsOptional()
     formOfPayment?: FormOfPayment;
+
+    public static create(props: BookProps): Result<MixvelBookParams> {
+        const params = new MixvelBookParams(props);
+        return AbstractRequestParams.validate<MixvelBookParams>(params);
+    }
 
     private constructor(props: BookProps) {
         super()

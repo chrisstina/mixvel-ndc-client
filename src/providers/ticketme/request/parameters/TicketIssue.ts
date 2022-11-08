@@ -2,6 +2,7 @@ import {AbstractRequestParams} from "../../../../core/request/parameters/Abstrac
 import {IsIn, IsString, MinLength, ValidateNested} from "class-validator";
 import {Payment, TicketIssueProps} from "../../../../core/request/parameters/TicketIssue";
 import {FopType} from "../../../../core/request/types";
+import {Result} from "../../../../core/Result";
 
 class TicketMeFormOfPayment {
     @IsIn(["CASH", "CARD", "OTHER"])
@@ -29,6 +30,11 @@ export class TicketMeTicketIssueParams extends AbstractRequestParams {
         each: true,
     })
     paxs?: string[]
+
+    public static create(props: TicketIssueProps): Result<TicketMeTicketIssueParams> {
+        const params = new TicketMeTicketIssueParams(props);
+        return AbstractRequestParams.validate<TicketMeTicketIssueParams>(params);
+    }
 
     private constructor(props: TicketIssueProps) {
         super()

@@ -31,6 +31,10 @@ var RepriceParams = /** @class */ (function (_super) {
         _this.orderId = props.orderId;
         return _this;
     }
+    RepriceParams.create = function (props) {
+        var params = new RepriceParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], RepriceParams.prototype, "orderId", void 0);

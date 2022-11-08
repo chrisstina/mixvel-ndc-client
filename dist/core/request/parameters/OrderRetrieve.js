@@ -32,6 +32,10 @@ var OrderRetrieveParams = /** @class */ (function (_super) {
         _this.offerOwner = props.offerOwner;
         return _this;
     }
+    OrderRetrieveParams.create = function (props) {
+        var params = new OrderRetrieveParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsString)()
     ], OrderRetrieveParams.prototype, "orderId", void 0);

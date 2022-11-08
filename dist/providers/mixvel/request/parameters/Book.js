@@ -168,6 +168,10 @@ var MixvelBookParams = /** @class */ (function (_super) {
         }
         return _this;
     }
+    MixvelBookParams.create = function (props) {
+        var params = new MixvelBookParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.ValidateNested)({ each: true })
     ], MixvelBookParams.prototype, "offer", void 0);

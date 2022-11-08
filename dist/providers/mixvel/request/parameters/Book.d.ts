@@ -1,8 +1,9 @@
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {OSIRemark, Passenger, SSRRemark, SubsidyData} from "../../../../core/request/parameters/Book";
+import {BookProps, OSIRemark, Passenger, SSRRemark, SubsidyData} from "../../../../core/request/parameters/Book";
 import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
+import {Result} from "../../../../core/Result";
 
 declare class MixvelContact {
     phoneNumber?: string;
@@ -38,6 +39,7 @@ export declare class MixvelBookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<MixvelPassenger>;
     formOfPayment?: FormOfPayment;
+    static create(props: BookProps): Result<MixvelBookParams>;
     private constructor();
 }
 export {};

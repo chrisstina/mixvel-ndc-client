@@ -1,5 +1,6 @@
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {PaxCategory} from "../types";
+import {Result} from "../../Result";
 
 export declare class OfferItem {
     offerItemId: string;
@@ -17,6 +18,7 @@ export declare class Offer {
 export declare type PriceProps = RequestProps<PriceParams>;
 export declare class PriceParams extends AbstractRequestParams {
     readonly offers: Offer[];
+    static create(props: PriceProps): Result<PriceParams>;
     private constructor();
     /**
      * @return {offerId: string, offerItemIds: string[]}

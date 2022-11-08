@@ -32,6 +32,10 @@ var TicketMeBookParams = /** @class */ (function (_super) {
         _this.offer = new Price_1.TicketMeOffer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner || '', props.offer.responseId || '');
         return _this;
     }
+    TicketMeBookParams.create = function (props) {
+        var params = new TicketMeBookParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.ValidateNested)({ each: true })
     ], TicketMeBookParams.prototype, "offer", void 0);

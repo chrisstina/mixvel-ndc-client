@@ -70,6 +70,10 @@ var TicketMePriceParams = /** @class */ (function (_super) {
         _this.offers = props.offers.map(function (offerData) { return new TicketMeOffer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
         return _this;
     }
+    TicketMePriceParams.create = function (props) {
+        var params = new TicketMePriceParams(props);
+        return AbstractRequestParams_1.AbstractRequestParams.validate(params);
+    };
     __decorate([
         (0, class_validator_1.IsArray)(),
         (0, class_validator_1.ValidateNested)()

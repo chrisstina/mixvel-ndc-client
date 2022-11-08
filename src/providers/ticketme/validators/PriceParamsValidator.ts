@@ -4,7 +4,7 @@ import {TicketMePriceParams} from "../request/parameters/Price";
 
 export class PriceParamsValidator extends AbstractParamsValidator {
     public static validate(params: PriceParams): null | string {
-        const paramsOrError = TicketMePriceParams.create<TicketMePriceParams>(params)
+        const paramsOrError = TicketMePriceParams.create(params)
         if (paramsOrError.isFailure) {
             return paramsOrError.error || 'Generic parameter validation error'
         }

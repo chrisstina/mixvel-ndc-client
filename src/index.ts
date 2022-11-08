@@ -81,21 +81,21 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     // ========== Request management ==============
 
     function getAuthRequest(props: AuthProps): Result<IRequest> {
-        const paramsOrError = AuthParams.create<AuthParams>(props)
+        const paramsOrError = AuthParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createAuthRequest(paramsOrError.getValue())
     }
 
     function getSearchRequest(props: SearchProps): Result<IRequest> {
-        const paramsOrError = SearchParams.create<SearchParams>(props)
+        const paramsOrError = SearchParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createSearchRequest(paramsOrError.getValue())
     }
 
     function getPriceRequest(props: PriceProps): Result<IRequest> {
-        const paramsOrError = PriceParams.create<PriceParams>(props)
+        const paramsOrError = PriceParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createPriceRequest(paramsOrError.getValue())
@@ -104,9 +104,9 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     function getFareRulesRequest(props: PriceProps | OrderRetrieveParams): Result<IRequest> {
         let paramsOrError
         if (isPriceProps(props)) {
-            paramsOrError = PriceParams.create<PriceParams>(props as PriceProps)
+            paramsOrError = PriceParams.create(props);
         } else if (isOrderRetrieveProps(props)) {
-            paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props as OrderRetrieveParams)
+            paramsOrError = OrderRetrieveParams.create(props);
         }
         if (paramsOrError === undefined) {
             return Result.fail<IRequest>('Could not guess params type')
@@ -117,28 +117,28 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     }
 
     function getBookRequest(props: BookProps): Result<IRequest> {
-        const paramsOrError = BookParams.create<BookParams>(props)
+        const paramsOrError = BookParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createBookRequest(paramsOrError.getValue())
     }
 
     function getOrderRetrieveRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createOrderRetrieveRequest(paramsOrError.getValue())
     }
 
     function getTicketIssueRequest(props: TicketIssueProps): Result<IRequest> {
-        const paramsOrError = TicketIssueParams.create<TicketIssueParams>(props)
+        const paramsOrError = TicketIssueParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createTicketIssueRequest(paramsOrError.getValue())
     }
 
     function getOrderCancelRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createOrderCancelRequest(paramsOrError.getValue())
@@ -147,9 +147,9 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     function getServiceListRequest(props: PriceProps | OrderRetrieveProps): Result<IRequest> {
         let paramsOrError;
         if (isPriceProps(props)) {
-            paramsOrError = PriceParams.create<PriceParams>(props as PriceProps)
+            paramsOrError = PriceParams.create(props);
         } else if (isOrderRetrieveProps(props)) {
-            paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props as OrderRetrieveParams)
+            paramsOrError = OrderRetrieveParams.create(props);
         }
         if (paramsOrError === undefined) {
             return Result.fail<IRequest>('Could not guess params type')
@@ -160,21 +160,21 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
     }
 
     function getRefundCalculationRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create<OrderRetrieveParams>(props)
+        const paramsOrError = OrderRetrieveParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createRefundCalculationRequest(paramsOrError.getValue())
     }
 
     function getRefundRequest(props: RefundProps): Result<IRequest> {
-        const paramsOrError = RefundParams.create<RefundParams>(props)
+        const paramsOrError = RefundParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createRefundRequest(paramsOrError.getValue())
     }
 
     function getRepriceRequest(props: RepriceProps): Result<IRequest> {
-        const paramsOrError = RepriceParams.create<RepriceParams>(props)
+        const paramsOrError = RepriceParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createRepriceRequest(paramsOrError.getValue())

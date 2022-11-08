@@ -1,6 +1,7 @@
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {IsArray, IsIn, IsOptional, IsString, Length, ValidateNested} from "class-validator";
 import {PaxCategory} from "../types";
+import {Result} from "../../Result";
 
 export class OfferItem {
     @IsString()
@@ -48,6 +49,11 @@ export class PriceParams extends AbstractRequestParams {
     @IsArray()
     @ValidateNested()
     public readonly offers: Offer[]
+
+    public static create(props: PriceProps): Result<PriceParams> {
+        const params = new PriceParams(props);
+        return AbstractRequestParams.validate<PriceParams>(params);
+    }
 
     private constructor(props: PriceProps) {
         super()

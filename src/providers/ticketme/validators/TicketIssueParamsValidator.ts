@@ -4,7 +4,7 @@ import {TicketMeTicketIssueParams} from "../request/parameters/TicketIssue";
 
 export class TicketIssueParamsValidator extends AbstractParamsValidator {
     public static validate(params: TicketIssueParams): null | string {
-        const paramsOrError = TicketMeTicketIssueParams.create<TicketMeTicketIssueParams>(params)
+        const paramsOrError = TicketMeTicketIssueParams.create(params)
         if (paramsOrError.isFailure) {
             return paramsOrError.error || 'Generic parameter validation error'
         }

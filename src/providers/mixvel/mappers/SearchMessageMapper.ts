@@ -11,15 +11,15 @@ import {toMixvel as toMixvelPricingOption} from "./dictionary/pricingoption";
 import {Preflevel} from "../constants/preflevel";
 
 export class SearchMessageMapper implements IMessageMapper {
-    message = new Mixvel_AirShoppingRQ()
-
     constructor(public readonly params: SearchProps) {
     }
 
     map(): Mixvel_AirShoppingRQ {
+        const message = new Mixvel_AirShoppingRQ();
+
         // mind the order of fields!
         this.params.originDestinations.forEach(od => {
-            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(this.createOD(
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.push(this.createOD(
                 od.from,
                 od.to,
                 DateTime.fromJSDate(od.dateRangeStart).toISODate(),
@@ -28,28 +28,28 @@ export class SearchMessageMapper implements IMessageMapper {
             ))
         })
         this.params.travelers.forEach(({id, ptc, age}) => { // @todo maybe autogenerate id?
-            this.message.Paxs.Pax.push(new Pax(id, toMixvelPTC(ptc), age.toString()))
+            message.Paxs.Pax.push(new Pax(id, toMixvelPTC(ptc), age.toString()))
         })
         if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
-            this.addCarrierCriteria(this.params.preferredCarriers);
+            this.addCarrierCriteria(message, this.params.preferredCarriers);
         } else { // remove unused ref field
-            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.CarrierPrefRefID);
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.CarrierPrefRefID);
         }
         if (this.params.onlyDirect) {
-            this.addConnectionCriteria('1')
+            this.addConnectionCriteria(message, '1')
         } else { // remove unused ref field
-            this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.ConnectionPrefRefID);
+            message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => delete od.ConnectionPrefRefID);
         }
         if (this.params.preferredRBD) {
-            this.addFlightCriteria({allowMixing: false, RBDCodes: this.params.preferredRBD})
+            this.addFlightCriteria(message, {allowMixing: false, RBDCodes: this.params.preferredRBD})
         }
         if (this.params.pricingOption) {
-            this.addPricingCriteria(this.params.pricingOption)
+            this.addPricingCriteria(message, this.params.pricingOption)
         }
         if (this.params.contract3D) {
-            this.addProgramCriteria(this.params.contract3D)
+            this.addProgramCriteria(message, this.params.contract3D)
         }
-        return this.message
+        return message
     }
 
     /**
@@ -70,53 +70,53 @@ export class SearchMessageMapper implements IMessageMapper {
         return OD
     }
 
-    private addCarrierCriteria(allowedCarrierCodes: string[]) {
+    private addCarrierCriteria(message: Mixvel_AirShoppingRQ, allowedCarrierCodes: string[]) {
         const carrierPrefRefId = this.generateCarrierPrefId();
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({'CarrierCriteria': []})
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({'CarrierCriteria': []})
         }
-        this.message.ShoppingCriteria[0].CarrierCriteria = [{
+        message.ShoppingCriteria[0].CarrierCriteria = [{
             Carrier: allowedCarrierCodes.map(code => {
                 return {AirlineDesigCode: code}
             }),
             CarrierPrefID: carrierPrefRefId
         }];
-        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.CarrierPrefRefID = carrierPrefRefId);
+        message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.CarrierPrefRefID = carrierPrefRefId);
     }
 
-    private addConnectionCriteria(maxConnections: string) {
+    private addConnectionCriteria(message: Mixvel_AirShoppingRQ, maxConnections: string) {
         const connectionId = this.generateConnectionId();
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({'ConnectionCriteria': []})
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({'ConnectionCriteria': []})
         }
-        this.message.ShoppingCriteria[0].ConnectionCriteria = [{
+        message.ShoppingCriteria[0].ConnectionCriteria = [{
             "ConnectionPrefID": connectionId,
             "MaximumConnectionQty": maxConnections
         }]
-        this.message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.ConnectionPrefRefID = connectionId);
+        message.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.forEach(od => od.ConnectionPrefRefID = connectionId);
     }
 
-    private addFlightCriteria(rbdCriteria: {allowMixing: boolean, RBDCodes?: string[]}) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({'FlightCriteria': []})
+    private addFlightCriteria(message: Mixvel_AirShoppingRQ, rbdCriteria: {allowMixing: boolean, RBDCodes?: string[]}) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({'FlightCriteria': []})
         }
-        this.message.ShoppingCriteria[0].FlightCriteria = [{
+        message.ShoppingCriteria[0].FlightCriteria = [{
             RBD: { MixRBDInd: rbdCriteria.allowMixing, RBD_Code: rbdCriteria.RBDCodes }
         }]
     }
 
-    private addPricingCriteria(pricingOption: PricingOption) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({'PricingMethodCriteria': []})
+    private addPricingCriteria(message: Mixvel_AirShoppingRQ, pricingOption: PricingOption) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({'PricingMethodCriteria': []})
         }
-        this.message.ShoppingCriteria[0].PricingMethodCriteria = [{
+        message.ShoppingCriteria[0].PricingMethodCriteria = [{
             "BestPricingOptionText": toMixvelPricingOption(pricingOption)
         }]
     }
 
-    private addProgramCriteria(contract: Contract3D) {
-        if (this.message.ShoppingCriteria.length === 0) {
-            this.message.ShoppingCriteria.push({'ProgramCriteria': []})
+    private addProgramCriteria(message: Mixvel_AirShoppingRQ, contract: Contract3D) {
+        if (message.ShoppingCriteria.length === 0) {
+            message.ShoppingCriteria.push({'ProgramCriteria': []})
         }
         const criterion: ProgramCriteria = {}
         if (contract.contractNumber) {
@@ -130,7 +130,7 @@ export class SearchMessageMapper implements IMessageMapper {
         if (contract.contractType) {
             criterion.TypeCode = contract.contractType
         }
-        this.message.ShoppingCriteria[0].ProgramCriteria = [criterion]
+        message.ShoppingCriteria[0].ProgramCriteria = [criterion]
     }
 
     private generateConnectionId(): string {
