@@ -11,7 +11,7 @@ export enum MixvelPTC {
     DISABLEDCHILD = "DCD",
     ESCORT = "ADD",
     LARGEFAMILY = "PDB",
-    STATERESIDENT = "ADT"
+    STATERESIDENT = "STR"
 }
 
 export function toMixvel(paxCategory: PaxCategory): MixvelPTC {
