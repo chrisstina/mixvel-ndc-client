@@ -62,6 +62,7 @@ var BookMessageMapper = /** @class */ (function () {
         return this.message;
     };
     BookMessageMapper.prototype.passengerToPax = function (passenger, paxId) {
+        var _a;
         var pax = new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
             ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
             IdentityDocID: passenger.identityDocument.number,
@@ -97,6 +98,13 @@ var BookMessageMapper = /** @class */ (function () {
         }
         else {
             delete pax.SubsidyInformation;
+        }
+        if (passenger.loyaltyInfo) {
+            pax.LoyaltyProgramAccount = {
+                AccountNumber: passenger.loyaltyInfo.code || "",
+                LoyaltyProgram: { Carrier: { AirlineDesigCode: passenger.loyaltyInfo.carrier || "" } },
+                PaxSegmentRefID: ((_a = passenger.loyaltyInfo.opts) === null || _a === void 0 ? void 0 : _a.paxRefs) || []
+            };
         }
         return pax;
     };

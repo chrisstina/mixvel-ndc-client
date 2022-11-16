@@ -53,6 +53,56 @@ class BookRequestUnitTest {
         expect(rq).to.not.contain('Remark')
     }
 
+    @test 'Create Mixvel book RQ for 1ADT RT with loyalty card'() {
+        const params: BookProps = {
+            offer: {
+                offerId: 'SOME-OFFER',
+                offerItems: [{offerItemId: 'OFFER-1', ptc: "ADULT"}]
+            },
+            passengers: [
+                {
+                    ptc: "ADULT",
+                    personalInfo: {
+                        firstName: 'Test',
+                        middleName: 'Test',
+                        lastName: 'Test',
+                        gender: "M",
+                        dob: new Date('1999-02-15'),
+                    },
+                    identityDocument: {
+                        type: "REGULAR_PASSPORT_RU",
+                        dateOfIssue: new Date('2015-02-15'),
+                        dateOfExpiry: new Date('2025-02-15'),
+                        issuingCountry: 'RU',
+                        number: '12345'
+                    },
+                    contacts: {
+                        email: 'test@test.test',
+                        phoneNumber: '89112311441'
+                    },
+                    loyaltyInfo: {
+                        code: '1234',
+                        carrier: 'SU',
+                        opts: {paxRefs: ['paxref-1', 'paxref-2']}
+                    }
+                }
+            ]
+        }
+
+        const rq = getBookRequest(params).getValue().body
+        console.log(rq)
+        expect(rq).to.not.contain('undefined')
+        expect(rq).to.contain('Mixvel_OrderCreateRQ')
+        expect(rq).to.contain('<OfferRefID>SOME-OFFER</OfferRefID>')
+        expect(rq).to.contain('<OfferItemRefID>OFFER-1')
+        expect(rq).to.contain('<PaxID>Pax_1</PaxID>\n                <PTC>ADT</PTC>')
+        expect(rq).to.contain('<ContactInfoID>PaxContact_1')
+        expect(rq).to.contain('<ContactInfoRefID>PaxContact_1')
+        expect(rq).to.contain('<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>')
+        expect(rq).to.not.contain('Subsidy')
+        expect(rq).to.not.contain('Remark')
+    }
+
     @test 'Create Mixvel book RQ for 1ADT RT with no middlename'() {
         const params: BookProps = {
             offer: {

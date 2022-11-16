@@ -1,4 +1,5 @@
 import {
+    ArrayNotEmpty,
     IsAlpha,
     IsAlphanumeric,
     IsArray,
@@ -16,6 +17,7 @@ import {
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
 import {
     BookProps,
+    LoyaltyInfo,
     OSIRemark,
     Passenger,
     SSRRemark,
@@ -100,6 +102,33 @@ class MixvelSubsidyInformation {
     }
 }
 
+class MixvelLoyaltyInfo {
+    @IsString()
+    public code?: string;
+    @IsString()
+    public carrier?: string;
+    @ValidateNested()
+    public opts?: MixvelLoyaltyInfoOptions;
+
+    constructor(code?: string, carrier?: string, opts?: Record<string, any>) {
+        this.code = code;
+        this.carrier = carrier;
+        this.opts = new MixvelLoyaltyInfoOptions(opts);
+    }
+}
+
+class MixvelLoyaltyInfoOptions {
+    @IsArray()
+    @ArrayNotEmpty()
+    public paxRefs: string[] = [];
+
+    constructor(opts?: Record<string, any>) {
+        if (opts?.paxRefs) {
+            this.paxRefs = opts?.paxRefs;
+        }
+    }
+}
+
 class MixvelSSRRemark {
     @IsOptional()
     @IsIn(["add", "delete"])
@@ -119,12 +148,14 @@ export class MixvelPassenger extends Passenger {
     public contacts: MixvelContact
     @ValidateNested()
     public subsidyData?: MixvelSubsidyInformation;
+    @ValidateNested()
+    public loyaltyInfo?: MixvelLoyaltyInfo;
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
                 contacts: { phoneNumber?: string; email?: string },
-                loyaltyInfo?: Record<string, unknown>,
+                loyaltyInfo?: LoyaltyInfo,
                 ancillaries?: Array<Offer>,
                 id?: string,
                 osiRemarks?: Array<OSIRemark>,
@@ -145,6 +176,9 @@ export class MixvelPassenger extends Passenger {
             identityDocument.issuingCountry,
             identityDocument.dateOfIssue,
             identityDocument.dateOfExpiry);
+        if (loyaltyInfo) {
+            this.loyaltyInfo = new MixvelLoyaltyInfo(loyaltyInfo.code, loyaltyInfo.carrier, loyaltyInfo.opts);
+        }
         this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         this.ancillaries = ancillaries;
         this.osiRemarks = osiRemarks;

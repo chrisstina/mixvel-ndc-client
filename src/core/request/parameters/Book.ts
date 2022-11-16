@@ -125,6 +125,8 @@ export type SSRRemark = { type: string, text: string, action?: "add" | "delete",
 
 export type SubsidyData = { program?: string, type?: string };
 
+export type LoyaltyInfo = { code?: string, carrier?: string, opts?: Record<string, any> };
+
 export class Passenger {
     @IsIn(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
     public readonly ptc: PaxCategory
@@ -134,14 +136,14 @@ export class Passenger {
     public identityDocument: IdentityDocument
     @ValidateNested()
     public contacts: Contact
-    public loyaltyInfo?: Record<string, unknown>
+    public loyaltyInfo?: LoyaltyInfo
     public ancillaries?: Array<Offer>
 
     constructor(ptc: PaxCategory,
                 personalInfo: { firstName: string; lastName: string; middleName?: string; gender: "M" | "F"; dob: Date },
                 identityDocument: { type: DocumentType; number: string; issuingCountry: string; dateOfIssue: Date; dateOfExpiry: Date },
                 contacts: { phoneNumber?: string; email?: string },
-                loyaltyInfo?: Record<string, unknown>,
+                loyaltyInfo?: LoyaltyInfo,
                 ancillaries?: Array<Offer>,
                 public readonly id?: string,
                 public osiRemarks?: Array<OSIRemark>,

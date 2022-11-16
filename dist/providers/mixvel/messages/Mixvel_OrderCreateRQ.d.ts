@@ -18,6 +18,15 @@ declare type SubsidyInformation = {
     SubsidyProgram?: string;
     SubsidyType?: string;
 };
+declare type LoyaltyProgramAccount = {
+    AccountNumber: string;
+    LoyaltyProgram: {
+        Carrier: {
+            AirlineDesigCode: string;
+        };
+    };
+    PaxSegmentRefID?: string[];
+};
 export declare class Pax {
     AgeMeasure: string;
     ContactInfoRefID: string;
@@ -30,10 +39,11 @@ export declare class Pax {
         IssuingCountryCode: string;
     };
     Individual: Individual;
+    LoyaltyProgramAccount?: LoyaltyProgramAccount;
     PaxID: string;
     PTC: string;
-    Remark?: OsiRemark[] | undefined;
-    SubsidyInformation?: SubsidyInformation | undefined;
+    Remark?: OsiRemark[];
+    SubsidyInformation?: SubsidyInformation;
     constructor(AgeMeasure: string, ContactInfoRefID: string, IdentityDoc: {
         ExpiryDate: string;
         IdentityDocID: string;
@@ -41,7 +51,7 @@ export declare class Pax {
         Surname: string;
         IdentityDocTypeCode: MixvelDocumentType;
         IssuingCountryCode: string;
-    }, Individual: Individual, PaxID: string, PTC: string, Remark?: OsiRemark[] | undefined, SubsidyInformation?: SubsidyInformation | undefined);
+    }, Individual: Individual, PaxID: string, PTC: string, Remark?: OsiRemark[], SubsidyInformation?: SubsidyInformation, LoyaltyProgramAccount?: LoyaltyProgramAccount);
 }
 export declare class ContactInfo {
     ContactInfoID: string;

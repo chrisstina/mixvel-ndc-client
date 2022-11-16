@@ -110,6 +110,36 @@ var MixvelSubsidyInformation = /** @class */ (function () {
     ], MixvelSubsidyInformation.prototype, "type", void 0);
     return MixvelSubsidyInformation;
 }());
+var MixvelLoyaltyInfo = /** @class */ (function () {
+    function MixvelLoyaltyInfo(code, carrier, opts) {
+        this.code = code;
+        this.carrier = carrier;
+        this.opts = new MixvelLoyaltyInfoOptions(opts);
+    }
+    __decorate([
+        (0, class_validator_1.IsString)()
+    ], MixvelLoyaltyInfo.prototype, "code", void 0);
+    __decorate([
+        (0, class_validator_1.IsString)()
+    ], MixvelLoyaltyInfo.prototype, "carrier", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)()
+    ], MixvelLoyaltyInfo.prototype, "opts", void 0);
+    return MixvelLoyaltyInfo;
+}());
+var MixvelLoyaltyInfoOptions = /** @class */ (function () {
+    function MixvelLoyaltyInfoOptions(opts) {
+        this.paxRefs = [];
+        if (opts === null || opts === void 0 ? void 0 : opts.paxRefs) {
+            this.paxRefs = opts === null || opts === void 0 ? void 0 : opts.paxRefs;
+        }
+    }
+    __decorate([
+        (0, class_validator_1.IsArray)(),
+        (0, class_validator_1.ArrayNotEmpty)()
+    ], MixvelLoyaltyInfoOptions.prototype, "paxRefs", void 0);
+    return MixvelLoyaltyInfoOptions;
+}());
 var MixvelSSRRemark = /** @class */ (function () {
     function MixvelSSRRemark(type, text, action, paxRef) {
         this.type = type;
@@ -133,6 +163,9 @@ var MixvelPassenger = /** @class */ (function (_super) {
         var _this = _super.call(this, ptc, personalInfo, identityDocument, contacts, loyaltyInfo, ancillaries, id) || this;
         _this.personalInfo = new MixvelPersonalInfo(personalInfo.firstName, personalInfo.lastName, personalInfo.gender, personalInfo.dob, personalInfo.middleName || undefined);
         _this.identityDocument = new MixvelIdentityDocument(identityDocument.type, identityDocument.number, identityDocument.issuingCountry, identityDocument.dateOfIssue, identityDocument.dateOfExpiry);
+        if (loyaltyInfo) {
+            _this.loyaltyInfo = new MixvelLoyaltyInfo(loyaltyInfo.code, loyaltyInfo.carrier, loyaltyInfo.opts);
+        }
         _this.contacts = new MixvelContact(contacts.phoneNumber || '', contacts.email || '');
         _this.ancillaries = ancillaries;
         _this.osiRemarks = osiRemarks;
@@ -154,6 +187,9 @@ var MixvelPassenger = /** @class */ (function (_super) {
     __decorate([
         (0, class_validator_1.ValidateNested)()
     ], MixvelPassenger.prototype, "subsidyData", void 0);
+    __decorate([
+        (0, class_validator_1.ValidateNested)()
+    ], MixvelPassenger.prototype, "loyaltyInfo", void 0);
     return MixvelPassenger;
 }(Book_1.Passenger));
 exports.MixvelPassenger = MixvelPassenger;

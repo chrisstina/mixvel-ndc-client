@@ -7,18 +7,39 @@ type ContactTypeText = "personal"
 type Individual = { GenderCode: string, GivenName: string, Birthdate: string, MiddleName?: string, Surname: string }
 type OsiRemark = { RemarkText: string }
 type SubsidyInformation = { SubsidyProgram?: string, SubsidyType?: string }
+type LoyaltyProgramAccount = { AccountNumber: string, LoyaltyProgram: {Carrier: {AirlineDesigCode: string}}, PaxSegmentRefID?: string[] }
 
 export class Pax {
+    public AgeMeasure: string;
+    public ContactInfoRefID: string;
+    public IdentityDoc: { ExpiryDate: string, IdentityDocID: string, IssueDate: string, Surname: string, IdentityDocTypeCode: MixvelDocumentType, IssuingCountryCode: string };
+    public Individual: Individual;
+    public LoyaltyProgramAccount?: LoyaltyProgramAccount;
+    public PaxID: string;
+    public PTC: string;
+    public Remark?: OsiRemark[];
+    public SubsidyInformation?: SubsidyInformation;
+
     constructor(
-        public AgeMeasure: string,
-        public ContactInfoRefID: string,
-        public IdentityDoc: { ExpiryDate: string, IdentityDocID: string, IssueDate: string, Surname: string, IdentityDocTypeCode: MixvelDocumentType, IssuingCountryCode: string },
-        public Individual: Individual,
-        public PaxID: string,
-        public PTC: string,
-        public Remark?: OsiRemark[],
-        public SubsidyInformation?: SubsidyInformation
+        AgeMeasure: string,
+        ContactInfoRefID: string,
+        IdentityDoc: { ExpiryDate: string, IdentityDocID: string, IssueDate: string, Surname: string, IdentityDocTypeCode: MixvelDocumentType, IssuingCountryCode: string },
+        Individual: Individual,
+        PaxID: string,
+        PTC: string,
+        Remark?: OsiRemark[],
+        SubsidyInformation?: SubsidyInformation,
+        LoyaltyProgramAccount?: LoyaltyProgramAccount,
     ) {
+        this.AgeMeasure = AgeMeasure;
+        this.ContactInfoRefID = ContactInfoRefID;
+        this.IdentityDoc = IdentityDoc;
+        this.Individual = Individual;
+        this.LoyaltyProgramAccount = LoyaltyProgramAccount;
+        this.PaxID = PaxID;
+        this.PTC = PTC;
+        this.Remark = Remark;
+        this.SubsidyInformation = SubsidyInformation;
     }
 }
 

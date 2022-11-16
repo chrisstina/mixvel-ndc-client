@@ -105,6 +105,13 @@ export class BookMessageMapper implements IMessageMapper {
         } else {
             delete pax.SubsidyInformation;
         }
+        if (passenger.loyaltyInfo) {
+            pax.LoyaltyProgramAccount = {
+                AccountNumber: passenger.loyaltyInfo.code || "",
+                LoyaltyProgram: {Carrier: {AirlineDesigCode: passenger.loyaltyInfo.carrier || ""}},
+                PaxSegmentRefID: passenger.loyaltyInfo.opts?.paxRefs || []
+            };
+        }
         return pax;
     }
 
