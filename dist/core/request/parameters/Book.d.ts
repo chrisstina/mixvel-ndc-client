@@ -46,6 +46,11 @@ export declare type SubsidyData = {
     program?: string;
     type?: string;
 };
+export declare type LoyaltyInfo = {
+    code?: string;
+    carrier?: string;
+    opts?: Record<string, any>;
+};
 export declare class Passenger {
     readonly id?: string | undefined;
     osiRemarks?: string[] | undefined;
@@ -55,7 +60,7 @@ export declare class Passenger {
     personalInfo: PersonalInfo;
     identityDocument: IdentityDocument;
     contacts: Contact;
-    loyaltyInfo?: Record<string, unknown>;
+    loyaltyInfo?: LoyaltyInfo;
     ancillaries?: Array<Offer>;
     constructor(ptc: PaxCategory, personalInfo: {
         firstName: string;
@@ -72,6 +77,6 @@ export declare class Passenger {
     }, contacts: {
         phoneNumber?: string;
         email?: string;
-    }, loyaltyInfo?: Record<string, unknown>, ancillaries?: Array<Offer>, id?: string | undefined, osiRemarks?: string[] | undefined, ssrRemarks?: SSRRemark[] | undefined, subsidyData?: SubsidyData | undefined);
+    }, loyaltyInfo?: LoyaltyInfo, ancillaries?: Array<Offer>, id?: string | undefined, osiRemarks?: string[] | undefined, ssrRemarks?: SSRRemark[] | undefined, subsidyData?: SubsidyData | undefined);
 }
 export {};

@@ -255,6 +255,7 @@ class BookRequestUnitTest {
         expect(rq).to.contain('<PaxID>Pax_4</PaxID>\n                <PTC>INF</PTC>')
         expect(rq).to.not.contain('Subsidy')
         expect(rq).to.not.contain('Remark')
+        expect(rq).to.not.contain('Loyalty')
     }
 
     @test 'Create Mixvel book RQ for 1ADT RT with OSI remark'() {

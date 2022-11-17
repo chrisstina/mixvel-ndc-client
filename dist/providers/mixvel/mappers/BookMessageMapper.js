@@ -106,6 +106,9 @@ var BookMessageMapper = /** @class */ (function () {
                 PaxSegmentRefID: ((_a = passenger.loyaltyInfo.opts) === null || _a === void 0 ? void 0 : _a.paxRefs) || []
             };
         }
+        else {
+            delete pax.LoyaltyProgramAccount;
+        }
         return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
