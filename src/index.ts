@@ -31,6 +31,7 @@ import {MixvelResponseManager} from "./providers/mixvel/MixvelResponseManager";
 import {TicketMeRequestManager} from "./providers/ticketme/TicketMeRequestManager";
 import {TicketMeResponseManager} from "./providers/ticketme/TicketMeResponseManager";
 import {IDataList} from "./interfaces/IDataList";
+import {OrderSplitParams, OrderSplitProps} from "./core/request/parameters/OrderSplit";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
     xmlToPojo = new XmlToObjectConversionStrategy(),
@@ -180,6 +181,13 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
             : requestManager.createRepriceRequest(paramsOrError.getValue())
     }
 
+    function getOrderSplitRequest(props: OrderSplitProps): Result<IRequest> {
+        const paramsOrError = OrderSplitParams.create(props);
+        return paramsOrError.isFailure && paramsOrError.error
+            ? Result.fail<IRequest>(paramsOrError.error)
+            : requestManager.createOrderSplitRequest(paramsOrError.getValue())
+    }
+
     // ========== Response management ==============
 
     /**
@@ -231,6 +239,7 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
         getOrderCancelRequest,
         getRefundCalculationRequest,
         getRefundRequest,
+        getOrderSplitRequest,
         getResponse,
         extractDataLists,
         setProviderConfig

@@ -32,6 +32,7 @@ import {BookParamsValidator} from "./validators/BookParamsValidator";
 import {PriceParamsValidator} from "./validators/PriceParamsValidator";
 import {IssueTicketMessageMapper} from "./mappers/IssueTicketMessageMapper";
 import {TicketIssueParamsValidator} from "./validators/TicketIssueParamsValidator";
+import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
 
 export class TicketMeRequestManager implements IRequestManager {
     constructor(
@@ -138,6 +139,10 @@ export class TicketMeRequestManager implements IRequestManager {
             {
                 mapper: new RepriceMessageMapper(params, this.extraConfiguration.party)
             })
+    }
+
+    createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {
+        throw new Error('not implemented');
     }
 
     validateRequest(): string | null {

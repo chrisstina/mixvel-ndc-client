@@ -38,6 +38,8 @@ import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
 import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
 import {ServiceListMessageMapper} from "./mappers/ServiceListMessageMapper";
+import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
+import {SplitOrderMessageMapper} from "./mappers/SplitOrderMessageMapper";
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(
@@ -163,6 +165,12 @@ export class MixvelRequestManager implements IRequestManager {
     createServiceListRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest> {
         return Result.ok(this.createRequest(params, {
             mapper: new ServiceListMessageMapper(params)
+        }))
+    }
+
+    createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {
+        return Result.ok(this.createRequest(params, {
+            mapper: new SplitOrderMessageMapper(params)
         }))
     }
 

@@ -10,6 +10,7 @@ import {RefundParams} from "../core/request/parameters/Refund";
 import {IEndpointManager} from "./IEndpointManager";
 import {IRequestOptionsManager} from "./IRequestOptionsManager";
 import {RepriceParams} from "../core/request/parameters/Reprice";
+import {OrderSplitParams} from "../core/request/parameters/OrderSplit";
 
 export interface IRequestManager {
     endpointManager: IEndpointManager,
@@ -27,7 +28,7 @@ export interface IRequestManager {
 
     createRepriceRequest(params: RepriceParams): Result<IRequest>;
 
-    createFareRulesRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest>;
+    createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
 
     createBookRequest(params: BookParams): Result<IRequest>;
 
@@ -41,5 +42,8 @@ export interface IRequestManager {
 
     createRefundRequest(params: RefundParams): Result<IRequest>;
 
-    createServiceListRequest(params: PriceParams|OrderRetrieveParams): Result<IRequest>;
+    createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
+
+    createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
+
 }

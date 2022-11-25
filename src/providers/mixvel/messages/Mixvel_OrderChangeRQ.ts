@@ -14,10 +14,6 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
         return "o:Mixvel_OrderChangeRQ"
     }
 
-    public MixOrder: {
-        MixOrderID: string
-    }
-
     /**
      * for ticket issue request
      */
@@ -29,11 +25,21 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
     }
 
     /**
-     * for order refund request
+     * for order refund or split requests
      */
     public ChangeOrder?: Record<string, unknown>
 
-    constructor(orderId: string) {
+    public MixOrder?: {
+        MixOrderID: string
+    }
+
+    constructor(orderId?: string) {
+        if (orderId) {
+            this.setMixOrder(orderId);
+        }
+    }
+
+    setMixOrder(orderId: string) {
         this.MixOrder = {MixOrderID: orderId}
     }
 }
