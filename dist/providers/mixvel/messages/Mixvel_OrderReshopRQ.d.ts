@@ -2,7 +2,7 @@ import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 declare type UpdateOrder = {
     CancelOrder: {
-        OrderRefID: string[];
+        OrderRefID: Iterable<string>;
     };
 };
 export declare class Mixvel_OrderReshopRQ implements INDCMessage {

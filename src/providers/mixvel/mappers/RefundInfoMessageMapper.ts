@@ -15,8 +15,10 @@ export class RefundInfoMessageMapper implements IMessageMapper {
     }
 
     private setOrderToCancel(orderItems: string[][]) {
+        const uniqueOrderIds: Set<string> = new Set();
+        orderItems.forEach(([orderId]) => uniqueOrderIds.add(orderId));
         this.message.UpdateOrder = {
-            CancelOrder: {OrderRefID: orderItems.map(([orderId]) => orderId)}
+            CancelOrder: {OrderRefID: uniqueOrderIds.values()}
         }
     }
 }

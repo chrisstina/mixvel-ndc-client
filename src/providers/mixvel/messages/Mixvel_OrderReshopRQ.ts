@@ -1,6 +1,6 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 
-type UpdateOrder = { CancelOrder: { OrderRefID: string[] } }
+type UpdateOrder = { CancelOrder: { OrderRefID: Iterable<string> } }
 
 export class Mixvel_OrderReshopRQ implements INDCMessage {
     get xmlns() {

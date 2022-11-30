@@ -12,11 +12,13 @@ var RefundInfoMessageMapper = /** @class */ (function () {
         return this.message;
     };
     RefundInfoMessageMapper.prototype.setOrderToCancel = function (orderItems) {
+        var uniqueOrderIds = new Set();
+        orderItems.forEach(function (_a) {
+            var orderId = _a[0];
+            return uniqueOrderIds.add(orderId);
+        });
         this.message.UpdateOrder = {
-            CancelOrder: { OrderRefID: orderItems.map(function (_a) {
-                    var orderId = _a[0];
-                    return orderId;
-                }) }
+            CancelOrder: { OrderRefID: uniqueOrderIds.values() }
         };
     };
     return RefundInfoMessageMapper;
