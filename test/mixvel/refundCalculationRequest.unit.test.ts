@@ -19,5 +19,6 @@ class OrderRetrieveRequestUnitTest {
         expect(rq).to.not.contain('undefined')
         expect(rq).to.contain('Mixvel_OrderReshopRQ')
         expect(rq).to.contain("<MixOrderID>FAKE-ORDER")
+        expect(rq).to.contain("SOME_ORDER")
     }
 }
