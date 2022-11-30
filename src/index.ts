@@ -160,8 +160,8 @@ export function createNDCService(provider: string | IProvider, providerConfig = 
             : requestManager.createServiceListRequest(paramsOrError.getValue())
     }
 
-    function getRefundCalculationRequest(props: OrderRetrieveProps): Result<IRequest> {
-        const paramsOrError = OrderRetrieveParams.create(props);
+    function getRefundCalculationRequest(props: RefundProps): Result<IRequest> {
+        const paramsOrError = RefundParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
             ? Result.fail<IRequest>(paramsOrError.error)
             : requestManager.createRefundCalculationRequest(paramsOrError.getValue())

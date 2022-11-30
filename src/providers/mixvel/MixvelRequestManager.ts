@@ -21,6 +21,7 @@ import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
 import {RefundParams} from "../../core/request/parameters/Refund";
 import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
 import {RepriceParams} from "../../core/request/parameters/Reprice";
+import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
 
 import {MixvelBookParams} from "./request/parameters/Book";
 
@@ -30,16 +31,15 @@ import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
 import {BookMessageMapper} from "./mappers/BookMessageMapper";
 import {IssueOrderMessageMapper} from "./mappers/IssueOrderMessageMapper";
 import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
+import {SplitOrderMessageMapper} from "./mappers/SplitOrderMessageMapper";
+import {ServiceListMessageMapper} from "./mappers/ServiceListMessageMapper";
+import {RefundInfoMessageMapper} from "./mappers/RefundInfoMessageMapper";
 
 import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
 import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
 import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
-import {Mixvel_OrderReshopRQ} from "./messages/Mixvel_OrderReshopRQ";
 import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
 import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
-import {ServiceListMessageMapper} from "./mappers/ServiceListMessageMapper";
-import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
-import {SplitOrderMessageMapper} from "./mappers/SplitOrderMessageMapper";
 
 export class MixvelRequestManager implements IRequestManager {
     constructor(
@@ -126,13 +126,9 @@ export class MixvelRequestManager implements IRequestManager {
         }))
     }
 
-    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest> {
+    createRefundCalculationRequest(params: RefundParams): Result<IRequest> {
         return Result.ok(this.createRequest(params, {
-            mapper: {
-                map(): INDCMessage {
-                    return new Mixvel_OrderReshopRQ(params.orderId)
-                }
-            }
+            mapper: new RefundInfoMessageMapper(params)
         }))
     }
 
