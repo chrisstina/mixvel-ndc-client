@@ -61,7 +61,6 @@ class AnonymousTraveler {
 export type Contract3D = {
     clientCode: string,
     agencyCode?: string
-    contractNumber?: string
     contractType?: string
     discountPercent?: number
 }

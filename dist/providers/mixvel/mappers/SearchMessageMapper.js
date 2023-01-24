@@ -107,13 +107,13 @@ var SearchMessageMapper = /** @class */ (function () {
             message.ShoppingCriteria.push({ 'ProgramCriteria': [] });
         }
         var criterion = {};
-        if (contract.contractNumber) {
-            criterion.ProgramContract = [];
-            criterion.ProgramContract.push({ ContractID: contract.contractNumber });
-        }
         if (contract.clientCode) {
+            criterion.ProgramContract = [];
+            criterion.ProgramContract.push({ ContractID: contract.clientCode });
+        }
+        if (contract.agencyCode) {
             criterion.ProgramAccount = [];
-            criterion.ProgramAccount.push({ AccountID: contract.clientCode });
+            criterion.ProgramAccount.push({ AccountID: contract.agencyCode }); // <- 3d.agencyCode
         }
         if (contract.contractType) {
             criterion.TypeCode = contract.contractType;

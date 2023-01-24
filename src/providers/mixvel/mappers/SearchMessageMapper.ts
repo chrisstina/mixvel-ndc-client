@@ -119,13 +119,13 @@ export class SearchMessageMapper implements IMessageMapper {
             message.ShoppingCriteria.push({'ProgramCriteria': []})
         }
         const criterion: ProgramCriteria = {}
-        if (contract.contractNumber) {
-            criterion.ProgramContract = []
-            criterion.ProgramContract.push({ContractID: contract.contractNumber})
-        }
         if (contract.clientCode) {
+            criterion.ProgramContract = []
+            criterion.ProgramContract.push({ContractID: contract.clientCode})
+        }
+        if (contract.agencyCode) {
             criterion.ProgramAccount = []
-            criterion.ProgramAccount.push({AccountID: contract.clientCode})
+            criterion.ProgramAccount.push({AccountID: contract.agencyCode}) // <- 3d.agencyCode
         }
         if (contract.contractType) {
             criterion.TypeCode = contract.contractType

@@ -1,7 +1,6 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Cabin, PaxCategory, PricingOption} from "../types";
-import {Result} from "../../Result";
-
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Cabin, PaxCategory, PricingOption } from "../types";
+import { Result } from "../../Result";
 export declare class OriginDestination {
     from: string;
     to: string;
@@ -18,7 +17,6 @@ declare class AnonymousTraveler {
 export declare type Contract3D = {
     clientCode: string;
     agencyCode?: string;
-    contractNumber?: string;
     contractType?: string;
     discountPercent?: number;
 };
