@@ -11,7 +11,6 @@ dateReturn.setDate(dateReturn.getDate() + 40);
 
 @suite
 class SearchRequestUnitTest {
-
     @test 'Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY'() {
         const request = getSearchRequest({
             travelers: [
@@ -195,8 +194,8 @@ class SearchRequestUnitTest {
             cabin: "ECONOMY",
             pricingOption: "LOWEST_FARE",
             contract3D: {
-                clientCode: 'RB2715',
-                contractNumber: 'ACC453',
+                clientCode: 'ACC453',
+                agencyCode: 'RB2715',
                 contractType: 'TC'
             }
         }).getValue().body
