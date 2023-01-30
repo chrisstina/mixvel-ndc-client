@@ -8,12 +8,13 @@ import {
     IsOptional,
     IsString,
     Length,
-    Matches,
     MaxDate,
     MinDate,
+    Validate,
     ValidateNested
 } from "class-validator";
 
+import {IsPersonName} from "../../validators/IsPersonName";
 import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
 import {DocumentType, PaxCategory} from "../types";
 import {Offer} from "./Price";
@@ -60,11 +61,14 @@ export class BookParams extends AbstractRequestParams {
 }
 
 class PersonalInfo {
-    @Matches(/[a-zA-Z-\s]/)
+    @IsNotEmpty()
+    @Validate(IsPersonName, [true])
     public firstName: string
-    @Matches(/[a-zA-Z-\s]/)
+    @IsNotEmpty()
+    @Validate(IsPersonName, [true])
+    @IsNotEmpty()
     public lastName: string
-    @Matches(/[a-zA-Z-\s]/)
+    @Validate(IsPersonName, [true])
     @IsOptional()
     public middleName?: string
     @IsIn(["M", "F"])

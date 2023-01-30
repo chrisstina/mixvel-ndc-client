@@ -1,5 +1,4 @@
-import {PricingOption} from "../../../../core/request/types";
-
+import { PricingOption } from "../../../../core/request/types";
 export declare enum Mixvel_PricingOption {
     LOWEST_FARE = "Simple",
     ALL_FARES = "Extended"
