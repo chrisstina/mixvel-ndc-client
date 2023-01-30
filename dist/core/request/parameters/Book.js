@@ -62,13 +62,13 @@ var PersonalInfo = /** @class */ (function () {
         this.dob = dob;
     }
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
     ], PersonalInfo.prototype, "firstName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
     ], PersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)(),
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/),
         (0, class_validator_1.IsOptional)()
     ], PersonalInfo.prototype, "middleName", void 0);
     __decorate([

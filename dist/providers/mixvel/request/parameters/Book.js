@@ -78,13 +78,13 @@ var MixvelPersonalInfo = /** @class */ (function () {
         this.dob = dob;
     }
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
     ], MixvelPersonalInfo.prototype, "firstName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)()
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
     ], MixvelPersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.IsAlpha)(),
+        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/),
         (0, class_validator_1.IsOptional)()
     ], MixvelPersonalInfo.prototype, "middleName", void 0);
     __decorate([

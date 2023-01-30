@@ -10,6 +10,7 @@ import {
     IsOptional,
     IsString,
     Length,
+    Matches,
     MaxDate,
     MinDate,
     ValidateNested
@@ -67,11 +68,11 @@ class MixvelIdentityDocument {
 }
 
 class MixvelPersonalInfo {
-    @IsAlpha()
+    @Matches(/[a-zA-Z-\s]/)
     public firstName: string
-    @IsAlpha()
+    @Matches(/[a-zA-Z-\s]/)
     public lastName: string
-    @IsAlpha()
+    @Matches(/[a-zA-Z-\s]/)
     @IsOptional()
     public middleName?: string
     @IsIn(["M", "F"])
