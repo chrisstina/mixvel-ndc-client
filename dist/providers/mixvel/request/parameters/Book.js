@@ -27,6 +27,7 @@ var AbstractRequestParams_1 = require("../../../../core/request/parameters/Abstr
 var Book_1 = require("../../../../core/request/parameters/Book");
 var Price_1 = require("../../../../core/request/parameters/Price");
 var TicketIssue_1 = require("../../../../core/request/parameters/TicketIssue");
+var IsPersonName_1 = require("../../../../core/validators/IsPersonName");
 var MixvelContact = /** @class */ (function () {
     function MixvelContact(phoneNumber, email) {
         this.phoneNumber = phoneNumber;
@@ -78,13 +79,16 @@ var MixvelPersonalInfo = /** @class */ (function () {
         this.dob = dob;
     }
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
+        (0, class_validator_1.IsNotEmpty)(),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true])
     ], MixvelPersonalInfo.prototype, "firstName", void 0);
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
+        (0, class_validator_1.IsNotEmpty)(),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true]),
+        (0, class_validator_1.IsNotEmpty)()
     ], MixvelPersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true]),
         (0, class_validator_1.IsOptional)()
     ], MixvelPersonalInfo.prototype, "middleName", void 0);
     __decorate([

@@ -10,9 +10,9 @@ import {
     IsOptional,
     IsString,
     Length,
-    Matches,
     MaxDate,
     MinDate,
+    Validate,
     ValidateNested
 } from "class-validator";
 import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
@@ -29,6 +29,7 @@ import {Offer} from "../../../../core/request/parameters/Price";
 import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
 import {DocumentType, PaxCategory} from "../../../../core/request/types";
 import {Result} from "../../../../core/Result";
+import {IsPersonName} from "../../../../core/validators/IsPersonName";
 
 class MixvelContact {
     @IsOptional()
@@ -68,11 +69,14 @@ class MixvelIdentityDocument {
 }
 
 class MixvelPersonalInfo {
-    @Matches(/[a-zA-Z-\s]/)
+    @IsNotEmpty()
+    @Validate(IsPersonName, [true])
     public firstName: string
-    @Matches(/[a-zA-Z-\s]/)
+    @IsNotEmpty()
+    @Validate(IsPersonName, [true])
+    @IsNotEmpty()
     public lastName: string
-    @Matches(/[a-zA-Z-\s]/)
+    @Validate(IsPersonName, [true])
     @IsOptional()
     public middleName?: string
     @IsIn(["M", "F"])

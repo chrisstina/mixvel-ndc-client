@@ -23,6 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Passenger = exports.BookParams = exports.SUPPORTED_DOCTYPES = void 0;
 var class_validator_1 = require("class-validator");
+var IsPersonName_1 = require("../../validators/IsPersonName");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var Price_1 = require("./Price");
 var TicketIssue_1 = require("./TicketIssue");
@@ -62,13 +63,16 @@ var PersonalInfo = /** @class */ (function () {
         this.dob = dob;
     }
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
+        (0, class_validator_1.IsNotEmpty)(),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true])
     ], PersonalInfo.prototype, "firstName", void 0);
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/)
+        (0, class_validator_1.IsNotEmpty)(),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true]),
+        (0, class_validator_1.IsNotEmpty)()
     ], PersonalInfo.prototype, "lastName", void 0);
     __decorate([
-        (0, class_validator_1.Matches)(/[a-zA-Z-\s]/),
+        (0, class_validator_1.Validate)(IsPersonName_1.IsPersonName, [true]),
         (0, class_validator_1.IsOptional)()
     ], PersonalInfo.prototype, "middleName", void 0);
     __decorate([
