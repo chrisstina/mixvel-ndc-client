@@ -1,6 +1,5 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {PartyCredentials} from "../TicketMeRequest";
-
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { PartyCredentials } from "../TicketMeRequest";
 declare type Party = {
     Sender: {
         TravelAgencySender: {

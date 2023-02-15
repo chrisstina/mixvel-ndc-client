@@ -16,7 +16,6 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "ignorePatterns": ["**/dist/*.js", "**/test/*"],
     "rules": {
         "no-empty": 0,
         "no-irregular-whitespace":0,

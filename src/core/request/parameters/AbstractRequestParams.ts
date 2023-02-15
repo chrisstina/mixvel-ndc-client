@@ -1,8 +1,8 @@
-import {Result} from "../../Result";
-import {RequestValidationError} from "../../errors/RequestValidationError";
-import {IValidatorService} from "../../../interfaces/IValidatorService";
-import {ClassValidatorService} from "../../../services/ClassValidatorService";
-import {IValidator} from "../../../interfaces/IValidator";
+import { Result } from "../../Result";
+import { RequestValidationError } from "../../errors/RequestValidationError";
+import { IValidatorService } from "../../../interfaces/IValidatorService";
+import { ClassValidatorService } from "../../../services/ClassValidatorService";
+import { IValidator } from "../../../interfaces/IValidator";
 
 type JustMethodKeys<ParamsType> = {
   [P in keyof ParamsType]: ParamsType[P] extends Function ? P : never;

@@ -1,10 +1,9 @@
-import {IDataList} from "../../interfaces/IDataList";
-import {IResponseManager} from "../../interfaces/IResponseManager";
-import {IResponseMapper} from "../../interfaces/IResponseMapper";
-import {IResponseError} from "../../interfaces/IResponseError";
-import {IResponseMessage} from "../../interfaces/IResponseMessage";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-
+import { IDataList } from "../../interfaces/IDataList";
+import { IResponseManager } from "../../interfaces/IResponseManager";
+import { IResponseMapper } from "../../interfaces/IResponseMapper";
+import { IResponseError } from "../../interfaces/IResponseError";
+import { IResponseMessage } from "../../interfaces/IResponseMessage";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 export declare abstract class AbstractResponseManager implements IResponseManager {
     conversionStrategy: IConversionStrategy;
     protected readonly mapper: IResponseMapper;

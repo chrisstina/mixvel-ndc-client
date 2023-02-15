@@ -1,5 +1,5 @@
 const json2xml = require("ndc-json2xml");
-import {IConversionStrategy} from "./IConversionSrategy";
+import { IConversionStrategy } from "./IConversionSrategy";
 
 /**
  * Uses IATA NDC JSON to XML converter, compatible to NDC versions up to 18.2

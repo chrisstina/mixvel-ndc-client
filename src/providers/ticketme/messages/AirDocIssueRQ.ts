@@ -1,4 +1,7 @@
-import {AbstractTicketMeNDCMessage, StringValue,} from "./AbstractTicketMeNDCMessage";
+import {
+  AbstractTicketMeNDCMessage,
+  StringValue,
+} from "./AbstractTicketMeNDCMessage";
 
 export class CardPaymentMethod {
   public readonly PaymentCard = [{}];

@@ -1,6 +1,6 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {IATAxmlns} from "../constants/xmlns";
-import {PartyCredentials} from "../TicketMeRequest";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { IATAxmlns } from "../constants/xmlns";
+import { PartyCredentials } from "../TicketMeRequest";
 
 type Party = {
   Sender: {

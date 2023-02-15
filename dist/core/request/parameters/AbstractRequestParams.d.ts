@@ -1,7 +1,6 @@
-import {Result} from "../../Result";
-import {IValidatorService} from "../../../interfaces/IValidatorService";
-import {IValidator} from "../../../interfaces/IValidator";
-
+import { Result } from "../../Result";
+import { IValidatorService } from "../../../interfaces/IValidatorService";
+import { IValidator } from "../../../interfaces/IValidator";
 declare type JustMethodKeys<ParamsType> = {
     [P in keyof ParamsType]: ParamsType[P] extends Function ? P : never;
 }[keyof ParamsType];

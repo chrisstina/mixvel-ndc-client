@@ -1,14 +1,14 @@
 import {
-    BAG,
-    CONTACT,
-    JOURNEY,
-    OD,
-    PAX,
-    PENALTY,
-    PRICECLASS,
-    SEGMENT,
-    SERVICE,
-    VALIDATINGPARTY,
+  BAG,
+  CONTACT,
+  JOURNEY,
+  OD,
+  PAX,
+  PENALTY,
+  PRICECLASS,
+  SEGMENT,
+  SERVICE,
+  VALIDATINGPARTY,
 } from "../constants/datalist";
 
 export const allowedDataLists = {

@@ -1,5 +1,4 @@
-import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
-
+import { AbstractTicketMeNDCMessage, StringValue } from "./AbstractTicketMeNDCMessage";
 export declare class CardPaymentMethod {
     readonly PaymentCard: {}[];
 }

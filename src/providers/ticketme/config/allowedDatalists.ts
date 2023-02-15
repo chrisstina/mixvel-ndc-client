@@ -1,16 +1,16 @@
 import {
-    BAG,
-    CONTACT,
-    DESC,
-    FARE,
-    FLIGHT,
-    OD,
-    PAX,
-    PENALTY,
-    PRICECLASS,
-    SEAT,
-    SEGMENT,
-    SERVICE,
+  BAG,
+  CONTACT,
+  DESC,
+  FARE,
+  FLIGHT,
+  OD,
+  PAX,
+  PENALTY,
+  PRICECLASS,
+  SEAT,
+  SEGMENT,
+  SERVICE,
 } from "../constants/datalist";
 
 export const allowedDataLists = {
