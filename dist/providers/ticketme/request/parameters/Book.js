@@ -29,7 +29,7 @@ var TicketMeBookParams = /** @class */ (function (_super) {
     __extends(TicketMeBookParams, _super);
     function TicketMeBookParams(props) {
         var _this = _super.call(this) || this;
-        _this.offer = new Price_1.TicketMeOffer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner || '', props.offer.responseId || '');
+        _this.offer = new Price_1.TicketMeOffer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner || "", props.offer.responseId || "");
         return _this;
     }
     TicketMeBookParams.create = function (props) {

@@ -5,17 +5,20 @@ var Mixvel_OfferPriceRQ = /** @class */ (function () {
     function Mixvel_OfferPriceRQ(offerId, offerItemIds) {
         this.PricedOffer = {
             SelectedOffer: {
-                OfferRefID: offerId, SelectedOfferItem: offerItemIds.map(function (offerItemId) {
+                OfferRefID: offerId,
+                SelectedOfferItem: offerItemIds.map(function (offerItemId) {
                     return {
-                        "OfferItemRefID": offerItemId
+                        OfferItemRefID: offerItemId,
                     };
-                })
-            }
+                }),
+            },
         };
     }
     Object.defineProperty(Mixvel_OfferPriceRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:OfferPrice": "https://www.mixvel.com/API/XSD/Mixvel_OfferPriceRQ/1_00" };
+            return {
+                "xmlns:OfferPrice": "https://www.mixvel.com/API/XSD/Mixvel_OfferPriceRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

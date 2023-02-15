@@ -21,12 +21,14 @@ var OrderRetrieveRQ = /** @class */ (function (_super) {
     __extends(OrderRetrieveRQ, _super);
     function OrderRetrieveRQ(orderId, offerOwner) {
         var _this = _super.call(this) || this;
-        _this.Query = [{ Filters: [{ OrderID: { $: { Owner: offerOwner }, _: orderId } }] }];
+        _this.Query = [
+            { Filters: [{ OrderID: { $: { Owner: offerOwner }, _: orderId } }] },
+        ];
         return _this;
     }
     Object.defineProperty(OrderRetrieveRQ.prototype, "nodeName", {
         get: function () {
-            return 'OrderRetrieveRQ';
+            return "OrderRetrieveRQ";
         },
         enumerable: false,
         configurable: true

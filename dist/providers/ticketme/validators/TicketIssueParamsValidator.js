@@ -26,7 +26,7 @@ var TicketIssueParamsValidator = /** @class */ (function (_super) {
     TicketIssueParamsValidator.validate = function (params) {
         var paramsOrError = TicketIssue_1.TicketMeTicketIssueParams.create(params);
         if (paramsOrError.isFailure) {
-            return paramsOrError.error || 'Generic parameter validation error';
+            return paramsOrError.error || "Generic parameter validation error";
         }
         return null;
     };

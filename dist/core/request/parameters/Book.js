@@ -27,13 +27,26 @@ var IsPersonName_1 = require("../../validators/IsPersonName");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var Price_1 = require("./Price");
 var TicketIssue_1 = require("./TicketIssue");
-exports.SUPPORTED_DOCTYPES = ["REGULAR_PASSPORT_RU", "BIRTHDAY_CERTIFICATE", "INTERNATIONAL_PASSPORT_RU", "NATIONAL_PASSPORT", "OFFICER_ID", "TEMPORARY_ID", "MILITARY_ID", "RESIDENCE", "SEAMAN_ID", "RETURN_ID"];
+exports.SUPPORTED_DOCTYPES = [
+    "REGULAR_PASSPORT_RU",
+    "BIRTHDAY_CERTIFICATE",
+    "INTERNATIONAL_PASSPORT_RU",
+    "NATIONAL_PASSPORT",
+    "OFFICER_ID",
+    "TEMPORARY_ID",
+    "MILITARY_ID",
+    "RESIDENCE",
+    "SEAMAN_ID",
+    "RETURN_ID",
+];
 var BookParams = /** @class */ (function (_super) {
     __extends(BookParams, _super);
     function BookParams(props) {
         var _this = _super.call(this) || this;
         _this.offer = new Price_1.Offer(props.offer.offerId, props.offer.offerItems, props.offer.offerOwner, props.offer.responseId);
-        _this.passengers = props.passengers.map(function (passenger) { return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks, passenger.ssrRemarks, passenger.subsidyData); });
+        _this.passengers = props.passengers.map(function (passenger) {
+            return new Passenger(passenger.ptc, passenger.personalInfo, passenger.identityDocument, passenger.contacts, passenger.loyaltyInfo, passenger.ancillaries, passenger.id, passenger.osiRemarks, passenger.ssrRemarks, passenger.subsidyData);
+        });
         if (props.formOfPayment) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }
@@ -96,7 +109,7 @@ var IdentityDocument = /** @class */ (function () {
         (0, class_validator_1.IsIn)(exports.SUPPORTED_DOCTYPES)
     ], IdentityDocument.prototype, "type", void 0);
     __decorate([
-        (0, class_validator_1.IsNotEmpty)({ message: 'Document number should not be empty' })
+        (0, class_validator_1.IsNotEmpty)({ message: "Document number should not be empty" })
     ], IdentityDocument.prototype, "number", void 0);
     __decorate([
         (0, class_validator_1.IsAlpha)(),
@@ -141,7 +154,19 @@ var Passenger = /** @class */ (function () {
         this.ancillaries = ancillaries;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+        (0, class_validator_1.IsIn)([
+            "ADULT",
+            "CHILD",
+            "INFANT",
+            "WSEATINFANT",
+            "YOUTH",
+            "SENIOR",
+            "DISABLED",
+            "DISABLEDCHILD",
+            "ESCORT",
+            "LARGEFAMILY",
+            "STATERESIDENT",
+        ])
     ], Passenger.prototype, "ptc", void 0);
     __decorate([
         (0, class_validator_1.ValidateNested)()

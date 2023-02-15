@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectToXmlNDCConversionStrategy = void 0;
-var json2xml = require('ndc-json2xml');
+var json2xml = require("ndc-json2xml");
 /**
  * Uses IATA NDC JSON to XML converter, compatible to NDC versions up to 18.2
  */
@@ -15,7 +15,7 @@ var ObjectToXmlNDCConversionStrategy = /** @class */ (function () {
     ObjectToXmlNDCConversionStrategy.prototype.execute = function (payload) {
         var xmlPayload = json2xml(payload, this.ndcVersion);
         if (xmlPayload === -1) {
-            throw new Error('json2xml failed to create request');
+            throw new Error("json2xml failed to create request");
         }
         return xmlPayload;
     };

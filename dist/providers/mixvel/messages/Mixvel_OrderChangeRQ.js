@@ -9,14 +9,16 @@ var Mixvel_OrderChangeRQ = /** @class */ (function () {
     }
     Object.defineProperty(Mixvel_OrderChangeRQ.prototype, "endpoint", {
         get: function () {
-            return 'api/Order/change';
+            return "api/Order/change";
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(Mixvel_OrderChangeRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderChangeRQ/1_00" };
+            return {
+                "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderChangeRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

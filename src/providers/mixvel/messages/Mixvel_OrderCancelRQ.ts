@@ -1,17 +1,19 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 export class Mixvel_OrderCancelRQ implements INDCMessage {
-    get xmlns() {
-        return {"xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCancelRQ/1_01"}
-    }
+  public MixOrder: { MixOrderID: string };
 
-    get nodeName() {
-        return "m:Mixvel_OrderCancelRQ"
-    }
+  constructor(orderId: string) {
+    this.MixOrder = { MixOrderID: orderId };
+  }
 
-    public MixOrder: { "MixOrderID": string }
+  get xmlns() {
+    return {
+      "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCancelRQ/1_01",
+    };
+  }
 
-    constructor(orderId: string) {
-        this.MixOrder = {"MixOrderID": orderId}
-    }
+  get nodeName() {
+    return "m:Mixvel_OrderCancelRQ";
+  }
 }

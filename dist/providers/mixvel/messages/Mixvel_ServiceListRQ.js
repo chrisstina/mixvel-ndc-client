@@ -7,7 +7,9 @@ var Mixvel_ServiceListRQ = /** @class */ (function () {
     }
     Object.defineProperty(Mixvel_ServiceListRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:Service": "https://www.mixvel.com/API/XSD/Mixvel_ServiceListRQ/1_00" };
+            return {
+                "xmlns:Service": "https://www.mixvel.com/API/XSD/Mixvel_ServiceListRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

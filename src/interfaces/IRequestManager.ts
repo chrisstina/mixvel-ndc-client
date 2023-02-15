@@ -13,37 +13,44 @@ import {RepriceParams} from "../core/request/parameters/Reprice";
 import {OrderSplitParams} from "../core/request/parameters/OrderSplit";
 
 export interface IRequestManager {
-    endpointManager: IEndpointManager,
-    requestOptionsManager: IRequestOptionsManager
-    conversionStrategy: IConversionStrategy;
+  endpointManager: IEndpointManager;
+  requestOptionsManager: IRequestOptionsManager;
+  conversionStrategy: IConversionStrategy;
 
-    // Party data, agency id, lang, currency etc,
-    extraConfiguration: Record<string, unknown>
+  // Party data, agency id, lang, currency etc,
+  extraConfiguration: Record<string, unknown>;
 
-    createAuthRequest(params: { login: string, password: string, structureId: string }): Result<IRequest>;
+  createAuthRequest(params: {
+    login: string;
+    password: string;
+    structureId: string;
+  }): Result<IRequest>;
 
-    createSearchRequest(params: SearchParams): Result<IRequest>;
+  createSearchRequest(params: SearchParams): Result<IRequest>;
 
-    createPriceRequest(params: PriceParams): Result<IRequest>;
+  createPriceRequest(params: PriceParams): Result<IRequest>;
 
-    createRepriceRequest(params: RepriceParams): Result<IRequest>;
+  createRepriceRequest(params: RepriceParams): Result<IRequest>;
 
-    createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
+  createFareRulesRequest(
+    params: PriceParams | OrderRetrieveParams
+  ): Result<IRequest>;
 
-    createBookRequest(params: BookParams): Result<IRequest>;
+  createBookRequest(params: BookParams): Result<IRequest>;
 
-    createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
+  createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
 
-    createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;
+  createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;
 
-    createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
+  createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
 
-    createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
+  createRefundCalculationRequest(params: OrderRetrieveParams): Result<IRequest>;
 
-    createRefundRequest(params: RefundParams): Result<IRequest>;
+  createRefundRequest(params: RefundParams): Result<IRequest>;
 
-    createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
+  createServiceListRequest(
+    params: PriceParams | OrderRetrieveParams
+  ): Result<IRequest>;
 
-    createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
-
+  createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
 }

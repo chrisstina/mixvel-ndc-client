@@ -20,7 +20,7 @@ var RequestGenerationError = /** @class */ (function (_super) {
     __extends(RequestGenerationError, _super);
     function RequestGenerationError(message) {
         var _this = _super.call(this) || this;
-        _this.name = 'RequestGenerationError';
+        _this.name = "RequestGenerationError";
         _this.message = "Request could not be generated: ".concat(message);
         return _this;
     }

@@ -20,7 +20,7 @@ var MethodNotImplemented = /** @class */ (function (_super) {
     __extends(MethodNotImplemented, _super);
     function MethodNotImplemented(message) {
         var _this = _super.call(this) || this;
-        _this.name = 'MethodNotImplemented';
+        _this.name = "MethodNotImplemented";
         _this.message = "Method ".concat(message, " not implemented for this provider");
         return _this;
     }

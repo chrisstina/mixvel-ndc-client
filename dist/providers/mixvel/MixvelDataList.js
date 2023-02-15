@@ -34,7 +34,9 @@ var MixvelDataList = /** @class */ (function (_super) {
     };
     MixvelDataList.prototype.findByReference = function (entityRef) {
         var _this = this;
-        return this.list.find(function (entity) { return entity["".concat(_this.entityName, "ID")][0] === entityRef; });
+        return this.list.find(function (entity) {
+            return entity["".concat(_this.entityName, "ID")][0] === entityRef;
+        });
     };
     return MixvelDataList;
 }(DataList_1.DataList));

@@ -30,11 +30,12 @@ var BookParamsValidator = /** @class */ (function (_super) {
     BookParamsValidator.validate = function (params) {
         var paramsOrError = Book_1.MixvelBookParams.create(params);
         if (paramsOrError.isFailure) {
-            return paramsOrError.error || 'Generic parameter validation error';
+            return paramsOrError.error || "Generic parameter validation error";
         }
         var passengers = params.passengers, offer = params.offer;
         try {
             passengers.forEach(function (passenger) {
+                // every passenger has to have an offer
                 (0, assert_1.default)(offer.offerItems.findIndex(function (_a) {
                     var ptc = _a.ptc;
                     return ptc === passenger.ptc;
@@ -43,7 +44,7 @@ var BookParamsValidator = /** @class */ (function (_super) {
         }
         catch (e) {
             if (e instanceof Error) {
-                return e.message || 'Generic parameter validation error';
+                return e.message || "Generic parameter validation error";
             }
         }
         return null;

@@ -26,7 +26,7 @@ var OrderCancelRQ = /** @class */ (function (_super) {
     }
     Object.defineProperty(OrderCancelRQ.prototype, "nodeName", {
         get: function () {
-            return 'OrderCancelRQ';
+            return "OrderCancelRQ";
         },
         enumerable: false,
         configurable: true

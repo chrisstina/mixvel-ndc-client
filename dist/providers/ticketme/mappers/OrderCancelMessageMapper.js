@@ -6,7 +6,7 @@ var OrderCancelMessageMapper = /** @class */ (function () {
     function OrderCancelMessageMapper(params, credentials) {
         this.params = params;
         this.credentials = credentials;
-        this.message = new OrderCancelRQ_1.OrderCancelRQ(this.params.orderId, this.params.offerOwner || '');
+        this.message = new OrderCancelRQ_1.OrderCancelRQ(this.params.orderId, this.params.offerOwner || "");
         this.message.addParty(this.credentials);
     }
     OrderCancelMessageMapper.prototype.map = function () {

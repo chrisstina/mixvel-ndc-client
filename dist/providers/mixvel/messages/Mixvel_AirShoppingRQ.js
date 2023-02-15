@@ -8,18 +8,18 @@ var ptc_1 = require("../mappers/dictionary/ptc");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination() {
         this.CabinType = {
-            "CabinTypeCode": "",
-            "PrefLevel": { "PrefLevelCode": "" }
+            CabinTypeCode: "",
+            PrefLevel: { PrefLevelCode: "" },
         };
-        this.CarrierPrefRefID = ''; // initialize to preserve field order
-        this.ConnectionPrefRefID = ''; // initialize to preserve field order
+        this.CarrierPrefRefID = ""; // initialize to preserve field order
+        this.ConnectionPrefRefID = ""; // initialize to preserve field order
         this.DestArrivalCriteria = {
-            "IATA_LocationCode": ""
+            IATA_LocationCode: "",
         };
         this.OriginDepCriteria = {
-            "DateRangeStart": "",
-            "DateRangeEnd": "",
-            "IATA_LocationCode": ""
+            DateRangeStart: "",
+            DateRangeEnd: "",
+            IATA_LocationCode: "",
         };
     }
     return OriginDestination;
@@ -45,18 +45,20 @@ exports.Pax = Pax;
 var Mixvel_AirShoppingRQ = /** @class */ (function () {
     function Mixvel_AirShoppingRQ() {
         this.FlightRequest = {
-            "FlightRequestOriginDestinationsCriteria": {
-                "OriginDestCriteria": []
-            }
+            FlightRequestOriginDestinationsCriteria: {
+                OriginDestCriteria: [],
+            },
         };
         this.Paxs = {
-            "Pax": []
+            Pax: [],
         };
         this.ShoppingCriteria = [];
     }
     Object.defineProperty(Mixvel_AirShoppingRQ.prototype, "xmlns", {
         get: function () {
-            return { 'xmlns:shop': 'https://www.mixvel.com/API/XSD/Mixvel_AirShoppingRQ/1_01' };
+            return {
+                "xmlns:shop": "https://www.mixvel.com/API/XSD/Mixvel_AirShoppingRQ/1_01",
+            };
         },
         enumerable: false,
         configurable: true

@@ -18,7 +18,7 @@ var TicketmeDocumentType;
     TicketmeDocumentType["RETURN_ID"] = "CVV";
     TicketmeDocumentType["NATIONAL_PASSPORT"] = "NP";
     TicketmeDocumentType["IDENTITY_CARD"] = "IC";
-    TicketmeDocumentType["VISA"] = "VI"; // Виза
+    TicketmeDocumentType["VISA"] = "VI";
 })(TicketmeDocumentType = exports.TicketmeDocumentType || (exports.TicketmeDocumentType = {}));
 function toTicketMe(docType) {
     switch (docType) {

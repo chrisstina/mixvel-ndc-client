@@ -10,7 +10,7 @@ var MixvelAuthAppData = /** @class */ (function () {
             $: { "xmlns:auth": "https://www.mixvel.com/API/XSD/mixvel_auth/1_01" },
             Login: login,
             Password: password,
-            StructureUnitID: structureUnitId
+            StructureUnitID: structureUnitId,
         };
     }
     return MixvelAuthAppData;

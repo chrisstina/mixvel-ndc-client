@@ -88,16 +88,16 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
         SelectedOffer: SelectedOffer[];
     };
     PaymentFunctions?: {
-        "PaymentProcessingDetails": {
-            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc;
+        PaymentProcessingDetails: {
+            PaymentProcessingDetailsPaymentMethod: OtherPaymentMethod | DirectBill | AccountableDoc;
         };
     };
     DataLists: {
-        "ContactInfoList": {
-            "ContactInfo": Array<ContactInfo>;
+        ContactInfoList: {
+            ContactInfo: Array<ContactInfo>;
         };
-        "PaxList": {
-            "Pax": Array<Pax>;
+        PaxList: {
+            Pax: Array<Pax>;
         };
         PaxSegmentRemarkList?: {
             PaxSegmentRemark: Array<PaxSegmentRemark>;

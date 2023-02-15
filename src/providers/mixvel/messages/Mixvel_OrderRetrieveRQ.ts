@@ -1,19 +1,21 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 export class Mixvel_OrderRetrieveRQ implements INDCMessage {
-    get xmlns() {
-        return {"xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderRetrieveRQ/1_00"}
-    }
+  public OrderFilterCriteria: {
+    MixOrder: { MixOrderID: string };
+  };
 
-    get nodeName() {
-        return "o:Mixvel_OrderRetrieveRQ"
-    }
+  constructor(offerId: string) {
+    this.OrderFilterCriteria = { MixOrder: { MixOrderID: offerId } };
+  }
 
-    public OrderFilterCriteria: {
-        "MixOrder": { "MixOrderID": string }
-    }
+  get xmlns() {
+    return {
+      "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderRetrieveRQ/1_00",
+    };
+  }
 
-    constructor(offerId: string) {
-        this.OrderFilterCriteria = {MixOrder: {MixOrderID: offerId}}
-    }
+  get nodeName() {
+    return "o:Mixvel_OrderRetrieveRQ";
+  }
 }

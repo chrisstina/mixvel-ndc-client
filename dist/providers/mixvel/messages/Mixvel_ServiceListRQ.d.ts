@@ -1,11 +1,11 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 
 export declare type OfferRequest = {
-    "OfferRequest": {
-        "Offer": {
-            "OfferID": string;
-            "OfferItem": {
-                "OfferItemID": string;
+    OfferRequest: {
+        Offer: {
+            OfferID: string;
+            OfferItem: {
+                OfferItemID: string;
             }[];
         };
     };

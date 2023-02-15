@@ -2,9 +2,9 @@ import {Result} from "../../Result";
 import {IValidatorService} from "../../../interfaces/IValidatorService";
 import {IValidator} from "../../../interfaces/IValidator";
 
-declare type JustMethodKeys<ParamsType> = ({
+declare type JustMethodKeys<ParamsType> = {
     [P in keyof ParamsType]: ParamsType[P] extends Function ? P : never;
-})[keyof ParamsType];
+}[keyof ParamsType];
 export declare type RequestProps<ParamsType> = Omit<{
     [Property in keyof ParamsType]: ParamsType[Property];
 }, JustMethodKeys<ParamsType>>;

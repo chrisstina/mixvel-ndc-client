@@ -58,7 +58,19 @@ var AnonymousTraveler = /** @class */ (function () {
         (0, class_validator_1.IsString)()
     ], AnonymousTraveler.prototype, "id", void 0);
     __decorate([
-        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+        (0, class_validator_1.IsIn)([
+            "ADULT",
+            "CHILD",
+            "INFANT",
+            "WSEATINFANT",
+            "YOUTH",
+            "SENIOR",
+            "DISABLED",
+            "DISABLEDCHILD",
+            "ESCORT",
+            "LARGEFAMILY",
+            "STATERESIDENT",
+        ])
     ], AnonymousTraveler.prototype, "ptc", void 0);
     __decorate([
         (0, class_validator_1.IsNumber)(),
@@ -118,7 +130,7 @@ var SearchParams = /** @class */ (function (_super) {
     ], SearchParams.prototype, "onlyDirect", void 0);
     __decorate([
         (0, class_validator_1.IsOptional)(),
-        (0, class_validator_1.IsIn)(['LOWEST_FARE', 'ALL_FARES'])
+        (0, class_validator_1.IsIn)(["LOWEST_FARE", "ALL_FARES"])
     ], SearchParams.prototype, "pricingOption", void 0);
     __decorate([
         (0, class_validator_1.IsOptional)()

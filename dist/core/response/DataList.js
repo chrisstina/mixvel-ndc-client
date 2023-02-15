@@ -10,7 +10,9 @@ var DataList = /** @class */ (function () {
     };
     DataList.prototype.findByReference = function (entityRef) {
         var _this = this;
-        return this.list.find(function (entity) { return entity["".concat(_this.entityName, "ID")][0] === entityRef; });
+        return this.list.find(function (entity) {
+            return entity["".concat(_this.entityName, "ID")][0] === entityRef;
+        });
     };
     return DataList;
 }());

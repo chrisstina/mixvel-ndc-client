@@ -1,2 +1,1 @@
-export interface IResponseMessage {
-}
+export interface IResponseMessage {}

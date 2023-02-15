@@ -8,18 +8,18 @@ import {
     PRICECLASS,
     SEGMENT,
     SERVICE,
-    VALIDATINGPARTY
+    VALIDATINGPARTY,
 } from "../constants/datalist";
 
 export const allowedDataLists = {
-    'paxList': PAX,
-    'paxJourneyList': JOURNEY,
-    'segmentList': SEGMENT,
-    'priceClassList': PRICECLASS,
-    'bagList': BAG,
-    'validatingPartyList': VALIDATINGPARTY,
-    'odList': OD,
-    'contactList': CONTACT,
-    'serviceList': SERVICE,
-    'penaltyList': PENALTY
-}
+  paxList: PAX,
+  paxJourneyList: JOURNEY,
+  segmentList: SEGMENT,
+  priceClassList: PRICECLASS,
+  bagList: BAG,
+  validatingPartyList: VALIDATINGPARTY,
+  odList: OD,
+  contactList: CONTACT,
+  serviceList: SERVICE,
+  penaltyList: PENALTY,
+};

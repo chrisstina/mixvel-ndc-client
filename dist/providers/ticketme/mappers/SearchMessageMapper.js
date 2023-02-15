@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchMessageMapper = void 0;
-var DateTime = require('luxon').DateTime;
+var DateTime = require("luxon").DateTime;
 var AirShoppingRQ_1 = require("../messages/AirShoppingRQ");
 var ptc_1 = require("./dictionary/ptc");
 var cabin_1 = require("./dictionary/cabin");
@@ -26,7 +26,8 @@ var SearchMessageMapper = /** @class */ (function () {
             var id = _a.id, ptc = _a.ptc;
             _this.addPax(generatePaxId(id), (0, ptc_1.toTicketMe)(ptc));
         });
-        if (this.params.preferredCarriers && this.params.preferredCarriers.length > 0) {
+        if (this.params.preferredCarriers &&
+            this.params.preferredCarriers.length > 0) {
             this.addCarrierFilters(this.params.preferredCarriers, preflevel_1.Preflevel.PREFERRED);
         }
         return this.message;
@@ -42,24 +43,30 @@ var SearchMessageMapper = /** @class */ (function () {
     SearchMessageMapper.prototype.addOriginDestination = function (originCode, destinationCode, date) {
         var OD = new AirShoppingRQ_1.OriginDestination();
         OD.Arrival.push({ AirportCode: [{ _: destinationCode }] });
-        OD.Departure.push({ AirportCode: [{ _: originCode }], Date: [{ _: date }] });
+        OD.Departure.push({
+            AirportCode: [{ _: originCode }],
+            Date: [{ _: date }],
+        });
         this.message.CoreQuery[0].OriginDestinations[0].OriginDestination.push(OD);
     };
     SearchMessageMapper.prototype.setCabinPreference = function (cabin) {
-        this.message.Preference[0].CabinPreferences[0].CabinType[0].Code[0]._ = cabin;
+        this.message.Preference[0].CabinPreferences[0].CabinType[0].Code[0]._ =
+            cabin;
     };
     SearchMessageMapper.prototype.setDirectPreference = function (preference) {
-        this.message.Preference[0]['FlightPreferences'] = [{ Characteristic: [{ DirectPreferences: [{ _: preference }] }] }];
+        this.message.Preference[0]["FlightPreferences"] = [
+            { Characteristic: [{ DirectPreferences: [{ _: preference }] }] },
+        ];
     };
     SearchMessageMapper.prototype.addCarrierFilters = function (carriers, level) {
         var airlines = carriers.map(function (carrier) {
             return {
                 $: { PreferencesLevel: level },
-                AirlineID: [{ _: carrier }]
+                AirlineID: [{ _: carrier }],
             };
         });
         if (!this.message.Preference[0].AirlinePreferences) {
-            this.message.Preference[0]['AirlinePreferences'] = [];
+            this.message.Preference[0]["AirlinePreferences"] = [];
         }
         this.message.Preference[0].AirlinePreferences.push({ Airline: airlines });
     };

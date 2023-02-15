@@ -24,6 +24,7 @@ var ptc_1 = require("../mappers/dictionary/ptc");
 var cabin_1 = require("../mappers/dictionary/cabin");
 var OriginDestination = /** @class */ (function () {
     function OriginDestination() {
+        // @todo <SegMaxTimePreferences>
         this.Arrival = [];
         this.Departure = [];
     }
@@ -50,20 +51,22 @@ var AirShoppingRQ = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.CoreQuery = [
             {
-                OriginDestinations: [
-                    { OriginDestination: [] }
-                ]
-            }
+                OriginDestinations: [{ OriginDestination: [] }],
+            },
         ];
-        _this.Preference = [{ CabinPreferences: [{ CabinType: [{ Code: [{ _: cabin_1.TicketMeCabin.ANY }] }] }] }];
+        _this.Preference = [
+            {
+                CabinPreferences: [{ CabinType: [{ Code: [{ _: cabin_1.TicketMeCabin.ANY }] }] }],
+            },
+        ];
         _this.DataLists = [
             {
                 PassengerList: [
                     {
-                        Passenger: []
-                    }
-                ]
-            }
+                        Passenger: [],
+                    },
+                ],
+            },
         ];
         return _this;
         // public "Metadata" = [

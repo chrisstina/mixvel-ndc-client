@@ -11,7 +11,7 @@ var TicketMeRequest = /** @class */ (function () {
     Object.defineProperty(TicketMeRequest.prototype, "body", {
         get: function () {
             if (!this.conversionStrategy) {
-                console.debug('No request body output converter found! Return as is');
+                console.debug("No request body output converter found! Return as is");
                 return this.message;
             }
             var obj = {};

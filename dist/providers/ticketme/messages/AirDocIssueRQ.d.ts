@@ -11,18 +11,18 @@ export declare class OtherPaymentMethod {
 }
 export declare type PaymentMethod = CardPaymentMethod | CashPaymentMethod | OtherPaymentMethod;
 declare type Payment = {
-    "Type": StringValue[];
-    "Method": PaymentMethod[];
-    "Amount": {
-        "$": {
-            "Code": string;
+    Type: StringValue[];
+    Method: PaymentMethod[];
+    Amount: {
+        $: {
+            Code: string;
         };
-        "_": string;
+        _: string;
     }[];
-    "Order": {
-        "$": {
-            "OrderID": string;
-            "Owner": string;
+    Order: {
+        $: {
+            OrderID: string;
+            Owner: string;
         };
     }[];
 };
@@ -32,7 +32,7 @@ export declare class AirDocIssueRQ extends AbstractTicketMeNDCMessage {
         TicketDocInfo: {
             PassengerReference: StringValue[];
             Payments?: {
-                "Payment": Payment[];
+                Payment: Payment[];
             }[];
         }[];
     }[];

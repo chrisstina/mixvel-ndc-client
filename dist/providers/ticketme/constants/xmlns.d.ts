@@ -1,4 +1,4 @@
 export declare const IATAxmlns: {
     xmlns: string;
-    'xmlns:xsi': string;
+    "xmlns:xsi": string;
 };

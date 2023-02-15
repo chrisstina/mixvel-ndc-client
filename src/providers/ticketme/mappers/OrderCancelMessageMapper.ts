@@ -4,14 +4,19 @@ import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetriev
 import {OrderCancelRQ} from "../messages/OrderCancelRQ";
 
 export class OrderCancelMessageMapper implements IMessageMapper {
-    message: OrderCancelRQ
-    constructor(public readonly params: OrderRetrieveParams,
-                public readonly credentials: PartyCredentials) {
-        this.message = new OrderCancelRQ(this.params.orderId, this.params.offerOwner || '')
-        this.message.addParty(this.credentials)
-    }
+  message: OrderCancelRQ;
+  constructor(
+    public readonly params: OrderRetrieveParams,
+    public readonly credentials: PartyCredentials
+  ) {
+    this.message = new OrderCancelRQ(
+      this.params.orderId,
+      this.params.offerOwner || ""
+    );
+    this.message.addParty(this.credentials);
+  }
 
-    map(): OrderCancelRQ {
-        return this.message
-    }
+  map(): OrderCancelRQ {
+    return this.message;
+  }
 }

@@ -3,22 +3,26 @@ import {AbstractParamsValidator} from "../../../core/request/AbstractParamsValid
 import {MixvelBookParams} from "../request/parameters/Book";
 
 export class BookParamsValidator extends AbstractParamsValidator {
-    public static validate(params: MixvelBookParams): null | string {
-        const paramsOrError = MixvelBookParams.create(params)
-        if (paramsOrError.isFailure) {
-            return paramsOrError.error || 'Generic parameter validation error'
-        }
-
-        const {passengers, offer} = params
-        try {
-            passengers.forEach((passenger) => { // every passenger has to have an offer
-                assert(offer.offerItems.findIndex(({ptc}) => ptc === passenger.ptc) !== -1, `No offer found for ${passenger.ptc}`)
-            })
-        } catch (e) {
-            if (e instanceof Error) {
-                return e.message || 'Generic parameter validation error'
-            }
-        }
-        return null
+  public static validate(params: MixvelBookParams): null | string {
+    const paramsOrError = MixvelBookParams.create(params);
+    if (paramsOrError.isFailure) {
+      return paramsOrError.error || "Generic parameter validation error";
     }
+
+    const { passengers, offer } = params;
+    try {
+      passengers.forEach((passenger) => {
+        // every passenger has to have an offer
+        assert(
+          offer.offerItems.findIndex(({ ptc }) => ptc === passenger.ptc) !== -1,
+          `No offer found for ${passenger.ptc}`
+        );
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        return e.message || "Generic parameter validation error";
+      }
+    }
+    return null;
+  }
 }

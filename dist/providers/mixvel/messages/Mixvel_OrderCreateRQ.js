@@ -41,11 +41,16 @@ var Mixvel_OrderCreateRQ = /** @class */ (function () {
         this.CreateOrder = {
             SelectedOffer: [],
         };
-        this.DataLists = { ContactInfoList: { ContactInfo: [] }, PaxList: { Pax: [] } };
+        this.DataLists = {
+            ContactInfoList: { ContactInfo: [] },
+            PaxList: { Pax: [] },
+        };
     }
     Object.defineProperty(Mixvel_OrderCreateRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01" };
+            return {
+                "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderCreateRQ/1_01",
+            };
         },
         enumerable: false,
         configurable: true

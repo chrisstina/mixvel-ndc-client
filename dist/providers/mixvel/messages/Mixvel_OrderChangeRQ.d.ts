@@ -11,14 +11,14 @@ export declare class Mixvel_OrderChangeRQ implements INDCMessage {
      * for ticket issue request
      */
     PaymentFunctions?: {
-        "PaymentProcessingDetails": {
-            "Amount": {
-                "_": string;
-                "$": {
-                    "CurCode": string;
+        PaymentProcessingDetails: {
+            Amount: {
+                _: string;
+                $: {
+                    CurCode: string;
                 };
             };
-            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc;
+            PaymentProcessingDetailsPaymentMethod: OtherPaymentMethod | DirectBill | AccountableDoc;
         };
     };
     /**

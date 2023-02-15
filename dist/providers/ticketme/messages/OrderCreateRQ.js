@@ -21,19 +21,25 @@ var OrderCreateRQ = /** @class */ (function (_super) {
     __extends(OrderCreateRQ, _super);
     function OrderCreateRQ(offer) {
         var _this = _super.call(this) || this;
-        _this.Query = [{
+        _this.Query = [
+            {
                 Order: [{ Offer: [offer] }],
                 DataLists: [
                     {
-                        PassengerList: [{
-                                Passenger: []
-                            }],
-                        ContactList: [{
-                                ContactInformation: []
-                            }]
-                    }
-                ]
-            }];
+                        PassengerList: [
+                            {
+                                Passenger: [],
+                            },
+                        ],
+                        ContactList: [
+                            {
+                                ContactInformation: [],
+                            },
+                        ],
+                    },
+                ],
+            },
+        ];
         return _this;
     }
     Object.defineProperty(OrderCreateRQ.prototype, "nodeName", {

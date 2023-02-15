@@ -65,22 +65,26 @@ var TicketMeResponseMapper = /** @class */ (function () {
     TicketMeResponseMapper.toError = function (errorNode) {
         var _a, _b, _c;
         var errorText = errorNode._ || ((_a = errorNode.$) === null || _a === void 0 ? void 0 : _a.ShortText);
-        return new TicketMeResponseError({ DescText: errorText, ErrorType: (_b = errorNode.$) === null || _b === void 0 ? void 0 : _b.Type, Code: (_c = errorNode.$) === null || _c === void 0 ? void 0 : _c.Code });
+        return new TicketMeResponseError({
+            DescText: errorText,
+            ErrorType: (_b = errorNode.$) === null || _b === void 0 ? void 0 : _b.Type,
+            Code: (_c = errorNode.$) === null || _c === void 0 ? void 0 : _c.Code,
+        });
     };
     TicketMeResponseMapper.prototype.map = function (completeResponseObject) {
         if (completeResponseObject == undefined) {
-            throw new ResponseParsingError_1.default('Could not find Body node');
+            throw new ResponseParsingError_1.default("Could not find Body node");
         }
         var rootNodeName = Object.keys(completeResponseObject)[0];
         if (!rootNodeName || !completeResponseObject[rootNodeName]) {
-            throw new ResponseParsingError_1.default('Could not find root node');
+            throw new ResponseParsingError_1.default("Could not find root node");
         }
         // Business logic error
         var content = completeResponseObject[rootNodeName];
         if (content !== undefined) {
-            var errors = content['ns2:Errors'];
+            var errors = content["ns2:Errors"];
             if (errors && errors.length > 0) {
-                return TicketMeResponseMapper.toError(errors[0]['ns2:Error'][0]);
+                return TicketMeResponseMapper.toError(errors[0]["ns2:Error"][0]);
             }
         }
         return completeResponseObject;
@@ -104,7 +108,7 @@ var TicketMeResponseManager = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.convert(rawXML).then(function (responseObject) {
                         if (responseObject === null) {
-                            return Promise.reject(new ResponseParsingError_1.default('Response parsed to an empty object'));
+                            return Promise.reject(new ResponseParsingError_1.default("Response parsed to an empty object"));
                         }
                         return _this.mapper.map(responseObject);
                     })];
@@ -119,8 +123,8 @@ var TicketMeResponseManager = /** @class */ (function (_super) {
 exports.TicketMeResponseManager = TicketMeResponseManager;
 var TicketMeResponseError = /** @class */ (function () {
     function TicketMeResponseError(data) {
-        this.code = data.Code || '000';
-        this.text = data.DescText || '';
+        this.code = data.Code || "000";
+        this.text = data.DescText || "";
     }
     return TicketMeResponseError;
 }());

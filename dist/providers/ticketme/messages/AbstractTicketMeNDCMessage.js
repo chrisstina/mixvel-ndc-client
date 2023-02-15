@@ -15,13 +15,13 @@ exports.AbstractTicketMeNDCMessage = void 0;
 var xmlns_1 = require("../constants/xmlns");
 var AbstractTicketMeNDCMessage = /** @class */ (function () {
     function AbstractTicketMeNDCMessage() {
-        this.$ = __assign(__assign({}, this.xmlns), { Version: '17.2' });
+        this.$ = __assign(__assign({}, this.xmlns), { Version: "17.2" });
         this.Document = {};
         this.Party = [];
     }
     Object.defineProperty(AbstractTicketMeNDCMessage.prototype, "nodeName", {
         get: function () {
-            return '';
+            return "";
         },
         enumerable: false,
         configurable: true
@@ -34,7 +34,9 @@ var AbstractTicketMeNDCMessage = /** @class */ (function () {
         configurable: true
     });
     AbstractTicketMeNDCMessage.prototype.addParty = function (party) {
-        this.Party.push({ Sender: [{ TravelAgencySender: [{ AgencyID: [{ _: party.agencyId }] }] }] });
+        this.Party.push({
+            Sender: [{ TravelAgencySender: [{ AgencyID: [{ _: party.agencyId }] }] }],
+        });
     };
     return AbstractTicketMeNDCMessage;
 }());

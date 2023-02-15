@@ -4,15 +4,20 @@ import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetriev
 import {OrderRetrieveRQ} from "../messages/OrderRetrieveRQ";
 
 export class OrderRetrieveMessageMapper implements IMessageMapper {
-    message: OrderRetrieveRQ
+  message: OrderRetrieveRQ;
 
-    constructor(public readonly params: OrderRetrieveParams,
-                public readonly credentials: PartyCredentials) {
-        this.message = new OrderRetrieveRQ(this.params.orderId, this.params.offerOwner || '')
-        this.message.addParty(this.credentials)
-    }
+  constructor(
+    public readonly params: OrderRetrieveParams,
+    public readonly credentials: PartyCredentials
+  ) {
+    this.message = new OrderRetrieveRQ(
+      this.params.orderId,
+      this.params.offerOwner || ""
+    );
+    this.message.addParty(this.credentials);
+  }
 
-    map(): OrderRetrieveRQ {
-        return this.message
-    }
+  map(): OrderRetrieveRQ {
+    return this.message;
+  }
 }

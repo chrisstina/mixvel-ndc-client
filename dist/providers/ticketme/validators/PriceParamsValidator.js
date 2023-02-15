@@ -26,7 +26,7 @@ var PriceParamsValidator = /** @class */ (function (_super) {
     PriceParamsValidator.validate = function (params) {
         var paramsOrError = Price_1.TicketMePriceParams.create(params);
         if (paramsOrError.isFailure) {
-            return paramsOrError.error || 'Generic parameter validation error';
+            return paramsOrError.error || "Generic parameter validation error";
         }
         return null;
     };

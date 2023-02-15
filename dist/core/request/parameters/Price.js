@@ -44,7 +44,19 @@ var OfferItem = /** @class */ (function () {
     ], OfferItem.prototype, "offerItemId", void 0);
     __decorate([
         (0, class_validator_1.IsOptional)(),
-        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+        (0, class_validator_1.IsIn)([
+            "ADULT",
+            "CHILD",
+            "INFANT",
+            "WSEATINFANT",
+            "YOUTH",
+            "SENIOR",
+            "DISABLED",
+            "DISABLEDCHILD",
+            "ESCORT",
+            "LARGEFAMILY",
+            "STATERESIDENT",
+        ])
     ], OfferItem.prototype, "ptc", void 0);
     __decorate([
         (0, class_validator_1.IsOptional)(),
@@ -84,7 +96,9 @@ var PriceParams = /** @class */ (function (_super) {
     __extends(PriceParams, _super);
     function PriceParams(props) {
         var _this = _super.call(this) || this;
-        _this.offers = props.offers.map(function (offerData) { return new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
+        _this.offers = props.offers.map(function (offerData) {
+            return new Offer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId);
+        });
         return _this;
     }
     PriceParams.create = function (props) {

@@ -7,7 +7,9 @@ var Mixvel_OrderRetrieveRQ = /** @class */ (function () {
     }
     Object.defineProperty(Mixvel_OrderRetrieveRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderRetrieveRQ/1_00" };
+            return {
+                "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderRetrieveRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

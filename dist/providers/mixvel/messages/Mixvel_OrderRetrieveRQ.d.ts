@@ -6,8 +6,8 @@ export declare class Mixvel_OrderRetrieveRQ implements INDCMessage {
     };
     get nodeName(): string;
     OrderFilterCriteria: {
-        "MixOrder": {
-            "MixOrderID": string;
+        MixOrder: {
+            MixOrderID: string;
         };
     };
     constructor(offerId: string);

@@ -10,5 +10,5 @@ exports.allowedNodeNames = [
     "Rules:Mixvel_OrderRulesRS",
     "View:Mixvel_OrderViewRS",
     "Cancel:Mixvel_OrderCancelRS",
-    "Reshop:Mixvel_OrderReshopRS"
+    "Reshop:Mixvel_OrderReshopRS",
 ];

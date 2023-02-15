@@ -31,7 +31,19 @@ var TicketMeOfferItem = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
-        (0, class_validator_1.IsIn)(["ADULT", "CHILD", "INFANT", "WSEATINFANT", "YOUTH", "SENIOR", "DISABLED", "DISABLEDCHILD", "ESCORT", "LARGEFAMILY", "STATERESIDENT"])
+        (0, class_validator_1.IsIn)([
+            "ADULT",
+            "CHILD",
+            "INFANT",
+            "WSEATINFANT",
+            "YOUTH",
+            "SENIOR",
+            "DISABLED",
+            "DISABLEDCHILD",
+            "ESCORT",
+            "LARGEFAMILY",
+            "STATERESIDENT",
+        ])
     ], TicketMeOfferItem.prototype, "ptc", void 0);
     __decorate([
         (0, class_validator_1.IsString)()
@@ -67,7 +79,9 @@ var TicketMePriceParams = /** @class */ (function (_super) {
     __extends(TicketMePriceParams, _super);
     function TicketMePriceParams(props) {
         var _this = _super.call(this) || this;
-        _this.offers = props.offers.map(function (offerData) { return new TicketMeOffer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId); });
+        _this.offers = props.offers.map(function (offerData) {
+            return new TicketMeOffer(offerData.offerId, offerData.offerItems, offerData.offerOwner, offerData.responseId);
+        });
         return _this;
     }
     TicketMePriceParams.create = function (props) {

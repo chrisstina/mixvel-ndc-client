@@ -7,7 +7,7 @@ var ProviderLocator = /** @class */ (function () {
     ProviderLocator.get = function (providerCode) {
         var provider = ProviderLocator.providers.get(providerCode);
         if (provider === undefined) {
-            throw new Error('No provider found for code ' + providerCode);
+            throw new Error("No provider found for code " + providerCode);
         }
         return provider;
     };

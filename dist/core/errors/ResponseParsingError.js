@@ -19,7 +19,7 @@ var ResponseParsingError = /** @class */ (function (_super) {
     __extends(ResponseParsingError, _super);
     function ResponseParsingError(message) {
         var _this = _super.call(this) || this;
-        _this.name = 'ResponseParsingError';
+        _this.name = "ResponseParsingError";
         _this.message = "Response could not be parsed: ".concat(message);
         return _this;
     }

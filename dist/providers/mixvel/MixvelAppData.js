@@ -9,7 +9,7 @@ var MixvelAppData = /** @class */ (function () {
         this[rq.nodeName] = [];
         this[rq.nodeName].push({
             $: rq.xmlns,
-            Request: [rq]
+            Request: [rq],
         });
     }
     return MixvelAppData;

@@ -26,7 +26,7 @@ var BookParamsValidator = /** @class */ (function (_super) {
     BookParamsValidator.validate = function (params) {
         var paramsOrError = Book_1.TicketMeBookParams.create(params);
         if (paramsOrError.isFailure) {
-            return paramsOrError.error || 'Generic parameter validation error';
+            return paramsOrError.error || "Generic parameter validation error";
         }
         return null;
     };

@@ -18,7 +18,7 @@ var RefundInfoMessageMapper = /** @class */ (function () {
             return uniqueOrderIds.add(orderId);
         });
         this.message.UpdateOrder = {
-            CancelOrder: { OrderRefID: Array.from(uniqueOrderIds.values()) }
+            CancelOrder: { OrderRefID: Array.from(uniqueOrderIds.values()) },
         };
     };
     return RefundInfoMessageMapper;

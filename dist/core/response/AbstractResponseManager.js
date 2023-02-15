@@ -15,7 +15,7 @@ var AbstractResponseManager = /** @class */ (function () {
         var conversionPromise = this.conversionStrategy.execute(rawXML);
         var convertedResult;
         if (typeof conversionPromise === "string") {
-            throw new ResponseParsingError_1.default('Converted to unexpected type');
+            throw new ResponseParsingError_1.default("Converted to unexpected type");
         }
         if (!(conversionPromise instanceof Promise)) {
             convertedResult = conversionPromise;
@@ -25,12 +25,12 @@ var AbstractResponseManager = /** @class */ (function () {
     };
     AbstractResponseManager.prototype.getResponse = function (rawXML) {
         return Promise.resolve({
-            code: '000',
-            text: 'Not implemented'
+            code: "000",
+            text: "Not implemented",
         });
     };
     AbstractResponseManager.prototype.createDataList = function (title, source) {
-        throw new Error('Not implemented');
+        throw new Error("Not implemented");
     };
     return AbstractResponseManager;
 }());

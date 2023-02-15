@@ -1,9 +1,9 @@
 import {INDCMessage} from "./INDCMessage";
 
 export interface IEndpointManager {
-    endpoints: Map<string, string>;
+  endpoints: Map<string, string>;
 
-    getEndpointForMessage(message: INDCMessage): string | never;
+  getEndpointForMessage(message: INDCMessage): string | never;
 
-    getEndpointByKey(id: string): string | never;
+  getEndpointByKey(id: string): string | never;
 }

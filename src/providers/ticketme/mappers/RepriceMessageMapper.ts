@@ -4,15 +4,17 @@ import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetriev
 import {OrderReshopRQ} from "../messages/OrderReshopRQ";
 
 export class RepriceMessageMapper implements IMessageMapper {
-    message: OrderReshopRQ
+  message: OrderReshopRQ;
 
-    constructor(public readonly params: OrderRetrieveParams,
-                public readonly credentials: PartyCredentials) {
-        this.message = new OrderReshopRQ(this.params.orderId)
-        this.message.addParty(this.credentials)
-    }
+  constructor(
+    public readonly params: OrderRetrieveParams,
+    public readonly credentials: PartyCredentials
+  ) {
+    this.message = new OrderReshopRQ(this.params.orderId);
+    this.message.addParty(this.credentials);
+  }
 
-    map(): OrderReshopRQ {
-        return this.message
-    }
+  map(): OrderReshopRQ {
+    return this.message;
+  }
 }

@@ -1,3 +1,3 @@
 export interface IValidator {
-    validate(params: object) : object[]
+  validate(params: object): object[];
 }

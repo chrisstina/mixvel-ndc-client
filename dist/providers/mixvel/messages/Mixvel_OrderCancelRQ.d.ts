@@ -6,7 +6,7 @@ export declare class Mixvel_OrderCancelRQ implements INDCMessage {
     };
     get nodeName(): string;
     MixOrder: {
-        "MixOrderID": string;
+        MixOrderID: string;
     };
     constructor(orderId: string);
 }

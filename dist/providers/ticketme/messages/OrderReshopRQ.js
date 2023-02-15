@@ -21,10 +21,12 @@ var OrderReshopRQ = /** @class */ (function (_super) {
     __extends(OrderReshopRQ, _super);
     function OrderReshopRQ(orderId) {
         var _this = _super.call(this) || this;
-        _this.Query = [{
+        _this.Query = [
+            {
                 OrderID: [{ _: orderId }],
-                Reprice: [{ "_": "" }] // @todo support various types of reshop
-            }];
+                Reprice: [{ _: "" }], // @todo support various types of reshop
+            },
+        ];
         return _this;
     }
     Object.defineProperty(OrderReshopRQ.prototype, "nodeName", {

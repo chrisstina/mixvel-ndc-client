@@ -1,20 +1,23 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
 
-type UpdateOrder = { CancelOrder: { OrderRefID: Iterable<string> } }
+type UpdateOrder = { CancelOrder: { OrderRefID: Iterable<string> } };
 
 export class Mixvel_OrderReshopRQ implements INDCMessage {
-    get xmlns() {
-        return {"xmlns:Reshop": "https://www.mixvel.com/API/XSD/Mixvel_OrderReshopRQ/1_00"}
-    }
+  public MixOrder: Record<string, unknown>;
+  public UpdateOrder?: UpdateOrder;
 
-    get nodeName() {
-        return "Reshop:Mixvel_OrderReshopRQ"
-    }
+  constructor(offerId: string) {
+    this.MixOrder = { MixOrderID: offerId };
+  }
 
-    public MixOrder: Record<string, unknown>
-    public UpdateOrder?: UpdateOrder
+  get xmlns() {
+    return {
+      "xmlns:Reshop":
+        "https://www.mixvel.com/API/XSD/Mixvel_OrderReshopRQ/1_00",
+    };
+  }
 
-    constructor(offerId: string) {
-        this.MixOrder = { MixOrderID: offerId }
-    }
+  get nodeName() {
+    return "Reshop:Mixvel_OrderReshopRQ";
+  }
 }

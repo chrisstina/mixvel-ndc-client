@@ -42,14 +42,16 @@ var AirDocIssueRQ = /** @class */ (function (_super) {
     __extends(AirDocIssueRQ, _super);
     function AirDocIssueRQ(paxs) {
         var _this = _super.call(this) || this;
-        _this.Query = [{
+        _this.Query = [
+            {
                 TicketDocQuantity: [{ _: paxs.length.toString() }],
                 TicketDocInfo: paxs.map(function (paxRef) {
                     return {
                         PassengerReference: [{ _: paxRef }],
                     };
-                })
-            }];
+                }),
+            },
+        ];
         return _this;
     }
     Object.defineProperty(AirDocIssueRQ.prototype, "nodeName", {

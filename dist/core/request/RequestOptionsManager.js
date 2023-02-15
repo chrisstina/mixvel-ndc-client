@@ -9,9 +9,9 @@ var RequestOptionsManager = /** @class */ (function () {
             endpoint: params.endpoint,
             method: params.method || "POST",
             headers: params.headers || {
-                "accept": "application/xml",
-                "Content-Type": "application/xml"
-            }
+                accept: "application/xml",
+                "Content-Type": "application/xml",
+            },
         };
     };
     return RequestOptionsManager;

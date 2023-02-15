@@ -1,6 +1,6 @@
 export interface IDataList {
-    entityName: string;
-    list: any;
+  entityName: string;
+  list: any;
 
-    findByReference(entityRef: string): any;
+  findByReference(entityRef: string): any;
 }

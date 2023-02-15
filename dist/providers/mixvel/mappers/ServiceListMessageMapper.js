@@ -23,20 +23,20 @@ var ServiceListMessageMapper = /** @class */ (function () {
                     OfferID: plainPriceParams.offerId,
                     OfferItem: plainPriceParams.offerItemIds.map(function (offerItemId) {
                         return {
-                            OfferItemID: offerItemId
+                            OfferItemID: offerItemId,
                         };
-                    })
-                }
-            }
+                    }),
+                },
+            },
         };
     };
     ServiceListMessageMapper.prototype.createOrderRequest = function (params) {
         return {
             OrderRequest: {
                 MixOrder: {
-                    MixOrderID: params.orderId
+                    MixOrderID: params.orderId,
                 },
-            }
+            },
         };
     };
     return ServiceListMessageMapper;

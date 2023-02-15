@@ -23,7 +23,8 @@ var TicketMeDataList = /** @class */ (function (_super) {
     function TicketMeDataList(entityName, items, dataListEntityName) {
         var _this = _super.call(this, entityName, items) || this;
         try {
-            _this.list = items[0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(entityName, "List")][0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(dataListEntityName || entityName)];
+            _this.list =
+                items[0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(entityName, "List")][0]["".concat(defaults_1.DEFAULT_NAMESPACE, ":").concat(dataListEntityName || entityName)];
         }
         catch (e) {
             console.error("Failed to find ".concat(entityName, " DataList: ").concat(e.stack));
@@ -36,7 +37,9 @@ var TicketMeDataList = /** @class */ (function (_super) {
     };
     TicketMeDataList.prototype.findByReference = function (entityRef, keyName) {
         var _this = this;
-        return this.list.find(function (entity) { return entity.$[keyName || "".concat(_this.entityName, "Key")] === entityRef; });
+        return this.list.find(function (entity) {
+            return entity.$[keyName || "".concat(_this.entityName, "Key")] === entityRef;
+        });
     };
     return TicketMeDataList;
 }(DataList_1.DataList));

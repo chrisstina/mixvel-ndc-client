@@ -10,7 +10,7 @@ var AbstractRequestParams = /** @class */ (function () {
     AbstractRequestParams.validate = function (params) {
         var validationErrors = this.getValidator().validate(params);
         if (validationErrors.length > 0) {
-            var validationErrorText = this.collectValidationErrors(validationErrors).join(', ');
+            var validationErrorText = this.collectValidationErrors(validationErrors).join(", ");
             return Result_1.Result.fail(new RequestValidationError_1.RequestValidationError(validationErrorText).message);
         }
         return Result_1.Result.ok(params);

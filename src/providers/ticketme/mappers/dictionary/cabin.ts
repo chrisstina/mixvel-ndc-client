@@ -1,4 +1,4 @@
-import {Cabin} from "../../../../core/request/types"
+import {Cabin} from "../../../../core/request/types";
 
 /**
  * Список возможных значений Code для элемента CabinType
@@ -13,11 +13,11 @@ import {Cabin} from "../../../../core/request/types"
  */
 
 export enum TicketMeCabin {
-    ECONOMY = "3",
-    BUSINESS = "2",
-    ANY = "7"
+  ECONOMY = "3",
+  BUSINESS = "2",
+  ANY = "7",
 }
 
 export function toTicketMe(cabin: Cabin): TicketMeCabin {
-    return TicketMeCabin[cabin] || TicketMeCabin.ANY
+  return TicketMeCabin[cabin] || TicketMeCabin.ANY;
 }

@@ -1,27 +1,27 @@
-import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
+import {AbstractTicketMeNDCMessage, StringValue,} from "./AbstractTicketMeNDCMessage";
 
 export type Offer = {
-    $: { Owner: string, OfferID: string, ResponseID: string },
-    OfferItem: OfferItem[]
-}
+  $: { Owner: string; OfferID: string; ResponseID: string };
+  OfferItem: OfferItem[];
+};
 
 type OfferItem = {
-    $: { OfferItemID: string },
-    PassengerRefs: StringValue
-}
+  $: { OfferItemID: string };
+  PassengerRefs: StringValue;
+};
 
-export type PaxDataList = { Passenger: Passenger[] }
-export type Passenger = { $: { PassengerID: string }, PTC: StringValue[] }
+export type PaxDataList = { Passenger: Passenger[] };
+export type Passenger = { $: { PassengerID: string }; PTC: StringValue[] };
 
 export class OfferPriceRQ extends AbstractTicketMeNDCMessage {
-    get nodeName() {
-        return "OfferPriceRQ"
-    }
+  public Query?: { Offer: Offer[] };
+  public DataLists?: { PassengerList: PaxDataList };
 
-    public Query?: { Offer: Offer[] }
-    public DataLists?: { PassengerList: PaxDataList }
+  constructor() {
+    super();
+  }
 
-    constructor() {
-        super();
-    }
+  get nodeName() {
+    return "OfferPriceRQ";
+  }
 }

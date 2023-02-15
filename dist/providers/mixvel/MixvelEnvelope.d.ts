@@ -19,7 +19,7 @@ export declare class MixvelEnvelope {
         }[];
     };
     set AppData(ndcMessage: MixvelAppData<INDCMessage> | MixvelAuthAppData);
-    set MessageInfo({ messageId, timeSent }: {
+    set MessageInfo({ messageId, timeSent, }: {
         messageId: string;
         timeSent: string;
     });

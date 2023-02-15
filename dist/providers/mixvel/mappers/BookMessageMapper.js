@@ -14,7 +14,7 @@ var Mixvel_OrderCreateRQ_1 = require("../messages/Mixvel_OrderCreateRQ");
 var documentType_1 = require("./dictionary/documentType");
 var ptc_1 = require("./dictionary/ptc");
 var commonMappers_1 = require("./commonMappers");
-var DEFAULT_FOP = 'CASH';
+var DEFAULT_FOP = "CASH";
 var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params) {
         this.params = params;
@@ -25,15 +25,17 @@ var BookMessageMapper = /** @class */ (function () {
         var paxRefs = new Map(), ancillaryOffers = [], paxRemarks = new Map();
         this.params.passengers.forEach(function (passenger, idx) {
             var pax = _this.passengerToPax(passenger, idx + 1);
-            paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], paxRefs.get(passenger.ptc) || [], true), [pax.PaxID], false));
+            paxRefs.set(passenger.ptc, __spreadArray(__spreadArray([], (paxRefs.get(passenger.ptc) || []), true), [
+                pax.PaxID,
+            ], false));
             if (passenger.ssrRemarks) {
                 paxRemarks.set(pax.PaxID, passenger.ssrRemarks);
             }
             _this.addPax(pax, _this.passengerToContact(passenger, idx + 1));
             // @todo LoyaltyProgramAccount
-            if (passenger.ancillaries && passenger.ancillaries.length > 0) { // collect ancillaries
-                ancillaryOffers.push.apply(// collect ancillaries
-                ancillaryOffers, passenger.ancillaries.map(function (ancillary) {
+            if (passenger.ancillaries && passenger.ancillaries.length > 0) {
+                // collect ancillaries
+                ancillaryOffers.push.apply(ancillaryOffers, passenger.ancillaries.map(function (ancillary) {
                     return { ancillary: ancillary, paxRef: pax.PaxID };
                 }));
             }
@@ -63,13 +65,13 @@ var BookMessageMapper = /** @class */ (function () {
     };
     BookMessageMapper.prototype.passengerToPax = function (passenger, paxId) {
         var _a;
-        var pax = new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), '', {
+        var pax = new Mixvel_OrderCreateRQ_1.Pax((0, commonMappers_1.toAge)(passenger.personalInfo.dob), "", {
             ExpiryDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfExpiry),
             IdentityDocID: passenger.identityDocument.number,
             IdentityDocTypeCode: (0, documentType_1.toMixvel)(passenger.identityDocument.type),
             IssueDate: (0, commonMappers_1.toMixvelDate)(passenger.identityDocument.dateOfIssue),
             IssuingCountryCode: passenger.identityDocument.issuingCountry,
-            Surname: passenger.personalInfo.lastName
+            Surname: passenger.personalInfo.lastName,
         }, {
             Birthdate: (0, commonMappers_1.toMixvelDate)(passenger.personalInfo.dob),
             GenderCode: passenger.personalInfo.gender,
@@ -77,7 +79,8 @@ var BookMessageMapper = /** @class */ (function () {
             MiddleName: passenger.personalInfo.middleName || undefined,
             Surname: passenger.personalInfo.lastName,
         }, generatePaxReference(paxId), (0, ptc_1.toMixvel)(passenger.ptc));
-        if (!pax.Individual.MiddleName) { // mind the nodes order
+        if (!pax.Individual.MiddleName) {
+            // mind the nodes order
             delete pax.Individual.MiddleName;
         }
         if (passenger.osiRemarks && passenger.osiRemarks.length > 0) {
@@ -102,8 +105,10 @@ var BookMessageMapper = /** @class */ (function () {
         if (passenger.loyaltyInfo) {
             pax.LoyaltyProgramAccount = {
                 AccountNumber: passenger.loyaltyInfo.code || "",
-                LoyaltyProgram: { Carrier: { AirlineDesigCode: passenger.loyaltyInfo.carrier || "" } },
-                PaxSegmentRefID: ((_a = passenger.loyaltyInfo.opts) === null || _a === void 0 ? void 0 : _a.paxRefs) || []
+                LoyaltyProgram: {
+                    Carrier: { AirlineDesigCode: passenger.loyaltyInfo.carrier || "" },
+                },
+                PaxSegmentRefID: ((_a = passenger.loyaltyInfo.opts) === null || _a === void 0 ? void 0 : _a.paxRefs) || [],
             };
         }
         else {
@@ -112,7 +117,13 @@ var BookMessageMapper = /** @class */ (function () {
         return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger, paxId) {
-        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), { ContactTypeText: "personal", EmailAddressText: passenger.contacts.email }, { ContactTypeText: "personal", PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || '') });
+        return new Mixvel_OrderCreateRQ_1.ContactInfo(generateContactReference(paxId), {
+            ContactTypeText: "personal",
+            EmailAddressText: passenger.contacts.email,
+        }, {
+            ContactTypeText: "personal",
+            PhoneNumber: prepPhoneNumber(passenger.contacts.phoneNumber || ""),
+        });
     };
     BookMessageMapper.prototype.addPax = function (pax, paxContact) {
         pax.ContactInfoRefID = paxContact.ContactInfoID;
@@ -124,7 +135,10 @@ var BookMessageMapper = /** @class */ (function () {
      * @return {SelectedOffer}
      */
     BookMessageMapper.prototype.addSelectedOffer = function (offer) {
-        this.message.CreateOrder.SelectedOffer.push({ OfferRefID: offer.offerId, SelectedOfferItem: [] });
+        this.message.CreateOrder.SelectedOffer.push({
+            OfferRefID: offer.offerId,
+            SelectedOfferItem: [],
+        });
         return this.message.CreateOrder.SelectedOffer[this.message.CreateOrder.SelectedOffer.length - 1];
     };
     /**
@@ -138,7 +152,7 @@ var BookMessageMapper = /** @class */ (function () {
         }
         selectedOffer.SelectedOfferItem.push({
             OfferItemRefID: offerItemId,
-            PaxRefID: paxRefs
+            PaxRefID: paxRefs,
         });
     };
     BookMessageMapper.prototype.addPaxRemarks = function (paxRemarks) {
@@ -150,7 +164,7 @@ var BookMessageMapper = /** @class */ (function () {
                 var paxremark = {
                     PaxRefID: paxRef,
                     Type: remark.type,
-                    Text: remark.text
+                    Text: remark.text,
                 };
                 (_a = _this.message.DataLists.PaxSegmentRemarkList) === null || _a === void 0 ? void 0 : _a.PaxSegmentRemark.push(paxremark);
             });
@@ -158,9 +172,9 @@ var BookMessageMapper = /** @class */ (function () {
     };
     BookMessageMapper.prototype.setPaymentDetails = function (fop) {
         this.message.PaymentFunctions = {
-            "PaymentProcessingDetails": {
-                "PaymentProcessingDetailsPaymentMethod": fop
-            }
+            PaymentProcessingDetails: {
+                PaymentProcessingDetailsPaymentMethod: fop,
+            },
         };
     };
     return BookMessageMapper;
@@ -177,5 +191,5 @@ function generateContactReference(paxId) {
  * @param phone
  */
 function prepPhoneNumber(phone) {
-    return [phone.indexOf('+') !== -1 ? '' : '+', phone].join('');
+    return [phone.indexOf("+") !== -1 ? "" : "+", phone].join("");
 }

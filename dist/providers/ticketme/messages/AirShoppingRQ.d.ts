@@ -43,8 +43,8 @@ declare type FlightPreference = {
 export declare class AirShoppingRQ extends AbstractTicketMeNDCMessage {
     get nodeName(): string;
     CoreQuery: {
-        "OriginDestinations": {
-            "OriginDestination": OriginDestination[];
+        OriginDestinations: {
+            OriginDestination: OriginDestination[];
         }[];
     }[];
     Preference: {

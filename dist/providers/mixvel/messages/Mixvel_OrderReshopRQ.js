@@ -7,7 +7,9 @@ var Mixvel_OrderReshopRQ = /** @class */ (function () {
     }
     Object.defineProperty(Mixvel_OrderReshopRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:Reshop": "https://www.mixvel.com/API/XSD/Mixvel_OrderReshopRQ/1_00" };
+            return {
+                "xmlns:Reshop": "https://www.mixvel.com/API/XSD/Mixvel_OrderReshopRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

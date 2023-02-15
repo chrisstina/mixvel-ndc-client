@@ -14,7 +14,7 @@ var RequestEndpointManager = /** @class */ (function () {
         if (endpoint) {
             return endpoint;
         }
-        throw new RequestGenerationError_1.RequestGenerationError('No endpoint found for ' + id); // @todo
+        throw new RequestGenerationError_1.RequestGenerationError("No endpoint found for " + id); // @todo
     };
     return RequestEndpointManager;
 }());

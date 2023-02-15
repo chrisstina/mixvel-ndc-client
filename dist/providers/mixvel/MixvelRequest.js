@@ -19,13 +19,16 @@ var MixvelRequest = /** @class */ (function () {
         this.options = options;
         this.conversionStrategy = conversionStrategy;
         this.payload = new MixvelEnvelope_1.MixvelEnvelope();
-        this.payload.MessageInfo = { timeSent: this.getMessageTime(), messageId: this.getMessageId() };
+        this.payload.MessageInfo = {
+            timeSent: this.getMessageTime(),
+            messageId: this.getMessageId(),
+        };
         this.payload.AppData = this.message;
     }
     Object.defineProperty(MixvelRequest.prototype, "body", {
         get: function () {
             if (!this.conversionStrategy) {
-                console.debug('No request body output converter found! Return as is');
+                console.debug("No request body output converter found! Return as is");
                 return this.payload;
             }
             return this.conversionStrategy.execute(this.payload);

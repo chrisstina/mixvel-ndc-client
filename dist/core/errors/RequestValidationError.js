@@ -20,7 +20,7 @@ var RequestValidationError = /** @class */ (function (_super) {
     __extends(RequestValidationError, _super);
     function RequestValidationError(message) {
         var _this = _super.call(this) || this;
-        _this.name = 'RequestValidationError';
+        _this.name = "RequestValidationError";
         _this.message = "RequestValidationError: ".concat(message);
         return _this;
     }

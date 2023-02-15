@@ -3,29 +3,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mixvel_OrderRulesRQ = void 0;
 var Mixvel_OrderRulesRQ = /** @class */ (function () {
     function Mixvel_OrderRulesRQ(offerOrOrderId, offerItemIds) {
-        if (offerItemIds) { // request by offer
+        if (offerItemIds) {
+            // request by offer
             this.RulesCoreRequest = {
-                "OfferRequest": {
-                    "OfferID": offerOrOrderId,
-                    "OfferItem": offerItemIds.map(function (offerItemId) {
+                OfferRequest: {
+                    OfferID: offerOrOrderId,
+                    OfferItem: offerItemIds.map(function (offerItemId) {
                         return {
-                            "OfferItemID": offerItemId
+                            OfferItemID: offerItemId,
                         };
-                    })
-                }
+                    }),
+                },
             };
         }
         else {
             this.RulesCoreRequest = {
-                "OrderRequest": {
-                    "OrderID": offerOrOrderId
-                }
+                // request by order
+                OrderRequest: {
+                    OrderID: offerOrOrderId,
+                },
             };
         }
     }
     Object.defineProperty(Mixvel_OrderRulesRQ.prototype, "xmlns", {
         get: function () {
-            return { "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderRulesRQ/1_00" };
+            return {
+                "xmlns:m": "https://www.mixvel.com/API/XSD/Mixvel_OrderRulesRQ/1_00",
+            };
         },
         enumerable: false,
         configurable: true

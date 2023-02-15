@@ -19,11 +19,11 @@ var RefundOrderMessageMapper = /** @class */ (function () {
                     return {
                         DeleteOrderItem: {
                             OrderID: orderId,
-                            OrderItemID: orderItemId
-                        }
+                            OrderItemID: orderItemId,
+                        },
                     };
-                })
-            }
+                }),
+            },
         };
     };
     return RefundOrderMessageMapper;

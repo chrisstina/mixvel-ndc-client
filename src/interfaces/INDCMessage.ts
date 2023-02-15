@@ -1,4 +1,4 @@
 export interface INDCMessage {
-    nodeName: string
-    xmlns: {[p: string]: string}
+  nodeName: string;
+  xmlns: { [p: string]: string };
 }

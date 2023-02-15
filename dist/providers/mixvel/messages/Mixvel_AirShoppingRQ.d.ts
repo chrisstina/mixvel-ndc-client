@@ -31,7 +31,7 @@ export declare class Pax {
  */
 export declare class Mixvel_AirShoppingRQ implements INDCMessage {
     get xmlns(): {
-        'xmlns:shop': string;
+        "xmlns:shop": string;
     };
     get nodeName(): string;
     FlightRequest: {
@@ -51,11 +51,11 @@ export declare type CarrierCriteria = {
     CarrierPrefID: string;
 };
 export declare type ConnectionCriteria = {
-    "ConnectionPrefID": string;
-    "MaximumConnectionQty": string;
+    ConnectionPrefID: string;
+    MaximumConnectionQty: number;
 };
 export declare type PricingMethodCriteria = {
-    "BestPricingOptionText": string;
+    BestPricingOptionText: string;
 };
 export declare type ProgramCriteria = {
     ProgramContract?: {

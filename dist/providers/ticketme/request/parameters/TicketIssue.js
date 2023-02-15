@@ -42,7 +42,7 @@ var TicketMeTicketIssueParams = /** @class */ (function (_super) {
         _this.orderId = props.orderId;
         _this.formOfPayment = new TicketMeFormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         _this.payment = new TicketIssue_1.Payment(props.payment.amount, props.payment.currency);
-        _this.orderOwner = props.orderOwner || '';
+        _this.orderOwner = props.orderOwner || "";
         _this.paxs = props.paxs;
         return _this;
     }

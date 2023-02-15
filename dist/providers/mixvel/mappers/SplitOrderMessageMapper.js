@@ -18,9 +18,9 @@ var SplitOrderMessageMapper = /** @class */ (function () {
                 var orderItemId = _a.orderItemId, paxRefs = _a.paxRefs;
                 return {
                     OrderID: orderItemId,
-                    PaxRefID: paxRefs
+                    PaxRefID: paxRefs,
                 };
-            })
+            }),
         };
     };
     return SplitOrderMessageMapper;

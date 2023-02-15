@@ -1,4 +1,4 @@
 export enum Preflevel {
-    PREFERRED = "Preferred",
-    EXCLUDED = "Exclude"
+  PREFERRED = "Preferred",
+  EXCLUDED = "Exclude",
 }

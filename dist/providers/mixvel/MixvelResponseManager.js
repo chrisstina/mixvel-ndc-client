@@ -68,7 +68,7 @@ var MixvelResponseMapper = /** @class */ (function () {
         var appData;
         var body = completeResponseObject[this.rootNodeName].Body;
         if (body == undefined) {
-            throw new ResponseParsingError_1.default('Could not find Body node');
+            throw new ResponseParsingError_1.default("Could not find Body node");
         }
         // General error
         if (body[0].Error && body[0].Error[0]) {
@@ -78,7 +78,7 @@ var MixvelResponseMapper = /** @class */ (function () {
             appData = body[0].AppData[0];
         }
         if (appData == undefined) {
-            throw new ResponseParsingError_1.default('Could not find AppData node');
+            throw new ResponseParsingError_1.default("Could not find AppData node");
         }
         var nodename = Object.keys(appData)[0];
         if (!this.allowedResponseNodeNames.includes(nodename)) {
@@ -117,11 +117,11 @@ var MixvelResponseManager = /** @class */ (function (_super) {
                 return [2 /*return*/, this.convert(rawXML).then(function (responseObject) {
                         var _a;
                         if (responseObject === null) {
-                            return Promise.reject(new ResponseParsingError_1.default('Response parsed to an empty object'));
+                            return Promise.reject(new ResponseParsingError_1.default("Response parsed to an empty object"));
                         }
-                        if (responseObject[MixvelResponseManager.rootNodeName] === undefined
-                            || ((_a = responseObject[MixvelResponseManager.rootNodeName]) === null || _a === void 0 ? void 0 : _a.Body) === undefined) {
-                            return Promise.reject(new ResponseParsingError_1.default('Invalid response format'));
+                        if (responseObject[MixvelResponseManager.rootNodeName] === undefined ||
+                            ((_a = responseObject[MixvelResponseManager.rootNodeName]) === null || _a === void 0 ? void 0 : _a.Body) === undefined) {
+                            return Promise.reject(new ResponseParsingError_1.default("Invalid response format"));
                         }
                         return _this.mapper.map(responseObject);
                     })];
@@ -144,8 +144,9 @@ exports.MixvelResponseManager = MixvelResponseManager;
  */
 var MixvelResponseError = /** @class */ (function () {
     function MixvelResponseError(data) {
-        this.code = data.Code || '000';
-        this.text = data.DescText && data.DescText.length > 0 ? data.DescText[0] : '';
+        this.code = data.Code || "000";
+        this.text =
+            data.DescText && data.DescText.length > 0 ? data.DescText[0] : "";
     }
     return MixvelResponseError;
 }());

@@ -1,45 +1,48 @@
 import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
+import {AccountableDoc, DirectBill, OtherPaymentMethod,} from "./Mixvel_CommonTypes";
 
 export class Mixvel_OrderChangeRQ implements INDCMessage {
-    get endpoint() {
-        return 'api/Order/change'
-    }
+  /**
+   * for ticket issue request
+   */
+  public PaymentFunctions?: {
+    PaymentProcessingDetails: {
+      Amount: { _: string; $: { CurCode: string } };
+      PaymentProcessingDetailsPaymentMethod:
+        | OtherPaymentMethod
+        | DirectBill
+        | AccountableDoc;
+    };
+  };
+  /**
+   * for order refund or split requests
+   */
+  public ChangeOrder?: Record<string, unknown>;
+  public MixOrder?: {
+    MixOrderID: string;
+  };
 
-    get xmlns() {
-        return {"xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderChangeRQ/1_00"}
+  constructor(orderId?: string) {
+    if (orderId) {
+      this.setMixOrder(orderId);
     }
+  }
 
-    get nodeName() {
-        return "o:Mixvel_OrderChangeRQ"
-    }
+  get endpoint() {
+    return "api/Order/change";
+  }
 
-    /**
-     * for ticket issue request
-     */
-    public PaymentFunctions?: {
-        "PaymentProcessingDetails": {
-            "Amount": { "_": string, "$": { "CurCode": string } },
-            "PaymentProcessingDetailsPaymentMethod": OtherPaymentMethod | DirectBill | AccountableDoc
-        }
-    }
+  get xmlns() {
+    return {
+      "xmlns:o": "https://www.mixvel.com/API/XSD/Mixvel_OrderChangeRQ/1_00",
+    };
+  }
 
-    /**
-     * for order refund or split requests
-     */
-    public ChangeOrder?: Record<string, unknown>
+  get nodeName() {
+    return "o:Mixvel_OrderChangeRQ";
+  }
 
-    public MixOrder?: {
-        MixOrderID: string
-    }
-
-    constructor(orderId?: string) {
-        if (orderId) {
-            this.setMixOrder(orderId);
-        }
-    }
-
-    setMixOrder(orderId: string) {
-        this.MixOrder = {MixOrderID: orderId}
-    }
+  setMixOrder(orderId: string) {
+    this.MixOrder = { MixOrderID: orderId };
+  }
 }

@@ -31,19 +31,17 @@ var OrderSplit_1 = require("./core/request/parameters/OrderSplit");
 var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
 // ================ Provider generation =================
 // Mixvel provider
-ProviderLocator_1.ProviderLocator.register('mixvel', new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require('./providers/mixvel/config/endpoints').endpoints), // @todo take from config
-pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager(require('./providers/mixvel/config/responses').allowedNodeNames, // @todo take from config
+ProviderLocator_1.ProviderLocator.register("mixvel", new Provider_1.Provider(new MixvelRequestManager_1.MixvelRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require("./providers/mixvel/config/endpoints").endpoints), // @todo take from config
+pojoToXml, requestOptionsManager), new MixvelResponseManager_1.MixvelResponseManager(require("./providers/mixvel/config/responses").allowedNodeNames, // @todo take from config
 xmlToPojo)));
 // TicketMe provider
-var ndcVersion = '172'; // @todo take from config
+var ndcVersion = "172"; // @todo take from config
 var pojoToNDC = new ObjectToXmlNDCConversionStrategy_1.ObjectToXmlNDCConversionStrategy(ndcVersion);
-ProviderLocator_1.ProviderLocator.register('ticketme', new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require('./providers/ticketme/config/endpoints').endpoints), // @todo take from config
+ProviderLocator_1.ProviderLocator.register("ticketme", new Provider_1.Provider(new TicketMeRequestManager_1.TicketMeRequestManager(new RequestEndpointManager_1.RequestEndpointManager(require("./providers/ticketme/config/endpoints").endpoints), // @todo take from config
 pojoToNDC, requestOptionsManager), new TicketMeResponseManager_1.TicketMeResponseManager(xmlToPojo)));
 function createNDCService(provider, providerConfig) {
     if (providerConfig === void 0) { providerConfig = {}; }
-    var theProvider = (typeof provider === "string")
-        ? ProviderLocator_1.ProviderLocator.get(provider)
-        : provider;
+    var theProvider = typeof provider === "string" ? ProviderLocator_1.ProviderLocator.get(provider) : provider;
     theProvider.extraConfiguration = providerConfig;
     var requestManager = theProvider.requestManager;
     var responseManager = theProvider.responseManager;
@@ -78,7 +76,7 @@ function createNDCService(provider, providerConfig) {
             paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
         }
         if (paramsOrError === undefined) {
-            return Result_1.Result.fail('Could not guess params type');
+            return Result_1.Result.fail("Could not guess params type");
         }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
@@ -117,7 +115,7 @@ function createNDCService(provider, providerConfig) {
             paramsOrError = OrderRetrieve_1.OrderRetrieveParams.create(props);
         }
         if (paramsOrError === undefined) {
-            return Result_1.Result.fail('Could not guess params type');
+            return Result_1.Result.fail("Could not guess params type");
         }
         return paramsOrError.isFailure && paramsOrError.error
             ? Result_1.Result.fail(paramsOrError.error)
@@ -152,17 +150,22 @@ function createNDCService(provider, providerConfig) {
      * @param {string|{}} data - response XML or JSON with errors
      */
     function getResponse(data) {
-        if (typeof data !== "string" && data.errors && Object.values(data.errors).length > 0) {
-            return Promise.resolve().then(function () { return Result_1.Result.fail("".concat(data.title, ": ").concat(Object.values(data.errors))); });
+        if (typeof data !== "string" &&
+            data.errors &&
+            Object.values(data.errors).length > 0) {
+            return Promise.resolve().then(function () {
+                return Result_1.Result.fail("".concat(data.title, ": ").concat(Object.values(data.errors)));
+            });
         }
         if (typeof data === "string") {
-            return responseManager.getResponse(data)
+            return responseManager
+                .getResponse(data)
                 .then(function (mixvelResponse) {
                 return Result_1.Result.ok(mixvelResponse);
             })
                 .catch(function (err) { return Result_1.Result.fail(err.message); });
         }
-        return Promise.reject(new ResponseParsingError_1.default('Unknown input format'));
+        return Promise.reject(new ResponseParsingError_1.default("Unknown input format"));
     }
     /**
      * @param dataListSource
@@ -199,7 +202,7 @@ function createNDCService(provider, providerConfig) {
         getOrderSplitRequest: getOrderSplitRequest,
         getResponse: getResponse,
         extractDataLists: extractDataLists,
-        setProviderConfig: setProviderConfig
+        setProviderConfig: setProviderConfig,
     };
 }
 exports.createNDCService = createNDCService;

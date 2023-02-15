@@ -11,16 +11,16 @@ var BookMessageMapper = /** @class */ (function () {
         this.credentials = credentials;
         this.message = new OrderCreateRQ_1.OrderCreateRQ({
             $: {
-                Owner: this.params.offer.offerOwner || '',
+                Owner: this.params.offer.offerOwner || "",
                 OfferID: this.params.offer.offerId,
-                ResponseID: this.params.offer.responseId || ''
+                ResponseID: this.params.offer.responseId || "",
             },
             OfferItem: this.params.offer.offerItems.map(function (item) {
                 return {
                     $: { OfferItemID: item.offerItemId },
-                    PassengerRefs: { _: item.paxs || '' }
+                    PassengerRefs: { _: item.paxs || "" },
                 };
-            })
+            }),
         });
         this.message.addParty(this.credentials);
     }
@@ -39,8 +39,12 @@ var BookMessageMapper = /** @class */ (function () {
     BookMessageMapper.prototype.passengerToPax = function (passenger, paxContact) {
         var document = {
             IdentityDocumentNumber: [{ _: passenger.identityDocument.number }],
-            IdentityDocumentType: [{ _: (0, documentType_1.toTicketMe)(passenger.identityDocument.type) }],
-            ExpiryDate: [{ _: (0, commonMappers_1.toTicketMeDate)(passenger.identityDocument.dateOfExpiry) }],
+            IdentityDocumentType: [
+                { _: (0, documentType_1.toTicketMe)(passenger.identityDocument.type) },
+            ],
+            ExpiryDate: [
+                { _: (0, commonMappers_1.toTicketMeDate)(passenger.identityDocument.dateOfExpiry) },
+            ],
             Birthdate: [{ _: (0, commonMappers_1.toTicketMeDate)(passenger.personalInfo.dob) }],
             NameTitle: [{ _: (0, commonMappers_1.genderToTitle)(passenger.personalInfo.gender) }],
             GivenName: [{ _: passenger.personalInfo.firstName }],
@@ -53,28 +57,38 @@ var BookMessageMapper = /** @class */ (function () {
             Gender: [{ _: (0, commonMappers_1.toTicketMeGender)(passenger.personalInfo.gender) }],
         };
         if (passenger.personalInfo.middleName) {
-            individual["MiddleName"] = [{ _: passenger.personalInfo.middleName || '' }];
+            individual["MiddleName"] = [
+                { _: passenger.personalInfo.middleName || "" },
+            ];
         }
         var pax = {
-            $: { PassengerID: passenger.id || '' },
+            $: { PassengerID: passenger.id || "" },
             PTC: [{ _: (0, ptc_1.toTicketMe)(passenger.ptc) }],
-            CitizenshipCountryCode: [{ _: passenger.identityDocument.issuingCountry }],
+            CitizenshipCountryCode: [
+                { _: passenger.identityDocument.issuingCountry },
+            ],
             Individual: [individual],
             IdentityDocument: [document],
-            ContactInfoRef: [{ _: paxContact.$.ContactID }]
+            ContactInfoRef: [{ _: paxContact.$.ContactID }],
         };
         return pax;
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger) {
         var contact = {
-            $: { "ContactID": generateContactReference(passenger.id || '') },
-            ContactProvided: []
+            $: { ContactID: generateContactReference(passenger.id || "") },
+            ContactProvided: [],
         };
         if (passenger.contacts.phoneNumber) {
-            contact.ContactProvided.push({ "Phone": [{ "PhoneNumber": [{ _: passenger.contacts.phoneNumber }] }] });
+            contact.ContactProvided.push({
+                Phone: [{ PhoneNumber: [{ _: passenger.contacts.phoneNumber }] }],
+            });
         }
         if (passenger.contacts.email) {
-            contact.ContactProvided.push({ "EmailAddress": [{ "EmailAddressValue": [{ _: passenger.contacts.email }] }] });
+            contact.ContactProvided.push({
+                EmailAddress: [
+                    { EmailAddressValue: [{ _: passenger.contacts.email }] },
+                ],
+            });
         }
         return contact;
     };

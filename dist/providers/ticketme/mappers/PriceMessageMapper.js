@@ -15,20 +15,27 @@ var PriceMessageMapper = /** @class */ (function () {
         this.message.Query = {
             Offer: this.params.offers.map(function (offer) {
                 return {
-                    $: { Owner: offer.offerOwner || '', OfferID: offer.offerId, ResponseID: offer.responseId || '' },
+                    $: {
+                        Owner: offer.offerOwner || "",
+                        OfferID: offer.offerId,
+                        ResponseID: offer.responseId || "",
+                    },
                     OfferItem: offer.offerItems.map(function (item) {
                         if (item.paxs !== undefined) {
-                            paxs.push.apply(paxs, item.paxs.split(' ').map(function (paxId) {
-                                return { $: { PassengerID: paxId }, PTC: [{ _: (0, ptc_1.toTicketMe)(item.ptc || "ADULT") }] };
+                            paxs.push.apply(paxs, item.paxs.split(" ").map(function (paxId) {
+                                return {
+                                    $: { PassengerID: paxId },
+                                    PTC: [{ _: (0, ptc_1.toTicketMe)(item.ptc || "ADULT") }],
+                                };
                             }));
                         }
                         return {
                             $: { OfferItemID: item.offerItemId },
-                            PassengerRefs: { _: item.paxs || '' }
+                            PassengerRefs: { _: item.paxs || "" },
                         };
-                    })
+                    }),
                 };
-            })
+            }),
         };
         this.message.DataLists = { PassengerList: { Passenger: paxs } };
         return this.message;
