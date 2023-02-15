@@ -1,6 +1,7 @@
-import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
-import { Cabin, PaxCategory, PricingOption } from "../types";
-import { Result } from "../../Result";
+import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
+import {Cabin, PaxCategory, PricingOption} from "../types";
+import {Result} from "../../Result";
+
 export declare class OriginDestination {
     from: string;
     to: string;
@@ -37,7 +38,7 @@ export declare class SearchParams extends AbstractRequestParams {
     readonly pricingOption?: PricingOption;
     readonly contract3D?: Contract3D;
     readonly preferredRBD?: string[];
-    static create(props: SearchProps): Result<SearchParams>;
     private constructor();
+    static create(props: SearchProps): Result<SearchParams>;
 }
 export {};

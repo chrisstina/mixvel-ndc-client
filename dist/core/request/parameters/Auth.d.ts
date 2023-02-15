@@ -6,6 +6,6 @@ export declare class AuthParams extends AbstractRequestParams {
     readonly login: string;
     readonly password: string;
     readonly structureId: string;
-    static create(props: AuthProps): Result<AuthParams>;
     private constructor();
+    static create(props: AuthProps): Result<AuthParams>;
 }

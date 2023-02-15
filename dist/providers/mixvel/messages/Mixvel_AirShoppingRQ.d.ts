@@ -30,10 +30,6 @@ export declare class Pax {
  * Остальное можно реализовать геттерами.
  */
 export declare class Mixvel_AirShoppingRQ implements INDCMessage {
-    get xmlns(): {
-        "xmlns:shop": string;
-    };
-    get nodeName(): string;
     FlightRequest: {
         FlightRequestOriginDestinationsCriteria: {
             OriginDestCriteria: OriginDestination[];
@@ -43,6 +39,10 @@ export declare class Mixvel_AirShoppingRQ implements INDCMessage {
         Pax: Pax[];
     };
     ShoppingCriteria: ShoppingCriteria[];
+    get xmlns(): {
+        "xmlns:shop": string;
+    };
+    get nodeName(): string;
 }
 export declare type CarrierCriteria = {
     Carrier: {

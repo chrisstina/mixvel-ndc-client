@@ -9,7 +9,7 @@ export declare class Result<T> {
     error?: string;
     private readonly _value?;
     private constructor();
-    getValue(): T;
     static ok<U>(value?: U): Result<U>;
     static fail<U>(error: string): Result<U>;
+    getValue(): T;
 }

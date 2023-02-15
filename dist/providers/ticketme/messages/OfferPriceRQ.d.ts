@@ -24,7 +24,6 @@ export declare type Passenger = {
     PTC: StringValue[];
 };
 export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
-    get nodeName(): string;
     Query?: {
         Offer: Offer[];
     };
@@ -32,5 +31,6 @@ export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
         PassengerList: PaxDataList;
     };
     constructor();
+    get nodeName(): string;
 }
 export {};

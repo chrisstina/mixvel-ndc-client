@@ -10,8 +10,8 @@ export declare class BookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<Passenger>;
     formOfPayment?: FormOfPayment;
-    static create(props: BookProps): Result<BookParams>;
     private constructor();
+    static create(props: BookProps): Result<BookParams>;
 }
 declare class PersonalInfo {
     firstName: string;

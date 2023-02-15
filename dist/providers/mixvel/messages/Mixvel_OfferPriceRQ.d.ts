@@ -8,12 +8,12 @@ export declare type SelectedOffer = {
     }>;
 };
 export declare class Mixvel_OfferPriceRQ implements INDCMessage {
-    get xmlns(): {
-        "xmlns:OfferPrice": string;
-    };
-    get nodeName(): string;
     PricedOffer: {
         SelectedOffer: SelectedOffer;
     };
     constructor(offerId: string, offerItemIds: string[]);
+    get xmlns(): {
+        "xmlns:OfferPrice": string;
+    };
+    get nodeName(): string;
 }

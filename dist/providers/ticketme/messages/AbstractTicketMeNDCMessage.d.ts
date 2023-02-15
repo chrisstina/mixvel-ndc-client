@@ -15,19 +15,18 @@ export declare type NodeValue<T> = {
 };
 export declare type StringValue = NodeValue<string>;
 export declare abstract class AbstractTicketMeNDCMessage implements INDCMessage {
-    get nodeName(): string;
     $: {
         Version: string;
         xmlns: string;
         "xmlns:xsi": string;
     };
-
+    Document: {};
+    Party: Party;
+    get nodeName(): string;
     get xmlns(): {
         xmlns: string;
         "xmlns:xsi": string;
     };
-    Document: {};
-    Party: Party;
     addParty(party: PartyCredentials): void;
 }
 export {};

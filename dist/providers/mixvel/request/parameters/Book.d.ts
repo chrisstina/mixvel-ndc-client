@@ -57,7 +57,7 @@ export declare class MixvelBookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<MixvelPassenger>;
     formOfPayment?: FormOfPayment;
-    static create(props: BookProps): Result<MixvelBookParams>;
     private constructor();
+    static create(props: BookProps): Result<MixvelBookParams>;
 }
 export {};

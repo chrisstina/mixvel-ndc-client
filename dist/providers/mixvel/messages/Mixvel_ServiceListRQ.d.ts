@@ -19,9 +19,9 @@ export declare type OrderRequest = {
 };
 export declare class Mixvel_ServiceListRQ implements INDCMessage {
     CoreRequest: OfferRequest | OrderRequest;
+    constructor(CoreRequest: OfferRequest | OrderRequest);
     get xmlns(): {
         "xmlns:Service": string;
     };
     get nodeName(): string;
-    constructor(CoreRequest: OfferRequest | OrderRequest);
 }

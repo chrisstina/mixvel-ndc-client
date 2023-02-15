@@ -19,6 +19,6 @@ export declare class TicketIssueParams extends AbstractRequestParams {
     formOfPayment: FormOfPayment;
     orderOwner?: string;
     paxs?: string[];
-    static create(props: TicketIssueProps): Result<TicketIssueParams>;
     private constructor();
+    static create(props: TicketIssueProps): Result<TicketIssueParams>;
 }

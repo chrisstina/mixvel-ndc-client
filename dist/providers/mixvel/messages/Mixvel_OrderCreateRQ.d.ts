@@ -80,10 +80,6 @@ export declare class PaxSegmentRemark {
     constructor(PaxSegmentRefID?: string | undefined, PaxRefID?: string | undefined, Type?: string | undefined, Text?: string | undefined, ActionType?: "add" | "delete" | undefined);
 }
 export declare class Mixvel_OrderCreateRQ implements INDCMessage {
-    get xmlns(): {
-        "xmlns:m": string;
-    };
-    get nodeName(): string;
     CreateOrder: {
         SelectedOffer: SelectedOffer[];
     };
@@ -104,5 +100,9 @@ export declare class Mixvel_OrderCreateRQ implements INDCMessage {
         };
     };
     constructor();
+    get xmlns(): {
+        "xmlns:m": string;
+    };
+    get nodeName(): string;
 }
 export {};

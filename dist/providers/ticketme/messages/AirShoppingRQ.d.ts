@@ -41,7 +41,6 @@ declare type FlightPreference = {
  * Остальное можно реализовать геттерами.
  */
 export declare class AirShoppingRQ extends AbstractTicketMeNDCMessage {
-    get nodeName(): string;
     CoreQuery: {
         OriginDestinations: {
             OriginDestination: OriginDestination[];
@@ -57,5 +56,6 @@ export declare class AirShoppingRQ extends AbstractTicketMeNDCMessage {
             Passenger: Pax[];
         }[];
     }[];
+    get nodeName(): string;
 }
 export {};

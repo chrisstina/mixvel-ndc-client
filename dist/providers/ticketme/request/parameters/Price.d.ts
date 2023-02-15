@@ -1,6 +1,7 @@
-import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
-import { OfferItem, PriceProps } from "../../../../core/request/parameters/Price";
-import { Result } from "../../../../core/Result";
+import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
+import {OfferItem, PriceProps} from "../../../../core/request/parameters/Price";
+import {Result} from "../../../../core/Result";
+
 export declare class TicketMeOffer {
     readonly offerId: string;
     offerItems: OfferItem[];
@@ -10,6 +11,6 @@ export declare class TicketMeOffer {
 }
 export declare class TicketMePriceParams extends AbstractRequestParams {
     readonly offers: TicketMeOffer[];
-    static create(props: PriceProps): Result<TicketMePriceParams>;
     private constructor();
+    static create(props: PriceProps): Result<TicketMePriceParams>;
 }

@@ -1,45 +1,45 @@
-import {IRequest} from "../../interfaces/IRequest";
-import {IRequestManager} from "../../interfaces/IRequestManager";
-import {IEndpointManager} from "../../interfaces/IEndpointManager";
-import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
-import {IMessageMapper} from "../../interfaces/IMessageMapper";
-import {INDCMessage} from "../../interfaces/INDCMessage";
+import { IRequest } from "../../interfaces/IRequest";
+import { IRequestManager } from "../../interfaces/IRequestManager";
+import { IEndpointManager } from "../../interfaces/IEndpointManager";
+import { IRequestOptionsManager } from "../../interfaces/IRequestOptionsManager";
+import { IMessageMapper } from "../../interfaces/IMessageMapper";
+import { INDCMessage } from "../../interfaces/INDCMessage";
 
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {FirstAvailableEmailService} from "../../services/FirstAvailableEmailService";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { FirstAvailableEmailService } from "../../services/FirstAvailableEmailService";
 
-import {MixvelRequest} from "./MixvelRequest";
-import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
+import { MixvelRequest } from "./MixvelRequest";
+import { MixvelAppData } from "./MixvelAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 
-import {Result} from "../../core/Result";
-import {isPriceParams} from "../../core/request/typeguards";
-import {SearchParams} from "../../core/request/parameters/Search";
-import {PriceParams} from "../../core/request/parameters/Price";
-import {BookParams} from "../../core/request/parameters/Book";
-import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
-import {RefundParams} from "../../core/request/parameters/Refund";
-import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
-import {RepriceParams} from "../../core/request/parameters/Reprice";
-import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
+import { Result } from "../../core/Result";
+import { isPriceParams } from "../../core/request/typeguards";
+import { SearchParams } from "../../core/request/parameters/Search";
+import { PriceParams } from "../../core/request/parameters/Price";
+import { BookParams } from "../../core/request/parameters/Book";
+import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
+import { RefundParams } from "../../core/request/parameters/Refund";
+import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
+import { RepriceParams } from "../../core/request/parameters/Reprice";
+import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 
-import {MixvelBookParams} from "./request/parameters/Book";
+import { MixvelBookParams } from "./request/parameters/Book";
 
-import {BookParamsValidator} from "./validators/BookParamsValidator";
+import { BookParamsValidator } from "./validators/BookParamsValidator";
 
-import {SearchMessageMapper} from "./mappers/SearchMessageMapper";
-import {BookMessageMapper} from "./mappers/BookMessageMapper";
-import {IssueOrderMessageMapper} from "./mappers/IssueOrderMessageMapper";
-import {RefundOrderMessageMapper} from "./mappers/RefundOrderMessageMapper";
-import {SplitOrderMessageMapper} from "./mappers/SplitOrderMessageMapper";
-import {ServiceListMessageMapper} from "./mappers/ServiceListMessageMapper";
-import {RefundInfoMessageMapper} from "./mappers/RefundInfoMessageMapper";
+import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
+import { BookMessageMapper } from "./mappers/BookMessageMapper";
+import { IssueOrderMessageMapper } from "./mappers/IssueOrderMessageMapper";
+import { RefundOrderMessageMapper } from "./mappers/RefundOrderMessageMapper";
+import { SplitOrderMessageMapper } from "./mappers/SplitOrderMessageMapper";
+import { ServiceListMessageMapper } from "./mappers/ServiceListMessageMapper";
+import { RefundInfoMessageMapper } from "./mappers/RefundInfoMessageMapper";
 
-import {Mixvel_OfferPriceRQ} from "./messages/Mixvel_OfferPriceRQ";
-import {Mixvel_OrderRetrieveRQ} from "./messages/Mixvel_OrderRetrieveRQ";
-import {Mixvel_OrderCancelRQ} from "./messages/Mixvel_OrderCancelRQ";
-import {Mixvel_OrderRulesRQ} from "./messages/Mixvel_OrderRulesRQ";
-import {MethodNotImplemented} from "../../core/errors/MethodNotImplemented";
+import { Mixvel_OfferPriceRQ } from "./messages/Mixvel_OfferPriceRQ";
+import { Mixvel_OrderRetrieveRQ } from "./messages/Mixvel_OrderRetrieveRQ";
+import { Mixvel_OrderCancelRQ } from "./messages/Mixvel_OrderCancelRQ";
+import { Mixvel_OrderRulesRQ } from "./messages/Mixvel_OrderRulesRQ";
+import { MethodNotImplemented } from "../../core/errors/MethodNotImplemented";
 
 export class MixvelRequestManager implements IRequestManager {
   public extraConfiguration = {}; // no extra config here

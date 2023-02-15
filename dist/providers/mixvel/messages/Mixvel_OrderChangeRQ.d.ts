@@ -2,11 +2,6 @@ import {INDCMessage} from "../../../interfaces/INDCMessage";
 import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
 
 export declare class Mixvel_OrderChangeRQ implements INDCMessage {
-    get endpoint(): string;
-    get xmlns(): {
-        "xmlns:o": string;
-    };
-    get nodeName(): string;
     /**
      * for ticket issue request
      */
@@ -29,5 +24,10 @@ export declare class Mixvel_OrderChangeRQ implements INDCMessage {
         MixOrderID: string;
     };
     constructor(orderId?: string);
+    get endpoint(): string;
+    get xmlns(): {
+        "xmlns:o": string;
+    };
+    get nodeName(): string;
     setMixOrder(orderId: string): void;
 }

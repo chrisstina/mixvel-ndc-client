@@ -5,6 +5,6 @@ import {Result} from "../../../../core/Result";
 
 export declare class TicketMeBookParams extends AbstractRequestParams {
     offer: TicketMeOffer;
-    static create(props: BookProps): Result<TicketMeBookParams>;
     private constructor();
+    static create(props: BookProps): Result<TicketMeBookParams>;
 }

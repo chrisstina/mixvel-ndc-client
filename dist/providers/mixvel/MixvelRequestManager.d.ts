@@ -18,8 +18,8 @@ export declare class MixvelRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     conversionStrategy: IConversionStrategy;
     requestOptionsManager: IRequestOptionsManager;
-    constructor(endpointManager: IEndpointManager, conversionStrategy: IConversionStrategy, requestOptionsManager: IRequestOptionsManager);
     extraConfiguration: {};
+    constructor(endpointManager: IEndpointManager, conversionStrategy: IConversionStrategy, requestOptionsManager: IRequestOptionsManager);
     private static prepareBookParams;
     createAuthRequest(params: {
         login: string;

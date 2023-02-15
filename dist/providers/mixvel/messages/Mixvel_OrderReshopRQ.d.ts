@@ -6,12 +6,12 @@ declare type UpdateOrder = {
     };
 };
 export declare class Mixvel_OrderReshopRQ implements INDCMessage {
+    MixOrder: Record<string, unknown>;
+    UpdateOrder?: UpdateOrder;
+    constructor(offerId: string);
     get xmlns(): {
         "xmlns:Reshop": string;
     };
     get nodeName(): string;
-    MixOrder: Record<string, unknown>;
-    UpdateOrder?: UpdateOrder;
-    constructor(offerId: string);
 }
 export {};

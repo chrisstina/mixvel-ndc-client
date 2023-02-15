@@ -20,17 +20,17 @@ var Result = /** @class */ (function () {
         this._value = value;
         Object.freeze(this);
     }
-    Result.prototype.getValue = function () {
-        if (!this.isSuccess || !this._value) {
-            throw new Error("Cannot retrieve the value from a failed result.");
-        }
-        return this._value;
-    };
     Result.ok = function (value) {
         return new Result(true, undefined, value);
     };
     Result.fail = function (error) {
         return new Result(false, error);
+    };
+    Result.prototype.getValue = function () {
+        if (!this.isSuccess || !this._value) {
+            throw new Error("Cannot retrieve the value from a failed result.");
+        }
+        return this._value;
     };
     return Result;
 }());

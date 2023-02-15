@@ -14,7 +14,7 @@ export declare class TicketMeTicketIssueParams extends AbstractRequestParams {
     payment: Payment;
     formOfPayment: TicketMeFormOfPayment;
     paxs?: string[];
-    static create(props: TicketIssueProps): Result<TicketMeTicketIssueParams>;
     private constructor();
+    static create(props: TicketIssueProps): Result<TicketMeTicketIssueParams>;
 }
 export {};

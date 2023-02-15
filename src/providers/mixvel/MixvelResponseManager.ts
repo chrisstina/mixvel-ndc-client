@@ -1,12 +1,12 @@
-import {IDataList} from "../../interfaces/IDataList";
-import {IResponseMapper} from "../../interfaces/IResponseMapper";
-import {IResponseMessage} from "../../interfaces/IResponseMessage";
-import {IResponseError} from "../../interfaces/IResponseError";
+import { IDataList } from "../../interfaces/IDataList";
+import { IResponseMapper } from "../../interfaces/IResponseMapper";
+import { IResponseMessage } from "../../interfaces/IResponseMessage";
+import { IResponseError } from "../../interfaces/IResponseError";
 import ResponseParsingError from "../../core/errors/ResponseParsingError";
-import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {allowedDataLists} from "./config/allowedDatalists";
-import {MixvelDataList} from "./MixvelDataList";
+import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { allowedDataLists } from "./config/allowedDatalists";
+import { MixvelDataList } from "./MixvelDataList";
 
 type MixvelMessage = Record<
   string,

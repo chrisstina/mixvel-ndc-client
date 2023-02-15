@@ -1,9 +1,8 @@
-import {IDataList} from "../../interfaces/IDataList";
-import {IResponseMessage} from "../../interfaces/IResponseMessage";
-import {IResponseError} from "../../interfaces/IResponseError";
-import {AbstractResponseManager} from "../../core/response/AbstractResponseManager";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-
+import { IDataList } from "../../interfaces/IDataList";
+import { IResponseMessage } from "../../interfaces/IResponseMessage";
+import { IResponseError } from "../../interfaces/IResponseError";
+import { AbstractResponseManager } from "../../core/response/AbstractResponseManager";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 export declare class MixvelResponseManager extends AbstractResponseManager {
     responseTypes: string[];
     conversionStrategy: IConversionStrategy;
