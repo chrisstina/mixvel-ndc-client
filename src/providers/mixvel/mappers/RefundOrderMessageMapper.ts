@@ -1,6 +1,6 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {Mixvel_OrderChangeRQ} from "../messages/Mixvel_OrderChangeRQ";
-import {RefundParams} from "../../../core/request/parameters/Refund";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { Mixvel_OrderChangeRQ } from "../messages/Mixvel_OrderChangeRQ";
+import { RefundParams } from "../../../core/request/parameters/Refund";
 
 export class RefundOrderMessageMapper implements IMessageMapper {
   message: Mixvel_OrderChangeRQ;

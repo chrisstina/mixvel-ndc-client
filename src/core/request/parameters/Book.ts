@@ -1,25 +1,25 @@
 import {
-    IsAlpha,
-    IsArray,
-    IsDate,
-    IsEmail,
-    IsIn,
-    IsNotEmpty,
-    IsOptional,
-    IsString,
-    Length,
-    MaxDate,
-    MinDate,
-    Validate,
-    ValidateNested,
+  IsAlpha,
+  IsArray,
+  IsDate,
+  IsEmail,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+  MaxDate,
+  MinDate,
+  Validate,
+  ValidateNested,
 } from "class-validator";
 
-import {IsPersonName} from "../../validators/IsPersonName";
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {DocumentType, PaxCategory} from "../types";
-import {Offer} from "./Price";
-import {FormOfPayment} from "./TicketIssue";
-import {Result} from "../../Result";
+import { IsPersonName } from "../../validators/IsPersonName";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { DocumentType, PaxCategory } from "../types";
+import { Offer } from "./Price";
+import { FormOfPayment } from "./TicketIssue";
+import { Result } from "../../Result";
 
 export const SUPPORTED_DOCTYPES = [
   "REGULAR_PASSPORT_RU",

@@ -1,8 +1,12 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {AirDocIssueRQ, PaymentMethod} from "../messages/AirDocIssueRQ";
-import {TicketIssueParams} from "../../../core/request/parameters/TicketIssue";
-import {TicketMeFop, toTicketMeMethod, toTicketMeType,} from "./dictionary/fop";
-import {PartyCredentials} from "../TicketMeRequest";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { AirDocIssueRQ, PaymentMethod } from "../messages/AirDocIssueRQ";
+import { TicketIssueParams } from "../../../core/request/parameters/TicketIssue";
+import {
+  TicketMeFop,
+  toTicketMeMethod,
+  toTicketMeType,
+} from "./dictionary/fop";
+import { PartyCredentials } from "../TicketMeRequest";
 
 export class IssueTicketMessageMapper implements IMessageMapper {
   message: AirDocIssueRQ;

@@ -1,4 +1,4 @@
-import {DocumentType} from "../../../../core/request/types";
+import { DocumentType } from "../../../../core/request/types";
 
 export enum TicketmeDocumentType {
   REGULAR_PASSPORT = "PS", // Общегражданский паспорт

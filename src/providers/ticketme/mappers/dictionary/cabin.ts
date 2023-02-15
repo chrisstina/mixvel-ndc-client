@@ -1,4 +1,4 @@
-import {Cabin} from "../../../../core/request/types";
+import { Cabin } from "../../../../core/request/types";
 
 /**
  * Список возможных значений Code для элемента CabinType

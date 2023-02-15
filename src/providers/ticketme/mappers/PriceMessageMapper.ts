@@ -1,8 +1,8 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {PartyCredentials} from "../TicketMeRequest";
-import {PriceParams} from "../../../core/request/parameters/Price";
-import {OfferPriceRQ, Passenger} from "../messages/OfferPriceRQ";
-import {toTicketMe as toTicketMePTC} from "./dictionary/ptc";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { PartyCredentials } from "../TicketMeRequest";
+import { PriceParams } from "../../../core/request/parameters/Price";
+import { OfferPriceRQ, Passenger } from "../messages/OfferPriceRQ";
+import { toTicketMe as toTicketMePTC } from "./dictionary/ptc";
 
 export class PriceMessageMapper implements IMessageMapper {
   message: OfferPriceRQ;

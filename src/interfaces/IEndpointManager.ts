@@ -1,4 +1,4 @@
-import {INDCMessage} from "./INDCMessage";
+import { INDCMessage } from "./INDCMessage";
 
 export interface IEndpointManager {
   endpoints: Map<string, string>;

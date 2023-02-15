@@ -1,7 +1,6 @@
-import {INDCMessage} from "../../interfaces/INDCMessage";
-import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
-
+import { INDCMessage } from "../../interfaces/INDCMessage";
+import { MixvelAppData } from "./MixvelAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 export declare class MixvelEnvelope {
     "MixEnv:Envelope": {
         $: {

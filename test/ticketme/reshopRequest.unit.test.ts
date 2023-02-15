@@ -1,8 +1,8 @@
-import {suite, test} from "@testdeck/mocha";
-import {expect} from "chai";
+import { suite, test } from "@testdeck/mocha";
+import { expect } from "chai";
 
-import {createNDCService} from "../../src";
-import {RepriceParams} from "../../src/core/request/parameters/Reprice";
+import { createNDCService } from "../../src";
+import { RepriceParams } from "../../src/core/request/parameters/Reprice";
 
 const { setProviderConfig, getRepriceRequest } = createNDCService("ticketme");
 

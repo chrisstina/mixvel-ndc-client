@@ -1,37 +1,46 @@
-import {IRequestManager} from "./interfaces/IRequestManager";
-import {IProvider} from "./interfaces/IProvider";
-import {IResponseManager} from "./interfaces/IResponseManager";
-import {IRequest} from "./interfaces/IRequest";
-import {IResponseMessage} from "./interfaces/IResponseMessage";
-import {IResponseError} from "./interfaces/IResponseError";
+import { IRequestManager } from "./interfaces/IRequestManager";
+import { IProvider } from "./interfaces/IProvider";
+import { IResponseManager } from "./interfaces/IResponseManager";
+import { IRequest } from "./interfaces/IRequest";
+import { IResponseMessage } from "./interfaces/IResponseMessage";
+import { IResponseError } from "./interfaces/IResponseError";
 
-import {Result} from "./core/Result";
-import {Provider} from "./core/Provider";
-import {ProviderLocator} from "./core/ProviderLocator";
+import { Result } from "./core/Result";
+import { Provider } from "./core/Provider";
+import { ProviderLocator } from "./core/ProviderLocator";
 import ResponseParsingError from "./core/errors/ResponseParsingError";
 
-import {ObjectToXmlConversionStrategy} from "./services/conversion/ObjectToXmlConversionStrategy";
-import {XmlToObjectConversionStrategy} from "./services/conversion/XmlToObjectConversionStrategy";
-import {ObjectToXmlNDCConversionStrategy} from "./services/conversion/ObjectToXmlNDCConversionStrategy";
-import {RequestEndpointManager} from "./core/request/RequestEndpointManager";
-import {RequestOptionsManager} from "./core/request/RequestOptionsManager";
-import {AuthParams, AuthProps} from "./core/request/parameters/Auth";
-import {SearchParams, SearchProps} from "./core/request/parameters/Search";
-import {PriceParams, PriceProps} from "./core/request/parameters/Price";
-import {OrderRetrieveParams, OrderRetrieveProps,} from "./core/request/parameters/OrderRetrieve";
-import {BookParams, BookProps} from "./core/request/parameters/Book";
-import {TicketIssueParams, TicketIssueProps,} from "./core/request/parameters/TicketIssue";
-import {RefundParams, RefundProps} from "./core/request/parameters/Refund";
-import {RepriceParams, RepriceProps} from "./core/request/parameters/Reprice";
-import {isOrderRetrieveProps, isPriceProps} from "./core/request/typeguards";
+import { ObjectToXmlConversionStrategy } from "./services/conversion/ObjectToXmlConversionStrategy";
+import { XmlToObjectConversionStrategy } from "./services/conversion/XmlToObjectConversionStrategy";
+import { ObjectToXmlNDCConversionStrategy } from "./services/conversion/ObjectToXmlNDCConversionStrategy";
+import { RequestEndpointManager } from "./core/request/RequestEndpointManager";
+import { RequestOptionsManager } from "./core/request/RequestOptionsManager";
+import { AuthParams, AuthProps } from "./core/request/parameters/Auth";
+import { SearchParams, SearchProps } from "./core/request/parameters/Search";
+import { PriceParams, PriceProps } from "./core/request/parameters/Price";
+import {
+  OrderRetrieveParams,
+  OrderRetrieveProps,
+} from "./core/request/parameters/OrderRetrieve";
+import { BookParams, BookProps } from "./core/request/parameters/Book";
+import {
+  TicketIssueParams,
+  TicketIssueProps,
+} from "./core/request/parameters/TicketIssue";
+import { RefundParams, RefundProps } from "./core/request/parameters/Refund";
+import { RepriceParams, RepriceProps } from "./core/request/parameters/Reprice";
+import { isOrderRetrieveProps, isPriceProps } from "./core/request/typeguards";
 
 // Provider-specific
-import {MixvelRequestManager} from "./providers/mixvel/MixvelRequestManager";
-import {MixvelResponseManager} from "./providers/mixvel/MixvelResponseManager";
-import {TicketMeRequestManager} from "./providers/ticketme/TicketMeRequestManager";
-import {TicketMeResponseManager} from "./providers/ticketme/TicketMeResponseManager";
-import {IDataList} from "./interfaces/IDataList";
-import {OrderSplitParams, OrderSplitProps,} from "./core/request/parameters/OrderSplit";
+import { MixvelRequestManager } from "./providers/mixvel/MixvelRequestManager";
+import { MixvelResponseManager } from "./providers/mixvel/MixvelResponseManager";
+import { TicketMeRequestManager } from "./providers/ticketme/TicketMeRequestManager";
+import { TicketMeResponseManager } from "./providers/ticketme/TicketMeResponseManager";
+import { IDataList } from "./interfaces/IDataList";
+import {
+  OrderSplitParams,
+  OrderSplitProps,
+} from "./core/request/parameters/OrderSplit";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
   xmlToPojo = new XmlToObjectConversionStrategy(),

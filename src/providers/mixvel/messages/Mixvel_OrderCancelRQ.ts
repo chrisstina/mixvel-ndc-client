@@ -1,4 +1,4 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 
 export class Mixvel_OrderCancelRQ implements INDCMessage {
   public MixOrder: { MixOrderID: string };

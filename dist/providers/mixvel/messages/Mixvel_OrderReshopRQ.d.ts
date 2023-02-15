@@ -1,5 +1,4 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 declare type UpdateOrder = {
     CancelOrder: {
         OrderRefID: Iterable<string>;

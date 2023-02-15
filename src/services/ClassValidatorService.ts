@@ -1,6 +1,6 @@
-import {validateSync, ValidationError} from "class-validator";
-import {IValidator} from "../interfaces/IValidator";
-import {IValidatorService} from "../interfaces/IValidatorService";
+import { validateSync, ValidationError } from "class-validator";
+import { IValidator } from "../interfaces/IValidator";
+import { IValidatorService } from "../interfaces/IValidatorService";
 
 class ClassValidator<T extends object> implements IValidator {
   public validate(params: T): ValidationError[] {

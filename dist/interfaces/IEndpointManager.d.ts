@@ -1,5 +1,4 @@
-import {INDCMessage} from "./INDCMessage";
-
+import { INDCMessage } from "./INDCMessage";
 export interface IEndpointManager {
     endpoints: Map<string, string>;
     getEndpointForMessage(message: INDCMessage): string | never;

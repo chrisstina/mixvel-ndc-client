@@ -1,8 +1,7 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {SelectedOffer} from "./Mixvel_OfferPriceRQ";
-import {MixvelDocumentType} from "../mappers/dictionary/documentType";
-import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
-
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { SelectedOffer } from "./Mixvel_OfferPriceRQ";
+import { MixvelDocumentType } from "../mappers/dictionary/documentType";
+import { AccountableDoc, DirectBill, OtherPaymentMethod } from "./Mixvel_CommonTypes";
 declare type ContactTypeText = "personal";
 declare type Individual = {
     GenderCode: string;

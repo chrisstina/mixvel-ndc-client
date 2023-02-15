@@ -1,20 +1,19 @@
-import {Result} from "../../core/Result";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
-import {IRequest} from "../../interfaces/IRequest";
-import {IRequestManager} from "../../interfaces/IRequestManager";
-import {IMessageMapper} from "../../interfaces/IMessageMapper";
-import {IEndpointManager} from "../../interfaces/IEndpointManager";
-import {IRequestOptionsManager} from "../../interfaces/IRequestOptionsManager";
-import {AbstractRequestParams} from "../../core/request/parameters/AbstractRequestParams";
-import {BookParams} from "../../core/request/parameters/Book";
-import {PriceParams} from "../../core/request/parameters/Price";
-import {OrderRetrieveParams} from "../../core/request/parameters/OrderRetrieve";
-import {RefundParams} from "../../core/request/parameters/Refund";
-import {SearchParams} from "../../core/request/parameters/Search";
-import {TicketIssueParams} from "../../core/request/parameters/TicketIssue";
-import {RepriceParams} from "../../core/request/parameters/Reprice";
-import {OrderSplitParams} from "../../core/request/parameters/OrderSplit";
-
+import { Result } from "../../core/Result";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
+import { IRequest } from "../../interfaces/IRequest";
+import { IRequestManager } from "../../interfaces/IRequestManager";
+import { IMessageMapper } from "../../interfaces/IMessageMapper";
+import { IEndpointManager } from "../../interfaces/IEndpointManager";
+import { IRequestOptionsManager } from "../../interfaces/IRequestOptionsManager";
+import { AbstractRequestParams } from "../../core/request/parameters/AbstractRequestParams";
+import { BookParams } from "../../core/request/parameters/Book";
+import { PriceParams } from "../../core/request/parameters/Price";
+import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
+import { RefundParams } from "../../core/request/parameters/Refund";
+import { SearchParams } from "../../core/request/parameters/Search";
+import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
+import { RepriceParams } from "../../core/request/parameters/Reprice";
+import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 export declare class TicketMeRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;

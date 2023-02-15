@@ -2,8 +2,8 @@
  * Copyright (c) 2021
  */
 
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {MixvelPTC} from "../mappers/dictionary/ptc";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { MixvelPTC } from "../mappers/dictionary/ptc";
 
 export class OriginDestination {
   public CabinType = {

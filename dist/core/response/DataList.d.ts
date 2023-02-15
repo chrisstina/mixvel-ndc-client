@@ -1,5 +1,4 @@
-import {IDataList} from "../../interfaces/IDataList";
-
+import { IDataList } from "../../interfaces/IDataList";
 export declare class DataList implements IDataList {
     readonly entityName: string;
     list: any;

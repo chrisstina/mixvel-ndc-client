@@ -1,5 +1,4 @@
-import {DocumentType} from "../../../../core/request/types";
-
+import { DocumentType } from "../../../../core/request/types";
 export declare enum TicketmeDocumentType {
     REGULAR_PASSPORT = "PS",
     INTERNATIONAL_PASSPORT = "PSP",

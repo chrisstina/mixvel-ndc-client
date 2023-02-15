@@ -1,4 +1,4 @@
-import {DataList} from "../../core/response/DataList";
+import { DataList } from "../../core/response/DataList";
 
 export class MixvelDataList extends DataList {
   protected constructor(entityName: string, items: Array<any>) {

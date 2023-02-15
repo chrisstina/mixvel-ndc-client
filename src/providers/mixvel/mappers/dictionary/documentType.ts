@@ -1,4 +1,4 @@
-import {DocumentType} from "../../../../core/request/types";
+import { DocumentType } from "../../../../core/request/types";
 
 export enum MixvelDocumentType {
   REGULAR_PASSPORT_RU = "PS",

@@ -1,5 +1,4 @@
-import {IProvider} from "../interfaces/IProvider";
-
+import { IProvider } from "../interfaces/IProvider";
 export declare class ProviderLocator {
     private static providers;
     static get(providerCode: string): IProvider | never;

@@ -1,8 +1,11 @@
-import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {IsIn, IsString, MinLength, ValidateNested} from "class-validator";
-import {Payment, TicketIssueProps,} from "../../../../core/request/parameters/TicketIssue";
-import {FopType} from "../../../../core/request/types";
-import {Result} from "../../../../core/Result";
+import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
+import { IsIn, IsString, MinLength, ValidateNested } from "class-validator";
+import {
+  Payment,
+  TicketIssueProps,
+} from "../../../../core/request/parameters/TicketIssue";
+import { FopType } from "../../../../core/request/types";
+import { Result } from "../../../../core/Result";
 
 class TicketMeFormOfPayment {
   @IsIn(["CASH", "CARD", "OTHER"])

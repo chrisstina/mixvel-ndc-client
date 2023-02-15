@@ -1,7 +1,6 @@
-import {AbstractTicketMeNDCMessage, StringValue} from "./AbstractTicketMeNDCMessage";
-import {TicketMePTC} from "../mappers/dictionary/ptc";
-import {Preflevel} from "../constants/preflevel";
-
+import { AbstractTicketMeNDCMessage, StringValue } from "./AbstractTicketMeNDCMessage";
+import { TicketMePTC } from "../mappers/dictionary/ptc";
+import { Preflevel } from "../constants/preflevel";
 export declare class OriginDestination {
     Arrival: {
         AirportCode: StringValue[];

@@ -1,11 +1,21 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 
-import {BookParams, Passenger} from "../../../core/request/parameters/Book";
-import {PartyCredentials} from "../TicketMeRequest";
-import {IdentityDocument, Individual, OrderCreateRQ, Pax, PaxContact,} from "../messages/OrderCreateRQ";
-import {toTicketMe as toTicketMePTC} from "./dictionary/ptc";
-import {toTicketMe as toTicketMeDocument} from "./dictionary/documentType";
-import {genderToTitle, toTicketMeDate, toTicketMeGender,} from "./commonMappers";
+import { BookParams, Passenger } from "../../../core/request/parameters/Book";
+import { PartyCredentials } from "../TicketMeRequest";
+import {
+  IdentityDocument,
+  Individual,
+  OrderCreateRQ,
+  Pax,
+  PaxContact,
+} from "../messages/OrderCreateRQ";
+import { toTicketMe as toTicketMePTC } from "./dictionary/ptc";
+import { toTicketMe as toTicketMeDocument } from "./dictionary/documentType";
+import {
+  genderToTitle,
+  toTicketMeDate,
+  toTicketMeGender,
+} from "./commonMappers";
 
 export class BookMessageMapper implements IMessageMapper {
   message: OrderCreateRQ;

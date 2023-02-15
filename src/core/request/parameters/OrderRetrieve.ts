@@ -1,7 +1,7 @@
-import {IsOptional, IsString} from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 
 export type OrderRetrieveProps = RequestProps<OrderRetrieveParams>;
 

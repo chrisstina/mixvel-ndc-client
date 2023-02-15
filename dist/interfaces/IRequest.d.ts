@@ -1,6 +1,5 @@
-import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
-import {IRequestOptions} from "./IRequestOptionsManager";
-
+import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { IRequestOptions } from "./IRequestOptionsManager";
 export interface IRequest {
     conversionStrategy?: IConversionStrategy;
     options: IRequestOptions;

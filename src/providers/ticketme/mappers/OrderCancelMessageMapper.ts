@@ -1,7 +1,7 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {PartyCredentials} from "../TicketMeRequest";
-import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetrieve";
-import {OrderCancelRQ} from "../messages/OrderCancelRQ";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { PartyCredentials } from "../TicketMeRequest";
+import { OrderRetrieveParams } from "../../../core/request/parameters/OrderRetrieve";
+import { OrderCancelRQ } from "../messages/OrderCancelRQ";
 
 export class OrderCancelMessageMapper implements IMessageMapper {
   message: OrderCancelRQ;

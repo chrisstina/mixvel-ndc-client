@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2021
  */
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-import {IRequest} from "../../interfaces/IRequest";
-import {IRequestOptions} from "../../interfaces/IRequestOptionsManager";
-import {INDCMessage} from "../../interfaces/INDCMessage";
-import {IConversionStrategy} from "../../services/conversion/IConversionSrategy";
+import { IRequest } from "../../interfaces/IRequest";
+import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
+import { INDCMessage } from "../../interfaces/INDCMessage";
+import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 
-import {MixvelEnvelope} from "./MixvelEnvelope";
-import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
+import { MixvelEnvelope } from "./MixvelEnvelope";
+import { MixvelAppData } from "./MixvelAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 
 const { DateTime } = require("luxon");
 

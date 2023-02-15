@@ -1,6 +1,9 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {Mixvel_OrderChangeRQ} from "../messages/Mixvel_OrderChangeRQ";
-import {OrderSplitParams, SplitOrderItem,} from "../../../core/request/parameters/OrderSplit";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { Mixvel_OrderChangeRQ } from "../messages/Mixvel_OrderChangeRQ";
+import {
+  OrderSplitParams,
+  SplitOrderItem,
+} from "../../../core/request/parameters/OrderSplit";
 
 export class SplitOrderMessageMapper implements IMessageMapper {
   message: Mixvel_OrderChangeRQ;

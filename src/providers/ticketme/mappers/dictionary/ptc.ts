@@ -1,4 +1,4 @@
-import {PaxCategory} from "../../../../core/request/types";
+import { PaxCategory } from "../../../../core/request/types";
 
 export enum TicketMePTC {
   ADULT = "ADT",

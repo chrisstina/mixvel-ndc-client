@@ -1,17 +1,9 @@
-import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {
-    BookProps,
-    LoyaltyInfo,
-    OSIRemark,
-    Passenger,
-    SSRRemark,
-    SubsidyData
-} from "../../../../core/request/parameters/Book";
-import {Offer} from "../../../../core/request/parameters/Price";
-import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
-import {DocumentType, PaxCategory} from "../../../../core/request/types";
-import {Result} from "../../../../core/Result";
-
+import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
+import { BookProps, LoyaltyInfo, OSIRemark, Passenger, SSRRemark, SubsidyData } from "../../../../core/request/parameters/Book";
+import { Offer } from "../../../../core/request/parameters/Price";
+import { FormOfPayment } from "../../../../core/request/parameters/TicketIssue";
+import { DocumentType, PaxCategory } from "../../../../core/request/types";
+import { Result } from "../../../../core/Result";
 declare class MixvelContact {
     phoneNumber?: string;
     email: string;

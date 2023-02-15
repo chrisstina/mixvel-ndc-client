@@ -1,7 +1,7 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {PartyCredentials} from "../TicketMeRequest";
-import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetrieve";
-import {OrderReshopRQ} from "../messages/OrderReshopRQ";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { PartyCredentials } from "../TicketMeRequest";
+import { OrderRetrieveParams } from "../../../core/request/parameters/OrderRetrieve";
+import { OrderReshopRQ } from "../messages/OrderReshopRQ";
 
 export class RepriceMessageMapper implements IMessageMapper {
   message: OrderReshopRQ;

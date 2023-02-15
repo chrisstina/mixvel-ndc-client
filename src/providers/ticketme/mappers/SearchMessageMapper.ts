@@ -1,13 +1,20 @@
 const { DateTime } = require("luxon");
 
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {SearchParams} from "../../../core/request/parameters/Search";
-import {PartyCredentials} from "../TicketMeRequest";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { SearchParams } from "../../../core/request/parameters/Search";
+import { PartyCredentials } from "../TicketMeRequest";
 
-import {AirShoppingRQ, OriginDestination, Pax,} from "../messages/AirShoppingRQ";
-import {TicketMePTC, toTicketMe as toTicketMePTC} from "./dictionary/ptc";
-import {TicketMeCabin, toTicketMe as toTicketMeCabin,} from "./dictionary/cabin";
-import {Preflevel} from "../constants/preflevel";
+import {
+  AirShoppingRQ,
+  OriginDestination,
+  Pax,
+} from "../messages/AirShoppingRQ";
+import { TicketMePTC, toTicketMe as toTicketMePTC } from "./dictionary/ptc";
+import {
+  TicketMeCabin,
+  toTicketMe as toTicketMeCabin,
+} from "./dictionary/cabin";
+import { Preflevel } from "../constants/preflevel";
 
 export class SearchMessageMapper implements IMessageMapper {
   message: AirShoppingRQ;

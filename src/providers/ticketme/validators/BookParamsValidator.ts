@@ -1,6 +1,6 @@
-import {BookParams} from "../../../core/request/parameters/Book";
-import {AbstractParamsValidator} from "../../../core/request/AbstractParamsValidator";
-import {TicketMeBookParams} from "../request/parameters/Book";
+import { BookParams } from "../../../core/request/parameters/Book";
+import { AbstractParamsValidator } from "../../../core/request/AbstractParamsValidator";
+import { TicketMeBookParams } from "../request/parameters/Book";
 
 export class BookParamsValidator extends AbstractParamsValidator {
   public static validate(params: BookParams): null | string {

@@ -1,7 +1,6 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Cabin, PaxCategory, PricingOption} from "../types";
-import {Result} from "../../Result";
-
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Cabin, PaxCategory, PricingOption } from "../types";
+import { Result } from "../../Result";
 export declare class OriginDestination {
     from: string;
     to: string;

@@ -1,6 +1,5 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {MixvelPTC} from "../mappers/dictionary/ptc";
-
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { MixvelPTC } from "../mappers/dictionary/ptc";
 export declare class OriginDestination {
     CabinType: {
         CabinTypeCode: string;

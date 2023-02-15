@@ -1,8 +1,8 @@
-import {ValidateNested} from "class-validator";
-import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {BookProps} from "../../../../core/request/parameters/Book";
-import {TicketMeOffer} from "./Price";
-import {Result} from "../../../../core/Result";
+import { ValidateNested } from "class-validator";
+import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
+import { BookProps } from "../../../../core/request/parameters/Book";
+import { TicketMeOffer } from "./Price";
+import { Result } from "../../../../core/Result";
 
 export class TicketMeBookParams extends AbstractRequestParams {
   @ValidateNested({ each: true })

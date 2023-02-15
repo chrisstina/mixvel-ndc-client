@@ -1,7 +1,14 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {IsArray, IsIn, IsOptional, IsString, Length, ValidateNested,} from "class-validator";
-import {PaxCategory} from "../types";
-import {Result} from "../../Result";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import {
+  IsArray,
+  IsIn,
+  IsOptional,
+  IsString,
+  Length,
+  ValidateNested,
+} from "class-validator";
+import { PaxCategory } from "../types";
+import { Result } from "../../Result";
 
 export class OfferItem {
   @IsString()

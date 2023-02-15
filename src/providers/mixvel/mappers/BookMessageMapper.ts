@@ -1,15 +1,23 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 
-import {FopType} from "../../../core/request/types";
-import {Offer} from "../../../core/request/parameters/Price";
-import {ContactInfo, Mixvel_OrderCreateRQ, Pax,} from "../messages/Mixvel_OrderCreateRQ";
-import {SelectedOffer} from "../messages/Mixvel_OfferPriceRQ";
-import {AccountableDoc, DirectBill, OtherPaymentMethod,} from "../messages/Mixvel_CommonTypes";
-import {MixvelBookParams, MixvelPassenger} from "../request/parameters/Book";
-import {toMixvel as toMixvelDocument} from "./dictionary/documentType";
-import {toMixvel as toMixvelPTC} from "./dictionary/ptc";
-import {toAge, toFOP, toMixvelDate} from "./commonMappers";
-import {SSRRemark} from "../../../core/request/parameters/Book";
+import { FopType } from "../../../core/request/types";
+import { Offer } from "../../../core/request/parameters/Price";
+import {
+  ContactInfo,
+  Mixvel_OrderCreateRQ,
+  Pax,
+} from "../messages/Mixvel_OrderCreateRQ";
+import { SelectedOffer } from "../messages/Mixvel_OfferPriceRQ";
+import {
+  AccountableDoc,
+  DirectBill,
+  OtherPaymentMethod,
+} from "../messages/Mixvel_CommonTypes";
+import { MixvelBookParams, MixvelPassenger } from "../request/parameters/Book";
+import { toMixvel as toMixvelDocument } from "./dictionary/documentType";
+import { toMixvel as toMixvelPTC } from "./dictionary/ptc";
+import { toAge, toFOP, toMixvelDate } from "./commonMappers";
+import { SSRRemark } from "../../../core/request/parameters/Book";
 
 const DEFAULT_FOP: FopType = "CASH";
 

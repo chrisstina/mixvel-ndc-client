@@ -1,4 +1,4 @@
-import {AbstractTicketMeNDCMessage} from "./AbstractTicketMeNDCMessage";
+import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 
 export class OrderRetrieveRQ extends AbstractTicketMeNDCMessage {
   public Query: {

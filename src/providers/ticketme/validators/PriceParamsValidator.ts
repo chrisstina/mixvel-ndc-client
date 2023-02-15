@@ -1,6 +1,6 @@
-import {AbstractParamsValidator} from "../../../core/request/AbstractParamsValidator";
-import {PriceParams} from "../../../core/request/parameters/Price";
-import {TicketMePriceParams} from "../request/parameters/Price";
+import { AbstractParamsValidator } from "../../../core/request/AbstractParamsValidator";
+import { PriceParams } from "../../../core/request/parameters/Price";
+import { TicketMePriceParams } from "../request/parameters/Price";
 
 export class PriceParamsValidator extends AbstractParamsValidator {
   public static validate(params: PriceParams): null | string {

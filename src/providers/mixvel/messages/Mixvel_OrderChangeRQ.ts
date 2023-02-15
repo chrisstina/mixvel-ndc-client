@@ -1,5 +1,9 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {AccountableDoc, DirectBill, OtherPaymentMethod,} from "./Mixvel_CommonTypes";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import {
+  AccountableDoc,
+  DirectBill,
+  OtherPaymentMethod,
+} from "./Mixvel_CommonTypes";
 
 export class Mixvel_OrderChangeRQ implements INDCMessage {
   /**

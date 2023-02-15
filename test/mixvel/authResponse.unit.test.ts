@@ -1,9 +1,9 @@
-import {suite, test} from "@testdeck/mocha";
-import {expect} from "chai";
-import {readFile} from "fs/promises";
+import { suite, test } from "@testdeck/mocha";
+import { expect } from "chai";
+import { readFile } from "fs/promises";
 
-import {createNDCService} from "../../src";
-import {MixvelResponseError} from "../../src/providers/mixvel/MixvelResponseManager";
+import { createNDCService } from "../../src";
+import { MixvelResponseError } from "../../src/providers/mixvel/MixvelResponseManager";
 
 const { getResponse } = createNDCService("mixvel");
 

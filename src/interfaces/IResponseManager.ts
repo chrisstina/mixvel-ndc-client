@@ -1,7 +1,7 @@
-import {IConversionStrategy} from "../services/conversion/IConversionSrategy";
-import {IDataList} from "./IDataList";
-import {IResponseMessage} from "./IResponseMessage";
-import {IResponseError} from "./IResponseError";
+import { IConversionStrategy } from "../services/conversion/IConversionSrategy";
+import { IDataList } from "./IDataList";
+import { IResponseMessage } from "./IResponseMessage";
+import { IResponseError } from "./IResponseError";
 
 export interface IResponseManager {
   conversionStrategy: IConversionStrategy;

@@ -1,7 +1,6 @@
-import {AbstractTicketMeNDCMessage, NodeValue, StringValue} from "./AbstractTicketMeNDCMessage";
-import {Offer} from "./OfferPriceRQ";
-import {TicketmeDocumentType} from "../mappers/dictionary/documentType";
-
+import { AbstractTicketMeNDCMessage, NodeValue, StringValue } from "./AbstractTicketMeNDCMessage";
+import { Offer } from "./OfferPriceRQ";
+import { TicketmeDocumentType } from "../mappers/dictionary/documentType";
 export declare type Individual = {
     GivenName: StringValue[];
     Surname: StringValue[];

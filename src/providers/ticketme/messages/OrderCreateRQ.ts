@@ -1,6 +1,10 @@
-import {AbstractTicketMeNDCMessage, NodeValue, StringValue,} from "./AbstractTicketMeNDCMessage";
-import {Offer} from "./OfferPriceRQ";
-import {TicketmeDocumentType} from "../mappers/dictionary/documentType";
+import {
+  AbstractTicketMeNDCMessage,
+  NodeValue,
+  StringValue,
+} from "./AbstractTicketMeNDCMessage";
+import { Offer } from "./OfferPriceRQ";
+import { TicketmeDocumentType } from "../mappers/dictionary/documentType";
 
 export type Individual = {
   GivenName: StringValue[];

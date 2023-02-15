@@ -1,4 +1,4 @@
-import {IProvider} from "../interfaces/IProvider";
+import { IProvider } from "../interfaces/IProvider";
 
 export class ProviderLocator {
   private static providers: Map<string, IProvider> = new Map<

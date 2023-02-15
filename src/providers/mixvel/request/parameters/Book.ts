@@ -1,35 +1,35 @@
 import {
-    ArrayNotEmpty,
-    IsAlpha,
-    IsAlphanumeric,
-    IsArray,
-    IsDate,
-    IsEmail,
-    IsIn,
-    IsNotEmpty,
-    IsOptional,
-    IsString,
-    Length,
-    MaxDate,
-    MinDate,
-    Validate,
-    ValidateNested,
+  ArrayNotEmpty,
+  IsAlpha,
+  IsAlphanumeric,
+  IsArray,
+  IsDate,
+  IsEmail,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+  MaxDate,
+  MinDate,
+  Validate,
+  ValidateNested,
 } from "class-validator";
-import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
+import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
 import {
-    BookProps,
-    LoyaltyInfo,
-    OSIRemark,
-    Passenger,
-    SSRRemark,
-    SubsidyData,
-    SUPPORTED_DOCTYPES,
+  BookProps,
+  LoyaltyInfo,
+  OSIRemark,
+  Passenger,
+  SSRRemark,
+  SubsidyData,
+  SUPPORTED_DOCTYPES,
 } from "../../../../core/request/parameters/Book";
-import {Offer} from "../../../../core/request/parameters/Price";
-import {FormOfPayment} from "../../../../core/request/parameters/TicketIssue";
-import {DocumentType, PaxCategory} from "../../../../core/request/types";
-import {Result} from "../../../../core/Result";
-import {IsPersonName} from "../../../../core/validators/IsPersonName";
+import { Offer } from "../../../../core/request/parameters/Price";
+import { FormOfPayment } from "../../../../core/request/parameters/TicketIssue";
+import { DocumentType, PaxCategory } from "../../../../core/request/types";
+import { Result } from "../../../../core/Result";
+import { IsPersonName } from "../../../../core/validators/IsPersonName";
 
 class MixvelContact {
   @IsOptional()

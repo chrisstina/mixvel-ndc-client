@@ -1,21 +1,21 @@
 import {
-    ArrayNotEmpty,
-    IsAlpha,
-    IsBoolean,
-    IsIn,
-    IsNumber,
-    IsOptional,
-    IsString,
-    Length,
-    Max,
-    Min,
-    MinDate,
-    ValidateNested,
+  ArrayNotEmpty,
+  IsAlpha,
+  IsBoolean,
+  IsIn,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Length,
+  Max,
+  Min,
+  MinDate,
+  ValidateNested,
 } from "class-validator";
 
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Cabin, PaxCategory, PricingOption} from "../types";
-import {Result} from "../../Result";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Cabin, PaxCategory, PricingOption } from "../types";
+import { Result } from "../../Result";
 
 export class OriginDestination {
   @IsAlpha()

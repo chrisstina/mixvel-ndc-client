@@ -1,7 +1,7 @@
-import {suite, test} from "@testdeck/mocha";
-import {expect} from "chai";
+import { suite, test } from "@testdeck/mocha";
+import { expect } from "chai";
 
-import {createNDCService} from "../src";
+import { createNDCService } from "../src";
 
 const { getBookRequest } = createNDCService("mixvel");
 

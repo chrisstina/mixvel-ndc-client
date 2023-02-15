@@ -1,7 +1,7 @@
-import {suite, test} from "@testdeck/mocha";
+import { suite, test } from "@testdeck/mocha";
 import fs from "fs";
 
-import {createNDCService} from "../src";
+import { createNDCService } from "../src";
 
 @suite
 class SearchResponseBenchmarkUnitTest {

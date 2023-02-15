@@ -1,8 +1,17 @@
-import {IsArray, IsIn, IsString, Length, ValidateNested,} from "class-validator";
-import {AbstractRequestParams} from "../../../../core/request/parameters/AbstractRequestParams";
-import {OfferItem, PriceProps,} from "../../../../core/request/parameters/Price";
-import {PaxCategory} from "../../../../core/request/types";
-import {Result} from "../../../../core/Result";
+import {
+  IsArray,
+  IsIn,
+  IsString,
+  Length,
+  ValidateNested,
+} from "class-validator";
+import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
+import {
+  OfferItem,
+  PriceProps,
+} from "../../../../core/request/parameters/Price";
+import { PaxCategory } from "../../../../core/request/types";
+import { Result } from "../../../../core/Result";
 
 class TicketMeOfferItem extends OfferItem {
   @IsIn([

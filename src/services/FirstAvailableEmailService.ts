@@ -1,4 +1,4 @@
-import {BookParams} from "../core/request/parameters/Book";
+import { BookParams } from "../core/request/parameters/Book";
 
 export class FirstAvailableEmailService {
   static getFirstAvailableEmail(params: BookParams): string | undefined {

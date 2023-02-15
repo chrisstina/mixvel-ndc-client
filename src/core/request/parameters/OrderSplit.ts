@@ -1,7 +1,13 @@
-import {IsArray, IsNotEmpty, IsString, MinLength, ValidateNested,} from "class-validator";
+import {
+  IsArray,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  ValidateNested,
+} from "class-validator";
 
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 
 export class SplitOrderItem {
   @IsString()

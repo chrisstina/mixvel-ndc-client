@@ -1,6 +1,6 @@
-import {IsString} from "class-validator";
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
+import { IsString } from "class-validator";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 
 export type RefundProps = RequestProps<RefundParams>;
 

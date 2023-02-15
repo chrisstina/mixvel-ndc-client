@@ -1,4 +1,4 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 
 export class Mixvel_OrderRetrieveRQ implements INDCMessage {
   public OrderFilterCriteria: {

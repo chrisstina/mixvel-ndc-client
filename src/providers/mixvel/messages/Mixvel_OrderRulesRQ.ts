@@ -1,4 +1,4 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
+import { INDCMessage } from "../../../interfaces/INDCMessage";
 
 export class Mixvel_OrderRulesRQ implements INDCMessage {
   public RulesCoreRequest: Record<string, unknown>;

@@ -1,4 +1,4 @@
-import {DateTime} from "luxon";
+import { DateTime } from "luxon";
 
 export function toTicketMeDate(date: Date) {
   return DateTime.fromJSDate(date).toISODate();

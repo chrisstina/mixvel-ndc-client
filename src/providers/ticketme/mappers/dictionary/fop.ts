@@ -1,5 +1,9 @@
-import {FopType} from "../../../../core/request/types";
-import {CardPaymentMethod, CashPaymentMethod, OtherPaymentMethod,} from "../../messages/AirDocIssueRQ";
+import { FopType } from "../../../../core/request/types";
+import {
+  CardPaymentMethod,
+  CashPaymentMethod,
+  OtherPaymentMethod,
+} from "../../messages/AirDocIssueRQ";
 
 export enum TicketMeFop {
   CASH = "CA",

@@ -1,7 +1,6 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {Mixvel_OrderCreateRQ} from "../messages/Mixvel_OrderCreateRQ";
-import {MixvelBookParams} from "../request/parameters/Book";
-
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { Mixvel_OrderCreateRQ } from "../messages/Mixvel_OrderCreateRQ";
+import { MixvelBookParams } from "../request/parameters/Book";
 export declare class BookMessageMapper implements IMessageMapper {
     readonly params: MixvelBookParams;
     message: Mixvel_OrderCreateRQ;

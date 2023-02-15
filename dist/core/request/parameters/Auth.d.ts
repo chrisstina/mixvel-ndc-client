@@ -1,6 +1,5 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
-
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 export declare type AuthProps = RequestProps<AuthParams>;
 export declare class AuthParams extends AbstractRequestParams {
     readonly login: string;

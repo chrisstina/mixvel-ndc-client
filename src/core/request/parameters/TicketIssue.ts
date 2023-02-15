@@ -1,7 +1,13 @@
-import {IsIn, IsOptional, IsPositive, IsString, ValidateNested,} from "class-validator";
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {FopType} from "../types";
-import {Result} from "../../Result";
+import {
+  IsIn,
+  IsOptional,
+  IsPositive,
+  IsString,
+  ValidateNested,
+} from "class-validator";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { FopType } from "../types";
+import { Result } from "../../Result";
 
 export class FormOfPayment {
   @IsIn(["CASH", "BILL", "CARD"])

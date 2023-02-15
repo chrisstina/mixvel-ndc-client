@@ -2,7 +2,7 @@
  * Copyright (c) 2021
  */
 
-import {INDCMessage} from "../../interfaces/INDCMessage";
+import { INDCMessage } from "../../interfaces/INDCMessage";
 
 export class MixvelAppData<T extends INDCMessage> {
   [index: string]: {

@@ -1,6 +1,5 @@
-import {INDCMessage} from "../../../interfaces/INDCMessage";
-import {AccountableDoc, DirectBill, OtherPaymentMethod} from "./Mixvel_CommonTypes";
-
+import { INDCMessage } from "../../../interfaces/INDCMessage";
+import { AccountableDoc, DirectBill, OtherPaymentMethod } from "./Mixvel_CommonTypes";
 export declare class Mixvel_OrderChangeRQ implements INDCMessage {
     /**
      * for ticket issue request

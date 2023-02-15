@@ -1,8 +1,8 @@
-import {suite, test} from "@testdeck/mocha";
-import {expect} from "chai";
+import { suite, test } from "@testdeck/mocha";
+import { expect } from "chai";
 
-import {createNDCService} from "../../src";
-import {OrderRetrieveProps} from "../../src/core/request/parameters/OrderRetrieve";
+import { createNDCService } from "../../src";
+import { OrderRetrieveProps } from "../../src/core/request/parameters/OrderRetrieve";
 
 const { setProviderConfig, getOrderRetrieveRequest } =
   createNDCService("ticketme");

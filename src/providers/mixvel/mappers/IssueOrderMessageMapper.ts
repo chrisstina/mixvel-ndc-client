@@ -1,8 +1,12 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {TicketIssueParams} from "../../../core/request/parameters/TicketIssue";
-import {Mixvel_OrderChangeRQ} from "../messages/Mixvel_OrderChangeRQ";
-import {AccountableDoc, DirectBill, OtherPaymentMethod,} from "../messages/Mixvel_CommonTypes";
-import {toFOP} from "./commonMappers";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { TicketIssueParams } from "../../../core/request/parameters/TicketIssue";
+import { Mixvel_OrderChangeRQ } from "../messages/Mixvel_OrderChangeRQ";
+import {
+  AccountableDoc,
+  DirectBill,
+  OtherPaymentMethod,
+} from "../messages/Mixvel_CommonTypes";
+import { toFOP } from "./commonMappers";
 
 export class IssueOrderMessageMapper implements IMessageMapper {
   message: Mixvel_OrderChangeRQ;

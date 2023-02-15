@@ -1,4 +1,8 @@
-import {ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface,} from "class-validator";
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from "class-validator";
 
 const latinNameRegExp = /[^a-zA-Z-\s]/;
 const cyrillicNameRegExp = /[^a-zA-Zа-яА-Я-\s]/;

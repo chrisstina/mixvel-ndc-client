@@ -2,9 +2,9 @@
  * Copyright (c) 2021
  */
 
-import {INDCMessage} from "../../interfaces/INDCMessage";
-import {MixvelAppData} from "./MixvelAppData";
-import {MixvelAuthAppData} from "./auth/MixvelAuthAppData";
+import { INDCMessage } from "../../interfaces/INDCMessage";
+import { MixvelAppData } from "./MixvelAppData";
+import { MixvelAuthAppData } from "./auth/MixvelAuthAppData";
 
 const xmlns = "https://www.mixvel.com/API/XSD/mixvel_envelope/1_06";
 

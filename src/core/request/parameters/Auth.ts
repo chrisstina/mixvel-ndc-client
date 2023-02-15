@@ -1,6 +1,6 @@
-import {IsNotEmpty, IsString} from "class-validator";
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
+import { IsNotEmpty, IsString } from "class-validator";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 
 export type AuthProps = RequestProps<AuthParams>;
 

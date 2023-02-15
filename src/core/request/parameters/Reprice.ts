@@ -1,7 +1,7 @@
-import {IsString} from "class-validator";
+import { IsString } from "class-validator";
 
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {Result} from "../../Result";
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { Result } from "../../Result";
 
 export type RepriceProps = RequestProps<RepriceParams>;
 

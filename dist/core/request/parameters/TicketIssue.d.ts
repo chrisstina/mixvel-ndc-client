@@ -1,7 +1,6 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {FopType} from "../types";
-import {Result} from "../../Result";
-
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { FopType } from "../types";
+import { Result } from "../../Result";
 export declare class FormOfPayment {
     type: FopType;
     data?: string | Record<string, unknown>;

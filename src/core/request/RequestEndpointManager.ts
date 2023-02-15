@@ -1,6 +1,6 @@
-import {INDCMessage} from "../../interfaces/INDCMessage";
-import {RequestGenerationError} from "../errors/RequestGenerationError";
-import {IEndpointManager} from "../../interfaces/IEndpointManager";
+import { INDCMessage } from "../../interfaces/INDCMessage";
+import { RequestGenerationError } from "../errors/RequestGenerationError";
+import { IEndpointManager } from "../../interfaces/IEndpointManager";
 
 export class RequestEndpointManager implements IEndpointManager {
   constructor(public endpoints: Map<string, string>) {}

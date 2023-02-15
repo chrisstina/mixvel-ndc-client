@@ -1,7 +1,6 @@
-import {AbstractRequestParams, RequestProps} from "./AbstractRequestParams";
-import {PaxCategory} from "../types";
-import {Result} from "../../Result";
-
+import { AbstractRequestParams, RequestProps } from "./AbstractRequestParams";
+import { PaxCategory } from "../types";
+import { Result } from "../../Result";
 export declare class OfferItem {
     offerItemId: string;
     ptc?: PaxCategory;

@@ -1,6 +1,6 @@
-import {IRequestManager} from "../interfaces/IRequestManager";
-import {IResponseManager} from "../interfaces/IResponseManager";
-import {IProvider} from "../interfaces/IProvider";
+import { IRequestManager } from "../interfaces/IRequestManager";
+import { IResponseManager } from "../interfaces/IResponseManager";
+import { IProvider } from "../interfaces/IProvider";
 
 export class Provider implements IProvider {
   /**

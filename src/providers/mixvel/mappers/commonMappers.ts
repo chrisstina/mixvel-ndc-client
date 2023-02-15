@@ -1,7 +1,7 @@
 import assert from "assert";
-import {DateTime} from "luxon";
-import {FopType} from "../../../core/request/types";
-import {DirectBill, OtherPaymentMethod} from "../messages/Mixvel_CommonTypes";
+import { DateTime } from "luxon";
+import { FopType } from "../../../core/request/types";
+import { DirectBill, OtherPaymentMethod } from "../messages/Mixvel_CommonTypes";
 
 export function toMixvelDate(date: Date) {
   return DateTime.fromJSDate(date).toISODate();

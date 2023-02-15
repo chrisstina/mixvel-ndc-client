@@ -1,8 +1,12 @@
-import {IMessageMapper} from "../../../interfaces/IMessageMapper";
-import {isPriceParams} from "../../../core/request/typeguards";
-import {PriceParams} from "../../../core/request/parameters/Price";
-import {OrderRetrieveParams} from "../../../core/request/parameters/OrderRetrieve";
-import {Mixvel_ServiceListRQ, OfferRequest, OrderRequest,} from "../messages/Mixvel_ServiceListRQ";
+import { IMessageMapper } from "../../../interfaces/IMessageMapper";
+import { isPriceParams } from "../../../core/request/typeguards";
+import { PriceParams } from "../../../core/request/parameters/Price";
+import { OrderRetrieveParams } from "../../../core/request/parameters/OrderRetrieve";
+import {
+  Mixvel_ServiceListRQ,
+  OfferRequest,
+  OrderRequest,
+} from "../messages/Mixvel_ServiceListRQ";
 
 export class ServiceListMessageMapper implements IMessageMapper {
   constructor(public readonly params: PriceParams | OrderRetrieveParams) {}
