@@ -32,6 +32,7 @@ class SearchResponseUnitTest {
       rs.getValue()["ns2:AirShoppingRS"]["ns2:DataLists"]
     );
     console.log(
+      'findByReference',
       dl["flightList"].findByReference("FL145c170f46840000b092fc37_0")
     );
   }

@@ -31,11 +31,15 @@ export class OfferItem {
   @IsOptional()
   @IsString()
   paxs?: string;
+  // a provider specifics
+  @IsOptional()
+  opts?: any;
 
-  constructor(id: string, ptc?: PaxCategory, paxs?: string) {
+  constructor(id: string, ptc?: PaxCategory, paxs?: string, opts?: any) {
     this.offerItemId = id;
     this.ptc = ptc;
     this.paxs = paxs;
+    this.opts = opts;
   }
 }
 
@@ -64,7 +68,7 @@ export class Offer {
     this.offerOwner = offerOwner;
     this.responseId = responseId;
     this.offerItems = offerItems.map(
-      (item) => new OfferItem(item.offerItemId, item.ptc, item.paxs)
+      (item) => new OfferItem(item.offerItemId, item.ptc, item.paxs, item.opts)
     );
   }
 }

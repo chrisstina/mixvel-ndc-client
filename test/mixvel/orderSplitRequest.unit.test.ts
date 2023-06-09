@@ -17,7 +17,6 @@ class OrderSplitRequestUnitTest {
         },
       ],
     }).getValue().body;
-    console.log(rq);
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
     expect(rq).to.contain("<MixOrderID>FAKE-ORDER");

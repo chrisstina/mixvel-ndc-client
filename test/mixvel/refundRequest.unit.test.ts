@@ -15,7 +15,7 @@ class RefundRequestUnitTest {
         ["SOME_ORDER", "ITEM-2"],
       ],
     }).getValue().body;
-    console.log(rq);
+
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
     expect(rq).to.contain("<MixOrderID>MIXVEL-ORDER-ID</MixOrderID>");

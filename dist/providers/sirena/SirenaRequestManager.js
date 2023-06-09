@@ -3,9 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SirenaRequestManager = void 0;
 var Result_1 = require("../../core/Result");
 var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
+var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
+var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
+var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
-var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -33,7 +35,13 @@ var SirenaRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("order").message);
     };
     SirenaRequestManager.prototype.createPriceRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("price").message);
+        var validationError = this.validateRequest() || PriceParamsValidator_1.PriceParamsValidator.validate(params);
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new PriceMessageMapper_1.PriceMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createRefundCalculationRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("refund calc").message);

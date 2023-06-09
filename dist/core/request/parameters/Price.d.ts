@@ -5,7 +5,8 @@ export declare class OfferItem {
     offerItemId: string;
     ptc?: PaxCategory;
     paxs?: string;
-    constructor(id: string, ptc?: PaxCategory, paxs?: string);
+    opts?: any;
+    constructor(id: string, ptc?: PaxCategory, paxs?: string, opts?: any);
 }
 export declare class Offer {
     readonly offerId: string;

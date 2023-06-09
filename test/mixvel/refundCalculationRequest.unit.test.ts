@@ -15,7 +15,6 @@ class OrderRetrieveRequestUnitTest {
         ["SOME_ORDER", "ITEM-2"],
       ],
     }).getValue().body;
-    console.log(rq);
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderReshopRQ");
     expect(rq).to.contain("<MixOrderID>FAKE-ORDER");

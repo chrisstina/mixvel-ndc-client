@@ -50,7 +50,6 @@ class BookWAncillaryRequestUnitTest {
     };
 
     const rq = getBookRequest(params).getValue().body;
-    console.log(rq.toString());
 
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderCreateRQ");

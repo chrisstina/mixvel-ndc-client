@@ -34,10 +34,11 @@ exports.PriceParams = exports.Offer = exports.OfferItem = void 0;
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var class_validator_1 = require("class-validator");
 var OfferItem = /** @class */ (function () {
-    function OfferItem(id, ptc, paxs) {
+    function OfferItem(id, ptc, paxs, opts) {
         this.offerItemId = id;
         this.ptc = ptc;
         this.paxs = paxs;
+        this.opts = opts;
     }
     __decorate([
         (0, class_validator_1.IsString)()
@@ -62,6 +63,9 @@ var OfferItem = /** @class */ (function () {
         (0, class_validator_1.IsOptional)(),
         (0, class_validator_1.IsString)()
     ], OfferItem.prototype, "paxs", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)()
+    ], OfferItem.prototype, "opts", void 0);
     return OfferItem;
 }());
 exports.OfferItem = OfferItem;
@@ -70,7 +74,7 @@ var Offer = /** @class */ (function () {
         this.offerId = offerId;
         this.offerOwner = offerOwner;
         this.responseId = responseId;
-        this.offerItems = offerItems.map(function (item) { return new OfferItem(item.offerItemId, item.ptc, item.paxs); });
+        this.offerItems = offerItems.map(function (item) { return new OfferItem(item.offerItemId, item.ptc, item.paxs, item.opts); });
     }
     __decorate([
         (0, class_validator_1.IsString)(),

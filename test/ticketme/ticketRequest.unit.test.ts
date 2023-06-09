@@ -26,6 +26,5 @@ class TicketRequestUnitTest {
     expect(rq).to.contain('<Amount Code="EUR">12.44');
     expect(rq).to.contain("<Cash>");
     expect(rq).to.contain('<Order OrderID="SOME-ORDER-ID" Owner="KW">');
-    console.log(rq);
   }
 }

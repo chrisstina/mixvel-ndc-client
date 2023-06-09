@@ -94,7 +94,7 @@ class BookRequestUnitTest {
     };
 
     const rq = getBookRequest(params).getValue().body;
-    console.log(rq);
+
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderCreateRQ");
     expect(rq).to.contain("<OfferRefID>SOME-OFFER</OfferRefID>");

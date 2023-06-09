@@ -19,9 +19,11 @@ import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 
+import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
+import { PriceMessageMapper } from "./mappers/PriceMessageMapper";
+import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
-import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -61,7 +63,14 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createPriceRequest(params: PriceParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("price").message);
+    const validationError =
+      this.validateRequest() || PriceParamsValidator.validate(params);
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+    return this.createRequest(params, {
+      mapper: new PriceMessageMapper(params, this.extraConfiguration.party),
+    });
   }
 
   createRefundCalculationRequest(
