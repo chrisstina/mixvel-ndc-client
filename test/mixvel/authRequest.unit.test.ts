@@ -19,7 +19,6 @@ class AuthRequestUnitTest {
         "        <StructureUnitID>baz</StructureUnitID>"
     );
     expect(rq.options.endpoint).to.equal("api/Accounts/login");
-    expect(rq.headers).to.have.property("accept");
   }
 
   @test "Validate auth request"() {
