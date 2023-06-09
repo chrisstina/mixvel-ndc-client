@@ -1,3 +1,5 @@
+export type NodeValue<T> = { _: T };
+export type StringValue = NodeValue<string>;
 export type Cabin = "ECONOMY" | "BUSINESS";
 export type PaxCategory =
   | "ADULT"
@@ -24,3 +26,10 @@ export type DocumentType =
   | "RETURN_ID";
 export type FopType = "CASH" | "BILL" | "CARD";
 export type PricingOption = "LOWEST_FARE" | "ALL_FARES";
+export type Party = {
+  Sender: {
+    TravelAgencySender: {
+      AgencyID: { _: string }[];
+    }[];
+  }[];
+}[];

@@ -39,7 +39,10 @@ class BookRequestValidationUnitTest {
             issuingCountry: "RU",
             number: "2704542188",
           },
-          contacts: { email: "mail@test.test", phoneNumber: "75190498498" },
+          contacts: {
+            email: "mail@test.test",
+            phoneNumber: "75190498498",
+          },
         },
         {
           ptc: "INFANT",

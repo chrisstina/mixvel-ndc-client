@@ -12,7 +12,8 @@ dateReturn.setDate(dateReturn.getDate() + 40);
 
 @suite
 class SearchRequestUnitTest {
-  @test "Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY"() {
+  @test
+  "Create Mixvel search RQ for 1ADT and 1CHD LED - MOW - LED ECONOMY"() {
     const request = getSearchRequest({
       travelers: [
         { ptc: "ADULT", age: 30, id: "1" },
@@ -38,8 +39,6 @@ class SearchRequestUnitTest {
     if (request.isFailure) {
       console.error(request.error);
     }
-
-    expect(request.getValue().headers).to.have.property("accept");
 
     const rq = request.getValue().body;
     expect(rq).to.not.contain("undefined");

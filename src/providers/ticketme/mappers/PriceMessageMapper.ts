@@ -31,7 +31,11 @@ export class PriceMessageMapper implements IMessageMapper {
                 ...item.paxs.split(" ").map((paxId) => {
                   return {
                     $: { PassengerID: paxId },
-                    PTC: [{ _: toTicketMePTC(item.ptc || "ADULT") }],
+                    PTC: [
+                      {
+                        _: toTicketMePTC(item.ptc || "ADULT"),
+                      },
+                    ],
                   };
                 })
               );

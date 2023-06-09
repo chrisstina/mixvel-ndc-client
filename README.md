@@ -47,8 +47,7 @@ MixvelRequest = {
 
 #### Headers
 
-By default, Mixvel request manager sets `"Accept": "application/xml",` and `"Content-Type": "application/xml"` headers
-for every request. To add headers you may use `addHeader` method:
+To add headers you may use `addHeader` method:
 
 ```js
 MixvelRequest.addHeader("Content-Type", "application/xml")

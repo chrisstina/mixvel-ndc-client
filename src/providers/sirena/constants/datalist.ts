@@ -1,0 +1,12 @@
+export const PAX = "Passenger";
+export const FLIGHT = "Flight";
+export const SEGMENT = "FlightSegment";
+export const PRICECLASS = "PriceClass";
+export const CONTACT = "Contact";
+export const SERVICE = "ServiceDefinition";
+export const BAG = "BaggageAllowance";
+export const OD = "OriginDestination";
+export const PENALTY = "Penalty";
+export const FARE = "Fare";
+export const DESC = "Description";
+export const SEAT = "SeatDefinition";

@@ -1,12 +1,12 @@
 const { DateTime } = require("luxon");
 
+import { Preflevel } from "../../../core/constants/preflevel";
 import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 import {
   Contract3D,
   SearchProps,
 } from "../../../core/request/parameters/Search";
 import { PricingOption } from "../../../core/request/types";
-
 import {
   Mixvel_AirShoppingRQ,
   OriginDestination,
@@ -16,7 +16,6 @@ import {
 import { toMixvel as toMixvelPTC } from "./dictionary/ptc";
 import { MixvelCabin, toMixvel as toMixvelCabin } from "./dictionary/cabin";
 import { toMixvel as toMixvelPricingOption } from "./dictionary/pricingoption";
-import { Preflevel } from "../constants/preflevel";
 
 export class SearchMessageMapper implements IMessageMapper {
   constructor(public readonly params: SearchProps) {}

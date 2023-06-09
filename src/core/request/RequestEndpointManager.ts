@@ -11,7 +11,7 @@ export class RequestEndpointManager implements IEndpointManager {
 
   getEndpointByKey(id: string): string | never {
     const endpoint = this.endpoints.get(id);
-    if (endpoint) {
+    if (endpoint !== undefined) {
       return endpoint;
     }
     throw new RequestGenerationError("No endpoint found for " + id); // @todo

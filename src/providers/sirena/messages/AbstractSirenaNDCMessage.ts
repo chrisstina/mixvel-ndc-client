@@ -1,9 +1,8 @@
 import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { Party } from "../../../core/request/types";
-import { IATAxmlns } from "../constants/xmlns";
-import { PartyCredentials } from "../TicketMeRequest";
+import { IATAxmlns } from "../../ticketme/constants/xmlns";
 
-export abstract class AbstractTicketMeNDCMessage implements INDCMessage {
+export abstract class AbstractSirenaNDCMessage implements INDCMessage {
   public $ = {
     ...this.xmlns,
     Version: "17.2",
@@ -19,7 +18,7 @@ export abstract class AbstractTicketMeNDCMessage implements INDCMessage {
     return IATAxmlns;
   }
 
-  public addParty(party: PartyCredentials) {
+  public addParty(party: { agencyId: string }) {
     this.Party.push({
       Sender: [{ TravelAgencySender: [{ AgencyID: [{ _: party.agencyId }] }] }],
     });

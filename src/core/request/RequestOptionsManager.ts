@@ -12,10 +12,7 @@ export class RequestOptionsManager implements IRequestOptionsManager {
     return {
       endpoint: params.endpoint,
       method: params.method || "POST",
-      headers: params.headers || {
-        accept: "application/xml",
-        "Content-Type": "application/xml",
-      },
+      headers: params.headers,
     };
   }
 }

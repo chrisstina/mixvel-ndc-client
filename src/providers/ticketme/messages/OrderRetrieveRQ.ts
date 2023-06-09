@@ -13,7 +13,9 @@ export class OrderRetrieveRQ extends AbstractTicketMeNDCMessage {
   constructor(orderId: string, offerOwner: string) {
     super();
     this.Query = [
-      { Filters: [{ OrderID: { $: { Owner: offerOwner }, _: orderId } }] },
+      {
+        Filters: [{ OrderID: { $: { Owner: offerOwner }, _: orderId } }],
+      },
     ];
   }
 

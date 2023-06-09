@@ -126,7 +126,9 @@ export class BookMessageMapper implements IMessageMapper {
       pax.LoyaltyProgramAccount = {
         AccountNumber: passenger.loyaltyInfo.code || "",
         LoyaltyProgram: {
-          Carrier: { AirlineDesigCode: passenger.loyaltyInfo.carrier || "" },
+          Carrier: {
+            AirlineDesigCode: passenger.loyaltyInfo.carrier || "",
+          },
         },
         PaxSegmentRefID: passenger.loyaltyInfo.opts?.paxRefs || [],
       };

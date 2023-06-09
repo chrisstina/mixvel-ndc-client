@@ -1,14 +1,11 @@
 /*
  * Copyright (c) 2021
  */
-
-import {
-  AbstractTicketMeNDCMessage,
-  StringValue,
-} from "./AbstractTicketMeNDCMessage";
+import { StringValue } from "../../../core/request/types";
+import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 import { TicketMePTC } from "../mappers/dictionary/ptc";
 import { TicketMeCabin } from "../mappers/dictionary/cabin";
-import { Preflevel } from "../constants/preflevel";
+import { Preflevel } from "../../../core/constants/preflevel";
 
 export class OriginDestination {
   // @todo <SegMaxTimePreferences>

@@ -78,13 +78,6 @@ export type Contract3D = {
   discountPercent?: number;
 };
 
-/**
- * @typedef SearchProps
- * @property {Array} originDestinations
- * @property {Array} travelers
- * @property {Cabin} cabin
- * @property {Array} preferredCarriers
- */
 export type SearchProps = RequestProps<SearchParams>;
 
 export class SearchParams extends AbstractRequestParams {

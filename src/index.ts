@@ -36,6 +36,8 @@ import { MixvelRequestManager } from "./providers/mixvel/MixvelRequestManager";
 import { MixvelResponseManager } from "./providers/mixvel/MixvelResponseManager";
 import { TicketMeRequestManager } from "./providers/ticketme/TicketMeRequestManager";
 import { TicketMeResponseManager } from "./providers/ticketme/TicketMeResponseManager";
+import { SirenaRequestManager } from "./providers/sirena/SirenaRequestManager";
+import { SirenaResponseManager } from "./providers/sirena/SirenaResponseManager";
 import { IDataList } from "./interfaces/IDataList";
 import {
   OrderSplitParams,
@@ -81,6 +83,21 @@ ProviderLocator.register(
       requestOptionsManager
     ),
     new TicketMeResponseManager(xmlToPojo)
+  )
+);
+
+// Sirena NDC provider
+ProviderLocator.register(
+  "sirena",
+  new Provider(
+    new SirenaRequestManager(
+      new RequestEndpointManager(
+        require("./providers/sirena/config/endpoints").endpoints
+      ), // @todo take from config
+      new ObjectToXmlNDCConversionStrategy(ndcVersion),
+      requestOptionsManager
+    ),
+    new SirenaResponseManager(xmlToPojo)
   )
 );
 
@@ -287,5 +304,14 @@ export function createNDCService(
     getResponse,
     extractDataLists,
     setProviderConfig,
+    AuthParams,
+    SearchParams,
+    PriceParams,
+    BookParams,
+    OrderRetrieveParams,
+    OrderSplitParams,
+    TicketIssueParams,
+    RepriceParams,
+    RefundParams,
   };
 }

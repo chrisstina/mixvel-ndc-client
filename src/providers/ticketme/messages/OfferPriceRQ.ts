@@ -1,7 +1,5 @@
-import {
-  AbstractTicketMeNDCMessage,
-  StringValue,
-} from "./AbstractTicketMeNDCMessage";
+import { StringValue } from "../../../core/request/types";
+import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 
 export type Offer = {
   $: { Owner: string; OfferID: string; ResponseID: string };

@@ -1,8 +1,5 @@
-import {
-  AbstractTicketMeNDCMessage,
-  NodeValue,
-  StringValue,
-} from "./AbstractTicketMeNDCMessage";
+import { NodeValue, StringValue } from "../../../core/request/types";
+import { AbstractTicketMeNDCMessage } from "./AbstractTicketMeNDCMessage";
 import { Offer } from "./OfferPriceRQ";
 import { TicketmeDocumentType } from "../mappers/dictionary/documentType";
 
