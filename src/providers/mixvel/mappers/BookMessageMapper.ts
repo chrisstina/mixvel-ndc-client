@@ -67,7 +67,7 @@ export class BookMessageMapper implements IMessageMapper {
     // ancillaries
     ancillaryOffers.forEach(({ ancillary, paxRef }) => {
       const ancillaryOffer = this.addSelectedOffer(ancillary);
-      ancillary.offerItems.forEach(({ offerItemId, ptc }) => {
+      ancillary.offerItems.forEach(({ offerItemId }) => {
         this.addSelectedOfferItem(ancillaryOffer, offerItemId, [paxRef]);
       });
     });
