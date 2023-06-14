@@ -3,7 +3,10 @@ import { INDCMessage } from "../../interfaces/INDCMessage";
 import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
 import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 
-export type PartyCredentials = { agencyId: string };
+export type PartyCredentials = {
+  agencyId: string;
+  contacts?: { email: string; phone: string };
+};
 
 export class SirenaRequest implements IRequest {
   constructor(

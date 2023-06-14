@@ -44,6 +44,8 @@ export class BookParams extends AbstractRequestParams {
   @ValidateNested()
   @IsOptional()
   formOfPayment?: FormOfPayment;
+  @IsOptional()
+  agencyContacts?: { phone: string; email: string };
 
   private constructor(props: BookProps) {
     super();
@@ -73,6 +75,9 @@ export class BookParams extends AbstractRequestParams {
         props.formOfPayment.type,
         props.formOfPayment.data
       );
+    }
+    if (props.agencyContacts) {
+      this.agencyContacts = { phone: props.agencyContacts.phone, email: props.agencyContacts.email };
     }
   }
 

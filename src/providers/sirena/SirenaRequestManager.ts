@@ -19,8 +19,11 @@ import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 
+import { BookParamsValidator } from "../ticketme/validators/BookParamsValidator";
+
 import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 import { PriceMessageMapper } from "./mappers/PriceMessageMapper";
+import { BookMessageMapper } from "./mappers/BookMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
@@ -47,7 +50,14 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createBookRequest(params: BookParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("book").message);
+    const validationError =
+      this.validateRequest() || BookParamsValidator.validate(params);
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+    return this.createRequest(params, {
+      mapper: new BookMessageMapper(params, this.extraConfiguration.party),
+    });
   }
 
   createFareRulesRequest(params: PriceParams): Result<IRequest> {

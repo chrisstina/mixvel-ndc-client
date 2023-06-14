@@ -1,21 +1,11 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbstractSirenaNDCMessage = void 0;
-var xmlns_1 = require("../../ticketme/constants/xmlns");
 var AbstractSirenaNDCMessage = /** @class */ (function () {
     function AbstractSirenaNDCMessage() {
-        this.$ = __assign(__assign({}, this.xmlns), { Version: "17.2" });
+        this.$ = {
+            Version: "17.2",
+        };
         this.Document = {};
         this.Party = [];
     }
@@ -28,7 +18,7 @@ var AbstractSirenaNDCMessage = /** @class */ (function () {
     });
     Object.defineProperty(AbstractSirenaNDCMessage.prototype, "xmlns", {
         get: function () {
-            return xmlns_1.IATAxmlns;
+            return {};
         },
         enumerable: false,
         configurable: true
@@ -37,6 +27,27 @@ var AbstractSirenaNDCMessage = /** @class */ (function () {
         this.Party.push({
             Sender: [{ TravelAgencySender: [{ AgencyID: [{ _: party.agencyId }] }] }],
         });
+        if (party.contacts) {
+            this.Party[0].Sender[0].TravelAgencySender[0].Contacts = [
+                {
+                    Contact: {
+                        $: { ContactType: "Agency" },
+                        EmailContact: [
+                            {
+                                Application: [{ _: "EMAIL" }],
+                                Address: [{ _: party.contacts.email }],
+                            },
+                        ],
+                        PhoneContact: [
+                            {
+                                Application: [{ _: "PHONE" }],
+                                Number: [{ _: party.contacts.phone }],
+                            },
+                        ],
+                    },
+                },
+            ];
+        }
     };
     return AbstractSirenaNDCMessage;
 }());

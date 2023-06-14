@@ -9,6 +9,10 @@ export declare class BookParams extends AbstractRequestParams {
     offer: Offer;
     passengers: Array<Passenger>;
     formOfPayment?: FormOfPayment;
+    agencyContacts?: {
+        phone: string;
+        email: string;
+    };
     private constructor();
     static create(props: BookProps): Result<BookParams>;
 }

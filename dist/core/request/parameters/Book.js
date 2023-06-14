@@ -50,6 +50,9 @@ var BookParams = /** @class */ (function (_super) {
         if (props.formOfPayment) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }
+        if (props.agencyContacts) {
+            _this.agencyContacts = { phone: props.agencyContacts.phone, email: props.agencyContacts.email };
+        }
         return _this;
     }
     BookParams.create = function (props) {
@@ -64,6 +67,9 @@ var BookParams = /** @class */ (function (_super) {
         (0, class_validator_1.ValidateNested)(),
         (0, class_validator_1.IsOptional)()
     ], BookParams.prototype, "formOfPayment", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)()
+    ], BookParams.prototype, "agencyContacts", void 0);
     return BookParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.BookParams = BookParams;

@@ -10,6 +10,31 @@ export declare type PricingOption = "LOWEST_FARE" | "ALL_FARES";
 export declare type Party = {
     Sender: {
         TravelAgencySender: {
+            Contacts?: [
+                {
+                    Contact: {
+                        $: {
+                            ContactType: "Agency";
+                        };
+                        EmailContact: {
+                            Application: {
+                                _: "EMAIL";
+                            }[];
+                            Address: {
+                                _: string;
+                            }[];
+                        }[];
+                        PhoneContact: {
+                            Application: {
+                                _: "PHONE";
+                            }[];
+                            Number: {
+                                _: string;
+                            }[];
+                        }[];
+                    };
+                }
+            ];
             AgencyID: {
                 _: string;
             }[];

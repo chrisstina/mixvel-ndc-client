@@ -1,19 +1,13 @@
 import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { Party } from "../../../core/request/types";
+import { PartyCredentials } from "../SirenaRequest";
 export declare abstract class AbstractSirenaNDCMessage implements INDCMessage {
     $: {
         Version: string;
-        xmlns: string;
-        "xmlns:xsi": string;
     };
     Document: {};
     Party: Party;
     get nodeName(): string;
-    get xmlns(): {
-        xmlns: string;
-        "xmlns:xsi": string;
-    };
-    addParty(party: {
-        agencyId: string;
-    }): void;
+    get xmlns(): {};
+    addParty(party: PartyCredentials): void;
 }

@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SirenaRequestManager = void 0;
 var Result_1 = require("../../core/Result");
 var MethodNotImplemented_1 = require("../../core/errors/MethodNotImplemented");
+var BookParamsValidator_1 = require("../ticketme/validators/BookParamsValidator");
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
+var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
@@ -23,7 +25,13 @@ var SirenaRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("auth").message);
     };
     SirenaRequestManager.prototype.createBookRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("book").message);
+        var validationError = this.validateRequest() || BookParamsValidator_1.BookParamsValidator.validate(params);
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new BookMessageMapper_1.BookMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createFareRulesRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("rules").message);

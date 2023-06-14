@@ -4,6 +4,10 @@ import { IRequestOptions } from "../../interfaces/IRequestOptionsManager";
 import { IConversionStrategy } from "../../services/conversion/IConversionSrategy";
 export declare type PartyCredentials = {
     agencyId: string;
+    contacts?: {
+        email: string;
+        phone: string;
+    };
 };
 export declare class SirenaRequest implements IRequest {
     readonly message: INDCMessage;
