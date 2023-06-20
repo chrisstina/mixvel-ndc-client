@@ -7,6 +7,7 @@ var BookParamsValidator_1 = require("../ticketme/validators/BookParamsValidator"
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
+var OrderRetrieveMessageMapper_1 = require("../ticketme/mappers/OrderRetrieveMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
@@ -40,7 +41,13 @@ var SirenaRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("cancel").message);
     };
     SirenaRequestManager.prototype.createOrderRetrieveRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("order").message);
+        var validationError = this.validateRequest();
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new OrderRetrieveMessageMapper_1.OrderRetrieveMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createPriceRequest = function (params) {
         var validationError = this.validateRequest() || PriceParamsValidator_1.PriceParamsValidator.validate(params);
