@@ -7,8 +7,10 @@ var BookParamsValidator_1 = require("../ticketme/validators/BookParamsValidator"
 var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
-var OrderRetrieveMessageMapper_1 = require("../ticketme/mappers/OrderRetrieveMessageMapper");
+var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper");
+var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
+var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
 var SirenaRequestManager = /** @class */ (function () {
@@ -77,7 +79,13 @@ var SirenaRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("service list").message);
     };
     SirenaRequestManager.prototype.createTicketIssueRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("ticket").message);
+        var validationError = this.validateRequest() || TicketIssueParamsValidator_1.TicketIssueParamsValidator.validate(params);
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new IssueTicketMessageMapper_1.IssueTicketMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createRepriceRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("reprice").message);

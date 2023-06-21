@@ -24,8 +24,11 @@ import { BookParamsValidator } from "../ticketme/validators/BookParamsValidator"
 import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 import { PriceMessageMapper } from "./mappers/PriceMessageMapper";
 import { BookMessageMapper } from "./mappers/BookMessageMapper";
-import { OrderRetrieveMessageMapper } from "../ticketme/mappers/OrderRetrieveMessageMapper";
+import { OrderRetrieveMessageMapper } from "./mappers/OrderRetrieveMessageMapper";
+import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
+import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
+import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
 
@@ -119,7 +122,18 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("ticket").message);
+    const validationError =
+      this.validateRequest() || TicketIssueParamsValidator.validate(params);
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+
+    return this.createRequest(params, {
+      mapper: new IssueTicketMessageMapper(
+        params as SirenaTicketIssueParams,
+        this.extraConfiguration.party
+      ),
+    });
   }
 
   createRepriceRequest(params: RepriceParams): Result<IRequest> {
