@@ -16,6 +16,7 @@ var OrderCreateRQ_1 = require("../messages/OrderCreateRQ");
 var ptc_1 = require("./dictionary/ptc");
 var documentType_1 = require("./dictionary/documentType");
 var commonMappers_1 = require("../../ticketme/mappers/commonMappers");
+var ptc_2 = require("../../../core/helpers/ptc");
 var BookMessageMapper = /** @class */ (function () {
     function BookMessageMapper(params, credentials) {
         this.params = params;
@@ -41,6 +42,9 @@ var BookMessageMapper = /** @class */ (function () {
             var paxContact = _this.passengerToContact(passenger);
             _this.addPax(_this.passengerToPax(passenger, paxContact), paxContact);
         });
+        if (ptc_2.PtcHelper.hasInfants(this.params)) {
+            this.createInfantRefs();
+        }
         return this.message;
     };
     BookMessageMapper.prototype.addPax = function (pax, paxContact) {
@@ -72,17 +76,15 @@ var BookMessageMapper = /** @class */ (function () {
                 { _: passenger.personalInfo.middleName || "" },
             ];
         }
-        var pax = {
-            $: { PassengerID: passenger.id || "" },
-            PTC: [{ _: (0, ptc_1.toSirena)(passenger.ptc) }],
-            CitizenshipCountryCode: [
-                { _: passenger.identityDocument.issuingCountry },
-            ],
-            Individual: [individual],
-            IdentityDocument: [document],
-            ContactInfoRef: [{ _: paxContact.$.ContactID }],
-        };
-        return pax;
+        return new OrderCreateRQ_1.Pax(passenger.id || "", (0, ptc_1.toSirena)(passenger.ptc), passenger.identityDocument.issuingCountry, individual, document, paxContact.$.ContactID);
+    };
+    BookMessageMapper.prototype.createInfantRefs = function () {
+        var infantRefs = this.message.Query[0].DataLists[0].PassengerList[0].Passenger.filter(function (passenger) { return passenger.PTC[0]._ === ptc_1.SirenaPTC.INFANT; }).map(function (passenger) { return passenger.$.PassengerID; });
+        this.message.Query[0].DataLists[0].PassengerList[0].Passenger.forEach(function (passenger) {
+            if (infantRefs.length > 0 && passenger.PTC[0]._ === ptc_1.SirenaPTC.ADULT) {
+                passenger.attachInfant(infantRefs.pop());
+            }
+        });
     };
     BookMessageMapper.prototype.passengerToContact = function (passenger) {
         var contact = {

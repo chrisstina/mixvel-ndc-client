@@ -8,6 +8,7 @@ export declare class SearchMessageMapper implements IMessageMapper {
     constructor(params: SearchParams, credentials: any);
     map(): AirShoppingRQ;
     private addPax;
+    private createInfantRefs;
     /**
      * @param {string} originCode
      * @param {string} destinationCode

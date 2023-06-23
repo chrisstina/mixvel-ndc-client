@@ -8,7 +8,7 @@ export declare class OriginDestination {
     dateRangeEnd: Date;
     constructor(from: string, to: string, dateRangeStart: Date, dateRangeEnd: Date);
 }
-declare class AnonymousTraveler {
+export declare class AnonymousTraveler {
     readonly id: string;
     readonly ptc: PaxCategory;
     readonly age: number;
@@ -33,4 +33,3 @@ export declare class SearchParams extends AbstractRequestParams {
     private constructor();
     static create(props: SearchProps): Result<SearchParams>;
 }
-export {};

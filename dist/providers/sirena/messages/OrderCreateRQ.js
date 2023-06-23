@@ -15,8 +15,28 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderCreateRQ = void 0;
+exports.OrderCreateRQ = exports.Pax = void 0;
 var AbstractSirenaNDCMessage_1 = require("./AbstractSirenaNDCMessage");
+var Pax = /** @class */ (function () {
+    // @todo LoyaltyProgramAccount
+    function Pax(id, ptc, issuingCountry, individual, document, contactRef) {
+        this.PTC = [];
+        this.InfantRef = [];
+        this.$ = { PassengerID: id };
+        this.PTC.push({ _: ptc });
+        this.CitizenshipCountryCode = [{ _: issuingCountry }];
+        this.Individual = [individual];
+        this.IdentityDocument = [document];
+        this.ContactInfoRef = [{ _: contactRef }];
+    }
+    Pax.prototype.attachInfant = function (infantRef) {
+        if (infantRef) {
+            this.InfantRef = [{ _: infantRef }];
+        }
+    };
+    return Pax;
+}());
+exports.Pax = Pax;
 var OrderCreateRQ = /** @class */ (function (_super) {
     __extends(OrderCreateRQ, _super);
     function OrderCreateRQ(offer) {

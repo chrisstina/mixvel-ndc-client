@@ -1,6 +1,7 @@
 import { NodeValue, StringValue } from "../../../core/request/types";
 import { Offer } from "../../ticketme/messages/OfferPriceRQ";
 import { SirenaDocumentType } from "../mappers/dictionary/documentType";
+import { SirenaPTC } from "../mappers/dictionary/ptc";
 import { AbstractSirenaNDCMessage } from "./AbstractSirenaNDCMessage";
 export declare type Individual = {
     GivenName: StringValue[];
@@ -18,7 +19,7 @@ export declare type IdentityDocument = {
     GivenName: StringValue[];
     Surname: StringValue[];
 };
-export declare type Pax = {
+export declare class Pax {
     $: {
         PassengerID: string;
     };
@@ -27,7 +28,10 @@ export declare type Pax = {
     Individual: Individual[];
     IdentityDocument: IdentityDocument[];
     ContactInfoRef: StringValue[];
-};
+    InfantRef?: StringValue[];
+    constructor(id: string, ptc: SirenaPTC, issuingCountry: string, individual: Individual, document: IdentityDocument, contactRef: string);
+    attachInfant(infantRef?: string): void;
+}
 export declare type PaxContact = {
     $: {
         ContactID: string;

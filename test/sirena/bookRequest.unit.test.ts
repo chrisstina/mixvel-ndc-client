@@ -53,7 +53,6 @@ class BookRequestUnitTest {
     }
 
     const rq = getBookRequest(params).getValue().body;
-    console.log(rq);
     expect(rq).to.not.contain("xmlns");
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("OrderCreateRQ");
@@ -182,7 +181,6 @@ class BookRequestUnitTest {
     };
 
     const rq = getBookRequest(params).getValue().body;
-
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("OrderCreateRQ");
     expect(rq).to.contain("<AgencyID>YOUR_KASSA</AgencyID>");
@@ -193,6 +191,7 @@ class BookRequestUnitTest {
     expect(rq).to.contain('OfferItemID="OFFER-2"');
     expect(rq).to.contain('OfferItemID="OFFER-3"');
     expect(rq).to.contain("<PassengerRefs>pax1");
+    expect(rq).to.contain("<InfantRef>pax4");
     expect(rq).to.contain('PassengerID="pax1">\n' + "\t\t\t\t\t<PTC>ADT</PTC>");
     expect(rq).to.contain(
       "<EmailAddressValue>test@test.test</EmailAddressValue>"

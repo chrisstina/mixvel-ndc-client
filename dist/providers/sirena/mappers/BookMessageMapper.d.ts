@@ -10,5 +10,6 @@ export declare class BookMessageMapper implements IMessageMapper {
     map(): OrderCreateRQ;
     private addPax;
     private passengerToPax;
+    private createInfantRefs;
     private passengerToContact;
 }

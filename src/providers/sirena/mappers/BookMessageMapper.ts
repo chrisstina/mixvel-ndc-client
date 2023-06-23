@@ -8,13 +8,14 @@ import {
   Pax,
   PaxContact,
 } from "../messages/OrderCreateRQ";
-import { toSirena as toSirenaPTC } from "./dictionary/ptc";
+import { SirenaPTC, toSirena as toSirenaPTC } from "./dictionary/ptc";
 import { toSirena as toSirenaDocument } from "./dictionary/documentType";
 import {
   genderToTitle,
   toTicketMeDate,
   toTicketMeGender,
 } from "../../ticketme/mappers/commonMappers";
+import { PtcHelper } from "../../../core/helpers/ptc";
 
 export class BookMessageMapper implements IMessageMapper {
   message: OrderCreateRQ;
@@ -36,7 +37,10 @@ export class BookMessageMapper implements IMessageMapper {
         };
       }),
     });
-    this.message.addParty({...this.credentials, contacts: this.params.agencyContacts});
+    this.message.addParty({
+      ...this.credentials,
+      contacts: this.params.agencyContacts,
+    });
   }
 
   map(): OrderCreateRQ {
@@ -44,6 +48,9 @@ export class BookMessageMapper implements IMessageMapper {
       const paxContact = this.passengerToContact(passenger);
       this.addPax(this.passengerToPax(passenger, paxContact), paxContact);
     });
+    if (PtcHelper.hasInfants(this.params)) {
+      this.createInfantRefs();
+    }
     return this.message;
   }
 
@@ -81,18 +88,29 @@ export class BookMessageMapper implements IMessageMapper {
         { _: passenger.personalInfo.middleName || "" },
       ];
     }
+    return new Pax(
+      passenger.id || "",
+      toSirenaPTC(passenger.ptc),
+      passenger.identityDocument.issuingCountry,
+      individual,
+      document,
+      paxContact.$.ContactID
+    );
+  }
 
-    const pax: Pax = {
-      $: { PassengerID: passenger.id || "" },
-      PTC: [{ _: toSirenaPTC(passenger.ptc) }],
-      CitizenshipCountryCode: [
-        { _: passenger.identityDocument.issuingCountry },
-      ],
-      Individual: [individual],
-      IdentityDocument: [document],
-      ContactInfoRef: [{ _: paxContact.$.ContactID }],
-    };
-    return pax;
+  private createInfantRefs() {
+    const infantRefs: string[] =
+      this.message.Query[0].DataLists[0].PassengerList[0].Passenger.filter(
+        (passenger: Pax) => passenger.PTC[0]._ === SirenaPTC.INFANT
+      ).map((passenger: Pax) => passenger.$.PassengerID);
+
+    this.message.Query[0].DataLists[0].PassengerList[0].Passenger.forEach(
+      (passenger: Pax) => {
+        if (infantRefs.length > 0 && passenger.PTC[0]._ === SirenaPTC.ADULT) {
+          passenger.attachInfant(infantRefs.pop());
+        }
+      }
+    );
   }
 
   private passengerToContact(passenger: Passenger) {

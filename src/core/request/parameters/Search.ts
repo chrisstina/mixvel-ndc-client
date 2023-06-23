@@ -42,7 +42,7 @@ export class OriginDestination {
   }
 }
 
-class AnonymousTraveler {
+export class AnonymousTraveler {
   @IsString()
   public readonly id: string;
   @IsIn([

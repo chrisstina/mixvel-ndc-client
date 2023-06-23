@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 import { SearchParams } from "../../../core/request/parameters/Search";
 import { Preflevel } from "../../../core/constants/preflevel";
+import { PtcHelper } from "../../../core/helpers/ptc";
 import {
   AirShoppingRQ,
   OriginDestination,
@@ -37,12 +38,30 @@ export class SearchMessageMapper implements IMessageMapper {
     this.params.travelers.forEach(({ id, ptc }) => {
       this.addPax(generatePaxId(id), toSirenaPTC(ptc));
     });
+    if (PtcHelper.hasInfants(this.params)) {
+      this.createInfantRefs();
+    }
     // @todo this.params.preferredCarriers
     return this.message;
   }
 
   private addPax(id: string, ptc: SirenaPTC) {
     this.message.DataLists[0].PassengerList[0].Passenger.push(new Pax(id, ptc));
+  }
+
+  private createInfantRefs() {
+    const infantRefs: string[] =
+      this.message.DataLists[0].PassengerList[0].Passenger.filter(
+        (passenger: Pax) => passenger.PTC[0]._ === SirenaPTC.INFANT
+      ).map((passenger: Pax) => passenger.$.PassengerID);
+
+    this.message.DataLists[0].PassengerList[0].Passenger.forEach(
+      (passenger: Pax) => {
+        if (infantRefs.length > 0 && passenger.PTC[0]._ === SirenaPTC.ADULT) {
+          passenger.attachInfant(infantRefs.pop());
+        }
+      }
+    );
   }
 
   /**

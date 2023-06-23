@@ -15,10 +15,17 @@ export class OriginDestination {
 export class Pax {
   public $: { PassengerID: string };
   public PTC: StringValue[] = [];
+  public InfantRef?: StringValue[] = [];
 
   constructor(id: string, ptc: SirenaPTC = SirenaPTC.ADULT) {
     this.$ = { PassengerID: id };
     this.PTC.push({ _: ptc });
+  }
+
+  attachInfant(infantRef?: string) {
+    if (infantRef) {
+      this.InfantRef = [{ _: infantRef }];
+    }
   }
 }
 

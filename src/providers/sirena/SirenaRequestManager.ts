@@ -25,6 +25,7 @@ import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 import { PriceMessageMapper } from "./mappers/PriceMessageMapper";
 import { BookMessageMapper } from "./mappers/BookMessageMapper";
 import { OrderRetrieveMessageMapper } from "./mappers/OrderRetrieveMessageMapper";
+import { OrderCancelMessageMapper } from "./mappers/OrderCancelMessageMapper";
 import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
@@ -69,7 +70,16 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("cancel").message);
+    const validationError = this.validateRequest();
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+    return this.createRequest(params, {
+      mapper: new OrderCancelMessageMapper(
+        params,
+        this.extraConfiguration.party
+      ),
+    });
   }
 
   createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest> {

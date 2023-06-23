@@ -8,6 +8,7 @@ var SearchMessageMapper_1 = require("./mappers/SearchMessageMapper");
 var PriceMessageMapper_1 = require("./mappers/PriceMessageMapper");
 var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
 var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper");
+var OrderCancelMessageMapper_1 = require("./mappers/OrderCancelMessageMapper");
 var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
@@ -40,7 +41,13 @@ var SirenaRequestManager = /** @class */ (function () {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("rules").message);
     };
     SirenaRequestManager.prototype.createOrderCancelRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("cancel").message);
+        var validationError = this.validateRequest();
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new OrderCancelMessageMapper_1.OrderCancelMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createOrderRetrieveRequest = function (params) {
         var validationError = this.validateRequest();

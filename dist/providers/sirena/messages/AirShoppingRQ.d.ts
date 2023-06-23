@@ -16,7 +16,9 @@ export declare class Pax {
         PassengerID: string;
     };
     PTC: StringValue[];
+    InfantRef?: StringValue[];
     constructor(id: string, ptc?: SirenaPTC);
+    attachInfant(infantRef?: string): void;
 }
 declare type AirlinePreference = {
     Airline: {

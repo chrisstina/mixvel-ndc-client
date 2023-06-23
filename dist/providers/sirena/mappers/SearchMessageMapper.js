@@ -3,9 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchMessageMapper = void 0;
 var luxon_1 = require("luxon");
 var preflevel_1 = require("../../../core/constants/preflevel");
+var ptc_1 = require("../../../core/helpers/ptc");
 var AirShoppingRQ_1 = require("../messages/AirShoppingRQ");
 var cabin_1 = require("./dictionary/cabin");
-var ptc_1 = require("./dictionary/ptc");
+var ptc_2 = require("./dictionary/ptc");
 var SearchMessageMapper = /** @class */ (function () {
     function SearchMessageMapper(params, credentials) {
         this.params = params;
@@ -24,13 +25,24 @@ var SearchMessageMapper = /** @class */ (function () {
         });
         this.params.travelers.forEach(function (_a) {
             var id = _a.id, ptc = _a.ptc;
-            _this.addPax(generatePaxId(id), (0, ptc_1.toSirena)(ptc));
+            _this.addPax(generatePaxId(id), (0, ptc_2.toSirena)(ptc));
         });
+        if (ptc_1.PtcHelper.hasInfants(this.params)) {
+            this.createInfantRefs();
+        }
         // @todo this.params.preferredCarriers
         return this.message;
     };
     SearchMessageMapper.prototype.addPax = function (id, ptc) {
         this.message.DataLists[0].PassengerList[0].Passenger.push(new AirShoppingRQ_1.Pax(id, ptc));
+    };
+    SearchMessageMapper.prototype.createInfantRefs = function () {
+        var infantRefs = this.message.DataLists[0].PassengerList[0].Passenger.filter(function (passenger) { return passenger.PTC[0]._ === ptc_2.SirenaPTC.INFANT; }).map(function (passenger) { return passenger.$.PassengerID; });
+        this.message.DataLists[0].PassengerList[0].Passenger.forEach(function (passenger) {
+            if (infantRefs.length > 0 && passenger.PTC[0]._ === ptc_2.SirenaPTC.ADULT) {
+                passenger.attachInfant(infantRefs.pop());
+            }
+        });
     };
     /**
      * @param {string} originCode

@@ -31,9 +31,15 @@ var Pax = /** @class */ (function () {
     function Pax(id, ptc) {
         if (ptc === void 0) { ptc = ptc_1.SirenaPTC.ADULT; }
         this.PTC = [];
+        this.InfantRef = [];
         this.$ = { PassengerID: id };
         this.PTC.push({ _: ptc });
     }
+    Pax.prototype.attachInfant = function (infantRef) {
+        if (infantRef) {
+            this.InfantRef = [{ _: infantRef }];
+        }
+    };
     return Pax;
 }());
 exports.Pax = Pax;

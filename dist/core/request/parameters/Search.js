@@ -21,7 +21,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SearchParams = exports.OriginDestination = void 0;
+exports.SearchParams = exports.AnonymousTraveler = exports.OriginDestination = void 0;
 var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
 var OriginDestination = /** @class */ (function () {
@@ -79,6 +79,7 @@ var AnonymousTraveler = /** @class */ (function () {
     ], AnonymousTraveler.prototype, "age", void 0);
     return AnonymousTraveler;
 }());
+exports.AnonymousTraveler = AnonymousTraveler;
 var SearchParams = /** @class */ (function (_super) {
     __extends(SearchParams, _super);
     function SearchParams(props) {
