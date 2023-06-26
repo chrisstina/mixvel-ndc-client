@@ -27,6 +27,7 @@ import { BookMessageMapper } from "./mappers/BookMessageMapper";
 import { OrderRetrieveMessageMapper } from "./mappers/OrderRetrieveMessageMapper";
 import { OrderCancelMessageMapper } from "./mappers/OrderCancelMessageMapper";
 import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
+import { ServiceListMessageMapper } from "./mappers/ServiceListMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
 import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
@@ -128,7 +129,17 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createServiceListRequest(params: PriceParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("service list").message);
+    const validationError =
+      this.validateRequest() || PriceParamsValidator.validate(params);
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+    return this.createRequest(params, {
+      mapper: new ServiceListMessageMapper(
+        params,
+        this.extraConfiguration.party
+      ),
+    });
   }
 
   createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {

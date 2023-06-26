@@ -8,7 +8,7 @@ export declare type Offer = {
     };
     OfferItem: OfferItem[];
 };
-declare type OfferItem = {
+export declare type OfferItem = {
     $: {
         OfferItemID: string;
     };
@@ -33,4 +33,3 @@ export declare class OfferPriceRQ extends AbstractTicketMeNDCMessage {
     constructor();
     get nodeName(): string;
 }
-export {};
