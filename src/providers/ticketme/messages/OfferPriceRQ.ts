@@ -6,7 +6,7 @@ export type Offer = {
   OfferItem: OfferItem[];
 };
 
-type OfferItem = {
+export type OfferItem = {
   $: { OfferItemID: string };
   PassengerRefs: StringValue;
 };

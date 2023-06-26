@@ -9,4 +9,5 @@ exports.endpoints = new Map([
     ["OrderChangeRQ", "OrderChangeRQ"],
     ["OrderReshopRQ", "OrderReshopRQ"],
     ["OrderCancelRQ", "OrderCancelRQ"],
+    ["ServiceListRQ", "ServiceListRQ"],
 ]);

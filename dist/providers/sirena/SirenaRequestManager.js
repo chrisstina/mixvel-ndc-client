@@ -10,6 +10,7 @@ var BookMessageMapper_1 = require("./mappers/BookMessageMapper");
 var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper");
 var OrderCancelMessageMapper_1 = require("./mappers/OrderCancelMessageMapper");
 var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
+var ServiceListMessageMapper_1 = require("./mappers/ServiceListMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var defaults_1 = require("./config/defaults");
@@ -83,7 +84,9 @@ var SirenaRequestManager = /** @class */ (function () {
         });
     };
     SirenaRequestManager.prototype.createServiceListRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("service list").message);
+        return this.createRequest(params, {
+            mapper: new ServiceListMessageMapper_1.ServiceListMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createTicketIssueRequest = function (params) {
         var validationError = this.validateRequest() || TicketIssueParamsValidator_1.TicketIssueParamsValidator.validate(params);
