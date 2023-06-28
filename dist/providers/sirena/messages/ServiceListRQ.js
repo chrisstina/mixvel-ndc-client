@@ -19,8 +19,15 @@ exports.ServiceListRQ = void 0;
 var AbstractSirenaNDCMessage_1 = require("./AbstractSirenaNDCMessage");
 var ServiceListRQ = /** @class */ (function (_super) {
     __extends(ServiceListRQ, _super);
-    function ServiceListRQ(query, dataLists) {
+    function ServiceListRQ(query, dataLists, shoppingResponseId) {
         var _this = _super.call(this) || this;
+        if (shoppingResponseId) {
+            _this.ShoppingResponseID = [
+                {
+                    ResponseID: [{ _: shoppingResponseId }],
+                },
+            ];
+        }
         _this.Query = query;
         if (dataLists) {
             _this.DataLists = dataLists;

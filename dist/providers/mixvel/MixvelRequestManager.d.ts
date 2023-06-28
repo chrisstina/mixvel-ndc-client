@@ -13,6 +13,7 @@ import { RefundParams } from "../../core/request/parameters/Refund";
 import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 export declare class MixvelRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     conversionStrategy: IConversionStrategy;
@@ -36,6 +37,7 @@ export declare class MixvelRequestManager implements IRequestManager {
     createRefundRequest(params: RefundParams): Result<IRequest>;
     createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
     createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
+    createServiceAddRequest(params: OrderChangeParams): Result<IRequest>;
     createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
     createRequest(requestParams: object, services: {
         mapper: IMessageMapper;

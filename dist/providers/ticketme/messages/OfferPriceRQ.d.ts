@@ -4,7 +4,7 @@ export declare type Offer = {
     $: {
         Owner: string;
         OfferID: string;
-        ResponseID: string;
+        ResponseID?: string;
     };
     OfferItem: OfferItem[];
 };

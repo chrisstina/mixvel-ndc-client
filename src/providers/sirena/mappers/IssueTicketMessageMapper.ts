@@ -36,19 +36,21 @@ export class IssueTicketMessageMapper implements IMessageMapper {
     { amount, currency }: { amount: string; currency: string },
     { fopType, fopMethod }: { fopType: SirenaFop; fopMethod: PaymentMethod }
   ) {
-    this.message.Query[0].Payments.push({
-      Payment: [
-        {
-          Amount: [
-            {
-              $: { Code: currency },
-              _: amount,
-            },
-          ],
-          Method: [fopMethod],
-          Type: [{ _: fopType }],
-        },
-      ],
-    });
+    this.message.Query[0].Payments = [
+      {
+        Payment: [
+          {
+            Amount: [
+              {
+                $: { Code: currency },
+                _: amount,
+              },
+            ],
+            Method: [fopMethod],
+            Type: [{ _: fopType }],
+          },
+        ],
+      },
+    ];
   }
 }

@@ -127,6 +127,9 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new ServiceListMessageMapper_1.ServiceListMessageMapper(params),
         }));
     };
+    MixvelRequestManager.prototype.createServiceAddRequest = function (params) {
+        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("add service").message);
+    };
     MixvelRequestManager.prototype.createOrderSplitRequest = function (params) {
         return Result_1.Result.ok(this.createRequest(params, {
             mapper: new SplitOrderMessageMapper_1.SplitOrderMessageMapper(params),

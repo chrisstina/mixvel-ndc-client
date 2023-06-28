@@ -9,15 +9,16 @@ var ServiceListMessageMapper = /** @class */ (function () {
         this.credentials = credentials;
     }
     ServiceListMessageMapper.prototype.map = function () {
-        var query, dataLists;
+        var query, dataLists, shoppingResponseId;
         if ((0, typeguards_1.isPriceParams)(this.params)) {
             query = this.createOfferRequest(this.params);
             dataLists = this.createPaxDataList(this.params);
+            shoppingResponseId = this.params.offers[0].responseId;
         }
         else {
             query = this.createOrderRequest(this.params);
         }
-        var message = new ServiceListRQ_1.ServiceListRQ(query, dataLists);
+        var message = new ServiceListRQ_1.ServiceListRQ(query, dataLists, shoppingResponseId);
         message.addParty(this.credentials);
         return message;
     };
@@ -28,7 +29,6 @@ var ServiceListMessageMapper = /** @class */ (function () {
                     $: {
                         Owner: offer.offerOwner || "",
                         OfferID: offer.offerId,
-                        ResponseID: offer.responseId || "",
                     },
                     OfferItem: offer.offerItems.map(function (item) {
                         return {

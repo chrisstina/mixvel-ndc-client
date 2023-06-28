@@ -33,6 +33,7 @@ import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 
 export class TicketMeRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -131,6 +132,10 @@ export class TicketMeRequestManager implements IRequestManager {
 
   createServiceListRequest(params: PriceParams): Result<IRequest> {
     return Result.fail(new MethodNotImplemented("service list").message);
+  }
+
+  createServiceAddRequest(params: OrderChangeParams): Result<IRequest> {
+    return Result.fail(new MethodNotImplemented("add service").message);
   }
 
   createTicketIssueRequest(params: TicketIssueParams): Result<IRequest> {

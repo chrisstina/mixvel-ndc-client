@@ -11,6 +11,7 @@ var ResponseParsingError_1 = __importDefault(require("./core/errors/ResponsePars
 var ObjectToXmlConversionStrategy_1 = require("./services/conversion/ObjectToXmlConversionStrategy");
 var XmlToObjectConversionStrategy_1 = require("./services/conversion/XmlToObjectConversionStrategy");
 var ObjectToXmlNDCConversionStrategy_1 = require("./services/conversion/ObjectToXmlNDCConversionStrategy");
+var typeguards_1 = require("./core/request/typeguards");
 var RequestEndpointManager_1 = require("./core/request/RequestEndpointManager");
 var RequestOptionsManager_1 = require("./core/request/RequestOptionsManager");
 var Auth_1 = require("./core/request/parameters/Auth");
@@ -21,7 +22,6 @@ var Book_1 = require("./core/request/parameters/Book");
 var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
 var Refund_1 = require("./core/request/parameters/Refund");
 var Reprice_1 = require("./core/request/parameters/Reprice");
-var typeguards_1 = require("./core/request/typeguards");
 // Provider-specific
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
@@ -30,6 +30,7 @@ var TicketMeResponseManager_1 = require("./providers/ticketme/TicketMeResponseMa
 var SirenaRequestManager_1 = require("./providers/sirena/SirenaRequestManager");
 var SirenaResponseManager_1 = require("./providers/sirena/SirenaResponseManager");
 var OrderSplit_1 = require("./core/request/parameters/OrderSplit");
+var OrderChange_1 = require("./core/request/parameters/OrderChange");
 var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
 // ================ Provider generation =================
 // Mixvel provider
@@ -126,6 +127,13 @@ function createNDCService(provider, providerConfig) {
             ? Result_1.Result.fail(paramsOrError.error)
             : requestManager.createServiceListRequest(paramsOrError.getValue());
     }
+    function getServiceAddRequest(props) {
+        var paramsOrError;
+        paramsOrError = OrderChange_1.OrderChangeParams.create(props);
+        return paramsOrError.isFailure && paramsOrError.error
+            ? Result_1.Result.fail(paramsOrError.error)
+            : requestManager.createServiceAddRequest(paramsOrError.getValue());
+    }
     function getRefundCalculationRequest(props) {
         var paramsOrError = Refund_1.RefundParams.create(props);
         return paramsOrError.isFailure && paramsOrError.error
@@ -199,6 +207,7 @@ function createNDCService(provider, providerConfig) {
         getRepriceRequest: getRepriceRequest,
         getFareRulesRequest: getFareRulesRequest,
         getServiceListRequest: getServiceListRequest,
+        getServiceAddRequest: getServiceAddRequest,
         getOrderRetrieveRequest: getOrderRetrieveRequest,
         getTicketIssueRequest: getTicketIssueRequest,
         getOrderCancelRequest: getOrderCancelRequest,

@@ -23,20 +23,22 @@ var IssueTicketMessageMapper = /** @class */ (function () {
     IssueTicketMessageMapper.prototype.setPaymentDetails = function (_a, _b) {
         var amount = _a.amount, currency = _a.currency;
         var fopType = _b.fopType, fopMethod = _b.fopMethod;
-        this.message.Query[0].Payments.push({
-            Payment: [
-                {
-                    Amount: [
-                        {
-                            $: { Code: currency },
-                            _: amount,
-                        },
-                    ],
-                    Method: [fopMethod],
-                    Type: [{ _: fopType }],
-                },
-            ],
-        });
+        this.message.Query[0].Payments = [
+            {
+                Payment: [
+                    {
+                        Amount: [
+                            {
+                                $: { Code: currency },
+                                _: amount,
+                            },
+                        ],
+                        Method: [fopMethod],
+                        Type: [{ _: fopType }],
+                    },
+                ],
+            },
+        ];
     };
     return IssueTicketMessageMapper;
 }());

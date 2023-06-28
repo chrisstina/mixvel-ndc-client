@@ -21,7 +21,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Passenger = exports.BookParams = exports.SUPPORTED_DOCTYPES = void 0;
+exports.Passenger = exports.PersonalInfo = exports.BookParams = exports.SUPPORTED_DOCTYPES = void 0;
 var class_validator_1 = require("class-validator");
 var IsPersonName_1 = require("../../validators/IsPersonName");
 var AbstractRequestParams_1 = require("./AbstractRequestParams");
@@ -103,6 +103,7 @@ var PersonalInfo = /** @class */ (function () {
     ], PersonalInfo.prototype, "dob", void 0);
     return PersonalInfo;
 }());
+exports.PersonalInfo = PersonalInfo;
 var IdentityDocument = /** @class */ (function () {
     function IdentityDocument(type, number, issuingCountry, dateOfIssue, dateOfExpiry) {
         this.type = type;

@@ -17,14 +17,15 @@ export class ServiceListMessageMapper implements IMessageMapper {
   ) {}
 
   map(): ServiceListRQ {
-    let query, dataLists;
+    let query, dataLists, shoppingResponseId;
     if (isPriceParams(this.params)) {
       query = this.createOfferRequest(this.params as PriceParams);
       dataLists = this.createPaxDataList(this.params);
+      shoppingResponseId = this.params.offers[0].responseId;
     } else {
       query = this.createOrderRequest(this.params as OrderRetrieveParams);
     }
-    const message = new ServiceListRQ(query, dataLists);
+    const message = new ServiceListRQ(query, dataLists, shoppingResponseId);
     message.addParty(this.credentials);
     return message;
   }
@@ -36,7 +37,6 @@ export class ServiceListMessageMapper implements IMessageMapper {
           $: {
             Owner: offer.offerOwner || "",
             OfferID: offer.offerId,
-            ResponseID: offer.responseId || "",
           },
           OfferItem: offer.offerItems.map((item) => {
             return {

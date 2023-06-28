@@ -14,6 +14,7 @@ import { SearchParams } from "../../core/request/parameters/Search";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 export declare class SirenaRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;
@@ -40,6 +41,7 @@ export declare class SirenaRequestManager implements IRequestManager {
     createRefundRequest(params: RefundParams): Result<IRequest>;
     createSearchRequest(params: SearchParams): Result<IRequest>;
     createServiceListRequest(params: PriceParams): Result<IRequest>;
+    createServiceAddRequest(params: OrderChangeParams): Result<IRequest>;
     createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
     createRepriceRequest(params: RepriceParams): Result<IRequest>;
     createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;

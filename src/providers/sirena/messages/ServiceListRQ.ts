@@ -11,11 +11,26 @@ export type OrderRequest = {
 };
 
 export class ServiceListRQ extends AbstractSirenaNDCMessage {
-  public Query: OfferRequest | OrderRequest;
-  public DataLists?: { PassengerList: PaxDataList };
+  public readonly ShoppingResponseID;
+  public readonly Query: OfferRequest | OrderRequest;
+  public readonly DataLists?: { PassengerList: PaxDataList };
 
-  constructor(query: OfferRequest | OrderRequest, dataLists?: { PassengerList: PaxDataList }) {
+  constructor(
+    query: OfferRequest | OrderRequest,
+    dataLists?: {
+      PassengerList: PaxDataList;
+    },
+    shoppingResponseId?: string
+  ) {
     super();
+    if (shoppingResponseId) {
+      this.ShoppingResponseID = [
+        {
+          ResponseID: [{ _: shoppingResponseId }],
+        },
+      ];
+    }
+
     this.Query = query;
     if (dataLists) {
       this.DataLists = dataLists;

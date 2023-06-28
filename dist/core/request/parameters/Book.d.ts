@@ -16,7 +16,7 @@ export declare class BookParams extends AbstractRequestParams {
     private constructor();
     static create(props: BookProps): Result<BookParams>;
 }
-declare class PersonalInfo {
+export declare class PersonalInfo {
     firstName: string;
     lastName: string;
     middleName?: string;

@@ -15,6 +15,7 @@ var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
+var ServiceAddMessageMapper_1 = require("./mappers/ServiceAddMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -86,6 +87,11 @@ var SirenaRequestManager = /** @class */ (function () {
     SirenaRequestManager.prototype.createServiceListRequest = function (params) {
         return this.createRequest(params, {
             mapper: new ServiceListMessageMapper_1.ServiceListMessageMapper(params, this.extraConfiguration.party),
+        });
+    };
+    SirenaRequestManager.prototype.createServiceAddRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: new ServiceAddMessageMapper_1.ServiceAddMessageMapper(params, this.extraConfiguration.party),
         });
     };
     SirenaRequestManager.prototype.createTicketIssueRequest = function (params) {

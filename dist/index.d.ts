@@ -13,6 +13,7 @@ import { RefundParams, RefundProps } from "./core/request/parameters/Refund";
 import { RepriceParams, RepriceProps } from "./core/request/parameters/Reprice";
 import { IDataList } from "./interfaces/IDataList";
 import { OrderSplitParams, OrderSplitProps } from "./core/request/parameters/OrderSplit";
+import { OrderChangeProps } from "./core/request/parameters/OrderChange";
 export declare function createNDCService(provider: string | IProvider, providerConfig?: {}): {
     getAuthRequest: (props: AuthProps) => Result<IRequest>;
     getSearchRequest: (props: SearchProps) => Result<IRequest>;
@@ -21,6 +22,7 @@ export declare function createNDCService(provider: string | IProvider, providerC
     getRepriceRequest: (props: RepriceProps) => Result<IRequest>;
     getFareRulesRequest: (props: PriceProps | OrderRetrieveParams) => Result<IRequest>;
     getServiceListRequest: (props: PriceProps | OrderRetrieveProps) => Result<IRequest>;
+    getServiceAddRequest: (props: OrderChangeProps) => Result<IRequest>;
     getOrderRetrieveRequest: (props: OrderRetrieveProps) => Result<IRequest>;
     getTicketIssueRequest: (props: TicketIssueProps) => Result<IRequest>;
     getOrderCancelRequest: (props: OrderRetrieveProps) => Result<IRequest>;

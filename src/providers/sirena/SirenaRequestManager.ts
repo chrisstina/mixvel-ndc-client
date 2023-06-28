@@ -33,6 +33,8 @@ import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValida
 import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
+import { ServiceAddMessageMapper } from "./mappers/ServiceAddMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -131,6 +133,15 @@ export class SirenaRequestManager implements IRequestManager {
   createServiceListRequest(params: PriceParams): Result<IRequest> {
     return this.createRequest(params, {
       mapper: new ServiceListMessageMapper(
+        params,
+        this.extraConfiguration.party
+      ),
+    });
+  }
+
+  createServiceAddRequest(params: OrderChangeParams): Result<IRequest> {
+    return this.createRequest(params, {
+      mapper: new ServiceAddMessageMapper(
         params,
         this.extraConfiguration.party
       ),

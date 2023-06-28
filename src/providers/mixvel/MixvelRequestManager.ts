@@ -22,11 +22,11 @@ import { RefundParams } from "../../core/request/parameters/Refund";
 import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 
 import { MixvelBookParams } from "./request/parameters/Book";
 
 import { BookParamsValidator } from "./validators/BookParamsValidator";
-
 import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 import { BookMessageMapper } from "./mappers/BookMessageMapper";
 import { IssueOrderMessageMapper } from "./mappers/IssueOrderMessageMapper";
@@ -208,6 +208,10 @@ export class MixvelRequestManager implements IRequestManager {
         mapper: new ServiceListMessageMapper(params),
       })
     );
+  }
+
+  createServiceAddRequest(params: OrderChangeParams): Result<IRequest> {
+    return Result.fail(new MethodNotImplemented("add service").message);
   }
 
   createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {

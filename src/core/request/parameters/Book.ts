@@ -87,7 +87,7 @@ export class BookParams extends AbstractRequestParams {
   }
 }
 
-class PersonalInfo {
+export class PersonalInfo {
   @IsNotEmpty()
   @Validate(IsPersonName, [true])
   public firstName: string;

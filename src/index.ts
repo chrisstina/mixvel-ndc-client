@@ -13,6 +13,7 @@ import ResponseParsingError from "./core/errors/ResponseParsingError";
 import { ObjectToXmlConversionStrategy } from "./services/conversion/ObjectToXmlConversionStrategy";
 import { XmlToObjectConversionStrategy } from "./services/conversion/XmlToObjectConversionStrategy";
 import { ObjectToXmlNDCConversionStrategy } from "./services/conversion/ObjectToXmlNDCConversionStrategy";
+import { isOrderRetrieveProps, isPriceProps } from "./core/request/typeguards";
 import { RequestEndpointManager } from "./core/request/RequestEndpointManager";
 import { RequestOptionsManager } from "./core/request/RequestOptionsManager";
 import { AuthParams, AuthProps } from "./core/request/parameters/Auth";
@@ -29,7 +30,6 @@ import {
 } from "./core/request/parameters/TicketIssue";
 import { RefundParams, RefundProps } from "./core/request/parameters/Refund";
 import { RepriceParams, RepriceProps } from "./core/request/parameters/Reprice";
-import { isOrderRetrieveProps, isPriceProps } from "./core/request/typeguards";
 
 // Provider-specific
 import { MixvelRequestManager } from "./providers/mixvel/MixvelRequestManager";
@@ -43,6 +43,10 @@ import {
   OrderSplitParams,
   OrderSplitProps,
 } from "./core/request/parameters/OrderSplit";
+import {
+  OrderChangeParams,
+  OrderChangeProps,
+} from "./core/request/parameters/OrderChange";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
   xmlToPojo = new XmlToObjectConversionStrategy(),
@@ -204,6 +208,14 @@ export function createNDCService(
       : requestManager.createServiceListRequest(paramsOrError.getValue());
   }
 
+  function getServiceAddRequest(props: OrderChangeProps): Result<IRequest> {
+    let paramsOrError;
+    paramsOrError = OrderChangeParams.create(props);
+    return paramsOrError.isFailure && paramsOrError.error
+      ? Result.fail<IRequest>(paramsOrError.error)
+      : requestManager.createServiceAddRequest(paramsOrError.getValue());
+  }
+
   function getRefundCalculationRequest(props: RefundProps): Result<IRequest> {
     const paramsOrError = RefundParams.create(props);
     return paramsOrError.isFailure && paramsOrError.error
@@ -295,6 +307,7 @@ export function createNDCService(
     getRepriceRequest,
     getFareRulesRequest,
     getServiceListRequest,
+    getServiceAddRequest,
     getOrderRetrieveRequest,
     getTicketIssueRequest,
     getOrderCancelRequest,

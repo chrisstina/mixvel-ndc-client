@@ -86,6 +86,9 @@ var TicketMeRequestManager = /** @class */ (function () {
     TicketMeRequestManager.prototype.createServiceListRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("service list").message);
     };
+    TicketMeRequestManager.prototype.createServiceAddRequest = function (params) {
+        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("add service").message);
+    };
     TicketMeRequestManager.prototype.createTicketIssueRequest = function (params) {
         var validationError = this.validateRequest() || TicketIssueParamsValidator_1.TicketIssueParamsValidator.validate(params);
         if (typeof validationError === "string") {

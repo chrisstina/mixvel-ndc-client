@@ -12,12 +12,17 @@ export declare type OrderRequest = {
     };
 };
 export declare class ServiceListRQ extends AbstractSirenaNDCMessage {
-    Query: OfferRequest | OrderRequest;
-    DataLists?: {
+    readonly ShoppingResponseID: {
+        ResponseID: {
+            _: string;
+        }[];
+    }[] | undefined;
+    readonly Query: OfferRequest | OrderRequest;
+    readonly DataLists?: {
         PassengerList: PaxDataList;
     };
     constructor(query: OfferRequest | OrderRequest, dataLists?: {
         PassengerList: PaxDataList;
-    });
+    }, shoppingResponseId?: string);
     get nodeName(): string;
 }

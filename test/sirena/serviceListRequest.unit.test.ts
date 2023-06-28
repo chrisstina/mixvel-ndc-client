@@ -41,8 +41,9 @@ class ServiceListRequestUnitTest {
     const rq = request.getValue().body;
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("ServiceListRQ");
+    expect(rq).to.contain('<ResponseID>SOME_RESONSE_ID</ResponseID>');
     expect(rq).to.contain(
-      '<Offer Owner="N4" OfferID="SOME_OFFER" ResponseID="SOME_RESONSE_ID">'
+      '<Offer Owner="N4" OfferID="SOME_OFFER"'
     );
     expect(rq).to.contain('<OfferItem OfferItemID="OFFER_ITEM_1">');
     expect(rq).to.contain('<OfferItem OfferItemID="OFFER_ITEM_2">');
