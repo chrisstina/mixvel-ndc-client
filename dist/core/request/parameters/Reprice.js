@@ -28,7 +28,12 @@ var RepriceParams = /** @class */ (function (_super) {
     __extends(RepriceParams, _super);
     function RepriceParams(props) {
         var _this = _super.call(this) || this;
+        _this.deleteOrderItems = [];
+        _this.acceptOfferItems = [];
         _this.orderId = props.orderId;
+        if (props.deleteOrderItems) {
+            _this.deleteOrderItems = props.deleteOrderItems;
+        }
         return _this;
     }
     RepriceParams.create = function (props) {
@@ -38,6 +43,12 @@ var RepriceParams = /** @class */ (function (_super) {
     __decorate([
         (0, class_validator_1.IsString)()
     ], RepriceParams.prototype, "orderId", void 0);
+    __decorate([
+        (0, class_validator_1.IsArray)()
+    ], RepriceParams.prototype, "deleteOrderItems", void 0);
+    __decorate([
+        (0, class_validator_1.IsArray)()
+    ], RepriceParams.prototype, "acceptOfferItems", void 0);
     return RepriceParams;
 }(AbstractRequestParams_1.AbstractRequestParams));
 exports.RepriceParams = RepriceParams;

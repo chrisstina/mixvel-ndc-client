@@ -13,8 +13,8 @@ import { RefundParams } from "../../core/request/parameters/Refund";
 import { SearchParams } from "../../core/request/parameters/Search";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
-import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
+import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 export declare class SirenaRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;

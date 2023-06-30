@@ -17,10 +17,10 @@ import { RefundParams } from "../../core/request/parameters/Refund";
 import { SearchParams } from "../../core/request/parameters/Search";
 import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
+import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 
 import { BookParamsValidator } from "../ticketme/validators/BookParamsValidator";
-
 import { SearchMessageMapper } from "./mappers/SearchMessageMapper";
 import { PriceMessageMapper } from "./mappers/PriceMessageMapper";
 import { BookMessageMapper } from "./mappers/BookMessageMapper";
@@ -28,13 +28,13 @@ import { OrderRetrieveMessageMapper } from "./mappers/OrderRetrieveMessageMapper
 import { OrderCancelMessageMapper } from "./mappers/OrderCancelMessageMapper";
 import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
 import { ServiceListMessageMapper } from "./mappers/ServiceListMessageMapper";
+import { ServiceAddMessageMapper } from "./mappers/ServiceAddMessageMapper";
+import { RepriceMessageMapper } from "./mappers/RepriceMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
 import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
-import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
-import { ServiceAddMessageMapper } from "./mappers/ServiceAddMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -164,7 +164,14 @@ export class SirenaRequestManager implements IRequestManager {
   }
 
   createRepriceRequest(params: RepriceParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("reprice").message);
+    const validationError = this.validateRequest();
+    if (typeof validationError === "string") {
+      return Result.fail<IRequest>(validationError);
+    }
+
+    return this.createRequest(params, {
+      mapper: new RepriceMessageMapper(params, this.extraConfiguration.party),
+    });
   }
 
   createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {

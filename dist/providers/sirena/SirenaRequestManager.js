@@ -11,11 +11,12 @@ var OrderRetrieveMessageMapper_1 = require("./mappers/OrderRetrieveMessageMapper
 var OrderCancelMessageMapper_1 = require("./mappers/OrderCancelMessageMapper");
 var IssueTicketMessageMapper_1 = require("./mappers/IssueTicketMessageMapper");
 var ServiceListMessageMapper_1 = require("./mappers/ServiceListMessageMapper");
+var ServiceAddMessageMapper_1 = require("./mappers/ServiceAddMessageMapper");
+var RepriceMessageMapper_1 = require("./mappers/RepriceMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
-var ServiceAddMessageMapper_1 = require("./mappers/ServiceAddMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -104,7 +105,13 @@ var SirenaRequestManager = /** @class */ (function () {
         });
     };
     SirenaRequestManager.prototype.createRepriceRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("reprice").message);
+        var validationError = this.validateRequest();
+        if (typeof validationError === "string") {
+            return Result_1.Result.fail(validationError);
+        }
+        return this.createRequest(params, {
+            mapper: new RepriceMessageMapper_1.RepriceMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createOrderSplitRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("split").message);
