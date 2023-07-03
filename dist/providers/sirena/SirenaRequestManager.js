@@ -15,9 +15,9 @@ var ServiceAddMessageMapper_1 = require("./mappers/ServiceAddMessageMapper");
 var RepriceMessageMapper_1 = require("./mappers/RepriceMessageMapper");
 var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
+var FareRulesMessageMapper_1 = require("./mappers/FareRulesMessageMapper");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
-var FareRulesMessageMapper_1 = require("./mappers/FareRulesMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
