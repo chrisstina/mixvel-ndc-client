@@ -33,7 +33,7 @@ export declare class SirenaRequestManager implements IRequestManager {
         structureId: string;
     }): Result<IRequest>;
     createBookRequest(params: BookParams): Result<IRequest>;
-    createFareRulesRequest(params: PriceParams): Result<IRequest>;
+    createFareRulesRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
     createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest>;
     createOrderRetrieveRequest(params: OrderRetrieveParams): Result<IRequest>;
     createPriceRequest(params: PriceParams): Result<IRequest>;

@@ -25,11 +25,25 @@ exports.SirenaPriceParams = exports.SirenaOffer = exports.SirenaOfferItemOpts = 
 var class_validator_1 = require("class-validator");
 var AbstractRequestParams_1 = require("../../../../core/request/parameters/AbstractRequestParams");
 var Price_1 = require("../../../../core/request/parameters/Price");
+var SirenaFareRule = /** @class */ (function () {
+    function SirenaFareRule(from, to, carrier, date, fareBasisCode, fareRuleLocator) {
+        this.from = from;
+        this.to = to;
+        this.carrier = carrier;
+        this.date = date;
+        this.fareBasisCode = fareBasisCode;
+        this.fareRuleLocator = fareRuleLocator;
+    }
+    return SirenaFareRule;
+}());
 var SirenaOfferItemOpts = /** @class */ (function () {
     function SirenaOfferItemOpts(opts) {
         this.innerPTC = "";
         if (opts === null || opts === void 0 ? void 0 : opts.innerPTC) {
             this.innerPTC = opts.innerPTC;
+        }
+        if (opts === null || opts === void 0 ? void 0 : opts.fareRule) {
+            this.fareRule = new SirenaFareRule(opts.fareRule.from, opts.fareRule.to, opts.fareRule.carrier, opts.fareRule.date, opts.fareRule.fareBasisCode, opts.fareRule.fareRuleLocator);
         }
     }
     __decorate([

@@ -35,6 +35,10 @@ import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValida
 import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
+import { isPriceParams } from "../../core/request/typeguards";
+import { INDCMessage } from "../../interfaces/INDCMessage";
+import { Mixvel_OrderRulesRQ } from "../mixvel/messages/Mixvel_OrderRulesRQ";
+import { FareRulesMessageMapper } from "./mappers/FareRulesMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -68,8 +72,15 @@ export class SirenaRequestManager implements IRequestManager {
     });
   }
 
-  createFareRulesRequest(params: PriceParams): Result<IRequest> {
-    return Result.fail(new MethodNotImplemented("rules").message);
+  createFareRulesRequest(
+    params: PriceParams | OrderRetrieveParams
+  ): Result<IRequest> {
+    return this.createRequest(
+      params,
+      {
+        mapper: new FareRulesMessageMapper(params, this.extraConfiguration.party),
+      }
+    )
   }
 
   createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {

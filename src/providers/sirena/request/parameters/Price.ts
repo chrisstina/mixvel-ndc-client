@@ -7,13 +7,45 @@ import {
 import { PaxCategory } from "../../../../core/request/types";
 import { Result } from "../../../../core/Result";
 
+class SirenaFareRule {
+  constructor(
+    public readonly from: string,
+    public readonly to: string,
+    public readonly carrier: string,
+    public readonly date: string,
+    public readonly fareBasisCode: string,
+    public readonly fareRuleLocator: string
+  ) {}
+}
+
 export class SirenaOfferItemOpts {
   @IsString()
   innerPTC: string = "";
+  fareRule?: SirenaFareRule;
 
-  constructor(opts?: { innerPTC?: string }) {
+  constructor(opts?: {
+    innerPTC?: string;
+    fareRule?: {
+      from: string;
+      to: string;
+      carrier: string;
+      date: string;
+      fareBasisCode: string;
+      fareRuleLocator: string;
+    };
+  }) {
     if (opts?.innerPTC) {
       this.innerPTC = opts.innerPTC;
+    }
+    if (opts?.fareRule) {
+      this.fareRule = new SirenaFareRule(
+        opts.fareRule.from,
+        opts.fareRule.to,
+        opts.fareRule.carrier,
+        opts.fareRule.date,
+        opts.fareRule.fareBasisCode,
+        opts.fareRule.fareRuleLocator
+      );
     }
   }
 }

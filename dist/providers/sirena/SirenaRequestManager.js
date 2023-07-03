@@ -17,6 +17,7 @@ var PriceParamsValidator_1 = require("./validators/PriceParamsValidator");
 var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValidator");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
+var FareRulesMessageMapper_1 = require("./mappers/FareRulesMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -41,7 +42,9 @@ var SirenaRequestManager = /** @class */ (function () {
         });
     };
     SirenaRequestManager.prototype.createFareRulesRequest = function (params) {
-        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("rules").message);
+        return this.createRequest(params, {
+            mapper: new FareRulesMessageMapper_1.FareRulesMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.createOrderCancelRequest = function (params) {
         var validationError = this.validateRequest();
