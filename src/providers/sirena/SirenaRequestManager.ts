@@ -33,12 +33,9 @@ import { RepriceMessageMapper } from "./mappers/RepriceMessageMapper";
 import { PriceParamsValidator } from "./validators/PriceParamsValidator";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
 import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
+import { FareRulesMessageMapper } from "./mappers/FareRulesMessageMapper";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
-import { isPriceParams } from "../../core/request/typeguards";
-import { INDCMessage } from "../../interfaces/INDCMessage";
-import { Mixvel_OrderRulesRQ } from "../mixvel/messages/Mixvel_OrderRulesRQ";
-import { FareRulesMessageMapper } from "./mappers/FareRulesMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
