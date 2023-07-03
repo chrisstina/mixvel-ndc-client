@@ -32,20 +32,30 @@ export class ServiceListMessageMapper implements IMessageMapper {
 
   createOfferRequest(params: PriceParams): OfferRequest {
     return {
-      Offer: params.offers.map((offer) => {
-        return {
-          $: {
-            Owner: offer.offerOwner || "",
-            OfferID: offer.offerId,
-          },
-          OfferItem: offer.offerItems.map((item) => {
+      Offers: [
+        {
+          Offer: params.offers.map((offer) => {
             return {
-              $: { OfferItemID: item.offerItemId },
-              PassengerRefs: { _: item.paxs || "" },
+              OfferID: [
+                {
+                  $: { Owner: offer.offerOwner || "" },
+                  _: offer.offerId,
+                },
+              ],
+              OfferItemIDs: [
+                {
+                  OfferItemID: offer.offerItems.map((item) => {
+                    return {
+                      $: { Owner: offer.offerOwner || "" },
+                      _: item.offerItemId,
+                    };
+                  }),
+                },
+              ],
             };
           }),
-        };
-      }),
+        },
+      ],
     };
   }
 

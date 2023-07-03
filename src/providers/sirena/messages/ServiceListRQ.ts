@@ -1,7 +1,20 @@
 import { AbstractSirenaNDCMessage } from "./AbstractSirenaNDCMessage";
-import { PaxDataList, Offer } from "../../ticketme/messages/OfferPriceRQ";
+import { PaxDataList } from "../../ticketme/messages/OfferPriceRQ";
 
-export type OfferRequest = { Offer: Offer[] };
+type ServiceOffer = {
+  OfferID: {
+    $: { Owner: string };
+    _: string;
+  }[];
+  OfferItemIDs: {
+    OfferItemID: {
+      $: { Owner: string };
+      _: string;
+    }[];
+  }[];
+};
+
+export type OfferRequest = { Offers: { Offer: ServiceOffer[] }[] };
 
 export type OrderRequest = {
   OrderID: {

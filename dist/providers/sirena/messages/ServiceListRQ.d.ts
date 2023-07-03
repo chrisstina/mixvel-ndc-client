@@ -1,7 +1,25 @@
 import { AbstractSirenaNDCMessage } from "./AbstractSirenaNDCMessage";
-import { PaxDataList, Offer } from "../../ticketme/messages/OfferPriceRQ";
+import { PaxDataList } from "../../ticketme/messages/OfferPriceRQ";
+declare type ServiceOffer = {
+    OfferID: {
+        $: {
+            Owner: string;
+        };
+        _: string;
+    }[];
+    OfferItemIDs: {
+        OfferItemID: {
+            $: {
+                Owner: string;
+            };
+            _: string;
+        }[];
+    }[];
+};
 export declare type OfferRequest = {
-    Offer: Offer[];
+    Offers: {
+        Offer: ServiceOffer[];
+    }[];
 };
 export declare type OrderRequest = {
     OrderID: {
@@ -26,3 +44,4 @@ export declare class ServiceListRQ extends AbstractSirenaNDCMessage {
     }, shoppingResponseId?: string);
     get nodeName(): string;
 }
+export {};

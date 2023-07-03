@@ -43,10 +43,10 @@ class ServiceListRequestUnitTest {
     expect(rq).to.contain("ServiceListRQ");
     expect(rq).to.contain('<ResponseID>SOME_RESONSE_ID</ResponseID>');
     expect(rq).to.contain(
-      '<Offer Owner="N4" OfferID="SOME_OFFER"'
+      '<OfferID Owner="N4">SOME_OFFER</OfferID>'
     );
-    expect(rq).to.contain('<OfferItem OfferItemID="OFFER_ITEM_1">');
-    expect(rq).to.contain('<OfferItem OfferItemID="OFFER_ITEM_2">');
+    expect(rq).to.contain('<OfferItemID Owner="N4">OFFER_ITEM_1</OfferItemID>');
+    expect(rq).to.contain('<OfferItemID Owner="N4">OFFER_ITEM_2</OfferItemID>');
     expect(rq).to.contain('PassengerID="pax1"');
     expect(rq).to.contain('PassengerID="pax2"');
     expect(rq).to.contain('PassengerID="pax3"');

@@ -24,20 +24,30 @@ var ServiceListMessageMapper = /** @class */ (function () {
     };
     ServiceListMessageMapper.prototype.createOfferRequest = function (params) {
         return {
-            Offer: params.offers.map(function (offer) {
-                return {
-                    $: {
-                        Owner: offer.offerOwner || "",
-                        OfferID: offer.offerId,
-                    },
-                    OfferItem: offer.offerItems.map(function (item) {
+            Offers: [
+                {
+                    Offer: params.offers.map(function (offer) {
                         return {
-                            $: { OfferItemID: item.offerItemId },
-                            PassengerRefs: { _: item.paxs || "" },
+                            OfferID: [
+                                {
+                                    $: { Owner: offer.offerOwner || "" },
+                                    _: offer.offerId,
+                                },
+                            ],
+                            OfferItemIDs: [
+                                {
+                                    OfferItemID: offer.offerItems.map(function (item) {
+                                        return {
+                                            $: { Owner: offer.offerOwner || "" },
+                                            _: item.offerItemId,
+                                        };
+                                    }),
+                                },
+                            ],
                         };
                     }),
-                };
-            }),
+                },
+            ],
         };
     };
     ServiceListMessageMapper.prototype.createPaxDataList = function (params) {
