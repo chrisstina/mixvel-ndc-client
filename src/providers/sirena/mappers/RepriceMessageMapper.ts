@@ -11,8 +11,11 @@ export class RepriceMessageMapper implements IMessageMapper {
 
   map(): OrderReshopRQ {
     const message = new OrderReshopRQ(this.params.orderId);
-    if (this.params.deleteOrderItems) {
+    if (this.params.deleteOrderItems && this.params.deleteOrderItems.length > 0) {
       message.setDeleteOrderItems(this.params.deleteOrderItems);
+    } else {
+      // if no delete or add items, we just need to reprice the order
+      message.setReprice();
     }
     message.addParty(this.credentials);
     return message;

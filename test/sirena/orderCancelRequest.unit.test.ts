@@ -31,7 +31,6 @@ class OrderCancelRequestUnitTest {
       ],
     };
     const rqReprice = getRepriceRequest(paramsReprice).getValue().body;
-    console.log(rqReprice);
     expect(rqReprice).to.not.contain("undefined");
     expect(rqReprice).to.contain("OrderReshopRQ");
     expect(rqReprice).to.contain("<AgencyID>YOUR_KASSA</AgencyID>");

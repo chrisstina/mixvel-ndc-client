@@ -1,9 +1,10 @@
 import { AbstractSirenaNDCMessage } from "./AbstractSirenaNDCMessage";
+import { StringValue } from "../../../core/request/types";
 
 export class OrderReshopRQ extends AbstractSirenaNDCMessage {
   public Query: {
     OrderID: { _: string }[];
-    Reshop: {
+    Reshop?: {
       OrderServicing: {
         Delete?: {
           OrderItem: {
@@ -14,6 +15,7 @@ export class OrderReshopRQ extends AbstractSirenaNDCMessage {
         }[];
       }[];
     }[];
+    Reprice?: StringValue[]
   }[];
 
   constructor(orderId: string) {
@@ -21,7 +23,6 @@ export class OrderReshopRQ extends AbstractSirenaNDCMessage {
     this.Query = [
       {
         OrderID: [{ _: orderId }],
-        Reshop: [{ OrderServicing: [] }],
       },
     ];
   }
@@ -30,7 +31,12 @@ export class OrderReshopRQ extends AbstractSirenaNDCMessage {
     return "OrderReshopRQ";
   }
 
+  setReprice() {
+    this.Query[0]["Reprice"] = [{ _: "" }];
+  }
+
   setDeleteOrderItems(orderItems: string[]) {
+    this.Query[0]["Reshop"] = [{OrderServicing: []}];
     this.Query[0].Reshop[0].OrderServicing.push({
       Delete: [
         {

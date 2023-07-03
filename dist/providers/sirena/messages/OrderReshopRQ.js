@@ -24,7 +24,6 @@ var OrderReshopRQ = /** @class */ (function (_super) {
         _this.Query = [
             {
                 OrderID: [{ _: orderId }],
-                Reshop: [{ OrderServicing: [] }],
             },
         ];
         return _this;
@@ -36,7 +35,11 @@ var OrderReshopRQ = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    OrderReshopRQ.prototype.setReprice = function () {
+        this.Query[0]["Reprice"] = [{ _: "" }];
+    };
     OrderReshopRQ.prototype.setDeleteOrderItems = function (orderItems) {
+        this.Query[0]["Reshop"] = [{ OrderServicing: [] }];
         this.Query[0].Reshop[0].OrderServicing.push({
             Delete: [
                 {

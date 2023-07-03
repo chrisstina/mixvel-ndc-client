@@ -1,10 +1,11 @@
 import { AbstractSirenaNDCMessage } from "./AbstractSirenaNDCMessage";
+import { StringValue } from "../../../core/request/types";
 export declare class OrderReshopRQ extends AbstractSirenaNDCMessage {
     Query: {
         OrderID: {
             _: string;
         }[];
-        Reshop: {
+        Reshop?: {
             OrderServicing: {
                 Delete?: {
                     OrderItem: {
@@ -15,8 +16,10 @@ export declare class OrderReshopRQ extends AbstractSirenaNDCMessage {
                 }[];
             }[];
         }[];
+        Reprice?: StringValue[];
     }[];
     constructor(orderId: string);
     get nodeName(): string;
+    setReprice(): void;
     setDeleteOrderItems(orderItems: string[]): void;
 }
