@@ -14,6 +14,7 @@ declare class SirenaFareRule {
 export declare class SirenaOfferItemOpts {
     innerPTC: string;
     fareRule?: SirenaFareRule;
+    needUpsell?: boolean;
     constructor(opts?: {
         innerPTC?: string;
         fareRule?: {
@@ -24,6 +25,7 @@ export declare class SirenaOfferItemOpts {
             fareBasisCode: string;
             fareRuleLocator: string;
         };
+        needUpsell?: boolean;
     });
 }
 declare class SirenaOfferItem extends OfferItem {

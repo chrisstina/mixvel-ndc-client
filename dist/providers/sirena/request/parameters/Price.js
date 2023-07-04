@@ -39,16 +39,28 @@ var SirenaFareRule = /** @class */ (function () {
 var SirenaOfferItemOpts = /** @class */ (function () {
     function SirenaOfferItemOpts(opts) {
         this.innerPTC = "";
+        this.needUpsell = false;
         if (opts === null || opts === void 0 ? void 0 : opts.innerPTC) {
             this.innerPTC = opts.innerPTC;
         }
         if (opts === null || opts === void 0 ? void 0 : opts.fareRule) {
             this.fareRule = new SirenaFareRule(opts.fareRule.from, opts.fareRule.to, opts.fareRule.carrier, opts.fareRule.date, opts.fareRule.fareBasisCode, opts.fareRule.fareRuleLocator);
         }
+        if (opts === null || opts === void 0 ? void 0 : opts.needUpsell) {
+            this.needUpsell = opts.needUpsell;
+        }
     }
     __decorate([
-        (0, class_validator_1.IsString)()
+        (0, class_validator_1.IsString)(),
+        (0, class_validator_1.IsOptional)()
     ], SirenaOfferItemOpts.prototype, "innerPTC", void 0);
+    __decorate([
+        (0, class_validator_1.IsOptional)()
+    ], SirenaOfferItemOpts.prototype, "fareRule", void 0);
+    __decorate([
+        (0, class_validator_1.IsBoolean)(),
+        (0, class_validator_1.IsOptional)()
+    ], SirenaOfferItemOpts.prototype, "needUpsell", void 0);
     return SirenaOfferItemOpts;
 }());
 exports.SirenaOfferItemOpts = SirenaOfferItemOpts;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PriceMessageMapper = void 0;
-var OfferPriceRQ_1 = require("../../ticketme/messages/OfferPriceRQ");
+var OfferPriceRQ_1 = require("../messages/OfferPriceRQ");
 var PriceMessageMapper = /** @class */ (function () {
     function PriceMessageMapper(params, credentials) {
         this.params = params;
@@ -40,6 +40,11 @@ var PriceMessageMapper = /** @class */ (function () {
                 };
             }),
         };
+        if (this.params.offers.some(function (offer) {
+            return offer.offerItems.some(function (item) { return item.opts.needUpsell; });
+        })) {
+            this.message.setUpsell();
+        }
         this.message.DataLists = { PassengerList: { Passenger: paxs } };
         return this.message;
     };

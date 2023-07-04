@@ -1,4 +1,11 @@
-import { IsArray, IsString, Length, ValidateNested } from "class-validator";
+import {
+  IsArray,
+  IsBoolean,
+  IsOptional,
+  IsString,
+  Length,
+  ValidateNested,
+} from "class-validator";
 import { AbstractRequestParams } from "../../../../core/request/parameters/AbstractRequestParams";
 import {
   OfferItem,
@@ -20,8 +27,13 @@ class SirenaFareRule {
 
 export class SirenaOfferItemOpts {
   @IsString()
+  @IsOptional()
   innerPTC: string = "";
+  @IsOptional()
   fareRule?: SirenaFareRule;
+  @IsBoolean()
+  @IsOptional()
+  needUpsell?: boolean = false;
 
   constructor(opts?: {
     innerPTC?: string;
@@ -33,6 +45,7 @@ export class SirenaOfferItemOpts {
       fareBasisCode: string;
       fareRuleLocator: string;
     };
+    needUpsell?: boolean;
   }) {
     if (opts?.innerPTC) {
       this.innerPTC = opts.innerPTC;
@@ -46,6 +59,9 @@ export class SirenaOfferItemOpts {
         opts.fareRule.fareBasisCode,
         opts.fareRule.fareRuleLocator
       );
+    }
+    if (opts?.needUpsell) {
+      this.needUpsell = opts.needUpsell;
     }
   }
 }

@@ -1,6 +1,6 @@
 import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 import { PriceParams } from "../../../core/request/parameters/Price";
-import { OfferPriceRQ, Passenger } from "../../ticketme/messages/OfferPriceRQ";
+import { OfferPriceRQ, Passenger } from "../messages/OfferPriceRQ";
 import { PartyCredentials } from "../SirenaRequest";
 
 export class PriceMessageMapper implements IMessageMapper {
@@ -47,6 +47,13 @@ export class PriceMessageMapper implements IMessageMapper {
         };
       }),
     };
+    if (
+      this.params.offers.some((offer) => {
+        return offer.offerItems.some((item) => item.opts.needUpsell);
+      })
+    ) {
+      this.message.setUpsell();
+    }
     this.message.DataLists = { PassengerList: { Passenger: paxs } };
     return this.message;
   }
