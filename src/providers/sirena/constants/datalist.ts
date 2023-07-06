@@ -10,3 +10,4 @@ export const PENALTY = "Penalty";
 export const FARE = "Fare";
 export const DESC = "Description";
 export const SEAT = "SeatDefinition";
+export const DISCLOSURE = "Disclosure";

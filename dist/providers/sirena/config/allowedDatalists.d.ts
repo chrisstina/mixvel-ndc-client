@@ -11,4 +11,5 @@ export declare const allowedDataLists: {
     penaltyList: string;
     descriptionList: string;
     seatList: string;
+    disclosureList: string[];
 };

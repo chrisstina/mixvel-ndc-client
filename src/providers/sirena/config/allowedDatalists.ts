@@ -2,6 +2,7 @@ import {
   BAG,
   CONTACT,
   DESC,
+  DISCLOSURE,
   FARE,
   FLIGHT,
   OD,
@@ -26,4 +27,5 @@ export const allowedDataLists = {
   penaltyList: PENALTY,
   descriptionList: DESC,
   seatList: SEAT,
+  disclosureList: [DISCLOSURE, "Disclosures"],
 };

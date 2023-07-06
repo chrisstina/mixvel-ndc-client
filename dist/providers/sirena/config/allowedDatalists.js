@@ -15,4 +15,5 @@ exports.allowedDataLists = {
     penaltyList: datalist_1.PENALTY,
     descriptionList: datalist_1.DESC,
     seatList: datalist_1.SEAT,
+    disclosureList: [datalist_1.DISCLOSURE, "Disclosures"],
 };

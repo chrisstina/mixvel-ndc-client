@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SEAT = exports.DESC = exports.FARE = exports.PENALTY = exports.OD = exports.BAG = exports.SERVICE = exports.CONTACT = exports.PRICECLASS = exports.SEGMENT = exports.FLIGHT = exports.PAX = void 0;
+exports.DISCLOSURE = exports.SEAT = exports.DESC = exports.FARE = exports.PENALTY = exports.OD = exports.BAG = exports.SERVICE = exports.CONTACT = exports.PRICECLASS = exports.SEGMENT = exports.FLIGHT = exports.PAX = void 0;
 exports.PAX = "Passenger";
 exports.FLIGHT = "Flight";
 exports.SEGMENT = "FlightSegment";
@@ -13,3 +13,4 @@ exports.PENALTY = "Penalty";
 exports.FARE = "Fare";
 exports.DESC = "Description";
 exports.SEAT = "SeatDefinition";
+exports.DISCLOSURE = "Disclosure";
