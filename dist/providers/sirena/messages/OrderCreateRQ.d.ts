@@ -19,6 +19,12 @@ export declare type IdentityDocument = {
     GivenName: StringValue[];
     Surname: StringValue[];
 };
+declare type LoyaltyProgramAccount = {
+    Airline: {
+        AirlineDesignator: StringValue[];
+    };
+    AccountNumber: StringValue[];
+};
 export declare class Pax {
     $: {
         PassengerID: string;
@@ -29,6 +35,7 @@ export declare class Pax {
     IdentityDocument: IdentityDocument[];
     ContactInfoRef: StringValue[];
     InfantRef?: StringValue[];
+    LoyaltyProgramAccount?: LoyaltyProgramAccount[];
     constructor(id: string, ptc: SirenaPTC, issuingCountry: string, individual: Individual, document: IdentityDocument, contactRef: string);
     attachInfant(infantRef?: string): void;
 }
@@ -64,3 +71,4 @@ export declare class OrderCreateRQ extends AbstractSirenaNDCMessage {
     constructor(offer: Offer);
     get nodeName(): string;
 }
+export {};

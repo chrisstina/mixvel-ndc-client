@@ -22,6 +22,11 @@ export type IdentityDocument = {
   Surname: StringValue[];
 };
 
+type LoyaltyProgramAccount = {
+  Airline: { AirlineDesignator: StringValue[] };
+  AccountNumber: StringValue[];
+};
+
 export class Pax {
   public $: { PassengerID: string };
   public PTC: StringValue[] = [];
@@ -30,8 +35,7 @@ export class Pax {
   public IdentityDocument: IdentityDocument[];
   public ContactInfoRef: StringValue[];
   public InfantRef?: StringValue[] = [];
-
-  // @todo LoyaltyProgramAccount
+  public LoyaltyProgramAccount?: LoyaltyProgramAccount[];
 
   constructor(
     id: string,

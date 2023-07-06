@@ -88,7 +88,7 @@ export class BookMessageMapper implements IMessageMapper {
         { _: passenger.personalInfo.middleName || "" },
       ];
     }
-    return new Pax(
+    const pax = new Pax(
       passenger.id || "",
       toSirenaPTC(passenger.ptc),
       passenger.identityDocument.issuingCountry,
@@ -96,6 +96,18 @@ export class BookMessageMapper implements IMessageMapper {
       document,
       paxContact.$.ContactID
     );
+
+    if (passenger.loyaltyInfo && passenger.loyaltyInfo.code) {
+      pax.LoyaltyProgramAccount = [
+        {
+          Airline: {
+            AirlineDesignator: [{ _: passenger.loyaltyInfo.carrier || "" }],
+          },
+          AccountNumber: [{ _: passenger.loyaltyInfo.code }],
+        },
+      ];
+    }
+    return pax;
   }
 
   private createInfantRefs() {

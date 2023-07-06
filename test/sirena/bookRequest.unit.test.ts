@@ -111,6 +111,10 @@ class BookRequestUnitTest {
             email: "test@test.test",
             phoneNumber: "89112311441",
           },
+          loyaltyInfo: {
+            code: "1234",
+            carrier: "N4"
+          }
         },
         {
           id: "pax2",

@@ -18,7 +18,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderCreateRQ = exports.Pax = void 0;
 var AbstractSirenaNDCMessage_1 = require("./AbstractSirenaNDCMessage");
 var Pax = /** @class */ (function () {
-    // @todo LoyaltyProgramAccount
     function Pax(id, ptc, issuingCountry, individual, document, contactRef) {
         this.PTC = [];
         this.InfantRef = [];

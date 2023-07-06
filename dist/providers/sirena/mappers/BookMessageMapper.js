@@ -76,7 +76,18 @@ var BookMessageMapper = /** @class */ (function () {
                 { _: passenger.personalInfo.middleName || "" },
             ];
         }
-        return new OrderCreateRQ_1.Pax(passenger.id || "", (0, ptc_1.toSirena)(passenger.ptc), passenger.identityDocument.issuingCountry, individual, document, paxContact.$.ContactID);
+        var pax = new OrderCreateRQ_1.Pax(passenger.id || "", (0, ptc_1.toSirena)(passenger.ptc), passenger.identityDocument.issuingCountry, individual, document, paxContact.$.ContactID);
+        if (passenger.loyaltyInfo && passenger.loyaltyInfo.code) {
+            pax.LoyaltyProgramAccount = [
+                {
+                    Airline: {
+                        AirlineDesignator: [{ _: passenger.loyaltyInfo.carrier || "" }],
+                    },
+                    AccountNumber: [{ _: passenger.loyaltyInfo.code }],
+                },
+            ];
+        }
+        return pax;
     };
     BookMessageMapper.prototype.createInfantRefs = function () {
         var infantRefs = this.message.Query[0].DataLists[0].PassengerList[0].Passenger.filter(function (passenger) { return passenger.PTC[0]._ === ptc_1.SirenaPTC.INFANT; }).map(function (passenger) { return passenger.$.PassengerID; });
