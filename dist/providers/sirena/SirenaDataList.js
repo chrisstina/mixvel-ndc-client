@@ -26,7 +26,6 @@ var SirenaDataList = /** @class */ (function (_super) {
                 items[0]["".concat(entityName, "List")][0]["".concat(dataListEntityName || entityName)];
         }
         catch (e) {
-            console.error("Failed to find ".concat(entityName, " DataList: ").concat(e.stack));
             _this.list = [];
         }
         return _this;
