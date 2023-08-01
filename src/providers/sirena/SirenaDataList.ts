@@ -11,7 +11,6 @@ export class SirenaDataList extends DataList {
       this.list =
         items[0][`${entityName}List`][0][`${dataListEntityName || entityName}`];
     } catch (e: any) {
-      console.error(`Failed to find ${entityName} DataList: ${e.stack}`);
       this.list = [];
     }
   }
