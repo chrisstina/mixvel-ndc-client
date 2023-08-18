@@ -100,6 +100,7 @@ var BookMessageMapper = /** @class */ (function () {
     BookMessageMapper.prototype.passengerToContact = function (passenger) {
         var contact = {
             $: { ContactID: generateContactReference(passenger.id || "") },
+            ContactType: [{ _: "Primary" }],
             ContactProvided: [],
         };
         if (passenger.contacts.phoneNumber) {

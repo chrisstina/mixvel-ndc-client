@@ -72,12 +72,9 @@ export class SirenaRequestManager implements IRequestManager {
   createFareRulesRequest(
     params: PriceParams | OrderRetrieveParams
   ): Result<IRequest> {
-    return this.createRequest(
-      params,
-      {
-        mapper: new FareRulesMessageMapper(params, this.extraConfiguration.party),
-      }
-    )
+    return this.createRequest(params, {
+      mapper: new FareRulesMessageMapper(params, this.extraConfiguration.party),
+    });
   }
 
   createOrderCancelRequest(params: OrderRetrieveParams): Result<IRequest> {

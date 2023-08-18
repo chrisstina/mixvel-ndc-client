@@ -10,7 +10,7 @@ export declare class TicketMeRequest implements IRequest {
     options: IRequestOptions;
     conversionStrategy?: IConversionStrategy | undefined;
     constructor(message: INDCMessage, options: IRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
-    get body(): string | Record<string, unknown> | Promise<Record<string, unknown> | null> | INDCMessage;
+    get body(): string | Record<string, unknown> | Promise<Record<string, unknown> | null> | INDCMessage | null;
     get headers(): {
         [p: string]: any;
     } | undefined;

@@ -77,7 +77,10 @@ export class BookParams extends AbstractRequestParams {
       );
     }
     if (props.agencyContacts) {
-      this.agencyContacts = { phone: props.agencyContacts.phone, email: props.agencyContacts.email };
+      this.agencyContacts = {
+        phone: props.agencyContacts.phone,
+        email: props.agencyContacts.email,
+      };
     }
   }
 

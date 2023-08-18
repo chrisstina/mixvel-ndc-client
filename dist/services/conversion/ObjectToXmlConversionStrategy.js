@@ -7,7 +7,13 @@ var ObjectToXmlConversionStrategy = /** @class */ (function () {
         this.xmlBuilder = new xml2js.Builder();
     }
     ObjectToXmlConversionStrategy.prototype.execute = function (payload) {
-        return this.xmlBuilder.buildObject(payload);
+        try {
+            return this.xmlBuilder.buildObject(payload);
+        }
+        catch (e) {
+            console.error("Could not perform conversion, see error stack: " + e.stack);
+            return null;
+        }
     };
     return ObjectToXmlConversionStrategy;
 }());

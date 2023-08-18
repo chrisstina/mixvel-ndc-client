@@ -4,8 +4,7 @@ import { expect } from "chai";
 import { createNDCService } from "../../src";
 import { RepriceProps } from "../../src/core/request/parameters/Reprice";
 
-const { setProviderConfig, getRepriceRequest } =
-  createNDCService("sirena");
+const { setProviderConfig, getRepriceRequest } = createNDCService("sirena");
 
 @suite
 class OrderRetrieveRequestUnitTest {
@@ -19,8 +18,8 @@ class OrderRetrieveRequestUnitTest {
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("OrderReshopRQ");
     expect(rq).to.contain("<AgencyID>YOUR_KASSA</AgencyID>");
-    expect(rq).to.contain('<OrderID>ORDER_ID');
-    expect(rq).to.contain('<Reprice></Reprice>');
+    expect(rq).to.contain("<OrderID>ORDER_ID");
+    expect(rq).to.contain("<Reprice></Reprice>");
   }
   @test "Create Sirena delete order items RQ "() {
     setProviderConfig({ party: { agencyId: "YOUR_KASSA" } });
@@ -33,8 +32,10 @@ class OrderRetrieveRequestUnitTest {
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("OrderReshopRQ");
     expect(rq).to.contain("<AgencyID>YOUR_KASSA</AgencyID>");
-    expect(rq).to.contain('<OrderID>ORDER_ID</OrderID>');
-    expect(rq).to.contain('<OrderServicing>');
-    expect(rq).to.contain('<Delete>\n\t\t\t\t\t<OrderItem OrderItemID="ORDER_ITEM_1">');
+    expect(rq).to.contain("<OrderID>ORDER_ID</OrderID>");
+    expect(rq).to.contain("<OrderServicing>");
+    expect(rq).to.contain(
+      '<Delete>\n\t\t\t\t\t<OrderItem OrderItemID="ORDER_ITEM_1">'
+    );
   }
 }

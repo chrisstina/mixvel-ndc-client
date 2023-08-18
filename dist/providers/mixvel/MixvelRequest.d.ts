@@ -17,7 +17,7 @@ export declare class MixvelRequest implements IRequest {
      * @param conversionStrategy
      */
     constructor(message: MixvelAppData<INDCMessage> | MixvelAuthAppData, options: IRequestOptions, conversionStrategy?: IConversionStrategy | undefined);
-    get body(): string | Record<string, unknown> | Promise<Record<string, unknown> | null> | MixvelEnvelope;
+    get body(): string | Record<string, unknown> | Promise<Record<string, unknown> | null> | MixvelEnvelope | null;
     get headers(): {
         [p: string]: any;
     } | undefined;

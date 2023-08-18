@@ -1,9 +1,9 @@
 import { PaxCategory } from "../../../../core/request/types";
 export declare enum SirenaPTC {
     ADULT = "ADT",
-    CHILD = "CHD",
+    CHILD = "CNN",
     INFANT = "INF",
-    WSEATINFANT = "CHD",
+    WSEATINFANT = "CNN",
     YOUTH = "ADT",
     SENIOR = "ADT",
     DISABLED = "ADT",

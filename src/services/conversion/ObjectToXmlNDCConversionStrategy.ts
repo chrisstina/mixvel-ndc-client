@@ -1,3 +1,5 @@
+import { OrderRetrieveParams } from "../../core/request/parameters/OrderRetrieve";
+
 const json2xml = require("ndc-json2xml");
 import { IConversionStrategy } from "./IConversionSrategy";
 
@@ -10,10 +12,11 @@ export class ObjectToXmlNDCConversionStrategy implements IConversionStrategy {
    */
   constructor(public readonly ndcVersion: string) {}
 
-  execute(payload: Record<string, unknown>): string {
+  execute(payload: Record<string, unknown>): string | null {
     const xmlPayload = json2xml(payload, this.ndcVersion);
     if (xmlPayload === -1) {
-      throw new Error("json2xml failed to create request");
+      console.error("json2xml failed to create request");
+      return null;
     }
     return xmlPayload;
   }

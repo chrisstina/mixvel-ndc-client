@@ -3,8 +3,7 @@ import { expect } from "chai";
 
 import { createNDCService } from "../../src";
 
-const { setProviderConfig, getTicketIssueRequest } =
-  createNDCService("sirena");
+const { setProviderConfig, getTicketIssueRequest } = createNDCService("sirena");
 
 @suite
 class TicketRequestUnitTest {
@@ -24,7 +23,9 @@ class TicketRequestUnitTest {
     expect(rq).to.contain("OrderChangeRQ");
     expect(rq).to.contain('<Amount Code="EUR">12.44');
     expect(rq).to.contain("<Type>IN</Type>");
-    expect(rq).to.contain('<Remarks>\n\t\t\t\t\t\t\t<Remark>N123 17FEB22 ZAO FENIKC</Remark>');
+    expect(rq).to.contain(
+      "<Remarks>\n\t\t\t\t\t\t\t<Remark>N123 17FEB22 ZAO FENIKC</Remark>"
+    );
     expect(rq).to.contain('<OrderID Owner="N4">SOME-ORDER-ID</OrderID>');
   }
 

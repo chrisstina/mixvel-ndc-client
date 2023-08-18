@@ -50,7 +50,7 @@ class BookRequestUnitTest {
     params.agencyContacts = {
       phone: "89112311441",
       email: "test@test.test",
-    }
+    };
 
     const rq = getBookRequest(params).getValue().body;
     expect(rq).to.not.contain("xmlns");
@@ -113,8 +113,8 @@ class BookRequestUnitTest {
           },
           loyaltyInfo: {
             code: "1234",
-            carrier: "N4"
-          }
+            carrier: "N4",
+          },
         },
         {
           id: "pax2",

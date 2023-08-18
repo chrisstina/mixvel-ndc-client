@@ -23,7 +23,7 @@ class PriceRequestUnitTest {
               ptc: "ADULT",
               opts: {
                 innerPTC: "ADT",
-              }
+              },
             },
             {
               offerItemId: "OFFER_ITEM_2",
@@ -31,7 +31,7 @@ class PriceRequestUnitTest {
               ptc: "CHILD",
               opts: {
                 innerPTC: "CNN",
-              }
+              },
             },
           ],
         },
@@ -49,7 +49,7 @@ class PriceRequestUnitTest {
     expect(rq).to.contain('PassengerID="pax1"');
     expect(rq).to.contain('PassengerID="pax2"');
     expect(rq).to.contain('PassengerID="pax3"');
-    expect(rq).to.contain('<PTC>ADT</PTC>');
-    expect(rq).to.contain('<PTC>CNN</PTC>');
+    expect(rq).to.contain("<PTC>ADT</PTC>");
+    expect(rq).to.contain("<PTC>CNN</PTC>");
   }
 }

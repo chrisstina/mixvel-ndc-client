@@ -15,7 +15,7 @@ export class OrderReshopRQ extends AbstractSirenaNDCMessage {
         }[];
       }[];
     }[];
-    Reprice?: StringValue[]
+    Reprice?: StringValue[];
   }[];
 
   constructor(orderId: string) {
@@ -36,7 +36,7 @@ export class OrderReshopRQ extends AbstractSirenaNDCMessage {
   }
 
   setDeleteOrderItems(orderItems: string[]) {
-    this.Query[0]["Reshop"] = [{OrderServicing: []}];
+    this.Query[0]["Reshop"] = [{ OrderServicing: [] }];
     this.Query[0].Reshop[0].OrderServicing.push({
       Delete: [
         {

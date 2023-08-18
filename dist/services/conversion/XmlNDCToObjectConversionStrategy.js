@@ -9,7 +9,8 @@ var XmlNDCToObjectConversionStrategy = /** @class */ (function () {
     XmlNDCToObjectConversionStrategy.prototype.execute = function (payload) {
         var json = xml2json(payload, this.ndcVersion);
         if (json === -1) {
-            throw new Error("xml2json failed to parse response");
+            console.error("xml2json failed to parse response");
+            return null;
         }
         return json;
     };

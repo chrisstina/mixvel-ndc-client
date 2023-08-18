@@ -1,1 +1,1 @@
-export const FARE_RULES_LOCATOR = "fareRulesLocator"
+export const FARE_RULES_LOCATOR = "fareRulesLocator";

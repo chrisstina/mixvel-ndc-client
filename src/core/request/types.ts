@@ -34,16 +34,16 @@ export type Party = {
           Contact: {
             $: {
               ContactType: "Agency";
-            },
+            };
             EmailContact: {
               Application: { _: "EMAIL" }[];
               Address: { _: string }[];
-            }[],
+            }[];
             PhoneContact: {
               Application: { _: "PHONE" }[];
               Number: { _: string }[];
-            }[]
-          }
+            }[];
+          };
         }
       ];
       AgencyID: { _: string }[];

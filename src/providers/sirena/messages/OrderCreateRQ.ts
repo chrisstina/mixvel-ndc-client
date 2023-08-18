@@ -62,6 +62,7 @@ export class Pax {
 
 export type PaxContact = {
   $: { ContactID: string };
+  ContactType: { _: "Primary" }[];
   ContactProvided: Array<
     | { EmailAddress: { EmailAddressValue: StringValue[] }[] }
     | { Phone: { PhoneNumber: StringValue[] }[] }

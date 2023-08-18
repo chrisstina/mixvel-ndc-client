@@ -23,7 +23,7 @@ class ServiceListRequestUnitTest {
               ptc: "ADULT",
               opts: {
                 innerPTC: "ADT",
-              }
+              },
             },
             {
               offerItemId: "OFFER_ITEM_2",
@@ -31,7 +31,7 @@ class ServiceListRequestUnitTest {
               ptc: "CHILD",
               opts: {
                 innerPTC: "CNN",
-              }
+              },
             },
           ],
         },
@@ -41,23 +41,24 @@ class ServiceListRequestUnitTest {
     const rq = request.getValue().body;
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("ServiceListRQ");
-    expect(rq).to.contain('<ResponseID>SOME_RESONSE_ID</ResponseID>');
-    expect(rq).to.contain(
-      '<OfferID Owner="N4">SOME_OFFER</OfferID>'
-    );
+    expect(rq).to.contain("<ResponseID>SOME_RESONSE_ID</ResponseID>");
+    expect(rq).to.contain('<OfferID Owner="N4">SOME_OFFER</OfferID>');
     expect(rq).to.contain('<OfferItemID Owner="N4">OFFER_ITEM_1</OfferItemID>');
     expect(rq).to.contain('<OfferItemID Owner="N4">OFFER_ITEM_2</OfferItemID>');
     expect(rq).to.contain('PassengerID="pax1"');
     expect(rq).to.contain('PassengerID="pax2"');
     expect(rq).to.contain('PassengerID="pax3"');
-    expect(rq).to.contain('<PTC>ADT</PTC>');
-    expect(rq).to.contain('<PTC>CNN</PTC>');
+    expect(rq).to.contain("<PTC>ADT</PTC>");
+    expect(rq).to.contain("<PTC>CNN</PTC>");
   }
 
   @test "Create service list RQ for order id"() {
     setProviderConfig({ party: { agencyId: "YOUR_KASSA" } });
 
-    const request = getServiceListRequest({ orderId: "ORDER_ID", offerOwner: "N4" }).getValue();
+    const request = getServiceListRequest({
+      orderId: "ORDER_ID",
+      offerOwner: "N4",
+    }).getValue();
     const rq = request.body;
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("ServiceListRQ");

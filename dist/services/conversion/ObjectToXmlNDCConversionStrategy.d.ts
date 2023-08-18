@@ -8,5 +8,5 @@ export declare class ObjectToXmlNDCConversionStrategy implements IConversionStra
      * @param {string} ndcVersion e.g. 172 for NDC 17.2, 182 for NDC 18.2
      */
     constructor(ndcVersion: string);
-    execute(payload: Record<string, unknown>): string;
+    execute(payload: Record<string, unknown>): string | null;
 }

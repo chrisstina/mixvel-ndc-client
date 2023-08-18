@@ -43,6 +43,9 @@ export declare type PaxContact = {
     $: {
         ContactID: string;
     };
+    ContactType: {
+        _: "Primary";
+    }[];
     ContactProvided: Array<{
         EmailAddress: {
             EmailAddressValue: StringValue[];

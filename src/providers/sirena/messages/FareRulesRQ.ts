@@ -21,7 +21,7 @@ export class FareRulesRQ extends AbstractSirenaNDCMessage {
       OtherMetadata: {
         RuleMetadatas: {
           RuleMetadata: {
-            $: { MetadataKey: string};
+            $: { MetadataKey: string };
             RuleID: StringValue[];
             Values: { Value: { Instruction: StringValue[] }[] }[];
           }[];

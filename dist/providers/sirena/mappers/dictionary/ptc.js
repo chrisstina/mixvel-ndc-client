@@ -4,9 +4,9 @@ exports.toSirena = exports.SirenaPTC = void 0;
 var SirenaPTC;
 (function (SirenaPTC) {
     SirenaPTC["ADULT"] = "ADT";
-    SirenaPTC["CHILD"] = "CHD";
+    SirenaPTC["CHILD"] = "CNN";
     SirenaPTC["INFANT"] = "INF";
-    SirenaPTC["WSEATINFANT"] = "CHD";
+    SirenaPTC["WSEATINFANT"] = "CNN";
     SirenaPTC["YOUTH"] = "ADT";
     SirenaPTC["SENIOR"] = "ADT";
     SirenaPTC["DISABLED"] = "ADT";

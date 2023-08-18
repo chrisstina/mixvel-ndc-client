@@ -15,7 +15,8 @@ var ObjectToXmlNDCConversionStrategy = /** @class */ (function () {
     ObjectToXmlNDCConversionStrategy.prototype.execute = function (payload) {
         var xmlPayload = json2xml(payload, this.ndcVersion);
         if (xmlPayload === -1) {
-            throw new Error("json2xml failed to create request");
+            console.error("json2xml failed to create request");
+            return null;
         }
         return xmlPayload;
     };

@@ -66,7 +66,7 @@ class SearchRequestUnitTest {
     expect(rq).to.contain('<Passenger PassengerID="T1">');
     expect(rq).to.contain('<Passenger PassengerID="T2">');
     expect(rq).to.contain("ADT");
-    expect(rq).to.contain("CHD");
+    expect(rq).to.contain("CNN");
     expect(rq).to.contain("<CabinType>\n\t\t\t\t<Code>Y");
   }
 
@@ -104,31 +104,31 @@ class SearchRequestUnitTest {
     expect(rq).to.contain("<AgencyID>05КЛД</AgencyID>");
     expect(rq).to.contain(
       "<Departure>\n" +
-      "\t\t\t\t\t<AirportCode>LED</AirportCode>\n" +
-      "\t\t\t\t\t<Date>"
+        "\t\t\t\t\t<AirportCode>LED</AirportCode>\n" +
+        "\t\t\t\t\t<Date>"
     );
     expect(rq).to.contain(
       "<Arrival>\n" +
-      "\t\t\t\t\t<AirportCode>MOW</AirportCode>\n" +
-      "\t\t\t\t</Arrival>"
+        "\t\t\t\t\t<AirportCode>MOW</AirportCode>\n" +
+        "\t\t\t\t</Arrival>"
     );
     expect(rq).to.contain(
       "<Departure>\n" +
-      "\t\t\t\t\t<AirportCode>MOW</AirportCode>\n" +
-      "\t\t\t\t\t<Date>"
+        "\t\t\t\t\t<AirportCode>MOW</AirportCode>\n" +
+        "\t\t\t\t\t<Date>"
     );
     expect(rq).to.contain(
       "<Arrival>\n" +
-      "\t\t\t\t\t<AirportCode>LED</AirportCode>\n" +
-      "\t\t\t\t</Arrival>"
+        "\t\t\t\t\t<AirportCode>LED</AirportCode>\n" +
+        "\t\t\t\t</Arrival>"
     );
     expect(rq).to.contain('<Passenger PassengerID="T1">');
     expect(rq).to.contain('<Passenger PassengerID="T2">');
     expect(rq).to.contain('<Passenger PassengerID="T3">');
-    expect(rq).to.contain('<InfantRef>T3</InfantRef>')
+    expect(rq).to.contain("<InfantRef>T3</InfantRef>");
 
     expect(rq).to.contain("ADT");
-    expect(rq).to.contain("CHD");
+    expect(rq).to.contain("CNN");
     expect(rq).to.contain("INF");
     expect(rq).to.contain("<CabinType>\n\t\t\t\t<Code>Y");
   }

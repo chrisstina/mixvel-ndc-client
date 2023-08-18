@@ -25,15 +25,12 @@ class OrderCancelRequestUnitTest {
 
     const paramsReprice: RepriceParams = {
       orderId: "ORDER_ID",
-      deleteOrderItems: [
-        "offer-flt-1",
-        "offer-svc-1",
-      ],
+      deleteOrderItems: ["offer-flt-1", "offer-svc-1"],
     };
     const rqReprice = getRepriceRequest(paramsReprice).getValue().body;
     expect(rqReprice).to.not.contain("undefined");
     expect(rqReprice).to.contain("OrderReshopRQ");
     expect(rqReprice).to.contain("<AgencyID>YOUR_KASSA</AgencyID>");
-    expect(rqReprice).to.contain('<OrderID>ORDER_ID</OrderID>');
+    expect(rqReprice).to.contain("<OrderID>ORDER_ID</OrderID>");
   }
 }

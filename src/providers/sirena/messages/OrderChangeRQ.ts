@@ -126,7 +126,7 @@ export class OrderChangeRQ extends AbstractSirenaNDCMessage {
         PassengerList: [],
         ContactList: [],
       },
-    ]
+    ];
   }
 
   get nodeName() {

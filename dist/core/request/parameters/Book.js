@@ -51,7 +51,10 @@ var BookParams = /** @class */ (function (_super) {
             _this.formOfPayment = new TicketIssue_1.FormOfPayment(props.formOfPayment.type, props.formOfPayment.data);
         }
         if (props.agencyContacts) {
-            _this.agencyContacts = { phone: props.agencyContacts.phone, email: props.agencyContacts.email };
+            _this.agencyContacts = {
+                phone: props.agencyContacts.phone,
+                email: props.agencyContacts.email,
+            };
         }
         return _this;
     }

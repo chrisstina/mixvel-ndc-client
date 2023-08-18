@@ -128,6 +128,7 @@ export class BookMessageMapper implements IMessageMapper {
   private passengerToContact(passenger: Passenger) {
     const contact: PaxContact = {
       $: { ContactID: generateContactReference(passenger.id || "") },
+      ContactType: [{ _: "Primary" }],
       ContactProvided: [],
     };
     if (passenger.contacts.phoneNumber) {

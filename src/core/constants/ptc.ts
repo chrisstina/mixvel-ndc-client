@@ -4,5 +4,5 @@ export enum Ptc {
   INFANT = "INFANT",
   WSEATINFANT = "WSEATINFANT",
   YOUTH = "YOUTH",
-  SENIOR = "SENIOR"
+  SENIOR = "SENIOR",
 }

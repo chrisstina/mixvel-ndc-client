@@ -9,7 +9,8 @@ var RepriceMessageMapper = /** @class */ (function () {
     }
     RepriceMessageMapper.prototype.map = function () {
         var message = new OrderReshopRQ_1.OrderReshopRQ(this.params.orderId);
-        if (this.params.deleteOrderItems && this.params.deleteOrderItems.length > 0) {
+        if (this.params.deleteOrderItems &&
+            this.params.deleteOrderItems.length > 0) {
             message.setDeleteOrderItems(this.params.deleteOrderItems);
         }
         else {
