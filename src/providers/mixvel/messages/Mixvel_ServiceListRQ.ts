@@ -4,7 +4,6 @@ export type OfferRequest = {
   OfferRequest: {
     Offer: {
       OfferID: string;
-      OfferItem: { OfferItemID: string }[];
     };
   };
 };

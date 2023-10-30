@@ -12,7 +12,7 @@ export class IssueOrderMessageMapper implements IMessageMapper {
   message: Mixvel_OrderChangeRQ;
 
   constructor(public readonly params: TicketIssueParams) {
-    this.message = new Mixvel_OrderChangeRQ(this.params.orderId);
+    this.message = new Mixvel_OrderChangeRQ();
   }
 
   map(): Mixvel_OrderChangeRQ {

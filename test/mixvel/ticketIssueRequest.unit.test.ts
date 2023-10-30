@@ -16,7 +16,6 @@ class TicketIssueRequestUnitTest {
 
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
-    expect(rq).to.contain("<MixOrderID>SOME-ORDER-ID</MixOrderID>");
     expect(rq).to.contain(
       "<DirectBill>\n                  <BillInfo>TEST LLC</BillInfo>"
     );
@@ -32,7 +31,6 @@ class TicketIssueRequestUnitTest {
 
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
-    expect(rq).to.contain("<MixOrderID>SOME-ORDER-ID</MixOrderID>");
     expect(rq).to.contain("<OtherPaymentMethod/>");
     expect(rq).to.contain('<Amount CurCode="EUR">0.44</Amount>');
   }

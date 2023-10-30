@@ -18,7 +18,6 @@ class RefundRequestUnitTest {
 
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
-    expect(rq).to.contain("<MixOrderID>MIXVEL-ORDER-ID</MixOrderID>");
     expect(rq).to.contain("<DeleteOrderItem>");
     expect(rq).to.contain("<OrderID>SOME_ORDER</OrderID>");
     expect(rq).to.contain("<OrderItemID>ITEM-1</OrderItemID>");

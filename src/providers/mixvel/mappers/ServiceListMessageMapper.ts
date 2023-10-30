@@ -26,12 +26,7 @@ export class ServiceListMessageMapper implements IMessageMapper {
     return {
       OfferRequest: {
         Offer: {
-          OfferID: plainPriceParams.offerId,
-          OfferItem: plainPriceParams.offerItemIds.map((offerItemId) => {
-            return {
-              OfferItemID: offerItemId,
-            };
-          }),
+          OfferID: plainPriceParams.offerId
         },
       },
     };

@@ -15,12 +15,13 @@ type Individual = {
   MiddleName?: string;
   Surname: string;
 };
-type OsiRemark = { RemarkText: string };
+type Remark = { Type: "osi"|"ssr", RemarkText: string, OfferRefID: string };
 type SubsidyInformation = { SubsidyProgram?: string; SubsidyType?: string };
 type LoyaltyProgramAccount = {
   AccountNumber: string;
   LoyaltyProgram: { Carrier: { AirlineDesigCode: string } };
-  PaxSegmentRefID?: string[];
+  OfferRefID?: string[];
+  PaxRefID?: string[];
 };
 
 export class Pax {
@@ -35,10 +36,8 @@ export class Pax {
     IssuingCountryCode: string;
   };
   public Individual: Individual;
-  public LoyaltyProgramAccount?: LoyaltyProgramAccount;
   public PaxID: string;
   public PTC: string;
-  public Remark?: OsiRemark[];
   public SubsidyInformation?: SubsidyInformation;
 
   constructor(
@@ -55,18 +54,14 @@ export class Pax {
     Individual: Individual,
     PaxID: string,
     PTC: string,
-    Remark?: OsiRemark[],
     SubsidyInformation?: SubsidyInformation,
-    LoyaltyProgramAccount?: LoyaltyProgramAccount
   ) {
     this.AgeMeasure = AgeMeasure;
     this.ContactInfoRefID = ContactInfoRefID;
     this.IdentityDoc = IdentityDoc;
     this.Individual = Individual;
-    this.LoyaltyProgramAccount = LoyaltyProgramAccount;
     this.PaxID = PaxID;
     this.PTC = PTC;
-    this.Remark = Remark;
     this.SubsidyInformation = SubsidyInformation;
   }
 }
@@ -79,16 +74,6 @@ export class ContactInfo {
       EmailAddressText: string;
     },
     public Phone: { ContactTypeText: ContactTypeText; PhoneNumber: string }
-  ) {}
-}
-
-export class PaxSegmentRemark {
-  constructor(
-    public PaxSegmentRefID?: string,
-    public PaxRefID?: string,
-    public Type?: string,
-    public Text?: string,
-    public ActionType?: "add" | "delete"
   ) {}
 }
 
@@ -108,12 +93,15 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
     ContactInfoList: {
       ContactInfo: Array<ContactInfo>;
     };
+    LoyaltyProgramList?: {
+      LoyaltyProgramAccount: Array<LoyaltyProgramAccount>;
+    }
     PaxList: {
       Pax: Array<Pax>;
     };
-    PaxSegmentRemarkList?: {
-      PaxSegmentRemark: Array<PaxSegmentRemark>;
-    };
+    RemarkList?: {
+      Remark: Array<Remark>;
+    }
   };
 
   constructor() {

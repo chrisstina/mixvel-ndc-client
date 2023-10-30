@@ -384,6 +384,6 @@ class BookRequestUnitTest {
       "<MiddleName>Test</MiddleName>\n                  <Surname>Test</Surname>"
     );
     expect(rq).to.contain("<SubsidyType>RESIDENT_DFO</SubsidyType>");
-    expect(rq).to.contain("PaxSegmentRemarkList");
+    expect(rq).to.contain("RemarkList");
   }
 }

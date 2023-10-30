@@ -2,6 +2,7 @@ import { IMessageMapper } from "../../../interfaces/IMessageMapper";
 
 import { FopType } from "../../../core/request/types";
 import { Offer } from "../../../core/request/parameters/Price";
+import { OSIRemark, SSRRemark } from "../../../core/request/parameters/Book";
 import {
   ContactInfo,
   Mixvel_OrderCreateRQ,
@@ -17,7 +18,6 @@ import { MixvelBookParams, MixvelPassenger } from "../request/parameters/Book";
 import { toMixvel as toMixvelDocument } from "./dictionary/documentType";
 import { toMixvel as toMixvelPTC } from "./dictionary/ptc";
 import { toAge, toFOP, toMixvelDate } from "./commonMappers";
-import { SSRRemark } from "../../../core/request/parameters/Book";
 
 const DEFAULT_FOP: FopType = "CASH";
 
@@ -30,19 +30,14 @@ export class BookMessageMapper implements IMessageMapper {
 
   map(): Mixvel_OrderCreateRQ {
     const paxRefs = new Map(),
-      ancillaryOffers: Array<{ ancillary: Offer; paxRef: string }> = [],
-      paxRemarks = new Map();
+      ancillaryOffers: Array<{ ancillary: Offer; paxRef: string }> = [];
     this.params.passengers.forEach((passenger, idx) => {
       const pax = this.passengerToPax(passenger, idx + 1);
       paxRefs.set(passenger.ptc, [
         ...(paxRefs.get(passenger.ptc) || []),
         pax.PaxID,
       ]);
-      if (passenger.ssrRemarks) {
-        paxRemarks.set(pax.PaxID, passenger.ssrRemarks);
-      }
       this.addPax(pax, this.passengerToContact(passenger, idx + 1));
-      // @todo LoyaltyProgramAccount
       if (passenger.ancillaries && passenger.ancillaries.length > 0) {
         // collect ancillaries
         ancillaryOffers.push(
@@ -53,9 +48,11 @@ export class BookMessageMapper implements IMessageMapper {
       }
     });
 
-    if (paxRemarks.size > 0) {
-      this.addPaxRemarks(paxRemarks);
-    }
+    // both SSR and OSI
+    this.addRemarks();
+
+    // loyalty program
+    this.addLoyaltyPrograms();
 
     const flightOffer = this.addSelectedOffer(this.params.offer);
     this.params.offer.offerItems.forEach(({ offerItemId, ptc }) => {
@@ -106,14 +103,6 @@ export class BookMessageMapper implements IMessageMapper {
       // mind the nodes order
       delete pax.Individual.MiddleName;
     }
-    if (passenger.osiRemarks && passenger.osiRemarks.length > 0) {
-      pax.Remark = [];
-      passenger.osiRemarks.forEach((remarkText) => {
-        pax.Remark?.push({ RemarkText: remarkText });
-      });
-    } else {
-      delete pax.Remark;
-    }
     if (passenger.subsidyData) {
       pax.SubsidyInformation = {
         SubsidyProgram: passenger.subsidyData.program,
@@ -121,19 +110,6 @@ export class BookMessageMapper implements IMessageMapper {
       };
     } else {
       delete pax.SubsidyInformation;
-    }
-    if (passenger.loyaltyInfo) {
-      pax.LoyaltyProgramAccount = {
-        AccountNumber: passenger.loyaltyInfo.code || "",
-        LoyaltyProgram: {
-          Carrier: {
-            AirlineDesigCode: passenger.loyaltyInfo.carrier || "",
-          },
-        },
-        PaxSegmentRefID: passenger.loyaltyInfo.opts?.paxRefs || [],
-      };
-    } else {
-      delete pax.LoyaltyProgramAccount;
     }
     return pax;
   }
@@ -194,18 +170,64 @@ export class BookMessageMapper implements IMessageMapper {
     });
   }
 
-  private addPaxRemarks(paxRemarks: Map<string, Array<SSRRemark>>) {
-    this.message.DataLists.PaxSegmentRemarkList = { PaxSegmentRemark: [] };
-    paxRemarks.forEach((ssrRemarks, paxRef) => {
-      ssrRemarks.forEach((remark) => {
-        const paxremark = {
-          PaxRefID: paxRef,
-          Type: remark.type,
-          Text: remark.text,
-        };
-        this.message.DataLists.PaxSegmentRemarkList?.PaxSegmentRemark.push(
-          paxremark
-        );
+  private addRemarks() {
+    const remarks: (OSIRemark | SSRRemark)[] = [];
+    this.params.passengers.forEach((passenger) => {
+      if (passenger.ssrRemarks) {
+        remarks.push(...passenger.ssrRemarks);
+      }
+      if (passenger.osiRemarks) {
+        remarks.push(...passenger.osiRemarks);
+      }
+    });
+    if (remarks.length === 0) {
+      delete this.message.DataLists.RemarkList;
+      return;
+    }
+    this.message.DataLists.RemarkList = { Remark: [] };
+    remarks.forEach((remark) => {
+      let remarkType: "ssr" | "osi", remarkText: string;
+      if (typeof remark === "string") {
+        // OSI
+        remarkType = "osi";
+        remarkText = remark;
+      } else {
+        remarkType = "ssr";
+        remarkText = remark.text;
+      }
+      this.message.DataLists.RemarkList?.Remark.push({
+        Type: remarkType,
+        RemarkText: remarkText,
+        OfferRefID: this.params.offer.offerId,
+      });
+    });
+  }
+
+  private addLoyaltyPrograms() {
+    const loyaltyInfos = this.params.passengers.map((passenger) => {
+      return passenger.loyaltyInfo;
+    }).filter(loyalty => {
+      return loyalty !== undefined
+    });
+    console.log('loyalty', loyaltyInfos);
+    if (!loyaltyInfos || loyaltyInfos.length === 0) {
+      console.log('delete loyalty', loyaltyInfos);
+      delete this.message.DataLists.LoyaltyProgramList;
+      return;
+    }
+    this.message.DataLists.LoyaltyProgramList = {
+      LoyaltyProgramAccount: [],
+    };
+    loyaltyInfos.forEach((loyaltyInfo) => {
+      this.message.DataLists.LoyaltyProgramList?.LoyaltyProgramAccount.push({
+        AccountNumber: loyaltyInfo?.code || "",
+        LoyaltyProgram: {
+          Carrier: {
+            AirlineDesigCode: loyaltyInfo?.carrier || "",
+          },
+        },
+        PaxRefID: loyaltyInfo?.opts?.paxRefs || [],
+        OfferRefID: [this.params.offer.offerId],
       });
     });
   }

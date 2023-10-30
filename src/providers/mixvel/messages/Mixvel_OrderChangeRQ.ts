@@ -22,15 +22,12 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
    * for order refund or split requests
    */
   public ChangeOrder?: Record<string, unknown>;
+  /**
+   * @deprecated
+   */
   public MixOrder?: {
     MixOrderID: string;
   };
-
-  constructor(orderId?: string) {
-    if (orderId) {
-      this.setMixOrder(orderId);
-    }
-  }
 
   get endpoint() {
     return "api/Order/change";

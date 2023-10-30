@@ -32,8 +32,6 @@ class ServiceRequestUnitTest {
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Service:Mixvel_ServiceListRQ");
     expect(rq).to.contain("<OfferID>SOME-OFFER");
-    expect(rq).to.contain("<OfferItemID>OFFER_ITEM_1");
-    expect(rq).to.contain("<OfferItemID>OFFER_ITEM_2");
   }
 
   @test "Create service list RQ for order id"() {

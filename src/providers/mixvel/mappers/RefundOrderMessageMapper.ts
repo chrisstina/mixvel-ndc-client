@@ -6,7 +6,7 @@ export class RefundOrderMessageMapper implements IMessageMapper {
   message: Mixvel_OrderChangeRQ;
 
   constructor(public readonly params: RefundParams) {
-    this.message = new Mixvel_OrderChangeRQ(this.params.orderId);
+    this.message = new Mixvel_OrderChangeRQ();
   }
 
   map(): Mixvel_OrderChangeRQ {
