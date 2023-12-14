@@ -6,6 +6,11 @@ import {
 } from "./Mixvel_CommonTypes";
 
 export class Mixvel_OrderChangeRQ implements INDCMessage {
+  constructor(orderId?: string) {
+    if (orderId) {
+      this.setMixOrder(orderId);
+    }
+  }
   /**
    * for ticket issue request
    */
@@ -22,9 +27,7 @@ export class Mixvel_OrderChangeRQ implements INDCMessage {
    * for order refund or split requests
    */
   public ChangeOrder?: Record<string, unknown>;
-  /**
-   * @deprecated
-   */
+
   public MixOrder?: {
     MixOrderID: string;
   };

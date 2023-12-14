@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mixvel_OrderChangeRQ = void 0;
 var Mixvel_OrderChangeRQ = /** @class */ (function () {
-    function Mixvel_OrderChangeRQ() {
+    function Mixvel_OrderChangeRQ(orderId) {
+        if (orderId) {
+            this.setMixOrder(orderId);
+        }
     }
     Object.defineProperty(Mixvel_OrderChangeRQ.prototype, "endpoint", {
         get: function () {

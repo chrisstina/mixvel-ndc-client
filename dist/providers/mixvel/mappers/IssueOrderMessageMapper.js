@@ -6,7 +6,7 @@ var commonMappers_1 = require("./commonMappers");
 var IssueOrderMessageMapper = /** @class */ (function () {
     function IssueOrderMessageMapper(params) {
         this.params = params;
-        this.message = new Mixvel_OrderChangeRQ_1.Mixvel_OrderChangeRQ();
+        this.message = new Mixvel_OrderChangeRQ_1.Mixvel_OrderChangeRQ(this.params.orderId);
     }
     IssueOrderMessageMapper.prototype.map = function () {
         this.setPaymentDetails({

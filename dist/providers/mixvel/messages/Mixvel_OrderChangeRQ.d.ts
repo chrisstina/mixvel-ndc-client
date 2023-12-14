@@ -1,6 +1,7 @@
 import { INDCMessage } from "../../../interfaces/INDCMessage";
 import { AccountableDoc, DirectBill, OtherPaymentMethod } from "./Mixvel_CommonTypes";
 export declare class Mixvel_OrderChangeRQ implements INDCMessage {
+    constructor(orderId?: string);
     /**
      * for ticket issue request
      */
@@ -19,9 +20,6 @@ export declare class Mixvel_OrderChangeRQ implements INDCMessage {
      * for order refund or split requests
      */
     ChangeOrder?: Record<string, unknown>;
-    /**
-     * @deprecated
-     */
     MixOrder?: {
         MixOrderID: string;
     };

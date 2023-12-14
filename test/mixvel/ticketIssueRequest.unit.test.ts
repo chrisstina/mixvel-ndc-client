@@ -13,9 +13,9 @@ class TicketIssueRequestUnitTest {
       payment: { amount: 12.44, currency: "EUR" },
       formOfPayment: { type: "BILL", data: "TEST LLC" },
     }).getValue().body;
-
     expect(rq).to.not.contain("undefined");
     expect(rq).to.contain("Mixvel_OrderChangeRQ");
+    expect(rq).to.contain("SOME-ORDER-ID");
     expect(rq).to.contain(
       "<DirectBill>\n                  <BillInfo>TEST LLC</BillInfo>"
     );
