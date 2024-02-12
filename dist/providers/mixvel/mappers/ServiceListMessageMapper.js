@@ -20,7 +20,7 @@ var ServiceListMessageMapper = /** @class */ (function () {
         return {
             OfferRequest: {
                 Offer: {
-                    OfferID: plainPriceParams.offerId
+                    OfferID: plainPriceParams.offerId,
                 },
             },
         };

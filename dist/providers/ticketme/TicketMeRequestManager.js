@@ -110,6 +110,9 @@ var TicketMeRequestManager = /** @class */ (function () {
     TicketMeRequestManager.prototype.createOrderSplitRequest = function (params) {
         throw new Error("not implemented");
     };
+    TicketMeRequestManager.prototype.createAirlineProfileRequest = function (value) {
+        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("airline profile").message);
+    };
     TicketMeRequestManager.prototype.validateRequest = function () {
         if (!this.extraConfiguration.party.agencyId ||
             this.extraConfiguration.party.agencyId.length === 0) {

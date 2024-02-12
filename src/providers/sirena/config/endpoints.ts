@@ -1,5 +1,6 @@
 export const endpoints = new Map([
   ["AirShoppingRQ", "AirShoppingRQ"],
+  ["AirlineProfileRQ", "AirlineProfileRQ"],
   ["OfferPriceRQ", "OfferPriceRQ"],
   ["OrderCreateRQ", "OrderCreateRQ"],
   ["OrderRetrieveRQ", "OrderRetrieveRQ"],

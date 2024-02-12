@@ -4,6 +4,7 @@ import { IResponseManager } from "./interfaces/IResponseManager";
 import { IRequest } from "./interfaces/IRequest";
 import { IResponseMessage } from "./interfaces/IResponseMessage";
 import { IResponseError } from "./interfaces/IResponseError";
+import { IDataList } from "./interfaces/IDataList";
 
 import { Result } from "./core/Result";
 import { Provider } from "./core/Provider";
@@ -30,15 +31,6 @@ import {
 } from "./core/request/parameters/TicketIssue";
 import { RefundParams, RefundProps } from "./core/request/parameters/Refund";
 import { RepriceParams, RepriceProps } from "./core/request/parameters/Reprice";
-
-// Provider-specific
-import { MixvelRequestManager } from "./providers/mixvel/MixvelRequestManager";
-import { MixvelResponseManager } from "./providers/mixvel/MixvelResponseManager";
-import { TicketMeRequestManager } from "./providers/ticketme/TicketMeRequestManager";
-import { TicketMeResponseManager } from "./providers/ticketme/TicketMeResponseManager";
-import { SirenaRequestManager } from "./providers/sirena/SirenaRequestManager";
-import { SirenaResponseManager } from "./providers/sirena/SirenaResponseManager";
-import { IDataList } from "./interfaces/IDataList";
 import {
   OrderSplitParams,
   OrderSplitProps,
@@ -47,6 +39,18 @@ import {
   OrderChangeParams,
   OrderChangeProps,
 } from "./core/request/parameters/OrderChange";
+import {
+  AirlineProfileParams,
+  AirlineProfileProps,
+} from "./core/request/parameters/AirlineProfile";
+
+// Provider-specific
+import { MixvelRequestManager } from "./providers/mixvel/MixvelRequestManager";
+import { MixvelResponseManager } from "./providers/mixvel/MixvelResponseManager";
+import { TicketMeRequestManager } from "./providers/ticketme/TicketMeRequestManager";
+import { TicketMeResponseManager } from "./providers/ticketme/TicketMeResponseManager";
+import { SirenaRequestManager } from "./providers/sirena/SirenaRequestManager";
+import { SirenaResponseManager } from "./providers/sirena/SirenaResponseManager";
 
 const pojoToXml = new ObjectToXmlConversionStrategy(),
   xmlToPojo = new XmlToObjectConversionStrategy(),
@@ -244,6 +248,15 @@ export function createNDCService(
       : requestManager.createOrderSplitRequest(paramsOrError.getValue());
   }
 
+  function getAirlineProfileRequest(
+    props: AirlineProfileProps
+  ): Result<IRequest> {
+    const paramsOrError = AirlineProfileParams.create(props);
+    return paramsOrError.isFailure && paramsOrError.error
+      ? Result.fail<IRequest>(paramsOrError.error)
+      : requestManager.createAirlineProfileRequest(paramsOrError.getValue());
+  }
+
   // ========== Response management ==============
 
   /**
@@ -314,6 +327,7 @@ export function createNDCService(
     getRefundCalculationRequest,
     getRefundRequest,
     getOrderSplitRequest,
+    getAirlineProfileRequest,
     getResponse,
     extractDataLists,
     setProviderConfig,

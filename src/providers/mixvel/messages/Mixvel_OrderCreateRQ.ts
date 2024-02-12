@@ -15,7 +15,7 @@ type Individual = {
   MiddleName?: string;
   Surname: string;
 };
-type Remark = { Type: "osi"|"ssr", RemarkText: string, OfferRefID: string };
+type Remark = { Type: "osi" | "ssr"; RemarkText: string; OfferRefID: string };
 type SubsidyInformation = { SubsidyProgram?: string; SubsidyType?: string };
 type LoyaltyProgramAccount = {
   AccountNumber: string;
@@ -54,7 +54,7 @@ export class Pax {
     Individual: Individual,
     PaxID: string,
     PTC: string,
-    SubsidyInformation?: SubsidyInformation,
+    SubsidyInformation?: SubsidyInformation
   ) {
     this.AgeMeasure = AgeMeasure;
     this.ContactInfoRefID = ContactInfoRefID;
@@ -95,13 +95,13 @@ export class Mixvel_OrderCreateRQ implements INDCMessage {
     };
     LoyaltyProgramList?: {
       LoyaltyProgramAccount: Array<LoyaltyProgramAccount>;
-    }
+    };
     PaxList: {
       Pax: Array<Pax>;
     };
     RemarkList?: {
       Remark: Array<Remark>;
-    }
+    };
   };
 
   constructor() {

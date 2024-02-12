@@ -22,6 +22,9 @@ var Book_1 = require("./core/request/parameters/Book");
 var TicketIssue_1 = require("./core/request/parameters/TicketIssue");
 var Refund_1 = require("./core/request/parameters/Refund");
 var Reprice_1 = require("./core/request/parameters/Reprice");
+var OrderSplit_1 = require("./core/request/parameters/OrderSplit");
+var OrderChange_1 = require("./core/request/parameters/OrderChange");
+var AirlineProfile_1 = require("./core/request/parameters/AirlineProfile");
 // Provider-specific
 var MixvelRequestManager_1 = require("./providers/mixvel/MixvelRequestManager");
 var MixvelResponseManager_1 = require("./providers/mixvel/MixvelResponseManager");
@@ -29,8 +32,6 @@ var TicketMeRequestManager_1 = require("./providers/ticketme/TicketMeRequestMana
 var TicketMeResponseManager_1 = require("./providers/ticketme/TicketMeResponseManager");
 var SirenaRequestManager_1 = require("./providers/sirena/SirenaRequestManager");
 var SirenaResponseManager_1 = require("./providers/sirena/SirenaResponseManager");
-var OrderSplit_1 = require("./core/request/parameters/OrderSplit");
-var OrderChange_1 = require("./core/request/parameters/OrderChange");
 var pojoToXml = new ObjectToXmlConversionStrategy_1.ObjectToXmlConversionStrategy(), xmlToPojo = new XmlToObjectConversionStrategy_1.XmlToObjectConversionStrategy(), requestOptionsManager = new RequestOptionsManager_1.RequestOptionsManager();
 // ================ Provider generation =================
 // Mixvel provider
@@ -158,6 +159,12 @@ function createNDCService(provider, providerConfig) {
             ? Result_1.Result.fail(paramsOrError.error)
             : requestManager.createOrderSplitRequest(paramsOrError.getValue());
     }
+    function getAirlineProfileRequest(props) {
+        var paramsOrError = AirlineProfile_1.AirlineProfileParams.create(props);
+        return paramsOrError.isFailure && paramsOrError.error
+            ? Result_1.Result.fail(paramsOrError.error)
+            : requestManager.createAirlineProfileRequest(paramsOrError.getValue());
+    }
     // ========== Response management ==============
     /**
      * @param {string|{}} data - response XML or JSON with errors
@@ -214,6 +221,7 @@ function createNDCService(provider, providerConfig) {
         getRefundCalculationRequest: getRefundCalculationRequest,
         getRefundRequest: getRefundRequest,
         getOrderSplitRequest: getOrderSplitRequest,
+        getAirlineProfileRequest: getAirlineProfileRequest,
         getResponse: getResponse,
         extractDataLists: extractDataLists,
         setProviderConfig: setProviderConfig,

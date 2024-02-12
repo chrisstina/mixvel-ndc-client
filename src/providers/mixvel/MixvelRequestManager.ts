@@ -40,6 +40,7 @@ import { Mixvel_OrderRetrieveRQ } from "./messages/Mixvel_OrderRetrieveRQ";
 import { Mixvel_OrderCancelRQ } from "./messages/Mixvel_OrderCancelRQ";
 import { Mixvel_OrderRulesRQ } from "./messages/Mixvel_OrderRulesRQ";
 import { MethodNotImplemented } from "../../core/errors/MethodNotImplemented";
+import { AirlineProfileParams } from "../../core/request/parameters/AirlineProfile";
 
 export class MixvelRequestManager implements IRequestManager {
   public extraConfiguration = {}; // no extra config here
@@ -220,6 +221,10 @@ export class MixvelRequestManager implements IRequestManager {
         mapper: new SplitOrderMessageMapper(params),
       })
     );
+  }
+
+  createAirlineProfileRequest(value: AirlineProfileParams): Result<IRequest> {
+    return Result.fail(new MethodNotImplemented("airline profile").message);
   }
 
   createRequest(

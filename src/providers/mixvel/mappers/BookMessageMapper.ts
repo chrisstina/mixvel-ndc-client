@@ -204,14 +204,16 @@ export class BookMessageMapper implements IMessageMapper {
   }
 
   private addLoyaltyPrograms() {
-    const loyaltyInfos = this.params.passengers.map((passenger) => {
-      return passenger.loyaltyInfo;
-    }).filter(loyalty => {
-      return loyalty !== undefined
-    });
-    console.log('loyalty', loyaltyInfos);
+    const loyaltyInfos = this.params.passengers
+      .map((passenger) => {
+        return passenger.loyaltyInfo;
+      })
+      .filter((loyalty) => {
+        return loyalty !== undefined;
+      });
+    console.log("loyalty", loyaltyInfos);
     if (!loyaltyInfos || loyaltyInfos.length === 0) {
-      console.log('delete loyalty', loyaltyInfos);
+      console.log("delete loyalty", loyaltyInfos);
       delete this.message.DataLists.LoyaltyProgramList;
       return;
     }

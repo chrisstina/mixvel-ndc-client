@@ -36,6 +36,8 @@ import { SirenaTicketIssueParams } from "./request/parameters/TicketIssue";
 import { FareRulesMessageMapper } from "./mappers/FareRulesMessageMapper";
 import { DEFAULT_CURRENCY, DEFAULT_LANG } from "./config/defaults";
 import { SirenaRequest } from "./SirenaRequest";
+import { AirlineProfileParams } from "../../core/request/parameters/AirlineProfile";
+import { AirlineProfileMessageMapper } from "./mappers/AirlineProfileMessageMapper";
 
 export class SirenaRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -181,6 +183,15 @@ export class SirenaRequestManager implements IRequestManager {
 
   createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {
     return Result.fail(new MethodNotImplemented("split").message);
+  }
+
+  createAirlineProfileRequest(params: AirlineProfileParams) {
+    return this.createRequest(params, {
+      mapper: new AirlineProfileMessageMapper(
+        params,
+        this.extraConfiguration.party
+      ),
+    });
   }
 
   validateRequest(): string | null {

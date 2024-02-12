@@ -12,6 +12,7 @@ import { IRequestOptionsManager } from "./IRequestOptionsManager";
 import { RepriceParams } from "../core/request/parameters/Reprice";
 import { OrderSplitParams } from "../core/request/parameters/OrderSplit";
 import { OrderChangeParams } from "../core/request/parameters/OrderChange";
+import { AirlineProfileParams } from "../core/request/parameters/AirlineProfile";
 export interface IRequestManager {
     endpointManager: IEndpointManager;
     requestOptionsManager: IRequestOptionsManager;
@@ -35,4 +36,5 @@ export interface IRequestManager {
     createServiceListRequest(params: PriceParams | OrderRetrieveParams): Result<IRequest>;
     createServiceAddRequest(params: OrderChangeParams): Result<IRequest>;
     createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
+    createAirlineProfileRequest(value: AirlineProfileParams): Result<IRequest>;
 }

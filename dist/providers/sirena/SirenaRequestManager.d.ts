@@ -15,6 +15,7 @@ import { TicketIssueParams } from "../../core/request/parameters/TicketIssue";
 import { RepriceParams } from "../../core/request/parameters/Reprice";
 import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
+import { AirlineProfileParams } from "../../core/request/parameters/AirlineProfile";
 export declare class SirenaRequestManager implements IRequestManager {
     readonly endpointManager: IEndpointManager;
     readonly conversionStrategy: IConversionStrategy;
@@ -45,6 +46,7 @@ export declare class SirenaRequestManager implements IRequestManager {
     createTicketIssueRequest(params: TicketIssueParams): Result<IRequest>;
     createRepriceRequest(params: RepriceParams): Result<IRequest>;
     createOrderSplitRequest(params: OrderSplitParams): Result<IRequest>;
+    createAirlineProfileRequest(params: AirlineProfileParams): Result<IRequest>;
     validateRequest(): string | null;
     createRequest(requestParams: AbstractRequestParams, services: {
         mapper: IMessageMapper;

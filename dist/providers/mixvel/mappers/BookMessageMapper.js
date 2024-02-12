@@ -166,14 +166,16 @@ var BookMessageMapper = /** @class */ (function () {
     };
     BookMessageMapper.prototype.addLoyaltyPrograms = function () {
         var _this = this;
-        var loyaltyInfos = this.params.passengers.map(function (passenger) {
+        var loyaltyInfos = this.params.passengers
+            .map(function (passenger) {
             return passenger.loyaltyInfo;
-        }).filter(function (loyalty) {
+        })
+            .filter(function (loyalty) {
             return loyalty !== undefined;
         });
-        console.log('loyalty', loyaltyInfos);
+        console.log("loyalty", loyaltyInfos);
         if (!loyaltyInfos || loyaltyInfos.length === 0) {
-            console.log('delete loyalty', loyaltyInfos);
+            console.log("delete loyalty", loyaltyInfos);
             delete this.message.DataLists.LoyaltyProgramList;
             return;
         }

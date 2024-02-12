@@ -34,6 +34,7 @@ import { IssueTicketMessageMapper } from "./mappers/IssueTicketMessageMapper";
 import { TicketIssueParamsValidator } from "./validators/TicketIssueParamsValidator";
 import { OrderSplitParams } from "../../core/request/parameters/OrderSplit";
 import { OrderChangeParams } from "../../core/request/parameters/OrderChange";
+import { AirlineProfileParams } from "../../core/request/parameters/AirlineProfile";
 
 export class TicketMeRequestManager implements IRequestManager {
   public extraConfiguration = {
@@ -166,6 +167,10 @@ export class TicketMeRequestManager implements IRequestManager {
 
   createOrderSplitRequest(params: OrderSplitParams): Result<IRequest> {
     throw new Error("not implemented");
+  }
+
+  createAirlineProfileRequest(value: AirlineProfileParams): Result<IRequest> {
+    return Result.fail(new MethodNotImplemented("airline profile").message);
   }
 
   validateRequest(): string | null {

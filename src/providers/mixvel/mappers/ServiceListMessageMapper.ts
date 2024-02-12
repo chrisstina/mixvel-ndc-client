@@ -26,7 +26,7 @@ export class ServiceListMessageMapper implements IMessageMapper {
     return {
       OfferRequest: {
         Offer: {
-          OfferID: plainPriceParams.offerId
+          OfferID: plainPriceParams.offerId,
         },
       },
     };

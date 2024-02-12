@@ -135,6 +135,9 @@ var MixvelRequestManager = /** @class */ (function () {
             mapper: new SplitOrderMessageMapper_1.SplitOrderMessageMapper(params),
         }));
     };
+    MixvelRequestManager.prototype.createAirlineProfileRequest = function (value) {
+        return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("airline profile").message);
+    };
     MixvelRequestManager.prototype.createRequest = function (requestParams, services) {
         var rq = services.mapper.map(); // map to mixvel message
         return new MixvelRequest_1.MixvelRequest(new MixvelAppData_1.MixvelAppData(rq), this.requestOptionsManager.create({

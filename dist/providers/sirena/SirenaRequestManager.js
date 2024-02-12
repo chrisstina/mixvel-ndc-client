@@ -18,6 +18,7 @@ var TicketIssueParamsValidator_1 = require("./validators/TicketIssueParamsValida
 var FareRulesMessageMapper_1 = require("./mappers/FareRulesMessageMapper");
 var defaults_1 = require("./config/defaults");
 var SirenaRequest_1 = require("./SirenaRequest");
+var AirlineProfileMessageMapper_1 = require("./mappers/AirlineProfileMessageMapper");
 var SirenaRequestManager = /** @class */ (function () {
     function SirenaRequestManager(endpointManager, conversionStrategy, requestOptionsManager) {
         this.endpointManager = endpointManager;
@@ -118,6 +119,11 @@ var SirenaRequestManager = /** @class */ (function () {
     };
     SirenaRequestManager.prototype.createOrderSplitRequest = function (params) {
         return Result_1.Result.fail(new MethodNotImplemented_1.MethodNotImplemented("split").message);
+    };
+    SirenaRequestManager.prototype.createAirlineProfileRequest = function (params) {
+        return this.createRequest(params, {
+            mapper: new AirlineProfileMessageMapper_1.AirlineProfileMessageMapper(params, this.extraConfiguration.party),
+        });
     };
     SirenaRequestManager.prototype.validateRequest = function () {
         return null;
