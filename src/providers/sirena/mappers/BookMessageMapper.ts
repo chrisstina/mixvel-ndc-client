@@ -133,7 +133,10 @@ export class BookMessageMapper implements IMessageMapper {
     };
     if (passenger.contacts.phoneNumber) {
       contact.ContactProvided.push({
-        Phone: [{ PhoneNumber: [{ _: passenger.contacts.phoneNumber }] }],
+        Phone: [{
+          Label: [{ _: "mobile" }],
+          PhoneNumber: [{ _: passenger.contacts.phoneNumber }]
+        }],
       });
     }
     if (passenger.contacts.email) {

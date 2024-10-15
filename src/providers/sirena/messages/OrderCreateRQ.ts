@@ -27,6 +27,8 @@ type LoyaltyProgramAccount = {
   AccountNumber: StringValue[];
 };
 
+type PhoneLabel = "mobile" | "agency";
+
 export class Pax {
   public $: { PassengerID: string };
   public PTC: StringValue[] = [];
@@ -65,7 +67,7 @@ export type PaxContact = {
   ContactType: { _: "Primary" }[];
   ContactProvided: Array<
     | { EmailAddress: { EmailAddressValue: StringValue[] }[] }
-    | { Phone: { PhoneNumber: StringValue[] }[] }
+    | { Phone: { Label?: NodeValue<PhoneLabel>[], PhoneNumber: StringValue[] }[] }
   >;
 };
 

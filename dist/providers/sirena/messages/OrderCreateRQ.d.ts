@@ -25,6 +25,7 @@ declare type LoyaltyProgramAccount = {
     };
     AccountNumber: StringValue[];
 };
+declare type PhoneLabel = "mobile" | "agency";
 export declare class Pax {
     $: {
         PassengerID: string;
@@ -52,6 +53,7 @@ export declare type PaxContact = {
         }[];
     } | {
         Phone: {
+            Label?: NodeValue<PhoneLabel>[];
             PhoneNumber: StringValue[];
         }[];
     }>;
